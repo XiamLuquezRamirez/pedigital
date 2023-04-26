@@ -276,12 +276,13 @@ body {
     height: 200pt;
     position: absolute;
     z-index: 1000;
-    bottom: -250pt;
+    bottom: -200pt;
     left: 422pt;
     display: flex !important;
     align-items: center !important;
     
-  }
+
+}
 
 .verdadero-btn {
     font-size: 1.2rem;
@@ -304,10 +305,10 @@ body {
 
 
 .div-tiempo {
-  font-size: 40px;
-  color: #000;
-  text-shadow: 2px 2px 0 #1F5191, 2px 2px 0 #A4C9F7;
-  color: #fffafa;
+    font-size: 40px;
+    color: #000;
+    text-shadow: 2px 2px 0 #1F5191, 2px 2px 0 #A4C9F7;
+    color: #fffafa;
 }
 
 
@@ -315,13 +316,10 @@ body {
     font-size: 16px;
     width: 100px;
     padding: 18px 30px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     z-index: 99;
     transition: transform 0.2s ease-in-out;
-  }
+}
 
-  .btn-botones:hover {
+.btn-botones:hover {
     transform: scale(1.2) !important; /* Agranda la imagen en un 20% cuando se pasa el cursor sobre ella */
-  }
-
-  
+}
