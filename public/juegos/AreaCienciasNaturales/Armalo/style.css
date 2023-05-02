@@ -122,7 +122,7 @@ body {
 }
 #texto-nave {
     width: 44%;
-    padding-left: 40pt;
+    padding-left: 55pt;
     font-size: 20px !important;
     text-align: justify;
 }
@@ -278,7 +278,7 @@ body {
     font-size: 40px;
     color: #000;
     text-shadow: 2px 2px 0 #1F5191, 2px 2px 0 #A4C9F7;
-    color: #fffafa;}
+    color: #fffafa;
 }
 
 
@@ -299,7 +299,7 @@ div#conf{padding-bottom:10px;}
 
 table{border:2px solid green; box-shadow:1px 1px 8px #00e800,-1px -1px 8px #00e800, 1px -1px 8px #00e800, -1px 1px 8px #00e800; -webkit-box-shadow:1px 1px 8px #00e800,-1px -1px 8px #00e800, 1px -1px 8px #00e800, -1px 1px 8px #00e800; border-collapse:collapse;}
 
-td.pieza{background:url(../Armalo/img/mujer.png); background-repeat: no-repeat; background-position: center; transition:.3s ease-in-out; -moz-transition:.3s ease-in-out; -webkit-transition:.3s ease-in-out; -o-transition:.3s ease-in-out; cursor:pointer;}
+td.pieza{background-repeat: no-repeat; background-position: center;  transition:.3s ease-in-out; -moz-transition:.3s ease-in-out; -webkit-transition:.3s ease-in-out; -o-transition:.3s ease-in-out; cursor:pointer;}
 
 div.posic{background:#FFF; padding:5px; border:1px solid #00e800; width:150px; position:absolute; top:100px; overflow:auto; min-height:200px; max-height:250px; display: none;}
 

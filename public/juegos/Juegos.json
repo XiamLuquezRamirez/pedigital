@@ -154,11 +154,11 @@
     "icono": "iconos/IdentificaObjetosIng.png"
   },
   {
-    "grado": "2",
-    "juego": "Sinonimos y Antonimos",
-    "ruta": "AreaLenguaje/SinonimosyAntonimos/index.html",
+    "grado": "7",
+    "juego": "Ruleta",
+    "ruta": "AreaLenguaje/Ruleta/index.html",
     "area": "LC",
-    "icono": "iconos/SinonimosyAntonimos.png"
+    "icono": "iconos/Ruleta.png"
   },
   {
     "grado": "2",

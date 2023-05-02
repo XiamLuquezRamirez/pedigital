@@ -250,8 +250,7 @@ miDiv.style.transition="all 0.2s ease-in";
   miDiv.style.left = position + "px";
   let indexPreg = obtenerIndiceAleatorio();
 
-  document.getElementById("texto-nave").innerHTML =
-    preguntas[indexPreg].pregunta;
+  document.getElementById("texto-nave").innerHTML =preguntas[indexPreg].pregunta;
   RespActual = preguntas[indexPreg].respuesta;
 }
 

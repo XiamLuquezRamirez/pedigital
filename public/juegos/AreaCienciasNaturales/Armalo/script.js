@@ -2,6 +2,62 @@ let conse = 0;
 let score = 0;
 let timer;
 let PregMostrada = [];
+let partesR=16;
+let imgSistema="";
+let nombreSistema="";
+
+let sistemas = [
+  {
+    nombre: "Aparato Reproductor Masculino",
+    img: "img/aparato_masculino.png",
+    partes: 16,
+  },
+  {
+    nombre: "Aparato Reproductor Femenino",
+    img: "img/aparato_femenino.png",
+    partes: 16,
+  },
+  {
+    nombre: "Sistema Circulatorio",
+    img: "img/sistema_circulatorio.png",
+    partes: 25,
+  },
+  {
+    nombre: "Aparato Digestivo",
+    img: "img/sistema_digestivo.png",
+    partes: 16,
+  },
+  {
+    nombre: "Sistema Endocrino",
+    img: "img/sistema_endocrino.png",
+    partes: 25,
+  },
+  {
+    nombre: "Sistema muscular",
+    img: "img/sistema_muscular.png",
+    partes: 25,
+  },
+  {
+    nombre: "Sistema Nervioso",
+    img: "img/sistema_nervioso.png",
+    partes: 25,
+  },
+  {
+    nombre: "Sistema Óseo",
+    img: "img/sistema_ose.png",
+    partes: 25,
+  },
+  {
+    nombre: "Sistema Respiratorio",
+    img: "img/sistema_respiratorio.png",
+    partes: 16,
+  },
+  {
+    nombre: "Sistema Urinario",
+    img: "img/sistema_urinario.png",
+    partes: 16,
+  },
+];
 
 
 // Función para iniciar el juego
@@ -133,19 +189,19 @@ function inicioTiempo() {
     if (distancia < 0) {
       clearInterval(intervalo);
       contador.innerHTML = "00:00";
-      resultadoFinal();
+      resultadoFinal(2);
     }
   }, 1000);
 }
 
-function resultadoFinal() {
+function resultadoFinal(opc) {
   $("#principal").fadeToggle(1000);
   $("#final").fadeToggle(1000);
 
   let npreg = conse;
   let prom = npreg / 2;
 
-  if (score <= prom) {
+  if (opc==2) {
     var audio = new Audio("../../sounds/game_over.mp3");
     audio.play();
     document.getElementById("final").style.backgroundImage =
@@ -173,7 +229,7 @@ var rompecabezas = {
   
   _mostrar: function(){
   	rompecabezas._arr_pos_r.length = 0;
-		var piezas = 16;;
+		var piezas = partesR;
 		var tb = document.createElement('table');
 		tb.border = 1;
 		tb.align = 'center';
@@ -184,7 +240,7 @@ var rompecabezas = {
 		dp.className = 'posic';
 		var ar = Math.sqrt(piezas);
 		var c = 0;
-		var tam_img = 350;
+		var tam_img = 500;
 		var pos_img = tam_img / ar;
 		for(var fil=1;fil<=ar;fil++){
 			var tr = document.createElement('tr');
@@ -193,6 +249,7 @@ var rompecabezas = {
 				var td = document.createElement('td');
 				td.className = 'pieza';
 				td.id = 'pos_'+c;
+        td.style.backgroundImage = "url('"+imgSistema+"')";
 				td.style.width = pos_img+'px';
 				td.style.height = pos_img+'px';
 				var dbp = document.createElement('div');
@@ -233,7 +290,7 @@ var rompecabezas = {
 		var resp = "no";
 		var i = -1;
 		var repite = "no";
-		var pie = parseInt(16);
+		var pie = parseInt(partesR);
 		var pie1 = pie + 1;
 		while(arr.length < pie){
 			repite = "no";
@@ -283,7 +340,7 @@ var rompecabezas = {
 	},
 	
 	_compruebaFin: function(){
-		var pie = parseInt(16);
+		var pie = parseInt(partesR);
 		var fin = false;
 		rompecabezas._arr_pos_a.length = 0;
 		for(var i=1;i<=pie;i++){
@@ -299,7 +356,7 @@ var rompecabezas = {
 		}
 		
 		if(fin){
-      setTimeout(()=>{resultadoFinal(),2000})
+      setTimeout(()=>{resultadoFinal(1),3000})
       
 		}
 	},
@@ -311,9 +368,13 @@ var rompecabezas = {
 
 
 window.onload = function(){
+
+  let indice = Math.floor(Math.random() * sistemas.length);
+  nombreSistema = sistemas[indice].nombre;
+  imgSistema = sistemas[indice].img;
+  partesR = sistemas[indice].partes;
+  document.getElementById("tipo").innerHTML="Arma el "+ nombreSistema;
 	rompecabezas._mostrar();
- 
-   
 }
 
 
