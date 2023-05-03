@@ -595,3 +595,23 @@ background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
   font-weight: bold;
   color: #fff;
 }
+
+
+
+@media screen and (max-width: 1366px) {
+  .pregunta_zona .comodin i {
+    font-size: 41px;
+    border: 2px solid white;
+    color: white;
+    display: inline-block;
+    width: 71pt;
+    height: 71pt;
+    margin: 19px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
