@@ -85,10 +85,10 @@
   },
    {
     "grado": "7",
-    "juego": "The kingdoms",
-    "ruta": "AreaCienciasNaturales/TablaPeriodica/index.html",
+    "juego": "Ármalo",
+    "ruta": "AreaCienciasNaturales/Armalo/index.html",
     "area": "CN",
-    "icono": "iconos/TablaPeriodica.png"
+    "icono": "iconos/Armalo.png"
   },
   {
     "grado": "7",
@@ -155,10 +155,10 @@
   },
   {
     "grado": "7",
-    "juego": "Sinonimos y Antonimos",
-    "ruta": "AreaLenguaje/Conversacion/index.html",
+    "juego": "Ruleta",
+    "ruta": "AreaLenguaje/Ruleta/index.html",
     "area": "LC",
-    "icono": "iconos/Conversacion.png"
+    "icono": "iconos/Ruleta.png"
   },
   {
     "grado": "7",

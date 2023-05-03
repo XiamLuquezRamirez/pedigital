@@ -220,9 +220,10 @@ function startGame() {
 }
 
 const miDiv = document.getElementById("miDiv");
-let position = -700;
+let position = -900;
 let movement = 4;
 let RespActual;
+
 mostrarPregunta();
 
 function moveDiv() {
@@ -230,14 +231,17 @@ function moveDiv() {
   miDiv.style.left = position + "px";
 
   if (position > window.innerWidth) {
-    position = -700;
+    position = -900;
+    miDiv.style.transition="";
     document.getElementById("btn-respuestas").style.pointerEvents = "auto";
-    mostrarPregunta();
+   
+    setTimeout(()=> mostrarPregunta(),200)
+
   }
 }
 
 function mostrarPregunta() {
-
+miDiv.style.transition="all 0.2s ease-in";
   document.getElementById("img-resp").style.display="none";
   document.getElementById("texto-nave").style.display="block";
 
@@ -246,8 +250,7 @@ function mostrarPregunta() {
   miDiv.style.left = position + "px";
   let indexPreg = obtenerIndiceAleatorio();
 
-  document.getElementById("texto-nave").innerHTML =
-    preguntas[indexPreg].pregunta;
+  document.getElementById("texto-nave").innerHTML =preguntas[indexPreg].pregunta;
   RespActual = preguntas[indexPreg].respuesta;
 }
 
@@ -309,7 +312,7 @@ $(document).ready(function () {
           divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola, soy Genio. <br> En este juego se iran presentando afirmaciones relacionadas al universo, donde tendras que identificar si es Verdadera o Falsa",
+            "Hola, soy Genio. <br> En este juego se iran presentando afirmaciones relacionadas a los temas de la Ilustración y Los grandes imperios de Asia y África, donde tendras que identificar si es Verdadera o Falsa",
             50,
             1
           );
