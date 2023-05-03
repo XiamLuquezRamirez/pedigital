@@ -367,3 +367,11 @@ body{
     height: 100%;
     background-color: rgba(255, 255, 255, 0.904);
   }
+
+
+  .div-tiempo {
+    font-size: 40px;
+    color: #000;
+    text-shadow: 2px 2px 0 #1F5191, 2px 2px 0 #A4C9F7;
+    color: #fffafa;
+  }

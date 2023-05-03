@@ -1,3 +1,5 @@
+var color_lirico =""
+
 var miRuleta = new Winwheel({
     numSegments: 10,
     outerRadius: 191,
@@ -21,27 +23,41 @@ var miRuleta = new Winwheel({
     }
   });
   
+  
   dibujarIndicador();
   
   function mensaje() {
     var SegmentoSeleccionado = miRuleta.getIndicatedSegment();
 
     document.getElementById("tituTema").innerHTML=SegmentoSeleccionado.text;
-    document.getElementById("divPreguntas").style.display = "block";
-    document.getElementById("divCalvas").style.display = "none";
-    document.getElementById("btnGirar").style.display = "none";
-    iniciarTrivia();
-    miRuleta.stopAnimation(false);
-    miRuleta.rotationAngle = 0;
-    miRuleta.draw();
-    dibujarIndicador();
+   
+
+    setTimeout(() =>{
+      document.getElementById("divPreguntas").style.display = "block";
+      document.getElementById("divCalvas").style.display = "none";
+      document.getElementById("btnGirar").style.display = "none";
+      iniciarTrivia(SegmentoSeleccionado.text);
+      miRuleta.stopAnimation(false);
+      miRuleta.rotationAngle = 0;
+      miRuleta.draw();
+      dibujarIndicador();
+    },2000)
+   
+    
+
   }
   
   function dibujarIndicador() {
     var ctx = miRuleta.ctx;
-    ctx.strokeStyle = "navy";
-    ctx.fillStyle = "black";
-    ctx.lineWidth = 2;
+  
+    // Crear gradiente
+    var gradiente = ctx.createLinearGradient(170, 10, 230, 10);
+    gradiente.addColorStop(0, "#FFC065");
+    gradiente.addColorStop(1, "#FFA055");
+  
+    ctx.strokeStyle = "#fff";
+    ctx.fillStyle = gradiente; // Usar gradiente como fillStyle
+    ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(170, 10);
     ctx.lineTo(230, 10);

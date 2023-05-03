@@ -36,12 +36,13 @@ let counterLine;
 let widthValue = 0;
 let PregMostrada =[];
 let nPreg=1;
+let questions;
 const restart_quiz = result_box.querySelector(".buttons .restart");
 const quit_quiz = result_box.querySelector(".buttons .quit");
 
 function obtenerIndiceAleatorio() {
     let indice = Math.floor(Math.random() * questions.length);
-    while (PregMostrada.includes(indice)) {
+    while (PregMostrada.includes(indice)) { 
         indice = Math.floor(Math.random() * questions.length);
     }
     PregMostrada.push(indice);
@@ -49,10 +50,34 @@ function obtenerIndiceAleatorio() {
     return indice;
 }
 
-function iniciarTrivia(){
+function iniciarTrivia(texto){
+
+
+   if(texto=="Genero Lirico"){
+    questions = GenLirico;
+   }else if(texto=="Porqué, Porque, Por Qué"){
+    questions = porque;
+   }else if(texto=="Componentes de la Oración"){
+    questions = oracion;
+   }else if(texto=="Uso del punto"){
+    questions = punto;
+   }else if(texto=="Las Variantes Linguisticas"){
+    questions = variantes;
+   }else if(texto=="El Género Dramático"){
+    questions = GenDramatico;
+   }else if(texto=="La Novela"){
+    questions = Novela;
+   }else if(texto=="El Verbo"){
+    questions = Verbo;
+   }else if(texto=="El Signo Linguistico"){
+    questions = signo;
+   }else if(texto=="Mesa Redonda"){
+    questions = mesa;
+   }
+
     quiz_box.classList.add("activeQuiz"); //show quiz box
     result_box.classList.remove("activeResult"); //hide result box
-    timeValue = 30; 
+    timeValue = 30;
     que_count = obtenerIndiceAleatorio()
     que_numb = 1;
     userScore = 0;
@@ -179,21 +204,24 @@ function optionSelected(answer){
 function showResult(){
     info_box.classList.remove("activeInfo"); //hide info box
     quiz_box.classList.remove("activeQuiz"); //hide quiz box
-    result_box.classList.add("activeResult"); //show result box
-    const scoreText = result_box.querySelector(".score_text");
-    if (userScore > 8){ // if user scored more than 3
-        //creating a new span tag and passing the user score number and total question number
-        let scoreTag = '<span>Felicidades! 🎉, has <p>'+ userScore +'</p> de <p>10</p></span>';
-        scoreText.innerHTML = scoreTag;  //adding new span tag inside score_Text
+  //  result_box.classList.add("activeResult"); //show result box
+    //const scoreText = result_box.querySelector(".score_text");
+
+    $("#principal").fadeToggle(1000);
+    $("#final").fadeToggle(1000);
+    if (userScore < 6) {
+        var audio = new Audio("../../sounds/game_over.mp3");
+        audio.play();
+        document.getElementById("final").style.backgroundImage =
+            "url(../../images/derrota.gif)";
+    } else {
+        document.getElementById("final").style.backgroundImage =
+            "url(../../images/victoria.gif)";
+        var audio = new Audio("../../sounds/victory.mp3");
+        audio.play();
     }
-    else if(userScore > 5){ // if user scored more than 1
-        let scoreTag = '<span>Muy bien 😎, has obtenido <p>'+ userScore +'</p> de <p>10</p></span>';
-        scoreText.innerHTML = scoreTag;
-    }
-    else{ // if user scored less than 1
-        let scoreTag = '<span>Lo siento 😐, has obtenido solo <p>'+ userScore +'</p> de <p>10</p></span>';
-        scoreText.innerHTML = scoreTag;
-    }
+    document.getElementById("texto_final").innerText = "Has contestado " + userScore + " preguntas de 10 posibles";
+
 }
 
 function startTimer(time){
