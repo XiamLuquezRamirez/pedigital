@@ -35,7 +35,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> En este juego, se le presentaran una serie de 10 preguntas relacionadas con los presidentes de Colombia, tendra varios comodines, como 50/50, ayuda del público, y llamada a un amigo. <br> ¡Tu Puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> En este juego, se le presentaran una serie de 10 preguntas relacionadas con los temas vistos en la unidad 2, tendra varios comodines, como 50/50, ayuda del público, y llamada a un amigo. <br> ¡Tu Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })

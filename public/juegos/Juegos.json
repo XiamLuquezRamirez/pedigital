@@ -147,21 +147,21 @@
     "icono": "iconos/Civilizaciones.png"
   },
   {
-    "grado": "2",
+    "grado": "7",
     "juego": "what is this?",
-    "ruta": "AreaLenguaje/IdentificaObjetosIng/index.html",
+    "ruta": "AreaLenguaje/Voces/index.html",
     "area": "LC",
-    "icono": "iconos/IdentificaObjetosIng.png"
+    "icono": "iconos/Voces.png"
   },
   {
-    "grado": "2",
+    "grado": "7",
     "juego": "Sinonimos y Antonimos",
-    "ruta": "AreaLenguaje/SinonimosyAntonimos/index.html",
+    "ruta": "AreaLenguaje/Conversacion/index.html",
     "area": "LC",
-    "icono": "iconos/SinonimosyAntonimos.png"
+    "icono": "iconos/Conversacion.png"
   },
   {
-    "grado": "2",
+    "grado": "7",
     "juego": "Sopa de letra",
     "ruta": "AreaLenguaje/SopadeLetraSdo/index.html?Area=LG",
     "area": "LC",
@@ -189,18 +189,18 @@
     "icono": "iconos/SopadeLetra.png"
   },
   {
-    "grado": "3",
+    "grado": "8",
     "juego": "+ y - Challenge",
-    "ruta": "AreaMatematicas/SumaRestaTro/index.html",
+    "ruta": "AreaMatematicas/Bingo/index.html",
     "area": "M",
-    "icono": "iconos/SumaResta.png"
+    "icono": "iconos/Bingo.png"
   },
   {
-    "grado": "3",
+    "grado": "8",
     "juego": "x y % Challenge",
-    "ruta": "AreaMatematicas/MultiplicayDivideCompleta/index.html",
+    "ruta": "AreaMatematicas/Polinomio/index.html",
     "area": "M",
-    "icono": "iconos/MultiplicayDivide.png"
+    "icono": "iconos/Polinomio.png"
   },
   {
     "grado": "3",

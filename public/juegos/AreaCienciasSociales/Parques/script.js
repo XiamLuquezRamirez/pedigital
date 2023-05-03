@@ -24,7 +24,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> En este juego deberas ubicar en cada espacio en blanco, el signo que creas correcto, debes acertar mas del 60% para ganar. <br> ¡Tu Puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> En este juego deberas lanzar el dado y responder la pregunta correctamente para poder avanzar, debes acertar mas del 60% de las preguntas que se te presenten para ganar. <br> ¡Tu Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })
@@ -133,9 +133,8 @@ function rotarImagenes(i, n) {
     } else {
         setTimeout(function () {
             if((pos_actual + dad1) < 30){
-                pos_actual += dad1;
-                pos_actual += 1;
-                recorrerDivs(pos_anterior+1, pos_actual);
+                $('#myModal').modal('show');
+                pintar_pregunta();
             }else{
                 alert("lanza nuevamente");
             }   
@@ -155,17 +154,34 @@ function recorrerDivs(i, n) {
         }, 500);
     }else{
         pos_anterior = n;
-        if(pos_anterior == 3 || pos_anterior == 15 || pos_anterior == 11 || pos_anterior == 24 || pos_anterior == 17 || pos_anterior == 28 ){
-            verificar_escalera();
-            setTimeout(()=>{
-                $('#myModal').modal('show');
-                pintar_pregunta();
-            }, 4800) 
-        }else{
-            $('#myModal').modal('show');
-            pintar_pregunta();
-        }
+        pregunta_actual++;
        
+        if(pos_anterior == 30){
+            $('#principal').fadeToggle(500);
+            setTimeout(() => {
+                $('#final').fadeToggle(1000);
+            }, 500)
+
+            if ((correctas / (pregunta_actual)) * 100 < 60) {
+                document.getElementById("final").style.backgroundImage = "url(../../images/derrota.gif)";
+            } else {
+                document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+            }
+    
+            document.getElementById("texto_final").innerText = "Has contestado correctamente " +correctas+ " de "+(pregunta_actual)+" preguntas.";
+    
+            if ((correctas / (pregunta_actual)) * 100 >= 60) {
+                var audio = new Audio('../../sounds/victory.mp3');
+                audio.play();
+            } else {
+                var audio = new Audio('../../sounds/game_over.mp3');
+                audio.play();
+            }
+        }else{
+            if(pos_anterior == 3 || pos_anterior == 15 || pos_anterior == 11 || pos_anterior == 24 || pos_anterior == 17 || pos_anterior == 28 ){
+                verificar_escalera();
+            }
+        }
     }
 }
 
@@ -177,7 +193,7 @@ function verificar_escalera(){
         const pos = doc.getBoundingClientRect();
         var newCoordsx = pos.left-72;
         var newCoordsy = pos.top-42;
-        document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="100pt" alt="">'
+        document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="80pt" alt="">'
 
         setTimeout(()=>{
             var imagen = document.getElementById("ficha_escalera");
@@ -198,7 +214,7 @@ function verificar_escalera(){
             const pos = doc.getBoundingClientRect();
             var newCoordsx = pos.left-72;
             var newCoordsy = pos.top-11;
-            document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="100pt" alt="">'
+            document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="80pt" alt="">'
     
             setTimeout(()=>{
                 var imagen = document.getElementById("ficha_escalera");
@@ -220,7 +236,7 @@ function verificar_escalera(){
                 const pos = doc.getBoundingClientRect();
                 var newCoordsx = pos.left-65;
                 var newCoordsy = pos.top-11;
-                document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="100pt" alt="">'
+                document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="80pt" alt="">'
         
                 setTimeout(()=>{
                     var imagen = document.getElementById("ficha_escalera");
@@ -242,7 +258,7 @@ function verificar_escalera(){
                     const pos = doc.getBoundingClientRect();
                     var newCoordsx = pos.left-72;
                     var newCoordsy = pos.top-25;
-                    document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="100pt" alt="">'
+                    document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="80pt" alt="">'
             
                     setTimeout(()=>{
                         var imagen = document.getElementById("ficha_escalera");
@@ -263,7 +279,7 @@ function verificar_escalera(){
                         const pos = doc.getBoundingClientRect();
                         var newCoordsx = pos.left-72;
                         var newCoordsy = pos.top-11;
-                        document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="100pt" alt="">'
+                        document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="80pt" alt="">'
                 
                         setTimeout(()=>{
                             var imagen = document.getElementById("ficha_escalera");
@@ -287,8 +303,7 @@ function verificar_escalera(){
                             const pos = doc.getBoundingClientRect();
                             var newCoordsx = pos.left-65;
                             var newCoordsy = pos.top-11;
-                            document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="100pt" alt="">'
-                    
+                            document.getElementById("caja_prin").innerHTML += '<img id="ficha_escalera" class="ficha_escalera" style="position: absolute; left: '+newCoordsx+'px; top:'+newCoordsy+'px" src="img/ficha2.png" height="80pt" alt="">'
                             setTimeout(()=>{
                                 var imagen = document.getElementById("ficha_escalera");
                                 imagen.style.top = (newCoordsy + 235) + "px";
@@ -349,6 +364,11 @@ function  respuesta(tipo, elemento){
         var audio = new Audio('../../sounds/ok.mp3');
         audio.play();
         correctas++;
+        setTimeout(()=>{
+            pos_actual += dad1;
+            pos_actual += 1;
+            recorrerDivs(pos_anterior+1, pos_actual);
+        }, 2100)
     }else{
         elemento.classList.add("incorrecto");
         var audio = new Audio('../../sounds/over.mp3');
@@ -359,29 +379,5 @@ function  respuesta(tipo, elemento){
         preguntas.shift() 
         $('#myModal').modal('hide');
         document.getElementById("respuestas").innerHTML = "";
-        if(pos_anterior == 30){
-            $('#principal').fadeToggle(500);
-            setTimeout(() => {
-                $('#final').fadeToggle(1000);
-            }, 500)
-
-            if ((correctas / pregunta_actual) * 100 < 60) {
-                document.getElementById("final").style.backgroundImage = "url(../../images/derrota.gif)";
-            } else {
-                document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
-            }
-    
-            document.getElementById("texto_final").innerText = "Has contestado correctamente " +correctas+ " de "+pregunta_actual+" preguntas.";
-    
-            if ((correctas / pregunta_actual) * 100 >= 60) {
-                var audio = new Audio('../../sounds/victory.mp3');
-                audio.play();
-            } else {
-                var audio = new Audio('../../sounds/game_over.mp3');
-                audio.play();
-            }
-        }else{
-            pregunta_actual++;
-        }
     }, 2000)
 }
