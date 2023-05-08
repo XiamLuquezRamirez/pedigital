@@ -125,15 +125,22 @@ var correctas = 0;
 function romper(elemento, opcion, letra) {
     var pos = elemento.getBoundingClientRect();
     var flecha = document.getElementById("flecha");
-    flecha.style.left = pos.left+15 + "px";
-    flecha.style.top = pos.top + "px";
+
+    if(elemento.getAttribute("data-id") == "globo_1"){
+        flecha.style.left = (pos.left+70) + "px";
+        flecha.style.top = (pos.top+20) + "px";
+    }else{
+        flecha.style.left = (pos.left-70) + "px";
+        flecha.style.top = (pos.top+20) + "px";
+    }
+   
 
     var h1 = elemento.firstElementChild;
 
 
     setTimeout(() => {
         flecha.style.display = "none";
-    }, 700)
+    }, 810)
 
     setTimeout(() => {
         elemento.style.backgroundImage = "url(globo_2.png)"

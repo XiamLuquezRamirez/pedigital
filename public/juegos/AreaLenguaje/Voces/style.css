@@ -16,6 +16,7 @@ body {
 html,
 body {
   height: 100%;
+  cursor: url('mira.png'), auto !important;
 }
 
 .col-1 .btn-danger,
@@ -382,7 +383,6 @@ body{
   background-size: 73%;
   background-position: center;
   background-repeat: no-repeat;
-  cursor: all-scroll;
 }
 
 .globo_1::before{
@@ -417,7 +417,6 @@ body{
   background-size: 73%;
   background-position: center;
   background-repeat: no-repeat;
-  cursor: all-scroll;
 }
 
 

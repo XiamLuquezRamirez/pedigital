@@ -163,9 +163,9 @@
   {
     "grado": "7",
     "juego": "Sopa de letra",
-    "ruta": "AreaLenguaje/SopadeLetraSdo/index.html?Area=LG",
+    "ruta": "AreaLenguaje/Conversacion/index.html?Area=LG",
     "area": "LC",
-    "icono": "iconos/SopadeLetraSdo.png"
+    "icono": "iconos/Conversacion.png"
   },
   {
     "grado": "3",
@@ -190,24 +190,24 @@
   },
   {
     "grado": "8",
-    "juego": "+ y - Challenge",
+    "juego": "Bingo",
     "ruta": "AreaMatematicas/Bingo/index.html",
     "area": "M",
     "icono": "iconos/Bingo.png"
   },
   {
     "grado": "8",
-    "juego": "x y % Challenge",
+    "juego": "Polinomio",
     "ruta": "AreaMatematicas/Polinomio/index.html",
     "area": "M",
     "icono": "iconos/Polinomio.png"
   },
   {
-    "grado": "3",
-    "juego": "Fracciones",
-    "ruta": "AreaMatematicas/Fracciones/index.html",
+    "grado": "8",
+    "juego": "Angulos",
+    "ruta": "AreaMatematicas/Angulos/index.html",
     "area": "M",
-    "icono": "iconos/Fracciones.png"
+    "icono": "iconos/Angulos.png"
   },
   {
     "grado": "3",
