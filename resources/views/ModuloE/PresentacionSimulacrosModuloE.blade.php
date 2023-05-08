@@ -1055,6 +1055,7 @@
 
                     var form = $("#formAuxiliarCargEval");
                     var Preg = $("#id-pregunta" + id).val();
+                    var parte = $("#parte" + id).val();
 
                     var opci = "";
                     var parr = "";
@@ -1062,8 +1063,9 @@
 
                     $("#Pregunta").remove();
                     $("#TipPregunta").remove();
-                    form.append("<input type='hidden' name='Pregunta' id='Pregunta' value='" +
-                        Preg + "'>");
+                    $("#partePreg").remove();
+                    form.append("<input type='hidden' name='Pregunta' id='Pregunta' value='" + Preg + "'>");
+                    form.append("<input type='hidden' name='partePreg' id='parte' value='" + parte + "'>");
 
                     var url = form.attr("action");
                     var datos = form.serialize();
@@ -1817,20 +1819,25 @@
                                 '        <form method="post" action="{{ url('/') }}/ModuloE/RespSimulacro" id="Evaluacion" class="number-tab-stepsPreg wizard-circle">';
                             var Preg = 1;
                             var ConsPre = 0;
+                            
 
+                           
                             $.each(respuesta.PregArea, function(i, item) {
 
                                 contenido += ' <h6></h6>' +
                                     '         <fieldset>' +
                                     '              <div class="row p-1">' +
-                                    '   <div  style="width: 100%" class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1" >' +
-                                    '<div class="row border-bottom-blue-grey"><div class="col-md-12 pb-1"><h6>Enunciado:</h6>' +
-                                    item.enunciado + '</div></div>' +
-                                    '              <div class="row pt-1" >' +
+                                    '   <div  style="width: 100%" class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1" >';
+
+                                    contenido += ' <div class="row border-bottom-blue-grey"><div class="col-md-12 pb-1"><h6>Enunciado:</h6><label id="enunciado">' + item.enunciado + '</label></div></div>';
+
+                                    contenido += ' <div class="row pt-1" >' +
                                     '<input type="hidden" id="id-pregunta' +
                                     ConsPre + '"  value="' + item.id + '" />' +
                                     '<input type="hidden" id="id-banco' +
                                     ConsPre + '"  value="' + item.banco + '" />' +
+                                    '<input type="hidden" id="parte' +
+                                    ConsPre + '"  value="' + item.parte + '" />' +
                                     '      <div class="col-md-12"><h4 class="primary">Pregunta ' +
                                     Preg + '</h4></div>' +
 

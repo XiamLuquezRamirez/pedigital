@@ -2324,7 +2324,7 @@
 
                     var ToporcV=0;
                     mensaje =
-                        "Al editar estos parametros, las preguntas tendran que ser generdas nuevamanete. ¿Desea continuar?";
+                        "Al editar estos parametros, las preguntas tendran que ser generdas nuevamente. ¿Desea continuar?";
                     Swal.fire({
                         title: 'Gestionar Simualcros',
                         text: mensaje,
@@ -2402,19 +2402,37 @@
                     $("#AddCompe").show();
 
                 },
-                DelPorc: function(id) {
-                    var Toporc = 0;
+                DelPorc: function(id_fila) {
 
-                    $("#tr_" + id).remove();
-                    $("input[name='txtporc[]']").each(function(indice, elemento) {
-                        Toporc = Toporc + parseInt($(elemento).val());
+                    var ToporcV = 0;
+                    mensaje =
+                        "Al eliminar este registro, las preguntas tendran que ser generdas nuevamente. ¿Desea continuar?";
+                    Swal.fire({
+                        title: 'Gestionar Simualcros',
+                        text: mensaje,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, Continuar!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#tr_' + id_fila).remove();
+                            $("input[name='txtporc[]']").each(function(indice, elemento) {
+                                ToporcV = ToporcV + parseInt($(elemento).val());
+                            });
+
+                            $("#gtotal").html(ToporcV);
+                            $("#Tot_Porc").val(ToporcV);
+
+                            $("#GenPreg").hide();
+                            $('#TablaPreg').hide();
+                            $('#GuarCofCompe').hide();
+
+                        }
                     });
 
-                    $("#Tot_Porc").val(Toporc);
-                    $("#gtotal").html("");
-                    $("#gtotal").html(Toporc);
-
-                }
+                },
             });
 
             $.FormTiempo();

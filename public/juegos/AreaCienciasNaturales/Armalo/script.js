@@ -206,14 +206,17 @@ function resultadoFinal(opc) {
     audio.play();
     document.getElementById("final").style.backgroundImage =
       "url(../../images/derrota.gif)";
+      document.getElementById("texto_final").innerText =
+      "Lo siento no lograste armar "+nombreSistema;
   } else {
     document.getElementById("final").style.backgroundImage =
       "url(../../images/victoria.gif)";
     var audio = new Audio("../../sounds/victory.mp3");
     audio.play();
+    document.getElementById("texto_final").innerText =
+    "Felicitaciones Lograste armar "+nombreSistema;
   }
-  document.getElementById("texto_final").innerText =
-    "Felicitaciones Lograste arnar el Sistema Reproductor.";
+
 }
 
 

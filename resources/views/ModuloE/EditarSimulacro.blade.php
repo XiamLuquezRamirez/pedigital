@@ -928,6 +928,7 @@
                 selCompxComp: function(val) {
                     var pacomp = val.split("/");
                     $("#nPregCompoxCompe").val(pacomp[1]);
+                    $("#nPregCompoxCompeSel").val("0");
 
                     var form = $("#formAuxiliarCompxComp");
                     $("#compexcomp").remove();
@@ -2264,21 +2265,41 @@
 
                 },
                 DelPorc: function(id_fila) {
-                    var porcT = $("#Tot_Porc").val();
-                    var porc = $("#txtporc" + id_fila).val();
-                    porcT = parseInt(porcT) - parseInt(porc);
 
-                    $("#Tot_Porc").val(porcT);
-                    $("#gtotal").html("");
-                    $("#gtotal").html(porcT);
-                    $('#tr_' + id_fila).remove();
-                    p
+                    var ToporcV = 0;
+                    mensaje =
+                        "Al eliminar este registro, las preguntas tendran que ser generdas nuevamente. ¿Desea continuar?";
+                    Swal.fire({
+                        title: 'Gestionar Simualcros',
+                        text: mensaje,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, Continuar!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#tr_' + id_fila).remove();
+                            $("input[name='txtporc[]']").each(function(indice, elemento) {
+                                ToporcV = ToporcV + parseInt($(elemento).val());
+                            });
+
+                            $("#gtotal").html(ToporcV);
+                            $("#Tot_Porc").val(ToporcV);
+
+                            $("#GenPreg").hide();
+                            $('#TablaPreg').hide();
+                            $('#GuarCofCompe').hide();
+
+                        }
+                    });
+
                 },
                 EditPorc: function(id) {
 
                     var ToporcV = 0;
                     mensaje =
-                        "Al editar estos parametros, las preguntas tendran que ser generdas nuevamanete. ¿Desea continuar?";
+                        "Al editar estos parametros, las preguntas tendran que ser generdas nuevamente. ¿Desea continuar?";
                     Swal.fire({
                         title: 'Gestionar Simualcros',
                         text: mensaje,

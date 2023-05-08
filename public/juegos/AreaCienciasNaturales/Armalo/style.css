@@ -28,7 +28,7 @@
 }
 
 body {
-    overflow: hidden;
+    overflow-x: hidden;
     background: url('fondo.png');
     background-size: 100% 100%;
     background-position: center center;
@@ -43,10 +43,6 @@ body {
 }
 
 
-html,
-body {
-    height: 100%;
-}
 
 .btn-danger {
     width: 70px;
@@ -293,7 +289,7 @@ body {
 
 
 
-div#content{margin-top:10px;}
+div#content{margin-top:10px;margin-bottom: 10px;}
 
 div#conf{padding-bottom:10px;}
 

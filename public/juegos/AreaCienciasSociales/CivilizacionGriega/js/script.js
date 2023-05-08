@@ -7,7 +7,7 @@
 
         var crucigrama1 = [
             {
-                clue: ".  ¿Qué pueblo invadió y sometió a los cretenses para dar inicio a la civilización minoica?",
+                clue: "¿Qué pueblo invadió y sometió a los cretenses para dar inicio a la civilización minoica?",
                 answer: "aqueos",
                 position: 7,
                 orientation: "across",

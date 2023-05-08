@@ -4677,6 +4677,9 @@
                 },
                 ////////////GUARDAR Y CERRAR
                 GuardarPregunta: function(id) {
+                    for (var instanceName in CKEDITOR.instances) {
+                        CKEDITOR.instances[instanceName].updateElement();
+                    }
                     var form = $("#formBanco");
                     var url = form.attr("action");
 

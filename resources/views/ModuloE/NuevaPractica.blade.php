@@ -1037,6 +1037,10 @@
                 },
                 ////////////GUARDAR Y CERRAR
                 GuardarEval: function(id) {
+
+                    for (var instanceName in CKEDITOR.instances) {
+                        CKEDITOR.instances[instanceName].updateElement();
+                    }
                     var form = $("#formAsigEval");
                     var url = form.attr("action");
 

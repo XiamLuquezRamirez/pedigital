@@ -127,10 +127,17 @@
                                                     $cont = 1;
                                                 @endphp
                                                 @foreach ($Preguntas as $Preg)
+                                                @php
+                                                $Parte = "";
+                                                if($Preg->tipo_pregunta!== null){
+                                                    $Parte =" - ".$Preg->tipo_pregunta;
+                                                }
+                                                @endphp
+
                                                     <tr data-id='{{ $Preg->id }}' id='Asig{{ $Preg->id }}'>
                                                         <td class="text-truncate">{!! $cont !!}</td>
-                                                        <td class="text-truncate">{!! $Preg->nombre . ' - Grado ' . $Preg->grado . '°' !!}</td>
-                                                        <td class="text-truncate">{!! $Preg->npreguntas !!}</td>
+                                                        <td class="text-truncate">{!! $Preg->nombre . ' - Grado ' . $Preg->grado. '°'.$Parte !!}</td>
+                                                        <td class="text-truncate">{!! $Preg->npreguntas  !!}</td>
                                                         <td class="text-truncate">
                                                             <a href='{{ url('ModuloE/EditarPregBanco/' . $Preg->id) }}'
                                                                 title="Editar" class="btn  btn-outline-success  btn-sm"><i

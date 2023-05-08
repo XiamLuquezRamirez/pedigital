@@ -92,17 +92,17 @@
   },
   {
     "grado": "7",
-    "juego": "Las Plantas",
-    "ruta": "AreaCienciasNaturales/LasPlantas/index.html",
+    "juego": "Tabla Periodica",
+    "ruta": "AreaCienciasNaturales/TablaPeriodica/index.html",
     "area": "CN",
-    "icono": "iconos/LasPlantas.png"
+    "icono": "iconos/TablaPeriodica.png"
   },
   {
     "grado": "7",
-    "juego": "La Materia",
-    "ruta": "AreaCienciasNaturales/LaMateriaSdo/index.html",
+    "juego": "Crucigrama",
+    "ruta": "AreaCienciasNaturales/Crucigrama/index.html",
     "area": "CN",
-    "icono": "iconos/LaMateria.png"
+    "icono": "iconos/Crucigrama.png"
   },
   {
     "grado": "7",
@@ -168,11 +168,11 @@
     "icono": "iconos/SopadeLetraSdo.png"
   },
   {
-    "grado": "3",
-    "juego": "Encuentra el Habitad",
-    "ruta": "AreaCienciasNaturales/EncuentraelHabitad/index.html",
+    "grado": "8",
+    "juego": "Los Sistemas",
+    "ruta": "AreaCienciasNaturales/LosSistemas/index.html",
     "area": "CN",
-    "icono": "iconos/EncuentraelHabitad.png"
+    "icono": "iconos/LosSistemas.png"
   },
   {
     "grado": "3",

@@ -930,15 +930,16 @@ class ModuloEController extends Controller
     {
         if (Auth::check()) {
             $busqueda = request()->get('nombre');
-            $nombre = request()->get('componente');
+            $componente = request()->get('componente');
             $actual = request()->get('page');
             if ($actual == null || $actual == "") {
                 $actual = 1;
             }
             $limit = 10;
 
-            $Preguntas = \App\BancoPregModuloE::Gestion($busqueda, $actual, $limit, $nombre);
-            $numero_filas = \App\BancoPregModuloE::numero_de_registros(request()->get('nombre'), $nombre);
+            $Preguntas = \App\BancoPregModuloE::Gestion($busqueda, $actual, $limit, $componente);
+            
+            $numero_filas = \App\BancoPregModuloE::numero_de_registros(request()->get('nombre'), $componente);
             $ListAsig = \App\AsignaturasModuloE::listar();
             $ListCom = \App\AsigComponentemduloE::Listarxasig($busqueda);
 
@@ -954,7 +955,7 @@ class ModuloEController extends Controller
             $select_Comp = "<option value='' selected>TODOS LOS COMPONENTES</option>";
             if (!empty($busqueda)) {
                 foreach ($ListCom as $Comp) {
-                    if ($Comp->id == $nombre) {
+                    if ($Comp->id == $componente) {
                         $select_Comp .= "<option value='$Comp->id' selected> " . strtoupper($Comp->nombre) . "</option>";
                     } else {
                         $select_Comp .= "<option value='$Comp->id' >" . strtoupper($Comp->nombre) . "</option>";
@@ -963,7 +964,7 @@ class ModuloEController extends Controller
             }
 
             $paginas = ceil($numero_filas / $limit); //$numero_filas/10;
-            return view('ModuloE.GestionBancoPreg', compact('numero_filas', 'paginas', 'actual', 'limit', 'busqueda', 'Preguntas', 'select_Asig', 'select_Comp'));
+            return view('ModuloE.GestionBancoPreg', compact('numero_filas', 'paginas', 'actual', 'limit', 'busqueda','componente', 'Preguntas', 'select_Asig', 'select_Comp'));
         } else {
             return redirect("/")->with("error", "Su sesión ha terminado");
         }
@@ -2030,9 +2031,21 @@ class ModuloEController extends Controller
     {
         if (Auth::check()) {
             $IdPreg = request()->get('Pregunta');
-            $PregMult = \App\PregOpcMulMe::ConsulPreg($IdPreg);
+            $partePreg = request()->get('partePreg');
+
+
+            if($partePreg=="PARTE 1"){
+                $id = \App\ModE_PreguntAreas::ConsultarPreg($IdPreg);
+                $OpcPreg = \App\PreguntasParte1::ConsultarPreg($IdPreg);
+                dd($OpcPreg);
+
+            }else{
+                  $PregMult = \App\PregOpcMulMe::ConsulPreg($IdPreg);
             $OpciMult = \App\OpcPregMulModuloE::ConsulGrupOpcPreg($IdPreg);
-            $RespPregMul = \App\OpcPregMulModuloE::BuscOpcRespPrueba($IdPreg, Auth::user()->id);
+            $RespPregMul = \App\OpcPregMulModuloE::BuscOpcRespPrueba($IdPreg, Auth::user()->id); 
+            }
+
+         
 
             if (request()->ajax()) {
                 return response()->json([
@@ -2578,7 +2591,7 @@ class ModuloEController extends Controller
     {
         if (Auth::check()) {
             $datos = request()->all();
-
+            
             $idEval = "";
             $idEval = request()->get('preg_id');
             $ContEval = \App\BancoPregModuloE::ModifEvalFin($datos, $idEval);
@@ -3239,7 +3252,7 @@ class ModuloEController extends Controller
             $CompAre = \App\CompAreaSession::ConsultarInf($idAreaSes);
 
             if ($SesAre->area == "5") {
-                $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idAreaSes);
+                $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idAreaSes,"Admin");
             } else {
                 $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idAreaSes);
             }
@@ -3275,7 +3288,14 @@ class ModuloEController extends Controller
 
             $areaxsesion = \App\SessionArea::ConsultarInf($idArea);
 
-            $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idArea);
+            if ($areaxsesion->area == "5") {
+                $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idArea,"Est");
+            } else {
+                $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idArea);
+            }
+            dd($PregArea);
+          
+        //    $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idArea);
             if (request()->ajax()) {
                 return response()->json([
                     'PregArea' => $PregArea,
@@ -3398,7 +3418,7 @@ class ModuloEController extends Controller
             if ($area == "5") {
                 if ($Preg->tipo_pregunta == "PARTE 1") {
                     $PregMult = \App\PregOpcMulMe::ConsulPregBan($Preg->banco);
-
+                  
                     $PreEnunciado = "CUAL PALABRA CONCUERDA CON LA DESCRIPCIÓN DE LA FRASE?";
                     $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">'
                         . '<h4 class="primary">' . $PreEnunciado . '!</h4>'
@@ -3406,12 +3426,13 @@ class ModuloEController extends Controller
                         . '</div>';
 
                     $OpcPreg = \App\PreguntasParte1::ConsultarPreg($PregMult->id);
+                    
 
                     foreach ($OpcPreg as $opc) {
                         $Preguntas .= "<div class='row'>";
                         $Preguntas .= "<div class='col-12'>";
                         $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">'
-                            . '<h4 class="success">Pregunta ' . $conse . '</h4><input type="hidden" name="Preguntas[]" value="' . $Preg->id . '" />'
+                            . '<h4 class="success">Pregunta ' . $conse . '</h4><input type="hidden" name="Preguntas[]" value="' . $opc->id . '" />'
                             . '<input type="hidden" name="PregBancoId[]" value="' .  $Preg->banco . '" />'
                             . '<input type="hidden" name="PregTipPreg[]" value="' .  $Preg->tipo_pregunta  . '" />';
                         $Preguntas .= "<div class='col-6'>";
