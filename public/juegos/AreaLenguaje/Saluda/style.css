@@ -321,6 +321,7 @@ body {
 }
 
 .swal2-modal {
+  top: 42% !important;
   width: 40% !important
 }
 

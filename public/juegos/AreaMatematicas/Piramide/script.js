@@ -305,19 +305,56 @@ function escribir(valor) {
     elemento_editar.innerHTML += valor;
 }
 
-
+let correctas = 0;
 function verificar(){
     var cajones = document.getElementsByClassName("cajon2");
-
+    let bandera = false;
     for (let index = 0; index < cajones.length; index++) {
         const element = cajones[index];
-        if(element.innerHTML == element.getAttribute("data-id")){
-            element.style.backgroundColor = "green";
-            element.style.color = "white";
-        }else{
-            element.style.backgroundColor = "red";
-            element.style.color = "white";
+        if(element.innerHTML == ""){
+           bandera = true
         }
+    }
+
+    if(!bandera){
+        for (let index = 0; index < cajones.length; index++) {
+            const element = cajones[index];
+            if(element.innerHTML == element.getAttribute("data-id")){
+                element.style.backgroundColor = "green";
+                element.style.color = "white";
+                correctas++;
+            }else{
+                element.style.backgroundColor = "red";
+                element.style.color = "white";
+            }
+        }
+    
+        setTimeout(()=>{
+            $('#principal').fadeToggle(500);
+            setTimeout(() => {
+                $('#final').fadeToggle(1000);
+            }, 500)
+          
+            if (correctas == 15) {
+                document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+                document.getElementById("texto_final").innerText = "Has contestado correctamente todos los numeros.";
+                var audio = new Audio('../../sounds/victory.mp3');
+                audio.play();
+            } else {
+                document.getElementById("final").style.backgroundImage = "url(../../images/derrota.gif)";
+                document.getElementById("texto_final").innerText = "Te has equivocado en "+(15-correctas)+" números, sigue intentando.";
+                var audio = new Audio('../../sounds/game_over.mp3');
+                audio.play();
+            }
+        }, 2000)
+    }else{
+        Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: 'Debes llenar todos los cajones.',
+            showConfirmButton: false,
+            timer: 1500
+        })
     }
 }
 

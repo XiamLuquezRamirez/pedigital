@@ -179,6 +179,7 @@ function GenerateCurrentNumber() {
 	var den = getRandom(1, 9);
 
 	while (num > den || balotas.filter(balota => balota.num == num && balota.den == den).length >= 1) {
+		num = getRandom(1, 9)
 		den = getRandom(1, 9)
 	}
 

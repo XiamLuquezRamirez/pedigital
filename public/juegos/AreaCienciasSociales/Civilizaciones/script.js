@@ -241,7 +241,7 @@ function moveDiv() {
 }
 
 function mostrarPregunta() {
-miDiv.style.transition="all 0.2s ease-in";
+  miDiv.style.transition="all 0.2s ease-in";
   document.getElementById("img-resp").style.display="none";
   document.getElementById("texto-nave").style.display="block";
 
