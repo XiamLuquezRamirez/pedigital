@@ -201,9 +201,9 @@ console.log(pregunta_actual);
       $('#final').fadeToggle(1000);
     }, 500)
     if (correctas < 3) {
-      document.getElementById("final").style.backgroundImage = "url(../../images/derrota.gif)";
+      document.getElementById("final").style.backgroundImage = "url(../../images/ciencia/derrota.gif)";
     } else {
-      document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+      document.getElementById("final").style.backgroundImage = "url(../../images/ciencia/victoria.gif)";
     }
 
     document.getElementById("texto_final").innerText = "Has logrado armar correctamente " + correctas + " moléculas.";
@@ -301,7 +301,7 @@ $(document).ready(function () {
         divAnimado2.style.animationDirection = "normal";
         divAnimado2.style.display = "block";
         setTimeout(() => {
-          divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
+          divAnimado.style.backgroundImage = "url(../../images/ciencia/normal2.gif)";
           maquina2(
             "bienvenida",
             "Hola, soy Genio. <br> Se presentara el nombre de la molécula que tienes que construir, para construirla tendras que arrastra  los átomos que componen la molécula.",
@@ -349,7 +349,7 @@ function cerrar_anuncio() {
   const divAnimado2 = document.querySelector(".nube");
   divAnimado2.style.animationName = "moverabajo";
   const divAnimado = document.querySelector(".overlay");
-  divAnimado.style.backgroundImage = "url(../../images/normal1.gif)";
+  divAnimado.style.backgroundImage = "url(../../images/ciencia/normal1.gif)";
   $("#fondo_blanco").fadeToggle(3000);
   setTimeout(function () {
     divAnimado.style.animationName = "moverIzquierda";
@@ -415,10 +415,10 @@ function resultadoFinal() {
     var audio = new Audio("../../sounds/game_over.mp3");
     audio.play();
     document.getElementById("final").style.backgroundImage =
-      "url(../../images/derrota.gif)";
+      "url(../../images/ciencia/derrota.gif)";
   } else {
     document.getElementById("final").style.backgroundImage =
-      "url(../../images/victoria.gif)";
+      "url(../../images/ciencia/victoria.gif)";
     var audio = new Audio("../../sounds/victory.mp3");
     audio.play();
   }

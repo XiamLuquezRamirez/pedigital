@@ -296,7 +296,7 @@
 							  $('#final').fadeToggle(1000);
 							}, 500)
 						  
-							document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+							document.getElementById("final").style.backgroundImage = "url(../../images/ciencia/victoria.gif)";
 						  
 							document.getElementById("texto_final").innerText = "Felicitaciones, has resuelto el crucigrama correctamente"
 			

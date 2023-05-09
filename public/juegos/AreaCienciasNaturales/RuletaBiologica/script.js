@@ -356,7 +356,7 @@ $(document).ready(function () {
         divAnimado2.style.animationDirection = "normal";
         divAnimado2.style.display = "block";
         setTimeout(() => {
-          divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
+          divAnimado.style.backgroundImage = "url(../../images/ciencia/normal2.gif)";
           maquina2(
             "bienvenida",
             "Hola, soy Genio. <br> En este juego debes ir respondiendo las preguntas que se iran presentando, el juego te indicara la letra por la cual inica la respuesta de la pregunta",
@@ -404,7 +404,7 @@ function cerrar_anuncio() {
   const divAnimado2 = document.querySelector(".nube");
   divAnimado2.style.animationName = "moverabajo";
   const divAnimado = document.querySelector(".overlay");
-  divAnimado.style.backgroundImage = "url(../../images/normal1.gif)";
+  divAnimado.style.backgroundImage = "url(../../images/ciencia/normal1.gif)";
   $("#fondo_blanco").fadeToggle(3000);
   setTimeout(function () {
     divAnimado.style.animationName = "moverIzquierda";
@@ -534,10 +534,10 @@ function resultadoFinal(){
         var audio = new Audio("../../sounds/game_over.mp3");
         audio.play();
         document.getElementById("final").style.backgroundImage =
-            "url(../../images/derrota.gif)";
+            "url(../../images/ciencia/derrota.gif)";
     } else {
         document.getElementById("final").style.backgroundImage =
-            "url(../../images/victoria.gif)";
+            "url(../../images/ciencia/victoria.gif)";
         var audio = new Audio("../../sounds/victory.mp3");
         audio.play();
     }

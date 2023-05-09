@@ -133,7 +133,7 @@ function mostrarPregunta() {
       for (let index = 0; index < opiones.length; index++) {
         const element = opiones[index];
         var div = document.createElement("div");
-        div.innerHTML ="<button onclick='verfResp("+element.correcta+", this)' class='opcion btn "+clases[index]+"'>"+element.opcion+" </button>"
+        div.innerHTML ="<div onclick='verfResp("+element.correcta+", this)' class='opcion btn "+clases[index]+"'><p style='margin: 0'>"+element.opcion+"</p></div>"
         div.classList.add("col-6", "box", "new-box");
         document.querySelector("#btn-respuestas").appendChild(div);
       }

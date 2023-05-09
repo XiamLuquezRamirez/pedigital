@@ -21,7 +21,7 @@ $(document).ready(function () {
                 divAnimado2.style.animationDirection = 'normal';
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
-                    divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
+                    divAnimado.style.backgroundImage = "url(../../images/ciencia/normal2.gif)"
                     maquina2("bienvenida", 'Hola, soy Genio. <br> En este juego deberas ubicar los elementos según el grupo que se te pida, ubica todos los elementos para ganar el juego. <br> ¡Tu Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
@@ -64,7 +64,7 @@ function cerrar_anuncio() {
     const divAnimado2 = document.querySelector('.nube');
     divAnimado2.style.animationName = 'moverabajo';
     const divAnimado = document.querySelector('.overlay');
-    divAnimado.style.backgroundImage = "url(../../images/normal1.gif)";
+    divAnimado.style.backgroundImage = "url(../../images/ciencia/normal1.gif)";
     $('#fondo_blanco').fadeToggle(3000);
     setTimeout(function () {
         divAnimado.style.animationName = 'moverIzquierda';
@@ -108,9 +108,9 @@ function verificar(elemento, grupo, color){
         }, 500)
 
         if (incorrectas > (numero_elementos / 2)) {
-            document.getElementById("final").style.backgroundImage = "url(../../images/derrota.gif)";
+            document.getElementById("final").style.backgroundImage = "url(../../images/ciencia/derrota.gif)";
         } else {
-            document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+            document.getElementById("final").style.backgroundImage = "url(../../images/ciencia/victoria.gif)";
         }
 
         document.getElementById("texto_final").innerText = "Encontraste todos los elementos del grupo de los "+grupo_seleccionado+" con "+incorrectas+" respuestas incorrectas.";

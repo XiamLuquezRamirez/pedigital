@@ -35,11 +35,11 @@
             },
             {
                 "opcion": "120 grados",
-                "correcta": true
+                "correcta": false
             },
             {
                 "opcion": "180 grados",
-                "correcta": false
+                "correcta": true
             }
         ]
     },

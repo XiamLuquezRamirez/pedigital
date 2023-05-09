@@ -91,7 +91,7 @@ $(document).ready(function () {
         divAnimado2.style.animationDirection = "normal";
         divAnimado2.style.display = "block";
         setTimeout(() => {
-          divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
+          divAnimado.style.backgroundImage = "url(../../images/ciencia/normal2.gif)";
           maquina2(
             "bienvenida",
             "Hola, soy Genio. <br> En este juego se iran presentando imagenes relacionadas al sisetma reproductor de una forma desordenadas y tendras que ordenarla Pulsando en un cuadro y luego en otro para intercambiar sus posiciones!!",
@@ -139,7 +139,7 @@ function cerrar_anuncio() {
   const divAnimado2 = document.querySelector(".nube");
   divAnimado2.style.animationName = "moverabajo";
   const divAnimado = document.querySelector(".overlay");
-  divAnimado.style.backgroundImage = "url(../../images/normal1.gif)";
+  divAnimado.style.backgroundImage = "url(../../images/ciencia/normal1.gif)";
   $("#fondo_blanco").fadeToggle(3000);
   setTimeout(function () {
     divAnimado.style.animationName = "moverIzquierda";
@@ -205,12 +205,12 @@ function resultadoFinal(opc) {
     var audio = new Audio("../../sounds/game_over.mp3");
     audio.play();
     document.getElementById("final").style.backgroundImage =
-      "url(../../images/derrota.gif)";
+      "url(../../images/ciencia/derrota.gif)";
       document.getElementById("texto_final").innerText =
       "Lo siento no lograste armar "+nombreSistema;
   } else {
     document.getElementById("final").style.backgroundImage =
-      "url(../../images/victoria.gif)";
+      "url(../../images/ciencia/victoria.gif)";
     var audio = new Audio("../../sounds/victory.mp3");
     audio.play();
     document.getElementById("texto_final").innerText =
