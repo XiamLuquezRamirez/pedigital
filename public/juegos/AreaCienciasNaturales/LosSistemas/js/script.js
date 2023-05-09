@@ -324,7 +324,7 @@
         position: 7,
         orientation: "down",
         startx: 14,
-        starty: 8,
+        starty: 9,
       },
     ];
 

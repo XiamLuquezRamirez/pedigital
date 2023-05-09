@@ -65,6 +65,7 @@ class AsignaturaController extends Controller
         $idAsig = request()->get('id2');
         if (Auth::check()) {
             $Docentes = \App\AsigProf::listaProf($idAsig);
+            
 
             if (request()->ajax()) {
                 return response()->json([

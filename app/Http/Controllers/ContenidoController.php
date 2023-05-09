@@ -1603,6 +1603,7 @@ class ContenidoController extends Controller
             $Hab = request()->get('idhabi');
             $Tem = request()->get('idTema');
             $cambio = \App\TemasDocentes::GuardarHabi($Tem, $Hab);
+            
 
             if ($Hab == "Habi") {
                 $Log = \App\Log::Guardar('Cambio a estado del tema Habilitado', $Tem);

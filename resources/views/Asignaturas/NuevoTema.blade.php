@@ -67,7 +67,7 @@
 
     {!! Form::open(['url' => '/cambiar/Unidad', 'id' => 'formAuxiliarUnid']) !!}
     {!! Form::close() !!}
-    {!! Form::open(['url' => '/cambiar/docentes', 'id' => 'formAuxiliarCargDocentes']) !!}
+    {!! Form::open(['url' => '/cambiar/docentesComp', 'id' => 'formAuxiliarCargDocentes']) !!}
     {!! Form::close() !!}
 
 @endsection

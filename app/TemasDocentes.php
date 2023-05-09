@@ -52,9 +52,10 @@ class TemasDocentes extends Model
         $Temas = TemasDocentes::where("tema", $tema)
             ->where("doc", Auth::user()->id)
             ->count();
+            
 
         if ($Temas > 0) {
-            TemasDocentes::where(['tema' => $tema, 'doc' => Auth::user()->id, 'grupo' => Session::get('GrupActual')])->update([
+            return TemasDocentes::where(['tema' => $tema, 'doc' => Auth::user()->id, 'grupo' => Session::get('GrupActual')])->update([
                 'habilitado_doc' => $Habi,
                 'grupo' => Session::get('GrupActual')
             ]);
@@ -66,6 +67,7 @@ class TemasDocentes extends Model
                 'grupo' => Session::get('GrupActual')
             ]);
         }
+        
     }
 
 
