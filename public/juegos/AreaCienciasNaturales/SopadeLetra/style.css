@@ -220,7 +220,7 @@ span.f {
 }
 
 .overlay {
-  background-image: url(../../images/normal1.gif);
+  background-image: url(../../images/ciencia/normal1.gif);
   background-size: 90% 100%;
   top: 0;
   left: 0;
@@ -243,8 +243,8 @@ span.f {
   height:0; 
   overflow:hidden; 
   z-index:-1;
-  content:url("../../images/normal1.gif")
-          url("../../images/normal2.gif")
+  content:url("../../images/ciencia/normal1.gif")
+          url("../../images/ciencia/normal2.gif")
 }
 
 @keyframes moverDerecha {

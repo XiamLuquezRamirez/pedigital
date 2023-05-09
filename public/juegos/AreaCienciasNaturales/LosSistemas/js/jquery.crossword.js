@@ -295,13 +295,15 @@
                         encontradas++;
                         palEncontradas.push(valToCheck); 
                       } 
-                      
+
 						if(encontradas == entryData.length){
 							$('#principal').fadeToggle(500);
 							setTimeout(()=>{
 							  $('#final').fadeToggle(1000);
 							}, 500)
-							document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+						  
+							document.getElementById("final").style.backgroundImage = "url(../../images/ciencia/victoria.gif)";
+						  
 							document.getElementById("texto_final").innerText = "Felicitaciones, has resuelto el crucigrama correctamente"
 							var audio = new Audio('../../sounds/victory.mp3');
 						 

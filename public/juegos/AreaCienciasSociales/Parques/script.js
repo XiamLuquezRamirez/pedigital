@@ -122,23 +122,44 @@ function lanzarDados() {
 
 let dad1 = 0;
 function rotarImagenes(i, n) {
-    if (i < n) {
+    if(pos_actual == 29){
         const imagen = document.getElementById("dado1_1");
-        dad1 = Math.floor(Math.random() * (5 - 0 + 1) + 0);
+        dad1 = Math.floor(Math.random() * (2 - 0 + 1) + 0);
         imagen.src = imagenes[dad1][0];
         imagen.alt = imagenes[dad1][1];
-        setTimeout(function () {
-            rotarImagenes(i + 1, n);
-        }, 300);
-    } else {
-        setTimeout(function () {
-            if((pos_actual + dad1) < 30){
-                $('#myModal').modal('show');
-                pintar_pregunta();
-            }else{
-                alert("lanza nuevamente");
-            }   
-        }, 500);     
+        if (i < n) {
+            setTimeout(function () {     
+                rotarImagenes(i + 1, n);
+            }, 300);
+        }else{
+            $('#myModal').modal('show');
+            pintar_pregunta();
+        }
+    }else{
+        if (i < n) {
+            const imagen = document.getElementById("dado1_1");
+            dad1 = Math.floor(Math.random() * (5 - 0 + 1) + 0);
+            imagen.src = imagenes[dad1][0];
+            imagen.alt = imagenes[dad1][1];
+            setTimeout(function () {
+                rotarImagenes(i + 1, n);
+            }, 300);
+        } else {
+            setTimeout(function () {
+                if((pos_actual + dad1) < 30){
+                    $('#myModal').modal('show');
+                    pintar_pregunta();
+                }else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'lanza nuevamente los dados',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                }   
+            }, 500);     
+        }
     }
 }
 
@@ -154,8 +175,6 @@ function recorrerDivs(i, n) {
         }, 500);
     }else{
         pos_anterior = n;
-        pregunta_actual++;
-       
         if(pos_anterior == 30){
             $('#principal').fadeToggle(500);
             setTimeout(() => {
@@ -350,7 +369,7 @@ let correctas = 0;
 let pregunta_actual = 0;
 
 function  respuesta(tipo, elemento){
-
+    pregunta_actual++;
     var opciones = document.getElementsByClassName("res");
     for (let index = 0; index < opciones.length; index++) {
         const element = opciones[index];

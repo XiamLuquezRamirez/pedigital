@@ -234,6 +234,12 @@ function marker(x) {
 	}
 }
 
+var con_a = true;
+var con_b = true;
+var con_c = true;
+var con_d = true;
+var con_e = true;
+
 function verify_bingo(){
 	var ok = document.getElementsByClassName("ok");
 
@@ -242,6 +248,8 @@ function verify_bingo(){
 	var numero_c = 0;
 	var numero_d = 0;
 	var numero_e = 0;
+
+	
 
 
 	for (let index = 0; index < ok.length; index++) {
@@ -267,18 +275,72 @@ function verify_bingo(){
 		}
 	}
 
-	if(numero_a == 5 || numero_b == 5 || numero_c == 5 || numero_d == 5 || numero_e == 5  || ok.length == 25){
-		$('#principal').fadeToggle(500);
-        setTimeout(() => {
-            $('#final').fadeToggle(1000);
-        }, 500)
+	let bandera = false;
+	if(numero_a == 5 && con_a){
+		con_a = false;
+		bandera = true;
+	}
 
-        document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+	if(numero_b == 5 && con_b){
+		con_b = false;
+		bandera = true;
+	}
 
-        document.getElementById("texto_final").innerText = "¡BINGO!, Felicitaciones, has completado la misión....";
+	if(numero_c == 5 && con_c){
+		con_c = false;
+		bandera = true;
+	}
 
-        var audio = new Audio('../../sounds/victory.mp3');
-        audio.play();
+	if(numero_d == 5 && con_d){
+		con_d = false;
+		bandera = true;
+	}
 
+	if(numero_e == 5 && con_e){
+		con_e = false;
+		bandera = true;
+	}
+
+	if(bandera){
+		Swal.fire({
+			title: '¡BINGO!',
+			text: "¿Desea seguir jugando?",
+			icon: 'info',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, continuar',
+			cancelButtonText: 'No, salir'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+				Swal.close();
+			} else if (result.dismiss === Swal.DismissReason.cancel) {
+				$('#principal').fadeToggle(500);
+				setTimeout(() => {
+					$('#final').fadeToggle(1000);
+				}, 500)
+	
+				document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+	
+				document.getElementById("texto_final").innerText = "¡BINGO!, Felicitaciones, has completado la misión....";
+	
+				var audio = new Audio('../../sounds/victory.mp3');
+				audio.play();
+			}
+		  })
+	}else{
+		if(ok.length == 25){
+			$('#principal').fadeToggle(500);
+			setTimeout(() => {
+				$('#final').fadeToggle(1000);
+			}, 500)
+
+			document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+
+			document.getElementById("texto_final").innerText = "¡BINGO!, Felicitaciones, has completado la misión....";
+
+			var audio = new Audio('../../sounds/victory.mp3');
+			audio.play();
+		}
 	}
 }
