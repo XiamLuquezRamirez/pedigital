@@ -37,7 +37,7 @@ class PreguntasParte1 extends Model
     public static function ConsultarPregParte($preg)
     {
         $Preguntas = PreguntasParte1::where('id', $preg)
-            ->get();
+            ->first();
         return $Preguntas;
     }
 
@@ -54,6 +54,17 @@ class PreguntasParte1 extends Model
         }
         return $respuesta;
 
+    }
+
+    public static function BuscOpcRespPruebaParte($id,$Est)
+    {
+        $DesOpcPreg = PreguntasParte1::join('resp_pregmultiple_me_prueba', 'resp_pregmultiple_me_prueba.pregunta', 'preguntas_parte1.id')
+            ->select('preguntas_parte1.id', 'preguntas_parte1.respuesta', 'resp_pregmultiple_me_prueba.respuesta AS resp_alumno')
+            ->where('resp_pregmultiple_me_prueba.pregunta', $id)
+            ->where('resp_pregmultiple_me_prueba.alumno', $Est)
+            ->first();
+            
+        return $DesOpcPreg;
     }
 
 

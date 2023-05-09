@@ -96,6 +96,7 @@ class OpcPregMulModuloE extends Model
         return $DesOpcPreg;
     }
 
+
     public static function BuscOpcSimu($preg){
         $DesOpcPreg = OpcPregMulModuloE::where('pregunta', $preg)
         ->get();

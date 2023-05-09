@@ -19,7 +19,7 @@
         answer: "extena",
         position: 4,
         orientation: "across",
-        startx: 5,
+        startx: 3,
         starty: 10,
       },
       {
@@ -77,10 +77,10 @@
 
       {
         clue: "Bolsa de piel que contiene los testículos. ",
-        answer: "scroto",
+        answer: "escroto",
         position: 4,
         orientation: "across",
-        startx: 9,
+        startx: 8,
         starty: 5,
       },
 
@@ -185,7 +185,7 @@
         position: 3,
         orientation: "across",
         startx: 2,
-        starty: 16,
+        starty: 15,
       },
       {
         clue: "Tiene la función de conducir la señal eléctrica desde las dendritas hasta los botones sinápticos. En esos botones se liberarán los neurotransmisores para informar a la siguiente neurona.",
@@ -193,7 +193,7 @@
         position: 6,
         orientation: "across",
         startx: 6,
-        starty: 10,
+        starty: 9,
       },
       {
         clue: "Son ramificaciones que se encuentran en las porciones distales de los axones, siendo estas estructuras las que generalmente entran en contacto con otras neuronas",
@@ -210,7 +210,7 @@
         position: 4,
         orientation: "down",
         startx: 6,
-        starty: 4,
+        starty: 3,
       },
       {
         clue: "También conocido como cuerpo celular es la zona en donde se “ordenan” y “coordinan” todas las funciones de la Neurona y contiene el núcleo de la misma.",
@@ -267,8 +267,69 @@
       },
     ];
 
-    let num = Math.floor((Math.random() * (4 - 1 + 1)) + 1);
-    //let num = 5;
+    var puzzleData6 = [
+      {
+        clue: "La unidad funcional del sentido del gusto.",
+        answer: "botongustativo",
+        position: 2,
+        orientation: "across",
+        startx: 2,
+        starty: 5,
+      },
+
+      {
+        clue: "Es percibido en las regiones laterales y anteriores de la lengua, y se debe a la presencia de átomos de sodio o de potasio en la comida.",
+        answer: "salado",
+        position: 5,
+        orientation: "across",
+        startx: 10 ,
+        starty: 9,
+      },
+      {
+        clue: "Órgano musculoso de la boca y es el asiento principal del gusto y parte importantes en la fonación.",
+        answer: "lengua",
+        position: 1,
+        orientation: "down",
+        startx: 6,
+        starty: 3,
+      },
+
+      {
+        clue: "Nombre del sentido que permite percibir el sabor.",
+        answer: "gusto",
+        position: 3,
+        orientation: "down",
+        startx: 8,
+        starty: 4,
+      },
+      {
+        clue: "¿En la lengua los botones gustativos se agrupan formando?",
+        answer: "papilas",
+        position: 4,
+        orientation: "down",
+        startx: 11,
+        starty: 4,
+      },
+      {
+        clue: "Es percibido en la región lateral posterior de la lengua, y se debe a la presencia de cationes de hidrógeno en los alimentos.",
+        answer: "agrio",
+        position: 6,
+        orientation: "down",
+        startx: 13,
+        starty: 2,
+      },
+      {
+        clue: "Es el sabor que se percibe preferentemente en la punta de la lengua, y es asociado de manera natural con las fuentes de energía bioquímica, como los carbohidratos.",
+        answer: "dulce",
+        position: 7,
+        orientation: "down",
+        startx: 14,
+        starty: 8,
+      },
+    ];
+
+  let num = Math.floor((Math.random() * (6 - 1 + 1)) + 1);
+  //  let num = 2;
     switch (num) {
       case 1:
         preguntas = crucigrama1;
@@ -284,6 +345,9 @@
         break;
       case 5:
         preguntas = puzzleData5;
+        break;
+      case 6:
+        preguntas = puzzleData6;
         break;
     }
 

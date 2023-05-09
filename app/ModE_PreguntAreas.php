@@ -76,7 +76,7 @@ class ModE_PreguntAreas extends Model
 
     public static function ConsultarInfIngles($id, $ori)
     {
-        if ($ori == "Adm") {
+        if ($ori == "Admin") {
             $Pregun = ModE_PreguntAreas::join("preguntas_me", "preguntas_me.id", "preg_competencia.pregunta")
                 ->join("banco_preg_me", "banco_preg_me.id", "preg_competencia.banco")
                 ->where('sesion_area', $id)

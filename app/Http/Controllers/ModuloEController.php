@@ -938,7 +938,7 @@ class ModuloEController extends Controller
             $limit = 10;
 
             $Preguntas = \App\BancoPregModuloE::Gestion($busqueda, $actual, $limit, $componente);
-            
+
             $numero_filas = \App\BancoPregModuloE::numero_de_registros(request()->get('nombre'), $componente);
             $ListAsig = \App\AsignaturasModuloE::listar();
             $ListCom = \App\AsigComponentemduloE::Listarxasig($busqueda);
@@ -964,7 +964,7 @@ class ModuloEController extends Controller
             }
 
             $paginas = ceil($numero_filas / $limit); //$numero_filas/10;
-            return view('ModuloE.GestionBancoPreg', compact('numero_filas', 'paginas', 'actual', 'limit', 'busqueda','componente', 'Preguntas', 'select_Asig', 'select_Comp'));
+            return view('ModuloE.GestionBancoPreg', compact('numero_filas', 'paginas', 'actual', 'limit', 'busqueda', 'componente', 'Preguntas', 'select_Asig', 'select_Comp'));
         } else {
             return redirect("/")->with("error", "Su sesión ha terminado");
         }
@@ -1787,7 +1787,7 @@ class ModuloEController extends Controller
     {
         if (Auth::check()) {
             $bandera = "";
-         
+
             if (Auth::user()->tipo_usuario == "Administrador") {
             } else if (Auth::user()->tipo_usuario == "Profesor") {
             } else if (Auth::user()->tipo_usuario == "Estudiante") {
@@ -1806,7 +1806,7 @@ class ModuloEController extends Controller
     }
     public function CargarSimuContModuloE()
     {
-      
+
         if (Auth::check()) {
             $bandera = "";
             return view('ModuloE.PresentacionSimulacrosModuloE', compact('bandera'));
@@ -2034,18 +2034,19 @@ class ModuloEController extends Controller
             $partePreg = request()->get('partePreg');
 
 
-            if($partePreg=="PARTE 1"){
-                $id = \App\ModE_PreguntAreas::ConsultarPreg($IdPreg);
-                $OpcPreg = \App\PreguntasParte1::ConsultarPreg($IdPreg);
-                dd($OpcPreg);
+            if ($partePreg == "PARTE 1") {
+                $PregMult = \App\PreguntasParte1::ConsultarPregParte($IdPreg);
+                $OpciMult =  \App\PregOpcMulMe::ConsulPreg($PregMult->parte);
+                $OpciMult = $OpciMult->pregunta;
+                $RespPregMul = \App\PreguntasParte1::BuscOpcRespPruebaParte($IdPreg, Auth::user()->id);
 
-            }else{
-                  $PregMult = \App\PregOpcMulMe::ConsulPreg($IdPreg);
-            $OpciMult = \App\OpcPregMulModuloE::ConsulGrupOpcPreg($IdPreg);
-            $RespPregMul = \App\OpcPregMulModuloE::BuscOpcRespPrueba($IdPreg, Auth::user()->id); 
+            } else {
+                $PregMult = \App\PregOpcMulMe::ConsulPreg($IdPreg);
+                $OpciMult = \App\OpcPregMulModuloE::ConsulGrupOpcPreg($IdPreg);
+                $RespPregMul = \App\OpcPregMulModuloE::BuscOpcRespPrueba($IdPreg, Auth::user()->id);
             }
 
-         
+
 
             if (request()->ajax()) {
                 return response()->json([
@@ -2591,7 +2592,7 @@ class ModuloEController extends Controller
     {
         if (Auth::check()) {
             $datos = request()->all();
-            
+
             $idEval = "";
             $idEval = request()->get('preg_id');
             $ContEval = \App\BancoPregModuloE::ModifEvalFin($datos, $idEval);
@@ -3252,12 +3253,10 @@ class ModuloEController extends Controller
             $CompAre = \App\CompAreaSession::ConsultarInf($idAreaSes);
 
             if ($SesAre->area == "5") {
-                $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idAreaSes,"Admin");
+                $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idAreaSes, "Admin");
             } else {
                 $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idAreaSes);
             }
-
-
 
             $Preguntas = self::OrganizarPreguntas($PregArea, $SesAre->area);
 
@@ -3289,13 +3288,12 @@ class ModuloEController extends Controller
             $areaxsesion = \App\SessionArea::ConsultarInf($idArea);
 
             if ($areaxsesion->area == "5") {
-                $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idArea,"Est");
+                $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idArea, "Est");
             } else {
                 $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idArea);
             }
-            dd($PregArea);
-          
-        //    $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idArea);
+
+            //    $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idArea);
             if (request()->ajax()) {
                 return response()->json([
                     'PregArea' => $PregArea,
@@ -3418,7 +3416,7 @@ class ModuloEController extends Controller
             if ($area == "5") {
                 if ($Preg->tipo_pregunta == "PARTE 1") {
                     $PregMult = \App\PregOpcMulMe::ConsulPregBan($Preg->banco);
-                  
+
                     $PreEnunciado = "CUAL PALABRA CONCUERDA CON LA DESCRIPCIÓN DE LA FRASE?";
                     $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">'
                         . '<h4 class="primary">' . $PreEnunciado . '!</h4>'
@@ -3426,7 +3424,7 @@ class ModuloEController extends Controller
                         . '</div>';
 
                     $OpcPreg = \App\PreguntasParte1::ConsultarPreg($PregMult->id);
-                    
+
 
                     foreach ($OpcPreg as $opc) {
                         $Preguntas .= "<div class='row'>";
@@ -3476,8 +3474,6 @@ class ModuloEController extends Controller
                         $conse++;
                         $Preguntas .= ' </ul></div>';
                     }
-
-                   
                 }
             } else {
 

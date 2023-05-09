@@ -220,6 +220,7 @@ function startGame() {
 }
 
 const miDiv = document.getElementById("miDiv");
+let divImgResp=  document.getElementById("img-resp");
 let position = -900;
 let movement = 4;
 let RespActual;
@@ -233,6 +234,8 @@ function moveDiv() {
   if (position > window.innerWidth) {
     position = -900;
     miDiv.style.transition="";
+    divImgResp.src = "";
+
     document.getElementById("btn-respuestas").style.pointerEvents = "auto";
    
     setTimeout(()=> mostrarPregunta(),200)
@@ -242,7 +245,7 @@ function moveDiv() {
 
 function mostrarPregunta() {
   miDiv.style.transition="all 0.2s ease-in";
-  document.getElementById("img-resp").style.display="none";
+  divImgResp.style.display="none";
   document.getElementById("texto-nave").style.display="block";
 
   movement = 4;
@@ -268,7 +271,7 @@ function verfResp(resp) {
   conse++;
   document.getElementById("btn-respuestas").style.pointerEvents = "none";
 
-  let divImgResp=  document.getElementById("img-resp");
+  
   document.getElementById("texto-nave").style.display="none";
   divImgResp.style.display="block";
 

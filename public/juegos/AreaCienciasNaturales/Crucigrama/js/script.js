@@ -44,7 +44,7 @@
                 position: 6,
                 orientation: "down",
                 startx: 2,
-                starty: 4,
+                starty: 5,
             },
             {
                 clue: "En esta fase el citoplasma se divide en igual número de porciones, logrando finalmente 4 celulas hijas con la mitad de los numeros de cromosomas con que inicio la meiosis.",
@@ -222,7 +222,7 @@
         ];
 
         let num = Math.floor((Math.random() * (4 - 1 + 1)) + 1);
-        //let num = 4;
+        //let num = 1;
         switch (num) {
             case 1:
                 preguntas = crucigrama1;

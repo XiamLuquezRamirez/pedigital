@@ -44,6 +44,7 @@
             solvedToggle = false,
             z = 0;
             var encontradas = 0;
+            var palEncontradas = [];
 
         var puzInit = {
 
@@ -282,27 +283,26 @@
                     return $(this).val().toLowerCase();
                 }).get().join('');
 
-               
                 if (valToCheck === currVal) {
+
 					console.log(currVal + " " + valToCheck);
 					$('.active').addClass('done').removeClass('active');
-
                     $('.clues-active').addClass('clue-done');
 
-                    encontradas++;
+                    if (!palEncontradas.includes(valToCheck)) {
+                        encontradas++;
+                        palEncontradas.push(valToCheck); 
+                      } 
+             
 						if(encontradas == entryData.length){
 							$('#principal').fadeToggle(500);
 							setTimeout(()=>{
 							  $('#final').fadeToggle(1000);
 							}, 500)
-						  
 							document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
-						  
 							document.getElementById("texto_final").innerText = "Felicitaciones, has resuelto el crucigrama correctamente"
-			
 							var audio = new Audio('../../sounds/victory.mp3');
 							audio.play();
-						 
 						}
 
                     solved.push(valToCheck);

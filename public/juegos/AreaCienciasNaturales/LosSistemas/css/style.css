@@ -77,6 +77,7 @@ td span {
 input.done {
     font-weight: bold;
     color: green;
+    pointer-events: none;
 }
 
 .active,
