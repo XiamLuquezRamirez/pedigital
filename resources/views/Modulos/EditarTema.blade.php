@@ -259,6 +259,10 @@
                         $("#Cont_documento").hide();
                         
                     }
+
+                    if ($("#tipo_usuario").val() === "Profesor") {
+                        $.cargarDocentes();
+                    }
                 },
 
                 selCheck: function(id) {

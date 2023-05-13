@@ -1709,10 +1709,10 @@ class AsignaturaController extends Controller
             }else{
                 $Tema = \App\Temas::BuscarTema($id);
 
-                if ($Tema->docente == "" && Auth::user()->tipo_usuario == 'Profesor') {
-                    $estado = "NO";
-                    $mensaje = 'Este Tema solo puede ser eliminado desde un perfil Administrador';
-                } else {
+           //     if ($Tema->docente == "" && Auth::user()->tipo_usuario == 'Profesor') {
+           //         $estado = "NO";
+           //        $mensaje = 'Este Tema solo puede ser eliminado desde un perfil Administrador';
+          //      } else {
                     $TemaxEval = \App\Evaluacion::BusEvalxtema($id, 'C');
     
                     if ($TemaxEval->count() > 0) {
@@ -1738,7 +1738,7 @@ class AsignaturaController extends Controller
                             $mensaje = 'La Operación no pudo ser Realizada';
                         }
                     }
-                }
+//                }
             }
 
             if (request()->ajax()) {
@@ -2203,7 +2203,10 @@ class AsignaturaController extends Controller
                     if (request()->hasfile('archididatico')) {
                         $ContTemaDidac = \App\ContDidactico::GuardarContDidctico($datos);
                     }
-                    $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+                    if(Auth::user()->tipo_usuario == 'Profesor'){
+                        $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+
+                    }
 
                     if ($ContTema) {
                         $Log = \App\Log::Guardar('Tema Guardado', $Tem->id);
@@ -2233,7 +2236,10 @@ class AsignaturaController extends Controller
                     }
 
                     $ContTemaDidac = \App\ContDidactico::GuardarContDidctico($datos);
-                    $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+                    if(Auth::user()->tipo_usuario == 'Profesor'){
+                        $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+
+                    }
 
                     if ($ContTemaDidac) {
                         $Log = \App\Log::Guardar('Tema Guardado', $Tem->id);
@@ -2260,7 +2266,10 @@ class AsignaturaController extends Controller
                     }
                     $datos['archi'] = $arch;
                     $ContTemaArc = \App\SubirArcTema::GuardarArchCont($datos);
-                    $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+                    if(Auth::user()->tipo_usuario == 'Profesor'){
+                        $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+
+                    }
 
                     if ($ContTemaArc) {
                         $Log = \App\Log::Guardar('Tema Guardado', $Tem->id);
@@ -2277,7 +2286,10 @@ class AsignaturaController extends Controller
                     $datos['tema_id'] = $Tem->id;
 
                     $ContTemaLink = \App\DesarrolloLink::Guardar($datos);
-                    $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+                    if(Auth::user()->tipo_usuario == 'Profesor'){
+                        $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+
+                    }
 
                     if ($ContTemaLink) {
                         $Log = \App\Log::Guardar('Tema Guardado', $Tem->id);
@@ -2606,7 +2618,10 @@ class AsignaturaController extends Controller
                     $datos['archi'] = $arch;
                     $datos['TituAnim'] = $archTit;
                 }
-                $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+                if(Auth::user()->tipo_usuario == 'Profesor'){
+                    $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+
+                }
 
                 if ($Tem) {
                     $ContTema = \App\DesarrollTema::Modificar($datos, $id);
@@ -2628,7 +2643,10 @@ class AsignaturaController extends Controller
             } else if ($datos['tip_contenido'] === "CONTENIDO DIDACTICO") {
 
                 $Tem = \App\Temas::Modificar($datos, $id);
-                $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+                if(Auth::user()->tipo_usuario == 'Profesor'){
+                    $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+
+                }
 
                 if ($Tem) {
                     $datos['tema_id'] = $id;
@@ -2660,7 +2678,10 @@ class AsignaturaController extends Controller
                 }
             } else if ($datos['tip_contenido'] === "ARCHIVO") {
                 $Tem = \App\Temas::Modificar($datos, $id);
-                $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+                if(Auth::user()->tipo_usuario == 'Profesor'){
+                    $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+
+                }
 
                 if (request()->hasfile('archi')) {
 
@@ -2684,7 +2705,10 @@ class AsignaturaController extends Controller
                 }
             } else if ($datos['tip_contenido'] === "LINK") {
                 $Tem = \App\Temas::Modificar($datos, $id);
-                $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+                if(Auth::user()->tipo_usuario == 'Profesor'){
+                    $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
+
+                }
 
                 if ($Tem) {
 

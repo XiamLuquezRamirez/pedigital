@@ -1097,7 +1097,7 @@ class ModulosController extends Controller
             }
 
             $numero_filas = \App\TemasModulos::numero_de_registros(request()->get('txtbusqueda'), $nombre);
-            $paginas = ceil($numero_filas / $limit); //$numero_filas/10;
+            $paginas = ceil($numero_filas->count() / $limit); //$numero_filas/10;
 
             return view('Modulos.GestionTemas', compact('bandera', 'numero_filas', 'paginas', 'actual', 'limit', 'busqueda', 'nombre', 'Temas', 'nombre', 'select_Asig', 'select_docente'));
         } else {
@@ -1561,10 +1561,10 @@ class ModulosController extends Controller
             }else{
 
             $Tema = \App\TemasModulos::BuscarTema($id);
-            if ($Tema->docente == "" && Auth::user()->tipo_usuario == 'Profesor') {
-                $estado = "NO";
-                $mensaje = 'Este Tema solo puede ser eliminado desde un perfil Administrador';
-            } else {
+          //  if ($Tema->docente == "" && Auth::user()->tipo_usuario == 'Profesor') {
+          //      $estado = "NO";
+         //       $mensaje = 'Este Tema solo puede ser eliminado desde un perfil Administrador';
+          //  } else {
 
                 $TemaxTema = \App\Evaluacion::BusEvalxtema($id, 'M');
 
@@ -1589,7 +1589,7 @@ class ModulosController extends Controller
                         $mensaje = 'La Operación no pudo ser Realizada';
                     }
                 }
-            }
+         //   }
             }
 
 

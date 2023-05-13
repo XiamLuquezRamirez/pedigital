@@ -262,6 +262,7 @@
                         $("#rowtit").addClass("col-md-9");
 
                     }
+                    $.cargarDocentes();
                 },
 
                 selCheck: function(id) {

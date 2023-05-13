@@ -190,7 +190,7 @@ class LibroCalificaciones extends Model
             $join->on('alumnos.usuario_alumno', '=', 'libro_calificaciones.alumno')
                 ->where('libro_calificaciones.evaluacion', '=', $InfEval->id);
         })
-            ->where('alumnos.grupo', Session::get('GrupAct'))
+            ->where('alumnos.grupo', Session::get('GrupActual'))
             ->where('alumnos.grado_alumno', Session::get('GRADO'))
             ->where('alumnos.jornada', Session::get('JORDOCE'))
             ->select('alumnos.nombre_alumno', 'alumnos.apellido_alumno', 'alumnos.grado_alumno', 'libro_calificaciones.*')

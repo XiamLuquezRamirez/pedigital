@@ -182,11 +182,11 @@
     "icono": "iconos/Magnitudes.png"
   },
   {
-    "grado": "3",
-    "juego": "Sopa de letra",
-    "ruta": "AreaCienciasNaturales/SopadeLetra/index.html?Area=CN",
+    "grado": "8",
+    "juego": "Ciclos",
+    "ruta": "AreaCienciasNaturales/Ciclos/index.html?Area=CN",
     "area": "CN",
-    "icono": "iconos/SopadeLetra.png"
+    "icono": "iconos/Ciclos.png"
   },
   {
     "grado": "8",
@@ -217,11 +217,11 @@
     "icono": "iconos/PisosTermicos.png"
   },
   {
-    "grado": "3",
-    "juego": "Mi Geografia",
-    "ruta": "AreaCienciasSociales/MiGeografia/index.html",
+    "grado": "8",
+    "juego": "Caja Sorpresa",
+    "ruta": "AreaCienciasSociales/Cajasorpresa/index.html",
     "area": "CS",
-    "icono": "iconos/MiGeografia.png"
+    "icono": "iconos/Cajasorpresa.png"
   },
   {
     "grado": "3",

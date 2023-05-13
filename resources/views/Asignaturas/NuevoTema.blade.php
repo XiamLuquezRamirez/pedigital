@@ -51,7 +51,10 @@
                                 <p class="px-1"></p>
 
                                 <!--begin::Form-->
-                                @include('Asignaturas.FormTemas', ['url' => '/Asignaturas/guardarTemas', 'method' => 'post'])
+                                @include('Asignaturas.FormTemas', [
+                                    'url' => '/Asignaturas/guardarTemas',
+                                    'method' => 'post',
+                                ])
                                 <!--end::Form-->
                                 <p class="px-1"></p>
                             </div>
@@ -192,10 +195,10 @@
                         keyboard: false
                     });
 
-                    var Tabla="";
-                    var j=1;
+                    var Tabla = "";
+                    var j = 1;
 
-                    var id= $("#idAsig").val();
+                    var id = $("#idAsig").val();
                     var form = $("#formAuxiliarCargDocentes");
                     $("#idAsig2").remove();
                     form.append("<input type='hidden' name='id2' id='idAsig2' value='" + id + "'>");
@@ -213,24 +216,37 @@
                                         "' id='Alumno" + item.id + "'>";
                                     Tabla += "<td class='text-truncate'>" + j +
                                         "</td> ";
-                                    Tabla += "<td class='text-truncate'>" + item.ndocente+ "</td> ";
+                                    Tabla += "<td class='text-truncate'>" + item
+                                        .ndocente + "</td> ";
                                     Tabla +=
-                                        "<input type='hidden' name='idDocente[]' value='" + item.usuario_profesor + "'>"+
-                                        "<input type='hidden' name='grupo[]' value='" + item.grupo + "'>"+
-                                        "<input type='hidden' name='jornada[]' value='" + item.jornada + "'>";
+                                        "<input type='hidden' name='idDocente[]' value='" +
+                                        item.usuario_profesor + "'>" +
+                                        "<input type='hidden' name='grupo[]' value='" +
+                                        item.grupo + "'>" +
+                                        "<input type='hidden' name='jornada[]' value='" +
+                                        item.jornada + "'>";
 
-                                        if($("#id_usuario").val()==item.usuario_profesor){
-                                            Tabla +=   "<input type='hidden' id='DoceSel" + j +"' name='DoceSel[]' value='si'>"+
-                                            "<td class='text-truncate text-center'>"+
-                                            "<input type='checkbox' onclick='$.SelDocente(" + j + ");' id='CheckSeleccion" + j +"' style='cursor: pointer;' disabled checked name='checkDocenteSel' value=''>";
-                                        }else{
-                                            Tabla +=    "<input type='hidden' id='DoceSel" + j +"' name='DoceSel[]' value='no'>"+
-                                            "<td class='text-truncate text-center'>"+
-                                            "<input type='checkbox' onclick='$.SelDocente(" + j + ");' id='CheckSeleccion" + j +"' style='cursor: pointer;' name='checkDocenteSel' value=''>";
-                                        }
-                                  
+                                    if ($("#id_usuario").val() == item
+                                        .usuario_profesor) {
+                                        Tabla +=
+                                            "<input type='hidden' id='DoceSel" + j +
+                                            "' name='DoceSel[]' value='si'>" +
+                                            "<td class='text-truncate text-center'>" +
+                                            "<input type='checkbox' onclick='$.SelDocente(" +
+                                            j + ");' id='CheckSeleccion" + j +
+                                            "' style='cursor: pointer;' disabled checked name='checkDocenteSel' value=''>";
+                                    } else {
+                                        Tabla +=
+                                            "<input type='hidden' id='DoceSel" + j +
+                                            "' name='DoceSel[]' value='no'>" +
+                                            "<td class='text-truncate text-center'>" +
+                                            "<input type='checkbox' onclick='$.SelDocente(" +
+                                            j + ");' id='CheckSeleccion" + j +
+                                            "' style='cursor: pointer;' name='checkDocenteSel' value=''>";
+                                    }
 
-                                        Tabla += "</td> ";
+
+                                    Tabla += "</td> ";
                                     Tabla += " </tr>";
                                     j++;
                                 });
@@ -453,6 +469,10 @@
                         $("#rowtit").removeClass("col-md-7");
                         $("#rowtit").addClass("col-md-9");
                     }
+                    if ($("#tipo_usuario").val() === "Profesor") {
+                        $.cargarDocentes();
+                    }
+
                 },
                 selCheck: function(id) {
                     var nid = id.substr(-2);
