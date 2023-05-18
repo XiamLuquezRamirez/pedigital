@@ -175,11 +175,11 @@
     "icono": "iconos/LosSistemas.png"
   },
   {
-    "grado": "3",
-    "juego": "Magnitudes",
-    "ruta": "AreaCienciasNaturales/Magnitudes/index.html",
+    "grado": "8",
+    "juego": "Funciones Quimicas",
+    "ruta": "AreaCienciasNaturales/FuncionesQuimicas/index.html",
     "area": "CN",
-    "icono": "iconos/Magnitudes.png"
+    "icono": "iconos/FuncionesQuimicas.png"
   },
   {
     "grado": "3",
@@ -210,11 +210,11 @@
     "icono": "iconos/Angulos.png"
   },
   {
-    "grado": "3",
-    "juego": "Pisos Termicos",
-    "ruta": "AreaCienciasSociales/PisosTermicos/index.html",
+    "grado": "8",
+    "juego": "Independencia",
+    "ruta": "AreaCienciasSociales/Independencia/index.html",
     "area": "CS",
-    "icono": "iconos/PisosTermicos.png"
+    "icono": "iconos/Independencia.png"
   },
   {
     "grado": "3",
@@ -231,11 +231,11 @@
     "icono": "iconos/Ubicalo.png"
   },
   {
-    "grado": "3",
+    "grado": "8",
     "juego": "Adivina la Palabra",
-    "ruta": "AreaLenguaje/AdivinalaPalabra/index.html",
+    "ruta": "AreaLenguaje/Preposiciones/index.html",
     "area": "LC",
-    "icono": "iconos/AdivinalaPalabra.png"
+    "icono": "iconos/Preposiciones.png"
   },
   {
     "grado": "3",
@@ -245,18 +245,18 @@
     "icono": "iconos/OrdenayGanaLenguaje.png"
   },
   {
-    "grado": "3",
-    "juego": "Letter's Soup",
-    "ruta": "AreaLenguaje/SopadeLetraTercero/index.html?Area=IG",
+    "grado": "8",
+    "juego": "Prepositions",
+    "ruta": "AreaLenguaje/Prepositions/index.html?Area=IG",
     "area": "LC",
-    "icono": "iconos/SopadeLetraTercero.png"
+    "icono": "iconos/Prepositions.png"
   },
   {
-    "grado": "4",
-    "juego": "EstadoMateria",
-    "ruta": "AreaCienciasNaturales/EstadoMateria/index.html",
+    "grado": "9",
+    "juego": "ADN",
+    "ruta": "AreaCienciasNaturales/ADN/index.html",
     "area": "CN",
-    "icono": "iconos/EstadoMateria.png"
+    "icono": "iconos/ADN.png"
   },
   {
     "grado": "4",
@@ -315,18 +315,18 @@
     "icono": "iconos/MiGeografia.png"
   },
   {
-    "grado": "4",
-    "juego": "Acentúalo",
-    "ruta": "AreaLenguaje/Acentualo/index.html",
+    "grado": "9",
+    "juego": "Tiempos Verbales",
+    "ruta": "AreaLenguaje/TiemposVerbales/index.html",
     "area": "LC",
-    "icono": "iconos/Acentualo.png"
+    "icono": "iconos/TiemposVerbales.png"
   },
   {
-    "grado": "4",
-    "juego": "Ortografia challenge",
-    "ruta": "AreaLenguaje/OrtografiaChallenge/index.html",
+    "grado": "9",
+    "juego": "Escalera",
+    "ruta": "AreaLenguaje/Escalera/index.html",
     "area": "LC",
-    "icono": "iconos/OrtografiaChallenge.png"
+    "icono": "iconos/Escalera.png"
   },
   {
     "grado": "4",
