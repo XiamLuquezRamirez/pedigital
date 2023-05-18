@@ -203,14 +203,16 @@
                         }
                     });
 
-
+                    PorcTot=0;
                       
                 $('.PorcPer').each(function() {
                     PorcTot = PorcTot + parseInt($(this).val());
                 });
 
-                PorcTot = PorcTot + parseInt(porc);
+             
 
+                PorcTot = PorcTot + parseInt(porc);
+                console.log(PorcTot);
                 if (PorcTot > 100) {
                     Swal.fire('Gestionar Grados!',
                         'El porcentaje no puede ser mayor a 100%, Verifique...',

@@ -224,11 +224,11 @@
     "icono": "iconos/Cajasorpresa.png"
   },
   {
-    "grado": "3",
-    "juego": "Ubicalo",
-    "ruta": "AreaCienciasSociales/UbicaloTro/index.html",
+    "grado": "8",
+    "juego": "La Revolucion",
+    "ruta": "AreaCienciasSociales/LaRevolucion/index.html",
     "area": "CS",
-    "icono": "iconos/Ubicalo.png"
+    "icono": "iconos/LaRevolucion.png"
   },
   {
     "grado": "3",
@@ -238,11 +238,11 @@
     "icono": "iconos/AdivinalaPalabra.png"
   },
   {
-    "grado": "3",
-    "juego": "Ordena y Gana",
-    "ruta": "AreaLenguaje/OrdenayGanaLenguaje/index.html",
+    "grado": "8",
+    "juego": "Literatura Precolombina",
+    "ruta": "AreaLenguaje/LiteraturaPrecolombina/index.html",
     "area": "LC",
-    "icono": "iconos/OrdenayGanaLenguaje.png"
+    "icono": "iconos/LiteraturaPrecolombina.png"
   },
   {
     "grado": "3",

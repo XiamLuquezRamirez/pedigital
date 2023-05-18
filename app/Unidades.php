@@ -58,7 +58,7 @@ class Unidades extends Model
     {
         $VerfDel = Unidades::where('id', $id)
         ->where('id', '>=', 1)
-        ->where('id', '<=', 443)
+        ->where('id', '<=', 430)
         ->get();
        
         return $VerfDel;

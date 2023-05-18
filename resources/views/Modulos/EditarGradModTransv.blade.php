@@ -304,6 +304,8 @@
                         }
                     });
 
+                    PorcTot=0;
+
 
                     $('.PorcPer').each(function() {
                         PorcTot = PorcTot + parseInt($(this).val());

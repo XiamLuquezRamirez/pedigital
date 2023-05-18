@@ -299,7 +299,9 @@ class GradosModulos extends Model
     public static function ListarxAsig($idAsig)
     {
         $Grado = GradosModulos::where('modulo', $idAsig)
-            ->get();
+        ->where('estado_modulo', 'ACTIVO')
+        ->get();
+        
         return $Grado;
     }
 
