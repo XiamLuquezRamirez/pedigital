@@ -207,14 +207,14 @@ function resultadoFinal(opc) {
     document.getElementById("final").style.backgroundImage =
       "url(../../images/ciencia/derrota.gif)";
       document.getElementById("texto_final").innerText =
-      "Lo siento no lograste armar "+nombreSistema;
+      "Lo siento no lograste Armar El "+nombreSistema;
   } else {
     document.getElementById("final").style.backgroundImage =
       "url(../../images/ciencia/victoria.gif)";
     var audio = new Audio("../../sounds/victory.mp3");
     audio.play();
     document.getElementById("texto_final").innerText =
-    "Felicitaciones Lograste armar "+nombreSistema;
+    "Felicitaciones Lograste Armar El "+nombreSistema;
   }
 
 }
@@ -376,10 +376,7 @@ window.onload = function(){
   nombreSistema = sistemas[indice].nombre;
   imgSistema = sistemas[indice].img;
   partesR = sistemas[indice].partes;
-  document.getElementById("tipo").innerHTML="Arma el "+ nombreSistema;
+  document.getElementById("tipo").innerHTML="Armar El "+ nombreSistema;
 	rompecabezas._mostrar();
 }
-
-
-
 

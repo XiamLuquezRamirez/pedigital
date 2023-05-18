@@ -1064,8 +1064,10 @@
                     $("#Pregunta").remove();
                     $("#TipPregunta").remove();
                     $("#partePreg").remove();
-                    form.append("<input type='hidden' name='Pregunta' id='Pregunta' value='" + Preg + "'>");
-                    form.append("<input type='hidden' name='partePreg' id='parte' value='" + parte + "'>");
+                    form.append("<input type='hidden' name='Pregunta' id='Pregunta' value='" + Preg +
+                        "'>");
+                    form.append("<input type='hidden' name='partePreg' id='partePreg' value='" + parte +
+                        "'>");
 
                     var url = form.attr("action");
                     var datos = form.serialize();
@@ -1084,30 +1086,83 @@
                                 .pregunta + '</div>';
                             opciones = '';
                             var l = 1;
-                            $.each(respuesta.OpciMult, function(k, itemo) {
 
-                                if ($.trim(itemo.pregunta) === $.trim(respuesta
-                                        .PregMult.id)) {
-                                    if (respuesta.RespPregMul) {
-                                        opciones += '<fieldset>';
-                                        if ($.trim(respuesta.RespPregMul
-                                                .respuesta) === $.trim(itemo.id)) {
-                                            opciones +=
-                                                '<input type="hidden" id="OpcionSel_' +
-                                                l +
-                                                '" class="OpcionSel"  name="OpcionSel[]" value="si"/>';
-                                            opciones +=
-                                                ' <input type="hidden" id=""  name="Opciones[]" value="' +
-                                                itemo.id + '"/>';
-                                            opciones +=
-                                                '<input onclick="$.RespMulPreg(this.id)" id="' +
-                                                l +
-                                                '" class="checksel" checked type="checkbox" >';
+                            if (parte == "PARTE 1") {
+                                console.log(respuesta.OpciMult);
+                                const itemsOpciones = respuesta.OpciMult.split(",");
+                                opciones += '<fieldset>' ;
+                                    //custom-control-input bg-succes
+                                for (let i = 0; i < itemsOpciones.length; i++) {    
+                                    if(respuesta.RespPregMul){
+                                        if(itemsOpciones[i] == respuesta.RespPregMul.resp_alumno){
+                                            opciones +=  '<div class="d-inline-block custom-control custom-radio mr-1">';
+                                                opciones += '<input type="hidden" id="OpcionSel_' + i +'" class="OpcionSel"  name="OpcionSel[]" value="si"/>';
+                                                opciones += '<input type="hidden" id=""  name="Opciones[]" value="' + itemsOpciones[i] + '"/>';
+                                                opciones += '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)" checked  id="'+i+'">' +
+                                            '  <label  for="colorCheck2">'+itemsOpciones[i]+'</label>' +
+                                            ' </div>';
+                                        }else{
+                                            opciones +=  '<div class="d-inline-block custom-control custom-radio mr-1">';
+                                                opciones += '<input type="hidden" id="OpcionSel_' + i +'" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
+                                                opciones += '<input type="hidden" id=""  name="Opciones[]" value="' + itemsOpciones[i] + '"/>';
+                                                opciones += '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="'+i+'">' +
+                                            '  <label  for="colorCheck2">'+itemsOpciones[i]+'</label>' +
+                                            ' </div>';
+                                        }
+                                    }                       
+                                  
+                           
+                                }
+                                opciones +=  ' </fieldset>';
+                            } else {
+                                $.each(respuesta.OpciMult, function(k, itemo) {
+
+                                    if ($.trim(itemo.pregunta) === $.trim(respuesta
+                                            .PregMult.id)) {
+                                        if (respuesta.RespPregMul) {
+                                            opciones += '<fieldset>';
+                                            if ($.trim(respuesta.RespPregMul
+                                                    .respuesta) === $.trim(itemo
+                                                .id)) {
+                                                opciones +=
+                                                    '<input type="hidden" id="OpcionSel_' +
+                                                    l +
+                                                    '" class="OpcionSel"  name="OpcionSel[]" value="si"/>';
+                                                opciones +=
+                                                    ' <input type="hidden" id=""  name="Opciones[]" value="' +
+                                                    itemo.id + '"/>';
+                                                opciones +=
+                                                    '<input onclick="$.RespMulPreg(this.id)" id="' +
+                                                    l +
+                                                    '" class="checksel" checked type="checkbox" >';
+                                            } else {
+                                                opciones +=
+                                                    '<input type="hidden" id="OpcionSel_' +
+                                                    l +
+                                                    '" class="OpcionSel"  name="OpcionSel[]" value="no"/>';
+                                                opciones +=
+                                                    ' <input type="hidden" id=""  name="Opciones[]" value="' +
+                                                    itemo.id + '"/>';
+                                                opciones +=
+                                                    '<input onclick="$.RespMulPreg(this.id)" id="' +
+                                                    l +
+                                                    '" class="checksel" type="checkbox" >';
+                                            }
+
+
+                                            opciones += ' <label for="input-15"> ' +
+                                                itemo
+                                                .opciones +
+                                                '</label>' +
+                                                '</fieldset>';
+                                            l++;
                                         } else {
                                             opciones +=
+                                                '<fieldset>';
+                                            opciones +=
                                                 '<input type="hidden" id="OpcionSel_' +
                                                 l +
-                                                '" class="OpcionSel"  name="OpcionSel[]" value="no"/>';
+                                                '" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
                                             opciones +=
                                                 ' <input type="hidden" id=""  name="Opciones[]" value="' +
                                                 itemo.id + '"/>';
@@ -1115,42 +1170,21 @@
                                                 '<input onclick="$.RespMulPreg(this.id)" id="' +
                                                 l +
                                                 '" class="checksel" type="checkbox" >';
+
+                                            opciones +=
+                                                ' <label for="input-15"> ' +
+                                                itemo
+                                                .opciones +
+                                                '</label>' +
+                                                '</fieldset>';
+                                            l++;
                                         }
 
-
-                                        opciones += ' <label for="input-15"> ' +
-                                            itemo
-                                            .opciones +
-                                            '</label>' +
-                                            '</fieldset>';
-                                        l++;
-                                    } else {
-                                        opciones +=
-                                            '<fieldset>';
-                                        opciones +=
-                                            '<input type="hidden" id="OpcionSel_' +
-                                            l +
-                                            '" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
-                                        opciones +=
-                                            ' <input type="hidden" id=""  name="Opciones[]" value="' +
-                                            itemo.id + '"/>';
-                                        opciones +=
-                                            '<input onclick="$.RespMulPreg(this.id)" id="' +
-                                            l +
-                                            '" class="checksel" type="checkbox" >';
-
-                                        opciones +=
-                                            ' <label for="input-15"> ' +
-                                            itemo
-                                            .opciones +
-                                            '</label>' +
-                                            '</fieldset>';
-                                        l++;
                                     }
 
-                                }
+                                });
+                            }
 
-                            });
 
                             $("#Pregunta" + id).html(Pregunta + opciones);
 
@@ -1178,6 +1212,7 @@
                     var token = $("#token").val();
                     var Preg = $("#id-pregunta" + id).val();
                     var tiempo = $("#tiempoSesiom").val();
+                    var parte = $("#parte" + id).val();
                     var prgAct = id + 1;
                     var PosPreg = npreg;
 
@@ -1211,11 +1246,14 @@
                     $("#prgAct").remove();
                     $("#PosPreg").remove();
                     $("#CantiPreg").remove();
+                    $("#partePreg").remove();
 
                     $("#Tiempo").remove();
                     //    clearInterval(xtiempo);
                     xtiempo = null;
                     form.append("<input type='hidden' name='Pregunta' id='Pregunta' value='" + Preg +
+                        "'>");
+                    form.append("<input type='hidden' name='partePreg' id='partePreg' value='" + parte +
                         "'>");
                     form.append("<input type='hidden' name='CantiPreg' id='CantiPreg' value='" +
                         CantiPreg + "'>");
@@ -1312,7 +1350,7 @@
                             '</ul>' +
                             '</div>' +
                             '<div class="card-body">';
-                            
+
                         if (item.estadoarea == "EN PROCESO") {
                             contenido += '<button type="button" onclick="$.MostrarPrueba(' +
                                 item.idSesion +
@@ -1819,9 +1857,7 @@
                                 '        <form method="post" action="{{ url('/') }}/ModuloE/RespSimulacro" id="Evaluacion" class="number-tab-stepsPreg wizard-circle">';
                             var Preg = 1;
                             var ConsPre = 0;
-                            
 
-                           
                             $.each(respuesta.PregArea, function(i, item) {
 
                                 contenido += ' <h6></h6>' +
@@ -1829,11 +1865,14 @@
                                     '              <div class="row p-1">' +
                                     '   <div  style="width: 100%" class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1" >';
 
-                                    contenido += ' <div class="row border-bottom-blue-grey"><div class="col-md-12 pb-1"><h6>Enunciado:</h6><label id="enunciado">' + item.enunciado + '</label></div></div>';
+                                contenido +=
+                                    ' <div class="row border-bottom-blue-grey"><div class="col-md-12 pb-1"><h6>Enunciado:</h6><label id="enunciado">' +
+                                    item.enunciado + '</label></div></div>';
 
-                                    contenido += ' <div class="row pt-1" >' +
+                                contenido += ' <div class="row pt-1" >' +
                                     '<input type="hidden" id="id-pregunta' +
-                                    ConsPre + '"  value="' + item.id + '" />' +
+                                    ConsPre + '"  value="' + item.pregunta +
+                                    '" />' +
                                     '<input type="hidden" id="id-banco' +
                                     ConsPre + '"  value="' + item.banco + '" />' +
                                     '<input type="hidden" id="parte' +

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Input;
 <input type="hidden" class="form-control" id="tema_periodo" value="{{ $Tema->periodo }}" />
 <input type="hidden" class="form-control" id="tema_unidad" value="{{ $Tema->unidad }}" />
 <input type="hidden" class="form-control" id="id_usuario" value="{{ Auth::user()->id }}" />
+<input type="hidden" class="form-control" id="tipo_usuario" value="{{ Auth::user()->tipo_usuario }}" />
+
 
 <h4 class="form-section"><i class="ft-grid"></i> Datos del Tema</h4>
 
@@ -106,6 +108,7 @@ use Illuminate\Support\Facades\Input;
             </select>
         </div>
     </div>
+    @if(Auth::user()->tipo_usuario=="Profesor")
     <div class="col-md-4 text-right">
         <div class="form-group">
            <label>&nbsp;</label>
@@ -114,6 +117,7 @@ use Illuminate\Support\Facades\Input;
            </div>
         </div>
     </div>
+    @endif
 </div>
 
 <div class="row">

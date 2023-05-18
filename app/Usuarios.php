@@ -235,7 +235,7 @@ class Usuarios extends Model
 
             $alumnos = Usuarios::where('estado_usuario', 'ACTIVO')
                 ->join('alumnos', 'users.id', 'alumnos.usuario_alumno')
-                ->where('alumnos.grupo', Session::get('GrupAct'))
+                ->where('alumnos.grupo', Session::get('GrupActual'))
                 ->where('alumnos.grado_alumno', Session::get('GRADO'))
                 ->where('alumnos.jornada', Session::get('JORDOCE'))
                 ->where('tipo_usuario', 'Estudiante')

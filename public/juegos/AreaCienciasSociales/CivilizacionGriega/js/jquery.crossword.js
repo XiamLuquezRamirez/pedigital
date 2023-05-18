@@ -44,6 +44,7 @@
             solvedToggle = false,
             z = 0;
             var encontradas = 0;
+            var palEncontradas = [];
 
         var puzInit = {
 
@@ -289,7 +290,10 @@
 
                     $('.clues-active').addClass('clue-done');
 
-                    encontradas++;
+                    if (!palEncontradas.includes(valToCheck)) {
+                        encontradas++;
+                        palEncontradas.push(valToCheck); 
+                      } 
 						if(encontradas == entryData.length){
 							$('#principal').fadeToggle(500);
 							setTimeout(()=>{

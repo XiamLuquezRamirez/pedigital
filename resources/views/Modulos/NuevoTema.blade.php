@@ -483,6 +483,9 @@
                         $("#rowtit").removeClass("col-md-7");
                         $("#rowtit").addClass("col-md-9");
                     }
+                    if ($("#tipo_usuario").val() === "Profesor") {
+                        $.cargarDocentes();
+                    }
                 },
               selCheck: function(id) {
                     var nid = id.substr(-2);

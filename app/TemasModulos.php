@@ -442,7 +442,7 @@ class TemasModulos extends Model
                                 ->orWhere('unidades_modulos.nom_unidad', 'LIKE', '%' . $busqueda . '%')
                                 ->orWhere('modulos_transversales.nombre', 'LIKE', '%' . $busqueda . '%');
                         })
-                        ->select('grados_modulos.*', 'modulos_transversales.nombre', 'grados_modulos.grado_modulo', 'unidades_modulos.nom_unidad', 'unidades_modulos.des_unidad')
+                        ->select('contenido_modulo.*', 'modulos_transversales.nombre', 'grados_modulos.grado_modulo', 'unidades_modulos.nom_unidad', 'unidades_modulos.des_unidad')
                         ->orderBy('modulos_transversales.nombre', 'ASC');
                 }
             } else {
@@ -479,7 +479,7 @@ class TemasModulos extends Model
                                 ->orWhere('unidades_modulos.nom_unidad', 'LIKE', '%' . $busqueda . '%')
                                 ->orWhere('modulos_transversales.nombre', 'LIKE', '%' . $busqueda . '%');
                         })
-                        ->select('grados_modulos.*', 'modulos_transversales.nombre', 'grados_modulos.grado_modulo', 'unidades_modulos.nom_unidad', 'unidades_modulos.des_unidad')
+                        ->select('contenido_modulo.*', 'modulos_transversales.nombre', 'grados_modulos.grado_modulo', 'unidades_modulos.nom_unidad', 'unidades_modulos.des_unidad')
                         ->orderBy('modulos_transversales.nombre', 'ASC');
                 }
             }
@@ -539,7 +539,8 @@ class TemasModulos extends Model
                 }
             }
         }
-        return $respuesta->count();
+
+        return $respuesta->get();
     }
 
     public static function BuscarTema($id)

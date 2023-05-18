@@ -180,12 +180,11 @@ class Profesores extends Model
 
     public static function alumnos()
     {
-
         return Modulos::leftJoin('alumnos', 'alumnos.grado_alumno', 'modulos.grado_modulo')
             ->leftJoin('asignaturas', 'asignaturas.id', 'modulos.asignatura')
             ->where('modulos.estado_modulo', 'ACTIVO')
             ->where('alumnos.estado_alumno', 'ACTIVO')
-            ->where('alumnos.grupo', Session::get('GrupAct'))
+            ->where('alumnos.grupo', Session::get('GrupActual'))
             ->where('alumnos.jornada', Session::get('JORDOCE'))
             ->where('modulos.id', Session::get('IDMODULO'))
             ->select(
@@ -201,7 +200,7 @@ class Profesores extends Model
             ->leftJoin('modulos_transversales', 'modulos_transversales.id', 'grados_modulos.modulo')
             ->where('grados_modulos.estado_modulo', 'ACTIVO')
             ->where('alumnos.estado_alumno', 'ACTIVO')
-            ->where('alumnos.grupo', Session::get('GrupAct'))
+            ->where('alumnos.grupo', Session::get('GrupActual'))
             ->where('alumnos.jornada', Session::get('JORDOCE'))
             ->where('grados_modulos.id', Session::get('IDMODULO'))
             ->select(

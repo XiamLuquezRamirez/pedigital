@@ -216,7 +216,7 @@ Route::post('/Laboratorios/EliminarEval', 'LaboratoriosController@EliminarEval')
 Route::post('/cambiar/Periodos', 'AsignaturaController@CambiarPeriodo');
 Route::post('/cambiar/Periodos2', 'AsignaturaController@CambiarPeriodo2');
 Route::post('/cambiar/Unidad', 'AsignaturaController@CambiarUnidad');
-Route::post('/cambiar/docentes', 'AsignaturaController@cambiarCompDocentes');
+Route::post('/cambiar/docentesComp', 'AsignaturaController@cambiarCompDocentes');
 Route::post('/cambiar/docentesEdit', 'AsignaturaController@cambiarCompDocentesEdit');
 Route::post('/cambiar/Temas', 'AsignaturaController@CambiarTema');
 Route::post('/cambiar/Evalulacione', 'AsignaturaController@CambiarEvaluaciones');

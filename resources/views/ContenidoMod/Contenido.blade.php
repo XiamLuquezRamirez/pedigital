@@ -722,7 +722,7 @@
                                                 contenido +=
                                                     "<button type='button' valorid='" +
                                                     item.id + "' id='Habi" + item.id +
-                                                    "' onclick='$.HabTema(this.id);'style='display:none;' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Desabilitado</button>";
+                                                    "' onclick='$.HabTema(this.id);'style='display:none;' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Deshabilitado</button>";
                                                 contenido +=
                                                     "<button type='button' valorid='" +
                                                     item.id + "' id='Desa" + item.id +
@@ -731,7 +731,7 @@
                                                 contenido +=
                                                     "<button type='button' valorid='" +
                                                     item.id + "' id='Habi" + item.id +
-                                                    "' onclick='$.HabTema(this.id);' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Desabilitado</button>";
+                                                    "' onclick='$.HabTema(this.id);' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Deshabilitado</button>";
                                                 contenido +=
                                                     "<button type='button' valorid='" +
                                                     item.id + "' id='Desa" + item.id +
@@ -809,7 +809,7 @@
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Habi" + item.id +
-                                                "' onclick='$.HabTema(this.id);'style='display:none;' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Desabilitado</button>";
+                                                "' onclick='$.HabTema(this.id);'style='display:none;' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Deshabilitado</button>";
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Desa" + item.id +
@@ -818,7 +818,7 @@
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Habi" + item.id +
-                                                "' onclick='$.HabTema(this.id);' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Desabilitado</button>";
+                                                "' onclick='$.HabTema(this.id);' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Deshabilitado</button>";
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Desa" + item.id +
@@ -898,7 +898,7 @@
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Habi" + item.id +
-                                                "' onclick='$.HabTema(this.id);'style='display:none;' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Desabilitado</button>";
+                                                "' onclick='$.HabTema(this.id);'style='display:none;' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Deshabilitado</button>";
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Desa" + item.id +
@@ -907,7 +907,7 @@
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Habi" + item.id +
-                                                "' onclick='$.HabTema(this.id);' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Desabilitado</button>";
+                                                "' onclick='$.HabTema(this.id);' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Deshabilitado</button>";
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Desa" + item.id +
@@ -983,7 +983,7 @@
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Habi" + item.id +
-                                                "' onclick='$.HabTema(this.id);'style='display:none;' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Desabilitado</button>";
+                                                "' onclick='$.HabTema(this.id);'style='display:none;' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Deshabilitado</button>";
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Desa" + item.id +
@@ -992,7 +992,7 @@
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Habi" + item.id +
-                                                "' onclick='$.HabTema(this.id);' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Desabilitado</button>";
+                                                "' onclick='$.HabTema(this.id);' class='btn btn-danger btn-sm'><i class='fa fa-lock'></i> Deshabilitado</button>";
                                             contenido +=
                                                 "<button type='button' valorid='" +
                                                 item.id + "' id='Desa" + item.id +

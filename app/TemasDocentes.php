@@ -53,8 +53,9 @@ class TemasDocentes extends Model
             ->where("doc", Auth::user()->id)
             ->count();
 
+
         if ($Temas > 0) {
-            TemasDocentes::where(['tema' => $tema, 'doc' => Auth::user()->id, 'grupo' => Session::get('GrupActual')])->update([
+            return TemasDocentes::where(['tema' => $tema, 'doc' => Auth::user()->id, 'grupo' => Session::get('GrupActual')])->update([
                 'habilitado_doc' => $Habi,
                 'grupo' => Session::get('GrupActual')
             ]);
@@ -101,16 +102,18 @@ class TemasDocentes extends Model
 
         $Opc = TemasDocentes::where('tema', $data["tema_id"])
             ->delete();
-
-        foreach ($data["idDocente"] as $key => $val) {
-            if($data["DoceSel"][$key]=="si"){
-                $respuesta = TemasDocentes::create([
-                    'tema' => $data["tema_id"],
-                    'doc' => $data["idDocente"][$key],
-                    'grupo' => $data["grupo"][$key],
-                ]);
+        
+            foreach ($data["idDocente"] as $key => $val) {
+                if ($data["DoceSel"][$key] == "si") {
+                    $respuesta = TemasDocentes::create([
+                        'tema' => $data["tema_id"],
+                        'doc' => $data["idDocente"][$key],
+                        'grupo' => $data["grupo"][$key],
+                    ]);
+                }
             }
-        }
+        
+
 
         return $respuesta;
     }
