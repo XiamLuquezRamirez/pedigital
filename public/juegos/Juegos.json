@@ -273,18 +273,18 @@
     "icono": "iconos/PropiedadesMateria.png"
   },
   {
-    "grado": "4",
-    "juego": "Completa la Operación",
-    "ruta": "AreaMatematicas/CompletalaOperacion/index.html",
+    "grado": "9",
+    "juego": "Parentesis y Corchetes",
+    "ruta": "AreaMatematicas/ParentesisCorchetes/index.html",
     "area": "M",
-    "icono": "iconos/CompletalaOperacion.png"
+    "icono": "iconos/ParentesisCorchetes.png"
   },
   {
-    "grado": "4",
-    "juego": "Equivalencias",
-    "ruta": "AreaMatematicas/Equivalencias/index.html",
+    "grado": "9",
+    "juego": "Ecuación de la Recta",
+    "ruta": "AreaMatematicas/EcuacionRecta/index.html",
     "area": "M",
-    "icono": "iconos/Equivalencias.png"
+    "icono": "iconos/EcuacionRecta.png"
   },
   {
     "grado": "4",
@@ -329,11 +329,11 @@
     "icono": "iconos/Escalera.png"
   },
   {
-    "grado": "4",
+    "grado": "9",
     "juego": "Complete",
-    "ruta": "AreaLenguaje/Complete/index.html",
+    "ruta": "AreaLenguaje/haveto/index.html",
     "area": "LC",
-    "icono": "iconos/Complete.png"
+    "icono": "iconos/haveto.png"
   },
     
   {

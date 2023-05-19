@@ -71,7 +71,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te mostraran 5 oraciones de las cuales deberás seleccionar la preposición correspondiente <br> ¡Tu puedes!', 50, 1);                }, 3000)
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te mostraran 5 oraciones de las cuales deberás seleccionar la preposición correspondiente <br> ¡Tú Puedes!', 50, 1);                }, 3000)
             }, 2000)
         })
     }, 200)
@@ -273,7 +273,7 @@ function finalJuego() {
         document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
     }
 
-    document.getElementById("texto_final").innerText = "Has contestado correctamente " + correctas + " preguntas.";
+    document.getElementById("texto_final").innerText = "Has contestado correctamente " + correctas + " pregunta(s)";
 
     if (correctas >= 3) {
         var audio = new Audio('../../sounds/victory.mp3');

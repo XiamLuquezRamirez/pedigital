@@ -48,7 +48,7 @@ function llenarArray() {
             document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
         }
 
-        document.getElementById("texto_final").innerText = "Has contestado correctamente " + correctas + " preguntas de 5.";
+        document.getElementById("texto_final").innerText = "Has contestado correctamente " + correctas + " pregunta(s) de 5.";
 
         if (correctas >= 3) {
             var audio = new Audio('../../sounds/victory.mp3');
@@ -101,7 +101,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> Selecciona una de las siguientes categorias para jugar, y luego selecciona los multiplos o divisores del numero indicado. <br> ¡Tu puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> Selecciona una de las siguientes categorias para jugar, y luego selecciona los multiplos o divisores del numero indicado. <br> ¡Tú Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })
@@ -178,6 +178,13 @@ function cerrar_anuncio() {
 let errores = 0;
 let correctas = 0;
 function nuevodivAzar(element) {
+
+    var globos = document.getElementsByClassName("elemento");
+    for (let index = 0; index < globos.length; index++) {
+        const element = globos[index];
+        element.setAttribute("onclick", "");
+    }
+
     let respuesta = element.getAttribute("data-id");
     div_sel = element.getAttribute("id");
     if (respuesta == "true") {
