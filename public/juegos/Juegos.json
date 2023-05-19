@@ -259,18 +259,18 @@
     "icono": "iconos/ADN.png"
   },
   {
-    "grado": "4",
-    "juego": "Los Reinos",
-    "ruta": "AreaCienciasNaturales/LosReinos/index.html",
+    "grado": "9",
+    "juego": "Ruleta Preguntas",
+    "ruta": "AreaCienciasNaturales/RuletaBiologica2/index.html",
     "area": "CN",
-    "icono": "iconos/LosReinos.png"
+    "icono": "iconos/RuletaBiologica.png"
   },
   {
-    "grado": "4",
-    "juego": "Propiedades de la Materia",
-    "ruta": "AreaCienciasNaturales/PropiedadesMateria/index.html",
+    "grado": "9",
+    "juego": "La Evolución",
+    "ruta": "AreaCienciasNaturales/LaEvolucion/index.html",
     "area": "CN",
-    "icono": "iconos/PropiedadesMateria.png"
+    "icono": "iconos/LaEvolucion.png"
   },
   {
     "grado": "4",

@@ -2482,7 +2482,7 @@
                                 if (respuesta) {
                                     Swal.fire({
                                         title: "Gestión de Simulacros",
-                                        text: "Preguntas Generadas Exitosamente",|
+                                        text: "Preguntas Generadas Exitosamente",
                                         icon: "success",
                                         button: "Aceptar",
                                     });

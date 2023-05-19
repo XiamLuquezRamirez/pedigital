@@ -7,8 +7,8 @@ let cantElem = 0;
 
 
 function elegir() {
-    // let ciclo = Math.floor((Math.random() * (3 - 1 + 1)) + 1);
-    let ciclo = 3;
+     let ciclo = Math.floor((Math.random() * (3 - 1 + 1)) + 1);
+   // let ciclo = 3;
     seleccionar(ciclo);
 }
 
@@ -16,16 +16,16 @@ function seleccionar(ciclo) {
 
     switch (ciclo) {
         case 1:
-            categoria = "Mueve cada siglo del Agua segun corresponda.";
-            textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar los nombre de cada ciclo al lugar correspodiente dentro del ciclo del Agua.";
+            categoria = "Mueve cada elemento del ciclo del Agua segun corresponda.";
+            textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar los elementos de cada ciclo al lugar correspodiente dentro del ciclo del Agua.";
             break;
         case 2:
-            categoria = "Mueve cada siglo del Oxígeno segun corresponda.";
-            textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar los nombre de cada ciclo al lugar correspodiente dentro del ciclo del Oxígeno.";
+            categoria = "Mueve cada elemento del ciclo del Oxígeno segun corresponda.";
+            textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar los elementos de cada ciclo al lugar correspodiente dentro del ciclo del Oxígeno.";
             break;
         case 3:
-            categoria = "Mueve cada siglo del Nitrógeno segun corresponda.";
-            textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar los nombre de cada ciclo al lugar correspodiente dentro del ciclo del Nitrógeno.";
+            categoria = "Mueve cada elemento del ciclo del Nitrógeno segun corresponda.";
+            textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar los elementos de cada ciclo al lugar correspodiente dentro del ciclo del Nitrógeno.";
             break;
     }
 

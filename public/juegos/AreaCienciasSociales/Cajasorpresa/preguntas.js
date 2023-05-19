@@ -1133,7 +1133,8 @@ let Div9 = [
     options: [
       "a) Canadá, Estados Unidos, México y Brasil",
       "b) Canadá, Estados Unidos, México y Argentina",
-      "c) Canadá, Estados Unidos, México y Groenlandia"
+      "c) Canadá, Estados Unidos, México y Groenlandia",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1143,7 +1144,8 @@ let Div9 = [
     options: [
       "a) Cuba",
       "b) Groenlandia",
-      "c) Puerto Rico"
+      "c) Puerto Rico",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1153,7 +1155,8 @@ let Div9 = [
     options: [
       "a) Español",
       "b) Inglés",
-      "c) Francés"
+      "c) Francés",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1163,7 +1166,8 @@ let Div9 = [
     options: [
       "a) Canadá",
       "b) México",
-      "c) Estados Unidos"
+      "c) Estados Unidos",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1173,7 +1177,8 @@ let Div9 = [
     options: [
       "a) 1492",
       "b) 1501",
-      "c) 1520"
+      "c) 1520",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1183,7 +1188,8 @@ let Div9 = [
     options: [
       "a) Cristóbal Colón",
       "b) Américo Vespucio",
-      "c) Hernán Cortés"
+      "c) Hernán Cortés",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1193,7 +1199,8 @@ let Div9 = [
     options: [
       "a) 10",
       "b) 15",
-      "c) 20"
+      "c) 20",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1203,7 +1210,8 @@ let Div9 = [
     options: [
       "a) Español",
       "b) Portugués",
-      "c) Francés"
+      "c) Francés",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1235,7 +1243,8 @@ let Div9 = [
     options: [
       "a) Tiene una quinta parte de los bosques a nivel mundial.",
       "b) Tiene importantes reservas de minerales.",
-      "c) Tiene una economía del primer mundo."
+      "c) Tiene una economía del primer mundo.",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1245,7 +1254,8 @@ let Div9 = [
     options: [
       "a) Predomina el idioma inglés y la influencia anglosajona.",
       "b) Presenta una gran diversidad cultural y una influencia española y portuguesa.",
-      "c) La religión protestante es la más practicada."
+      "c) La religión protestante es la más practicada.",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1255,7 +1265,8 @@ let Div9 = [
     options: [
       "a) Desiertos",
       "b) Tundras",
-      "c) Bosques tropicales"
+      "c) Bosques tropicales",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1265,7 +1276,8 @@ let Div9 = [
     options: [
       "a) Río Amazonas",
       "b) Río de la Plata",
-      "c) Río Mississippi"
+      "c) Río Mississippi",
+      "d) Ninguna de las anteriores"
     ]
   },
   {
@@ -1275,7 +1287,8 @@ let Div9 = [
     options: [
       "a) Clima tropical",
       "b) Clima continental templado",
-      "c) Clima polar"
+      "c) Clima polar",
+      "d) Ninguna de las anteriores"
     ]
   }
 ];

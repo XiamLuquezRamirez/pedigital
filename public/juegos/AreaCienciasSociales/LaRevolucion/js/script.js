@@ -25,7 +25,7 @@
             {
                 clue: "¿Qué consecuencias tuvo la Revolución Industrial en la estructura económica y social? ",
                 answer: "cambios",
-                position: 6,
+                position: 5,
                 orientation: "across",
                 startx: 8,
                 starty: 8,
@@ -256,7 +256,7 @@
         ];
 
         let num = Math.floor((Math.random() * (4 - 1 + 1)) + 1);
-        //let num = 4;
+        //let num = 1;
         switch (num) {
             case 1:
                 preguntas = crucigrama1;

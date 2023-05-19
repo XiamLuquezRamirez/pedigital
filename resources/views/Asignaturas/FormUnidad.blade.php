@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Input;
 {{ csrf_field() }}
 <input type="hidden" class="form-control" name="tema_id"  value=""/>
 <input type="hidden" class="form-control" id="tema_per"  value="{{$unid->periodo}}"/>
+<input type="hidden" class="form-control" id="tipo_usuario" value="{{ Auth::user()->tipo_usuario }}" />
+<input type="hidden" class="form-control" id="id_usuario" value="{{ Auth::user()->id }}" />
+
+
 
 <h4 class="form-section"><i class="ft-grid"></i> Datos de la Unidad</h4>
 <div class="row">
@@ -69,6 +73,11 @@ use Illuminate\Support\Facades\Input;
     <div class="row ">
         <div class="col-md-12 col-lg-12 ">
             <div class="btn-list">
+                @if(Auth::user()->tipo_usuario=="Profesor")
+                <a class="btn btn-outline-info" id="btn-Compartir" style="display: none;"  onclick="$.cargarDocentes();"  title="Guardar">
+                    <i class="fa fa-share"></i> Compartir
+                </a>
+                @endif
                 @if($opc!='Consulta')
                 <button class="btn btn-outline-primary" href="#" title="Guardar" type="submit">
                     <i class="fa fa-save"></i> Guardar
@@ -82,9 +91,53 @@ use Illuminate\Support\Facades\Input;
                 <a class="btn btn-outline-dark" href="{{ url('/Asignaturas/GestionUnid') }}" title="Volver">
                     <i class="fa fa-angle-double-left"></i> Volver
                 </a>
+            
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade text-left show" id="ModCompartir" tabindex="-1" role="dialog" aria-labelledby="myModalLabel15">
+    <div class="modal-dialog comenta" role="document">
+        <div class="modal-content border-blue">
+            <div class="modal-header bg-blue white">
+                <h4 class="modal-title" id="titu_tema">Docentes con los que puedes compartir</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="width:100%">
+                    <div class="col-md-12">
+                        <div class="table-responsive" style="height:250px;">
+                            <table id="recent-orders"
+                                class="table table-hover mb-0 ps-container ps-theme-default table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Docente</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tdcompartir" style="text-transform: capitalize; ">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                      
+                    </div>
+                 
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn_GuarComent" data-dismiss="modal" class="btn grey btn-outline-success"><i class="fa fa-check"></i>
+                    Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {!! Form::close() !!}
 

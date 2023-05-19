@@ -2092,6 +2092,7 @@ class AsignaturaController extends Controller
                 'nom_unidad.required' => 'Seleccione el numero de la Unidad',
             ]);
             $data = request()->all();
+          
             $Unid = \App\Unidades::Guardar($data);
             if ($Unid) {
                 $Log = \App\Log::Guardar('Unidad Guardada', $Unid->id);

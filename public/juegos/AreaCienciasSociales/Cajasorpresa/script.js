@@ -36,7 +36,7 @@ $(document).ready(function () {
           divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola, soy Genio. <br> En este juego se seleccionará un Tema aleatorio, y debes elegir si quieres resolver preguntas de <strong>Verdadero o Faso</strong> o preguntas de <strong>Opción Múltiple</strong> ",
+            "Hola, soy Genio. <br> En este juego se seleccionará un Tema aleatorio, y debes elegir si quieres resolver preguntas de <strong>Verdadero o Falso</strong> o preguntas de <strong>Opción Múltiple</strong> ",
             50,
             1
           );
