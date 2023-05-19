@@ -1,4 +1,4 @@
-var colores = [{ op1: '#662482', op2: '#39134a' }, { op1: '#4494d0', op2: '#3372a1' }, { op1: '#f08218', op2: '#c86b12' }, { op1: '#e83967', op2: '#be3156' }];
+var colores = [{ op1: '#662482', op2: '#39134a' }, { op1: '#4494d0', op2: '#3372a1' }, { op1: '#f08218', op2: '#c86b12' }, { op1: '#e83967', op2: '#be3156' }, { op1: '#28a745', op2: '#1a5628' }];
 
 $(document).ready(function () {
     let audio2 = new Audio('../../sounds/fondo.mp3');
@@ -21,7 +21,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> Relaciona cada función con su grupo funcional, relaciona mas de 3 para ganar el juego. <br> ¡Tu Puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> Relaciona cada función con su grupo funcional, relaciona mas de 3 para ganar el juego. <br> ¡Tú Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })
@@ -261,7 +261,7 @@ function crear_linea(elemento, tipo) {
         point2 = null;
     }
 
-    if (respuesta_a >= 4) {
+    if (respuesta_a >= 5) {
         setTimeout(() => {
             calificar();
         }, 1000)

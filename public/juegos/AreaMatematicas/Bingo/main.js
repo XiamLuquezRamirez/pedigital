@@ -18,7 +18,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> Mantente atento a la pantalla, según aparecen las bolas con números márcalos en el cartón, completa una linea en vertical o todo el cartón para ganar. <br> ¡Tu puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> Mantente atento a la pantalla, según aparecen las bolas con números márcalos en el cartón, completa una linea en vertical o todo el cartón para ganar. <br> ¡Tú Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })

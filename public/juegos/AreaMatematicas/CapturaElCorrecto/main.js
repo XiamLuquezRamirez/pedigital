@@ -106,7 +106,7 @@ $(document).ready(function() {
         divAnimado2.style.display = 'block';
         setTimeout(()=>{
           divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-          maquina2("bienvenida",'Hola, soy Genio. <br> En este juego resuelve la operación y selecciona el topo que tenga la respuesta correcta. <br> ¡Tu Puedes!',50,1);
+          maquina2("bienvenida",'Hola, soy Genio. <br> En este juego resuelve la operación y selecciona el topo que tenga la respuesta correcta. <br> ¡Tú Puedes!',50,1);
         }, 3000)
       }, 2000)
     })

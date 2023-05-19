@@ -18,7 +18,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> Usa la fórmula y completa la pirámide, completando los numeros faltantes. <br> ¡Tu puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> Usa la fórmula y completa la pirámide, completando los numeros faltantes. <br> ¡Tú Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })

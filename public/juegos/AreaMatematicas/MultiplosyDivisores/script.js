@@ -187,7 +187,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> Selecciona una de las siguientes categorias para jugar, y luego selecciona los multiplos o divisores del numero indicado. <br> ¡Tu puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> Selecciona una de las siguientes categorias para jugar, y luego selecciona los multiplos o divisores del numero indicado. <br> ¡Tú Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })
