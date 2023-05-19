@@ -1540,6 +1540,7 @@ class AsignaturaController extends Controller
                 $estado = "SINPERMISO";
             } else {
                 $Grado = \App\Modulos::ListarxAsig($id);
+                
                 if ($Grado->count() > 0) {
                     $estado = "NO ELIMINADO";
                     $mensaje = 'La Operación no pudo ser Realizada, La Asignatura tiene grados asignados.';

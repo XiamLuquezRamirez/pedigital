@@ -31,7 +31,8 @@ class Usuarios extends Model
         }
     
         if (!empty($busqueda)) {
-            $respuesta = Usuarios::where('estado_usuario', 'ACTIVO')
+            $respuesta = Usuarios::where('estado_usuario','<>', 'ELIMINADO')
+          
                 ->where(function ($query) use ($busqueda) {
                     $query->where('login_usuario', 'LIKE', '%' . $busqueda . '%')
                         ->orWhere('nombre_usuario', 'LIKE', '%' . $busqueda . '%');
@@ -40,7 +41,8 @@ class Usuarios extends Model
                 ->orderBy('nombre_usuario', 'ASC')
                 ->limit($limit)->offset($offset);
         } else {
-            $respuesta = Usuarios::where('estado_usuario', 'ACTIVO')
+            $respuesta = Usuarios::where('estado_usuario','<>', 'ELIMINADO')
+                ->orWhere('estado_usuario', 'INACTIVO')
                 ->select('users.*')
                 ->orderBy('nombre_usuario', 'ASC')
                 ->limit($limit)->offset($offset);

@@ -289,7 +289,6 @@ class ModulosController extends Controller
 
                 //verfico si el registro seleccionado tiene registros relacionados    
                 $Grado = \App\GradosModulos::ListarxAsig($id);
-
                 if ($Grado->count() > 0) {
                     $estado = "NO ELIMINADO";
                     $mensaje = 'La Operación no pudo ser Realizada, El Módulo Transversal tiene Grados Asignados.';
@@ -1187,7 +1186,9 @@ class ModulosController extends Controller
                         $datos['archi'] = $arch;
                         $datos['TituAnim'] = $archTit;
                     }
+                    if(Auth::user()->tipo_usuario == 'Profesor'){
                     $CompartirTemaDoc = \App\TemasDocenteModulos::GuardarCompTema($datos);
+                    }
                     $ContTema = \App\DesarrollTemaModulos::GuardarContTema($datos);
                     if (request()->hasfile('archididatico')) {
                         $ContTemaDidac = \App\ContDidacticoModulos::GuardarContDidctico($datos);
@@ -1219,7 +1220,9 @@ class ModulosController extends Controller
                     }
                     $datos['archi'] = $arch;
                     $ContTemaArc = \App\SubirArcTemaModulos::GuardarArchCont($datos);
+                    if(Auth::user()->tipo_usuario == 'Profesor'){
                     $CompartirTemaDoc = \App\TemasDocenteModulos::GuardarCompTema($datos);
+                    }
                     if ($ContTemaArc) {
                         $Log = \App\Log::Guardar('Tema de Módulo Guardado', $Tem->id);
                         return redirect('Modulos/GestionTem')->with('success', 'Datos Guardados');
@@ -1248,7 +1251,9 @@ class ModulosController extends Controller
                     }
 
                     $ContTemaDidac = \App\ContDidacticoModulos::GuardarContDidctico($datos);
+                    if(Auth::user()->tipo_usuario == 'Profesor'){
                     $CompartirTemaDoc = \App\TemasDocenteModulos::GuardarCompTema($datos);
+                    }
                     if ($ContTemaDidac) {
                         $Log = \App\Log::Guardar('Tema de Módulo Guardado', $Tem->id);
                         return redirect('Modulos/GestionTem')->with('success', 'Datos Guardados');
@@ -1264,7 +1269,9 @@ class ModulosController extends Controller
                     $datos['tema_id'] = $Tem->id;
 
                     $ContTemaLink = \App\DesarrolloLinkModulos::Guardar($datos);
+                    if(Auth::user()->tipo_usuario == 'Profesor'){
                     $CompartirTemaDoc = \App\TemasDocenteModulos::GuardarCompTema($datos);
+                    }
                     if ($ContTemaLink) {
                         $Log = \App\Log::Guardar('Tema de Módulo Guardado', $Tem->id);
                         return redirect('Modulos/GestionTem')->with('success', 'Datos Guardados');
@@ -1280,7 +1287,7 @@ class ModulosController extends Controller
             return redirect("/")->with("error", "Su sesion ha terminado");
         }
     }
-
+ 
     public function editarTema($id)
     {
         $bandera = "Menu4";
@@ -1443,7 +1450,9 @@ class ModulosController extends Controller
             if ($datos['tip_contenido'] === "DOCUMENTO") {
 
                 $Tem = \App\TemasModulos::Modificar($datos, $id);
+                if(Auth::user()->tipo_usuario == 'Profesor'){
                 $CompartirTemaDoc = \App\TemasDocenteModulos::GuardarCompTema($datos);
+                }
                 if (request()->hasfile('archididatico')) {
                     foreach (request()->file('archididatico') as $file) {
                         $prefijo = substr(md5(uniqid(rand())), 0, 6);
@@ -1474,7 +1483,9 @@ class ModulosController extends Controller
                 }
             } else if ($datos['tip_contenido'] === "ARCHIVO") {
                 $Tem = \App\TemasModulos::Modificar($datos, $id);
+                if(Auth::user()->tipo_usuario == 'Profesor'){
                 $CompartirTemaDoc = \App\TemasDocenteModulos::GuardarCompTema($datos);
+                }
                 if (request()->hasfile('archi')) {
 
                     foreach (request()->file('archi') as $file) {
@@ -1496,7 +1507,9 @@ class ModulosController extends Controller
             } else if ($datos['tip_contenido'] === "CONTENIDO DIDACTICO") {
 
                 $Tem = \App\TemasModulos::Modificar($datos, $id);
+                if(Auth::user()->tipo_usuario == 'Profesor'){
                 $CompartirTemaDoc = \App\TemasDocenteModulos::GuardarCompTema($datos);
+                }
                 if ($Tem) {
                     $datos['tema_id'] = $id;
                     if (request()->hasfile('archiVideo')) {
@@ -1526,7 +1539,9 @@ class ModulosController extends Controller
                 }
             } else if ($datos['tip_contenido'] === "LINK") {
                 $Tem = \App\Temas::Modificar($datos, $id);
+                if(Auth::user()->tipo_usuario == 'Profesor'){
                 $CompartirTemaDoc = \App\TemasDocenteModulos::GuardarCompTema($datos);
+                }
                 if ($Tem) {
 
                     $ContTemaLink = \App\DesarrolloLinkModulos::Modificar($datos, $id);

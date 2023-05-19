@@ -388,20 +388,16 @@ class AlumnosController extends Controller
                 $Alumnos = (new FastExcel)->import($ruta);
                 $validado = array();
                 $flag = true;
+                
+                // foreach ($Alumnos as $Alum) {
+                //     //Validar formatos jornada excel
+                //     if (preg_match('/^(JM|JT|JN)$/', $Alum['Jornada'])) {
+                //         array_push($validado, "Formato de Jornada inconrrecto (Jornada Mañana= JM, Jornada Tarde= JT, Jornada Nocturna= JN)");
+                //         $flag = false;
+                //     }
+                // }
 
-                foreach ($Alumnos as $Alum) {
-                    //Validar formatos jornada excel
-                    if (preg_match('/^(JM|JT|Jn)$/', $Alum['Jornada'])) {
-                        array_push($validado, "Formato de Jornada inconrrecto (Jornada Mañana= JM, Jornada Tarde= JT, Jornada Nocturna= JN)");
-                        $flag = false;
-                    }
-                }
-
-                array_push($validado, "esta es otra)");
-
-
-
-                if ($flag) {
+             if ($flag) {
                     $Alumno = \App\Alumnos::GuardarAlumnoImport($datos, $Alumnos);
 
                     $Alumno = \App\Alumnos::BuscarListAlumnos($datos["grado_import"], $datos["grupo_import"], $datos["jornada_import"]);
