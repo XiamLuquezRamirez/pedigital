@@ -49,7 +49,7 @@ function llenarArray() {
             document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
         }
 
-        document.getElementById("texto_final").innerText = "Has contestado correctamente " + correctas + " pregunta(s)" de 5.";
+        document.getElementById("texto_final").innerText = "Has contestado correctamente " + correctas + " pregunta(s) de 5.";
 
         if (correctas >= 3) {
             var audio = new Audio('../../sounds/victory.mp3');
