@@ -542,12 +542,12 @@ let Div5 = [
     numb: 8,
     question:
       "¿Cuál de las siguientes obras es considerada representante del impresionismo?",
-    answer: "b) 'Impresión, sol naciente' de Claude Monet",
+    answer: "b) Impresión, sol naciente de Claude Monet",
     options: [
-      "a) 'La danza' de Henry Matisse",
-      "b) 'Impresión, sol naciente' de Claude Monet",
-      "c) 'Composición en rojo, azul y amarillo' de Piet Mondrian",
-      "d) 'El grito' de Edvard Munch",
+      "a) La danza de Henry Matisse",
+      "b) Impresión, sol naciente de Claude Monet",
+      "c) Composición en rojo, azul y amarillo de Piet Mondrian",
+      "d) El grito de Edvard Munch",
     ],
   },
   {
@@ -818,20 +818,20 @@ let Div8 = [
     question:
       "¿Cuál de los siguientes fenómenos lingüísticos se refiere al uso incorrecto de los pronombres de tercera persona como complemento directo masculino?",
     answer: "a) Leísmo",
-    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo"],
+    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo", "d) Ninguna de las anteriores"],
   },
   {
     numb: 2,
     question: "¿Cuál de los siguientes ejemplos muestra un caso de leísmo?",
     answer: "b) Le vi",
-    options: ["a) Lo vi", "b) Le vi", "c) Les vi"],
+    options: ["a) Lo vi", "b) Le vi", "c) Les vi", "d) Ninguna de las anteriores"],
   },
   {
     numb: 3,
     question:
       "¿Cuál de los siguientes fenómenos lingüísticos se refiere al uso incorrecto de los pronombres de tercera persona como complemento indirecto femenino?",
     answer: "b) Laísmo",
-    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo"],
+    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo", "d) Ninguna de las anteriores"],
   },
   {
     numb: 4,
@@ -841,6 +841,7 @@ let Div8 = [
       "a) La cosí una falda",
       "b) Les dije unas palabras",
       "c) Lo dio una bofetada",
+      "d) Ninguna de las anteriores"
     ],
   },
   {
@@ -848,7 +849,7 @@ let Div8 = [
     question:
       "¿Cuál de los siguientes fenómenos lingüísticos se refiere al uso incorrecto de los pronombres de tercera persona como complemento indirecto masculino?",
     answer: "c) Loísmo",
-    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo"],
+    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo","d) Ninguna de las anteriores"],
   },
   {
     numb: 6,
@@ -858,6 +859,7 @@ let Div8 = [
       "a) Le di un regalo",
       "b) Les di un regalo",
       "c) Lo di un regalo",
+      "d) Ninguna de las anteriores"
     ],
   },
   {
@@ -865,20 +867,20 @@ let Div8 = [
     question:
       "¿Qué fenómeno lingüístico se refiere al uso de la/las en lugar de le/les como complemento indirecto?",
     answer: "b) Laísmo",
-    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo"],
+    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo","d) Ninguna de las anteriores"],
   },
   {
     numb: 8,
     question:
       "¿Qué fenómeno lingüístico se refiere al uso de lo/los en lugar de le/les como complemento indirecto?",
     answer: "c) Loísmo",
-    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo"],
+    options: ["a) Leísmo", "b) Laísmo", "c) Loísmo","d) Ninguna de las anteriores"],
   },
   {
     numb: 9,
     question: "¿Cuál de los siguientes ejemplos muestra un caso de leísmo?",
     answer: "b) Le vi",
-    options: ["a) Lo vi", "b) Le vi", "c) Les vi"],
+    options: ["a) Lo vi", "b) Le vi", "c) Les vi","d) Ninguna de las anteriores"],
   },
   {
     numb: 10,
@@ -888,6 +890,7 @@ let Div8 = [
       "a) Le di un regalo",
       "b) Les di un regalo",
       "c) Lo di un regalo",
+      "d) Ninguna de las anteriores",
     ],
   },
 ];
@@ -908,7 +911,7 @@ let Div9 = [
   {
     numb: 2,
     question: "¿Cuál fue la obra que marcó el inicio del modernismo?",
-    answer: "a",
+    answer: "Azul de Rubén Darío",
     options: [
       "Azul de Rubén Darío",
       "Ulises de James Joyce",
@@ -919,7 +922,7 @@ let Div9 = [
   {
     numb: 3,
     question: "¿Qué caracteriza al modernismo en la literatura?",
-    answer: "c",
+    answer: "Un rechazo a la sociedad y preferencia por la fantasía",
     options: [
       "Un lenguaje coloquial y temas realistas",
       "Una devoción por París y la cultura cosmopolita",
@@ -930,7 +933,7 @@ let Div9 = [
   {
     numb: 4,
     question: "¿Cuál fue la segunda generación de escritores modernistas?",
-    answer: "b",
+    answer: "Leopoldo Lugones y Ricardo Jaimes Freyre",
     options: [
       "José Martí y Manuel Gutiérrez Nájera",
       "Leopoldo Lugones y Ricardo Jaimes Freyre",
@@ -941,7 +944,7 @@ let Div9 = [
   {
     numb: 5,
     question: "¿Cuáles son las etapas de desarrollo del modernismo?",
-    answer: "a",
+    answer: "Iniciación y culminación",
     options: [
       "Iniciación y culminación",
       "Preciosista y mundonovista",
@@ -952,7 +955,7 @@ let Div9 = [
   {
     numb: 6,
     question: "¿Qué objetivo tenía la literatura modernista?",
-    answer: "b",
+    answer: "Desprenderse de los modelos literarios españoles",
     options: [
       "Mantener los modelos literarios españoles",
       "Desprenderse de los modelos literarios españoles",
@@ -963,7 +966,7 @@ let Div9 = [
   {
     numb: 7,
     question: "¿Cuál es la importancia del modernismo?",
-    answer: "b",
+    answer: "Renovó el lenguaje y reanimó el idioma español",
     options: [
       "Rompió con la tradición literaria española",
       "Renovó el lenguaje y reanimó el idioma español",
@@ -980,7 +983,7 @@ let Div9 = [
   {
     numb: 9,
     question: "¿Cuál fue la obra más conocida de Rubén Darío?",
-    answer: "b",
+    answer: "Azul",
     options: [
       "Prosas Profanas",
       "Azul",
@@ -991,7 +994,7 @@ let Div9 = [
   {
     numb: 10,
     question: "¿Cuál es la diferencia entre modernismo y posmodernismo?",
-    answer: "c",
+    answer: "El modernismo fue un movimiento literario, mientras que el posmodernismo abarcó distintas áreas culturales y artísticas.",
     options: [
       "El modernismo se originó en el siglo XIX, mientras que el posmodernismo surgió a finales del siglo XX.",
       "El modernismo buscaba desprenderse de los modelos literarios españoles, mientras que el posmodernismo se oponía a las ideas de la Ilustración.",

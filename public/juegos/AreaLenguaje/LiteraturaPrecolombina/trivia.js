@@ -77,7 +77,7 @@ function iniciarTrivia(idTem, idPreg) {
     timeValue = 30;
     que_count = pregSel
     que_numb = 1;
-    userScore = 0;
+    //userScore = 0;
     widthValue = 0;
 
     showQuetions(que_count); //calling showQestions function

@@ -28,7 +28,7 @@ class Unidades extends Model
             $Unidade = Unidades::where('modulo', $id)
                 ->where(function ($query) use ($Usu) {
                     $query->where('unidades.docente', "")
-                        ->orWhere('unidades.docente', $Usu);
+                        ->orWhereIn('unidades.docente', [$Usu]);
                 })
                 ->where('estado','ACTIVO')
                 ->orderBy('periodo', 'ASC')
@@ -452,10 +452,25 @@ class Unidades extends Model
     {
         $Ori = "P";
         $Doc = "";
+        $idDoce = array();
         if (Auth::user()->tipo_usuario == "Profesor") {
             $Ori = "D";
             $Doc = Auth::user()->id;
         }
+
+        if(Auth::user()->tipo_usuario == 'Profesor'){
+            foreach ($datos["idDocente"] as $key => $val) {
+                if ($datos["DoceSel"][$key] == "si") {
+                    array_push($idDoce,$datos["idDocente"][$key]);
+                }
+            }
+    
+        }else{
+            array_push($idDoce,"");
+
+        }
+     
+
         return Unidades::create([
             'periodo' => $datos['periodo'],
             'modulo' => $datos['modulo'],
@@ -464,7 +479,7 @@ class Unidades extends Model
             'estado' => 'ACTIVO',
             'introduccion' => $datos['introduccion'],
             'origunidad' => $Ori,
-            'docente' => $Doc,
+            'docente' => $idDoce,
         ]);
     }
 
