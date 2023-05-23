@@ -72,6 +72,8 @@ class AsigProf extends Model
     }
 
     public static function listaEditProf($grado,$tema){
+
+       
         $listDoce =DB::connection("mysql")->select("SELECT grup.grupo, ap.jornada, usuario_profesor, CONCAT(nombre,' ',apellido) ndocente, tdoc.id idtemdoc" 
         ." FROM  asig_prof ap  "
         ." LEFT JOIN (SELECT * FROM temas_docentes WHERE tema = ".$tema.") tdoc ON ap.profesor =tdoc.doc "

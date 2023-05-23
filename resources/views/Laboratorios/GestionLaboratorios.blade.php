@@ -113,21 +113,18 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead class="bg-primary">
                                                     <tr>
-
+                                                        <th>Opciones</th>
+                                                        <th>Título</th>
                                                         <th>Asignatura</th>
                                                         <th>Unidad</th>
-                                                        <th>Título</th>
-                                                        <th>Opciones</th>
+                                                       
+                                                      
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
                                                     @foreach ($Laboratorios as $Lab)
                                                         <tr data-id='{{ $Lab->id }}' id='Tema{{ $Lab->id }}'>
-                                                            <td class="text-truncate">{!! $Lab->nombre . ' - Grado ' . $Lab->grado_modulo . '°' !!}</td>
-                                                            <td class="text-truncate">{!! $Lab->nom_unidad . ' - ' . $Lab->des_unidad !!}</td>
-                                                            <td class="text-truncate" style="text-transform: capitalize;">
-                                                                {!! $Lab->titulo !!}</td>
                                                             <td class="text-truncate">
                                                                 <a href='{{ url('Laboratorios/EditarLaboratorio/' . $Lab->id) }}'
                                                                     title="Editar" class="btn btn-outline-success btn-sm"><i
@@ -142,6 +139,12 @@
                                                                     class="btn btn-outline-info  btn-sm"><i
                                                                         class="fa fa-check-square-o"></i></a>
                                                             </td>
+                                                            <td class="text-truncate" style="text-transform: capitalize;">
+                                                                {!! $Lab->titulo !!}</td>
+                                                            <td class="text-truncate">{!! $Lab->nombre . ' - Grado ' . $Lab->grado_modulo . '°' !!}</td>
+                                                            <td class="text-truncate">{!! $Lab->nom_unidad . ' - ' . $Lab->des_unidad !!}</td>
+                                                        
+                                                      
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

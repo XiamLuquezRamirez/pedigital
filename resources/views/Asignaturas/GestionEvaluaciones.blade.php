@@ -2,6 +2,11 @@
 @section('title', 'Gestionar de Evaluaciones')
 @section('Contenido')
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+    <input type="hidden" name="idtema" id="idtema" value="{{ $id }}">
+    <input type="hidden" name="idAsigGrado" id="idAsigGrado" value="{{ $idAsigGrado }}">
+    <input type="hidden" name="idEvalSel" id="idEvalSel" value="">
+    <input type="hidden" class="form-control" id="id_usuario" value="{{ Auth::user()->id }}" />
+    <input type="hidden" class="form-control" id="tipo_usuario" value="{{ Auth::user()->tipo_usuario }}" />
     <div class="content-header row">
         <div class="content-header-left col-md-12 col-12 mb-2">
             <h3 class="content-header-title mb-0">GESTIONAR EVALUACIONES / ACTIVIDADES</h3>
@@ -105,10 +110,10 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead class="bg-primary">
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th>Opciones</th>
                                                         <th>Titulo</th>
                                                         <th>Clasificación</th>
-                                                        <th>Opciones</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -118,8 +123,22 @@
 
                                                     @foreach ($Evaluaciones as $Eva)
                                                         <tr data-id='{{ $Eva->id }}' id='eval{{ $Eva->id }}'>
-                                                            <td style="text-transform: uppercase;" class="text-truncate">
-                                                                {!! $i !!}</td>
+                                                            <td class="text-truncate">
+                                                                <a href="javascript:void(0)"
+                                                                    onclick="$.cargarDocentes({{ $Eva->id }});"
+                                                                    title="Compartir"
+                                                                    class="btn btn-outline-info  btn-sm"><i
+                                                                        class="fa fa-share"></i></a>
+                                                                <a href='{{ url('Asignaturas/EditarEvaluacion/' . $Eva->id) }}'
+                                                                    title="Editar"
+                                                                    class="btn btn-outline-success  btn-sm"><i
+                                                                        class="fa fa-edit"></i></a>
+                                                                <a href='#' title="Eliminar"
+                                                                    class="btn  btn-outline-warning  btn-sm btnEliminar"
+                                                                    id="btnActi{{ $Eva->id }}"><i
+                                                                        class="fa fa-trash"
+                                                                        id="iconBoton{{ $Eva->id }}"></i></a>
+                                                            </td>
                                                             @php
                                                                 $i++;
                                                                 $clasif = $Eva->clasificacion;
@@ -138,16 +157,7 @@
                                                             <td class="text-truncate" style="text-transform:uppercase;">
                                                                 {!! $Eva->titulo !!}</td>
                                                             <td class="text-truncate">{!! $NomClasif !!}</td>
-                                                            <td class="text-truncate">
-                                                                <a href='{{ url('Asignaturas/EditarEvaluacion/' . $Eva->id) }}'
-                                                                    title="Editar"
-                                                                    class="btn btn-outline-success  btn-sm"><i
-                                                                        class="fa fa-edit"></i></a>
-                                                                <a href='#' title="Eliminar"
-                                                                    class="btn  btn-outline-warning  btn-sm btnEliminar"
-                                                                    id="btnActi{{ $Eva->id }}"><i class="fa fa-trash"
-                                                                        id="iconBoton{{ $Eva->id }}"></i></a>
-                                                            </td>
+
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -218,7 +228,8 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="table-responsive">
-                                    <form action="{{ url('/Asignaturas/ReasignarEval') }}" method="post" id="FormEval">
+                                    <form action="{{ url('/Asignaturas/ReasignarEval') }}" method="post"
+                                        id="FormEval">
                                         <table id="recent-orders"
                                             class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                             <thead>
@@ -254,6 +265,55 @@
         </div>
     </div>
 
+    <div class="modal fade text-left show" id="ModCompartir" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel15">
+        <div class="modal-dialog comenta" role="document">
+            <div class="modal-content border-blue">
+                <div class="modal-header bg-blue white">
+                    <h4 class="modal-title" id="titu_tema">Docentes con los que puedes compartir</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="width:100%">
+                        <div class="col-md-12">
+                            <div class="table-responsive" style="height:250px;">
+                                <form action="{{ url('/Evaluaciones/compartirEval') }}" method="post"
+                                    id="formCompartir">
+                                    <table id="recent-orders"
+                                        class="table table-hover mb-0 ps-container ps-theme-default table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Docente</th>
+                                                <th>Seleccionar</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id="tdcompartir" style="text-transform: capitalize; ">
+
+                                        </tbody>
+
+                                    </table>
+                                </form>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="$.guardarDatosComp();" id="btn_GuarComent"
+                        class="btn grey btn-outline-success"><i class="fa fa-save"></i>
+                        Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     </div>
 
@@ -262,6 +322,10 @@
 
     {!! Form::open(['url' => '/Asignaturas/CargarEvalReasignar', 'id' => 'formAuxiliarEval']) !!}
     {!! Form::close() !!}
+
+    {!! Form::open(['url' => '/cambiar/docentesCompEval', 'id' => 'formAuxiliarCargDocentes']) !!}
+    {!! Form::close() !!}
+
 
 @endsection
 @section('scripts')
@@ -468,7 +532,7 @@
 
                                         $("#td-Eval").html("");
 
-                                    }else if (respuesta.estado == "SINPERMISO"){
+                                    } else if (respuesta.estado == "SINPERMISO") {
                                         swal.fire({
                                             title: "Administrar Evaluaciones",
                                             text: respuesta.mensaje,
@@ -498,6 +562,151 @@
                                 }
                             });
                         }
+                    });
+
+                },
+                cargarDocentes: function(idEval) {
+
+                    var idAsig = $("#idAsigGrado").val();
+
+                    $("#ModCompartir").modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+
+                    var Tabla = "";
+                    var j = 1;
+
+                    var form = $("#formAuxiliarCargDocentes");
+                    $("#idMod").remove();
+                    $("#idEval").remove();
+                    form.append("<input type='hidden' name='idMod' id='idMod' value='" + idAsig + "'>");
+                    form.append("<input type='hidden' name='idEval' id='idEval' value='" + idEval +
+                        "'>");
+                    var url = form.attr("action");
+                    var datos = form.serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: datos,
+                        dataType: "json",
+                        success: function(respuesta) {
+                            if (Object.keys(respuesta.Docentes).length > 0) {
+                                $.each(respuesta.Docentes, function(i, item) {
+                                    Tabla += " <tr data-id='" + item.id +
+                                        "' id='Alumno" + item.id + "'>";
+                                    Tabla += "<td class='text-truncate'>" + j +
+                                        "</td> ";
+                                    Tabla += "<td class='text-truncate'>" + item
+                                        .ndocente + "</td> ";
+                                    Tabla +=
+                                        "<input type='hidden' name='idDocente[]' value='" +
+                                        item.usuario_profesor + "'>" +
+                                        "<input type='hidden' name='grupo[]' value='" +
+                                        item.grupo + "'>" +
+                                        "<input type='hidden' name='jornada[]' value='" +
+                                        item.jornada + "'>";
+
+                                    if ($("#id_usuario").val() == item
+                                        .usuario_profesor) {
+                                        Tabla +=
+                                            "<input type='hidden' id='DoceSel" + j +
+                                            "' name='DoceSel[]' value='si'>" +
+                                            "<td class='text-truncate text-center'>" +
+                                            "<input type='checkbox' onclick='$.SelDocente(" +
+                                            j + ");' id='CheckSeleccion" + j +
+                                            "' style='cursor: pointer;' disabled checked name='checkDocenteSel' value=''>";
+                                    } else {
+                                        if (item.Comp == "si") {
+                                            Tabla +=
+                                                "<input type='hidden' id='DoceSel" +
+                                                j +
+                                                "' name='DoceSel[]' value='si'>" +
+                                                "<td class='text-truncate text-center'>" +
+                                                "<input type='checkbox' onclick='$.SelDocente(" +
+                                                j + ");' id='CheckSeleccion" + j +
+                                                "' style='cursor: pointer;' checked name='checkDocenteSel' value=''>";
+                                        } else {
+                                            Tabla +=
+                                                "<input type='hidden' id='DoceSel" +
+                                                j +
+                                                "' name='DoceSel[]' value='no'>" +
+                                                "<td class='text-truncate text-center'>" +
+                                                "<input type='checkbox' onclick='$.SelDocente(" +
+                                                j + ");' id='CheckSeleccion" + j +
+                                                "' style='cursor: pointer;' name='checkDocenteSel' value=''>";
+                                        }
+                                    }
+
+                                    Tabla += "</td> ";
+                                    Tabla += " </tr>";
+                                    j++;
+                                });
+                                $("#td-alumnos").html(Tabla);
+                            } else {
+                                $("#td-alumnos").html('');
+                                $("#btn-acciones").hide();
+                                swal.fire({
+                                    title: "Administrar Temas",
+                                    text: 'No existen docentes con los que puedas compartir este tema a crear',
+                                    icon: "warning",
+                                    button: "Aceptar",
+                                });
+                            }
+
+                            $("#tdcompartir").html(Tabla);
+                        }
+
+                    });
+
+                },
+                SelDocente: function(id) {
+                    if ($('#CheckSeleccion' + id).prop('checked')) {
+                        $("#DoceSel" + id).val("si");
+                    } else {
+                        $("#DoceSel" + id).val("no");
+
+                    }
+                },
+                guardarDatosComp: function() {
+
+                    var form = $("#formCompartir");
+                    var token = $("#token").val();
+                    var evalSel = $("#idEval").val();
+
+                    form.append("<input type='hidden' id='idtoken' name='_token'  value='" + token +
+                        "'>");
+                    form.append("<input type='hidden' id='evalsel' name='idEval2'  value='" + evalSel +
+                        "'>");
+
+                    var url = form.attr("action");
+                    var datos = form.serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: new FormData($('#formCompartir')[0]),
+                        processData: false,
+                        contentType: false,
+                        success: function(respuesta) {
+                            if(respuesta.estado=="ok"){
+                                swal.fire({
+                                    title: "Administrar Evaluaciones",
+                                    text: "La operación fue realizada exitosamente",
+                                    icon: "success",
+                                    button: "Aceptar"
+                                });
+                            }else{
+
+                                swal.fire({
+                                    title: "Administrar Evaluaciones",
+                                    text: 'No fue posible realizar la operación',
+                                    icon: "warning",
+                                    button: "Aceptar",
+                                });
+
+                            }
+                        }
+
                     });
 
                 }

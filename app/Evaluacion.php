@@ -94,6 +94,34 @@ class Evaluacion extends Model
         return $respuesta;
     }
 
+    public static function ModifEvalComp($data)
+    {
+       
+        $idDoce = "";
+
+        if (Auth::user()->tipo_usuario == 'Profesor') {
+                
+            foreach ($data["idDocente"] as $key => $val) {
+                if ($data["DoceSel"][$key] == "si") {
+                    $idDoce .= $data["idDocente"][$key] . ",";
+                }
+            }
+        } else {
+            $idDoce = "";
+        }
+
+        $idDoce = rtrim($idDoce, $idDoce[-1]);
+
+        $respuesta = Evaluacion::where(['id' => $data['idEval2']])->update([
+          
+            'docente' => $idDoce
+        ]);
+
+        return $respuesta;
+
+     
+    }
+
     public static function ModifEvalCalxDoc($id, $calxdoc)
     {
         $respuesta = Evaluacion::where(['id' => $id])->update([
@@ -275,7 +303,7 @@ class Evaluacion extends Model
                 ->where('evaluacion.origen_eval', $or)
                 ->where(function ($query) use ($Usu) {
                     $query->where('evaluacion.docente', "")
-                        ->orWhere('evaluacion.docente', $Usu);
+                    ->orWhere('evaluacion.docente','LIKE', "%".$Usu."%");
                 })
                 ->get();
         } else if (Auth::user()->tipo_usuario == "Estudiante") {
@@ -285,7 +313,7 @@ class Evaluacion extends Model
                 ->where('evaluacion.origen_eval', $or)
                 ->where(function ($query) use ($Usu) {
                     $query->where('evaluacion.docente', "")
-                        ->orWhere('evaluacion.docente', $Usu);
+                    ->orWhere('evaluacion.docente','LIKE', "%".$Usu."%");
                 })
                 ->get();
         } else {

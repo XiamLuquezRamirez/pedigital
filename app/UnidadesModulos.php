@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 
 class UnidadesModulos extends Model
-{ 
+{
     protected $table = 'unidades_modulos';
     protected $fillable = [
         'periodo',
@@ -28,9 +28,9 @@ class UnidadesModulos extends Model
             $Unidade = UnidadesModulos::where('modulo', $id)
                 ->where(function ($query) use ($Usu) {
                     $query->where('unidades_modulos.docente', "")
-                        ->orWhere('unidades_modulos.docente', $Usu);
+                    ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                 })
-                ->where('estado','ACTIVO')
+                ->where('estado', 'ACTIVO')
                 ->orderBy('periodo', 'ASC')
                 ->get();
             return $Unidade;
@@ -39,9 +39,9 @@ class UnidadesModulos extends Model
             $Unidade = UnidadesModulos::where('modulo', $id)
                 ->where(function ($query) use ($Usu) {
                     $query->where('unidades_modulos.docente', "")
-                        ->orWhere('unidades_modulos.docente', $Usu);
+                    ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                 })
-                ->where('estado','ACTIVO')
+                ->where('estado', 'ACTIVO')
 
                 ->orderBy('periodo', 'ASC')
                 ->get();
@@ -49,7 +49,7 @@ class UnidadesModulos extends Model
         } else {
             $Unidade = UnidadesModulos::where('modulo', $id)
                 ->orderBy('periodo', 'ASC')
-                ->where('estado','ACTIVO')
+                ->where('estado', 'ACTIVO')
                 ->get();
             return $Unidade;
         }
@@ -58,10 +58,10 @@ class UnidadesModulos extends Model
     public static function VerfDel($id)
     {
         $VerfDel = UnidadesModulos::where('id', $id)
-        ->where('id', '>=', 1)
-        ->where('id', '<=', 128)
-        ->get();
-       
+            ->where('id', '>=', 1)
+            ->where('id', '<=', 128)
+            ->get();
+
         return $VerfDel;
     }
 
@@ -74,7 +74,7 @@ class UnidadesModulos extends Model
                 ->where('unidades_modulos.estado', 'ACTIVO')
                 ->where(function ($query) use ($Usu) {
                     $query->where('unidades_modulos.docente', "")
-                        ->orWhere('unidades_modulos.docente', $Usu);
+                    ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                 })
                 ->get();
         } else {
@@ -108,7 +108,6 @@ class UnidadesModulos extends Model
         }
 
         return $Exite;
-
     }
 
     public static function ReasignarAsig($data)
@@ -122,7 +121,6 @@ class UnidadesModulos extends Model
         }
 
         return $respuesta;
-
     }
 
     public static function listarUnidadesxDocente($Doce)
@@ -141,7 +139,7 @@ class UnidadesModulos extends Model
     public static function listarPond($id)
     {
         $Usu = Auth::user()->id;
-        $Unidade = UnidadesModulos::leftJoin('pond_unidades', 'unidades.id', '=', 'pond_unidades.unidad', 'pond_unidades.docente', '=', $Usu)
+        $Unidade = UnidadesModulos::leftJoin('pond_unidades', 'unidades.id', '=', 'pond_unidades.unidad', 'pond_unidades_modulos.docente', '=', $Usu)
             ->where('unidades.periodo', $id)
             ->where('unidades.estado', "ACTIVO")
             ->select('unidades.id', 'unidades.des_unidad', 'pond_unidades.porcentaje', 'pond_unidades.tponde')
@@ -179,9 +177,10 @@ class UnidadesModulos extends Model
                         })
                         ->where(function ($query) use ($Usu) {
                             $query->where('unidades_modulos.docente', "")
-                                ->orWhere('unidades_modulos.docente', $Usu);
+                                ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC')
                         ->limit($limit)->offset($offset);
                 } else {
@@ -197,6 +196,7 @@ class UnidadesModulos extends Model
                                 ->orWhere('modulos_transversales.nombre', 'LIKE', '%' . $busqueda . '%');
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC')
                         ->limit($limit)->offset($offset);
                 }
@@ -215,9 +215,10 @@ class UnidadesModulos extends Model
                         })
                         ->where(function ($query) use ($Usu) {
                             $query->where('unidades_modulos.docente', "")
-                                ->orWhere('unidades_modulos.docente', $Usu);
+                                ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC')
                         ->limit($limit)->offset($offset);
                 } else {
@@ -232,6 +233,7 @@ class UnidadesModulos extends Model
                                 ->orWhere('modulos_transversales.nombre', 'LIKE', '%' . $busqueda . '%');
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC')
                         ->limit($limit)->offset($offset);
                 }
@@ -249,9 +251,10 @@ class UnidadesModulos extends Model
                         ->where('grados_modulos.id', $Asig)
                         ->where(function ($query) use ($Usu) {
                             $query->where('unidades_modulos.docente', "")
-                                ->orWhere('unidades_modulos.docente', $Usu);
+                                ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC')
                         ->limit($limit)->offset($offset);
                 } else {
@@ -263,6 +266,7 @@ class UnidadesModulos extends Model
                         ->where('grados_modulos.id', $Asig)
 
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC')
                         ->limit($limit)->offset($offset);
                 }
@@ -274,11 +278,13 @@ class UnidadesModulos extends Model
                         ->join('modulos_transversales', 'modulos_transversales.id', 'grados_modulos.modulo')
                         ->where('unidades_modulos.estado', 'ACTIVO')
                         ->where('modulos_transversales.estado', 'ACTIVO')
+                        ->where('mod_prof.profesor', Auth::user()->id)
                         ->where(function ($query) use ($Usu) {
                             $query->where('unidades_modulos.docente', "")
-                                ->orWhere('unidades_modulos.docente', $Usu);
+                                ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC')
                         ->limit($limit)->offset($offset);
                 } else {
@@ -289,6 +295,7 @@ class UnidadesModulos extends Model
                         ->where('modulos_transversales.estado', 'ACTIVO')
 
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC')
                         ->limit($limit)->offset($offset);
                 }
@@ -320,9 +327,10 @@ class UnidadesModulos extends Model
                         })
                         ->where(function ($query) use ($Usu) {
                             $query->where('unidades_modulos.docente', "")
-                                ->orWhere('unidades_modulos.docente', $Usu);
+                                ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC');
                 } else {
                     $respuesta = UnidadesModulos::join('grados_modulos', 'grados_modulos.id', 'unidades_modulos.modulo')
@@ -337,6 +345,7 @@ class UnidadesModulos extends Model
                                 ->orWhere('modulos_transversales.nombre', 'LIKE', '%' . $busqueda . '%');
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC');
                 }
             } else {
@@ -347,6 +356,7 @@ class UnidadesModulos extends Model
                         ->join('modulos_transversales', 'modulos_transversales.id', 'grados_modulos.modulo')
                         ->where('unidades_modulos.estado', 'ACTIVO')
                         ->where('modulos_transversales.estado', 'ACTIVO')
+                        ->where('mod_prof.profesor', Auth::user()->id)
                         ->where(function ($query) use ($busqueda) {
                             $query->where('unidades_modulos.nom_unidad', 'LIKE', '%' . $busqueda . '%')
                                 ->orWhere('unidades_modulos.des_unidad', 'LIKE', '%' . $busqueda . '%')
@@ -354,9 +364,10 @@ class UnidadesModulos extends Model
                         })
                         ->where(function ($query) use ($Usu) {
                             $query->where('unidades_modulos.docente', "")
-                                ->orWhere('unidades_modulos.docente', $Usu);
+                                ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC');
                 } else {
                     $respuesta = UnidadesModulos::join('grados_modulos', 'grados_modulos.id', 'unidades_modulos.modulo')
@@ -370,6 +381,7 @@ class UnidadesModulos extends Model
                                 ->orWhere('modulos_transversales.nombre', 'LIKE', '%' . $busqueda . '%');
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC');
                 }
             }
@@ -386,9 +398,10 @@ class UnidadesModulos extends Model
                         ->where('grados_modulos.id', $Asig)
                         ->where(function ($query) use ($Usu) {
                             $query->where('unidades_modulos.docente', "")
-                                ->orWhere('unidades_modulos.docente', $Usu);
+                                ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC');
                 } else {
                     $respuesta = UnidadesModulos::join('grados_modulos', 'grados_modulos.id', 'unidades_modulos.modulo')
@@ -399,7 +412,9 @@ class UnidadesModulos extends Model
                         ->where('grados_modulos.id', $Asig)
 
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC');
+                     
                 }
             } else {
                 if (Auth::user()->tipo_usuario == "Profesor") {
@@ -409,25 +424,29 @@ class UnidadesModulos extends Model
                         ->join('modulos_transversales', 'modulos_transversales.id', 'grados_modulos.modulo')
                         ->where('unidades_modulos.estado', 'ACTIVO')
                         ->where('modulos_transversales.estado', 'ACTIVO')
+                        ->where('mod_prof.profesor', Auth::user()->id)
                         ->where(function ($query) use ($Usu) {
                             $query->where('unidades_modulos.docente', "")
-                                ->orWhere('unidades_modulos.docente', $Usu);
+                                ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                         })
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC');
                 } else {
                     $respuesta = UnidadesModulos::join('grados_modulos', 'grados_modulos.id', 'unidades_modulos.modulo')
-                        ->join('periodos_modtransv', 'periodos_modtransv.id', 'unidades_modulos.periodo')
-                        ->join('modulos_transversales', 'modulos_transversales.id', 'grados_modulos.modulo')
-                        ->where('unidades_modulos.estado', 'ACTIVO')
-                        ->where('modulos_transversales.estado', 'ACTIVO')
-
-                        ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
-                        ->orderBy('nom_unidad', 'ASC');
+                    ->join('periodos_modtransv', 'periodos_modtransv.id', 'unidades_modulos.periodo')
+                    ->join('modulos_transversales', 'modulos_transversales.id', 'grados_modulos.modulo')
+                    ->where('unidades_modulos.estado', 'ACTIVO')
+                    ->where('modulos_transversales.estado', 'ACTIVO')
+                    ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                    ->groupBy("unidades_modulos.id")
+                    ->orderBy('nom_unidad', 'ASC');
+              
                 }
             }
         }
-        return $respuesta->count();
+      //  dd($respuesta->get());
+        return $respuesta->get();
     }
 
     public static function TitUnidades($id)
@@ -455,10 +474,21 @@ class UnidadesModulos extends Model
     {
         $Ori = "P";
         $Doc = "";
-        if (Auth::user()->tipo_usuario == "Profesor") {
+        $idDoce = "";
+
+        if (Auth::user()->tipo_usuario == 'Profesor') {
             $Ori = "D";
             $Doc = Auth::user()->id;
+            foreach ($datos["idDocente"] as $key => $val) {
+                if ($datos["DoceSel"][$key] == "si") {
+                    $idDoce .= $datos["idDocente"][$key] . ",";
+                }
+            }
+        } else {
+            $idDoce = "";
         }
+
+        $idDoce = rtrim($idDoce, $idDoce[-1]);
         return UnidadesModulos::create([
             'periodo' => $datos['periodo'],
             'modulo' => $datos['modulo'],
@@ -467,18 +497,39 @@ class UnidadesModulos extends Model
             'estado' => 'ACTIVO',
             'introduccion' => $datos['introduccion'],
             'origunidad' => $Ori,
-            'docente' => $Doc,
+            'docente' =>  $idDoce,
         ]);
     }
 
     public static function modificar($data, $id)
     {
+
+
+        $Ori = "P";
+        //$Doc = "";
+        $idDoce = "";
+
+        if (Auth::user()->tipo_usuario == 'Profesor') {
+            $Ori = "D";
+            $Doc = Auth::user()->id;
+            foreach ($data["idDocente"] as $key => $val) {
+                if ($data["DoceSel"][$key] == "si") {
+                    $idDoce .= $data["idDocente"][$key] . ",";
+                }
+            }
+        } else {
+            $idDoce = "";
+        }
+
+        $idDoce = rtrim($idDoce, $idDoce[-1]);
+
         $respuesta = UnidadesModulos::where(['id' => $id])->update([
             'periodo' => $data['periodo'],
             'modulo' => $data['modulo'],
             'nom_unidad' => $data['nom_unidad'],
             'des_unidad' => $data['des_unidad'],
             'introduccion' => $data['introduccion'],
+            'docente' =>  $idDoce,
         ]);
         return $respuesta;
     }

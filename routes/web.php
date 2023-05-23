@@ -188,6 +188,11 @@ Route::post('/Asignaturas/CargarEvaluacion', 'AsignaturaController@ConsulEval');
 Route::post('/Asignaturas/CargarEvalReasignar', 'AsignaturaController@CargarEvalReasignar');
 Route::post('/Asignaturas/ReasignarEval', 'AsignaturaController@ReasignarEval');
 
+Route::post('/cambiar/docentesCompEval', 'AsignaturaController@docentesCompEval');
+Route::post('/Evaluaciones/compartirEval', 'AsignaturaController@compartirEval');
+
+
+
 
 ///////GESTIONAR LABORATORIOS
 Route::get('/Laboratorios/GestionLaboratorios/', 'LaboratoriosController@GestionLaboratorios');
@@ -218,6 +223,7 @@ Route::post('/cambiar/Periodos2', 'AsignaturaController@CambiarPeriodo2');
 Route::post('/cambiar/Unidad', 'AsignaturaController@CambiarUnidad');
 Route::post('/cambiar/docentesComp', 'AsignaturaController@cambiarCompDocentes');
 Route::post('/cambiar/docentesEdit', 'AsignaturaController@cambiarCompDocentesEdit');
+Route::post('/cambiar/docentesEditUnid', 'AsignaturaController@cambiarCompDocentesEditUnid');
 Route::post('/cambiar/Temas', 'AsignaturaController@CambiarTema');
 Route::post('/cambiar/Evalulacione', 'AsignaturaController@CambiarEvaluaciones');
 Route::post('/cambiar/Unidad2', 'AsignaturaController@CambiarUnidad2');
@@ -344,9 +350,14 @@ Route::post('/BuscarInf/LinksModulos', 'ModulosController@InfLinks');
 Route::post('/cambiar/docentesMod', 'ModulosController@cambiarCompDocentes');
 Route::post('/cambiar/docentesEditMod', 'ModulosController@cambiarCompDocentesEdit');
 
+//buscar informacion unidades compartidas
+Route::post('/cambiar/docentesEditUnidModu', 'ModulosController@cambiarCompDocentesEditUnid');
+
 Route::post('/Modulos/consulTemaPDF', 'ContenidoModuloController@ConsultarTemaPDF');
 Route::post('/Modulos/CargarTemasReasignar', 'ModulosController@CargarTemasReasignar');
 Route::post('/Modulos/ReasignarTemas', 'ModulosController@ReasignarTemas');
+
+
 
 
 ////////////GESTIONAR EVALUACIONES MODULOS TRANSVERSALES
@@ -359,6 +370,8 @@ Route::post('/Modulos/EliminarEval', 'ModulosController@EliminarEval');
 Route::post('/DelAnimTema/DelVideoModu', 'ModulosController@DelArchivoVideo');
 Route::post('/Modulos/CargarEvalReasignar', 'ModulosController@CargarEvalReasignar');
 Route::post('/Modulos/ReasignarEval', 'ModulosController@ReasignarEval');
+Route::post('/cambiar/docentesCompEvalModu', 'ModulosController@docentesCompEval');
+Route::post('/Evaluaciones/compartirEvalModu', 'ModulosController@compartirEval');
 
 
 /////GESTIÓN CONTENIDO MODULOS TRANSVERSALES

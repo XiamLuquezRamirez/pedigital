@@ -67,6 +67,9 @@
 
     {!! Form::open(['url' => '/cambiar/PeriodosUnidades2', 'id' => 'formAuxiliarPeri']) !!}
     {!! Form::close() !!}
+    
+{!! Form::open(['url' => '/cambiar/docentesEditUnidModu', 'id' => 'formAuxiliarCargDocentes']) !!}
+{!! Form::close() !!}
 
 @endsection
 @section('scripts')
@@ -78,7 +81,7 @@
 
             $.extend({
                 CargPeriodos: function() {
-
+                    $("#btn-Compartir").show();
                     var form = $("#formAuxiliarPeri");
                     $("#idAsig").remove();
                     id = $("#modulo").val();
@@ -97,9 +100,96 @@
                         }
                     });
                 },
+                cargarDocentes: function(or) {
+
+                    if(or=="btn"){
+                        $("#ModCompartir").modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                    }
+                 
+    
+                    var Tabla="";
+                    var j=1;
+    
+                    var modu_id= $("#unid_modulo").val();
+                    var unida_id= $("#unida_id").val();
+                    var form = $("#formAuxiliarCargDocentes");
+                    $("#idTema").remove();
+                    $("#idMod").remove();
+                    form.append("<input type='hidden' name='idMod' id='idMod' value='" + modu_id + "'>");
+                    form.append("<input type='hidden' name='idunid' id='idunid' value='" + unida_id + "'>");
+                    var url = form.attr("action");
+                    var datos = form.serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: datos,
+                        dataType: "json",
+                        success: function(respuesta) {
+                            if (Object.keys(respuesta.Docentes).length > 0) {
+                                $.each(respuesta.Docentes, function(i, item) {
+                                    Tabla += " <tr data-id='" + item.id +
+                                        "' id='Alumno" + item.id + "'>";
+                                    Tabla += "<td class='text-truncate'>" + j +
+                                        "</td> ";
+                                    Tabla += "<td class='text-truncate'>" + item.ndocente+ "</td> ";
+                                    Tabla +=
+                                        "<input type='hidden' name='idDocente[]' value='" + item.usuario_profesor + "'>"+
+                                        "<input type='hidden' name='grupo[]' value='" + item.grupo + "'>"+
+                                        "<input type='hidden' name='jornada[]' value='" + item.jornada + "'>";
+    
+                                        if($("#id_usuario").val()==item.usuario_profesor){
+                                            Tabla +=   "<input type='hidden' id='DoceSel" + j +"' name='DoceSel[]' value='si'>"+
+                                            "<td class='text-truncate text-center'>"+
+                                            "<input type='checkbox' onclick='$.SelDocente(" + j + ");' id='CheckSeleccion" + j +"' style='cursor: pointer;' disabled checked name='checkDocenteSel' value=''>";
+                                        }else{
+                                            if(item.Comp=="si"){
+                                                Tabla += "<input type='hidden' id='DoceSel" + j +"' name='DoceSel[]' value='si'>"+
+                                                "<td class='text-truncate text-center'>"+
+                                                "<input type='checkbox' onclick='$.SelDocente(" + j + ");' id='CheckSeleccion" + j +"' style='cursor: pointer;' checked name='checkDocenteSel' value=''>";
+                                            }else{
+                                                Tabla += "<input type='hidden' id='DoceSel" + j +"' name='DoceSel[]' value='no'>"+
+                                                "<td class='text-truncate text-center'>"+
+                                                "<input type='checkbox' onclick='$.SelDocente(" + j + ");' id='CheckSeleccion" + j +"' style='cursor: pointer;' name='checkDocenteSel' value=''>";
+                                            }
+                                        }
+    
+                                        Tabla += "</td> ";
+                                    Tabla += " </tr>";
+                                    j++;
+                                });
+                                $("#td-alumnos").html(Tabla);
+                            } else {
+                                $("#td-alumnos").html('');
+                                $("#btn-acciones").hide();
+                                swal.fire({
+                                    title: "Administrar Temas",
+                                    text: 'No existen docentes con los que puedas compartir este tema a crear',
+                                    icon: "warning",
+                                    button: "Aceptar",
+                                });
+                            }
+    
+                            $("#tdcompartir").html(Tabla);
+                        }
+    
+                    });
+    
+                },
+                SelDocente: function(id) {
+                    if ($('#CheckSeleccion' + id).prop('checked')) {
+                        $("#DoceSel" + id).val("si");
+                    } else {
+                        $("#DoceSel" + id).val("no");
+    
+                    }
+                },
             });
 
             $.CargPeriodos();
+            $.cargarDocentes("loading");
 
 
 

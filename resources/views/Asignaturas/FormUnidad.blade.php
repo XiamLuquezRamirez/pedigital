@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Input;
 <input type="hidden" class="form-control" id="tema_per"  value="{{$unid->periodo}}"/>
 <input type="hidden" class="form-control" id="tipo_usuario" value="{{ Auth::user()->tipo_usuario }}" />
 <input type="hidden" class="form-control" id="id_usuario" value="{{ Auth::user()->id }}" />
+<input type="hidden" class="form-control" name="unida_id" id="unida_id" value="{{ $unid->id }}" />
+<input type="hidden" class="form-control" id="unid_modulo" value="{{ $unid->modulo }}" />
+
 
 
 
@@ -74,7 +77,7 @@ use Illuminate\Support\Facades\Input;
         <div class="col-md-12 col-lg-12 ">
             <div class="btn-list">
                 @if(Auth::user()->tipo_usuario=="Profesor")
-                <a class="btn btn-outline-info" id="btn-Compartir" style="display: none;"  onclick="$.cargarDocentes();"  title="Guardar">
+                <a class="btn btn-outline-info" id="btn-Compartir" style="display: none;"  onclick="$.cargarDocentes('btn');"  title="Guardar">
                     <i class="fa fa-share"></i> Compartir
                 </a>
                 @endif

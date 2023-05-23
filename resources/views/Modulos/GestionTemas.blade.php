@@ -131,10 +131,11 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead class="bg-primary">
                                                     <tr>
-                                                        <th>Módulo</th>
-                                                        <th>Unidad</th>
-                                                        <th>Título del Tema</th>
                                                         <th>Opciones</th>
+                                                        <th>Título del Tema</th>
+                                                        <th>Unidad</th>
+                                                        <th>Módulo</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -155,12 +156,14 @@
                                                                     title="Asignar Evaluación"><i
                                                                         class="fa fa-check-square-o"></i></a>
                                                             </td>
-                                                            <td class="text-truncate" title="{!! $Tem->titu_contenido !!}" style="text-transform: capitalize;">
-                                                                {!! substr($Tem->titu_contenido,0,40) !!}...</td>
-                                                            <td class="text-truncate">{!! $Tem->nombre . ' - Grado ' . $Tem->grado_modulo . '°' !!}</td>
+                                                            <td class="text-truncate" title="{!! $Tem->titu_contenido !!}"
+                                                                style="text-transform: capitalize;">
+                                                                {!! substr($Tem->titu_contenido, 0, 40) !!}...</td>
                                                             <td class="text-truncate">{!! $Tem->nom_unidad . ' - ' . $Tem->des_unidad !!}</td>
-                                                      
-                                                      
+                                                            <td class="text-truncate">{!! $Tem->nombre . ' - Grado ' . $Tem->grado_modulo . '°' !!}</td>
+
+
+
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

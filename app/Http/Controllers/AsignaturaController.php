@@ -95,6 +95,86 @@ class AsignaturaController extends Controller
         }
     }
 
+    
+    public function docentesCompEval() {
+        
+        $idMod = request()->get('idMod');
+        $idEval = request()->get('idEval');
+
+        if (Auth::check()) {
+            $Docentes = \App\AsigProf::listaProf($idMod);
+            $evaluacion = \App\Evaluacion::BusEval($idEval);
+            
+
+            $doceEval=$evaluacion->docente;
+
+            $arrayDoc = explode(",", $doceEval);
+
+            foreach ($Docentes as $Doc) {
+                if (in_array($Doc->usuario_profesor, $arrayDoc)) {
+                    $Doc->Comp = "si";
+                }else{
+                    $Doc->Comp = "no";
+                }
+            }
+
+
+            if (request()->ajax()) {
+                return response()->json([
+                            'Docentes' => $Docentes
+                ]);
+            }
+        } else {
+            return redirect("/")->with("error", "Su sesion ha terminado");
+        }
+    }
+    
+    public function cambiarCompDocentesEditUnid() {
+        
+        $idMod = request()->get('idMod');
+        $idunid = request()->get('idunid');
+
+        if (Auth::check()) {
+            $Docentes = \App\AsigProf::listaProf($idMod);
+            $unidades = \App\Unidades::TitUnidades($idunid);
+
+            $doceUnid=$unidades->docente;
+
+            $arrayDoc = explode(",", $doceUnid);
+
+            foreach ($Docentes as $Doc) {
+                if (in_array($Doc->usuario_profesor, $arrayDoc)) {
+                    $Doc->Comp = "si";
+                }else{
+                    $Doc->Comp = "no";
+                }
+            }
+
+
+            if (request()->ajax()) {
+                return response()->json([
+                            'Docentes' => $Docentes
+                ]);
+            }
+        } else {
+            return redirect("/")->with("error", "Su sesion ha terminado");
+        }
+    }
+
+    public function compartirEval(){
+        $data = request()->all();
+        
+        $ContEval = \App\Evaluacion::ModifEvalComp($data);
+
+        if (request()->ajax()) {
+            return response()->json([
+                'estado' => 'ok'
+            ]);
+        }
+        
+        
+    }
+
     public function ModificarArea($id)
     {
         if (Auth::check()) {
@@ -274,6 +354,7 @@ class AsignaturaController extends Controller
         if (Auth::check()) {
             $Evaluaciones = \App\Evaluacion::ListEval($id, 'C');
             $DesTema = \App\Temas::BuscarTema($id);
+            $idAsigGrado = $DesTema->modulo;
             $titTema = $DesTema->titu_contenido;
             $Docentes = \App\Profesores::Listar();
 
@@ -283,7 +364,7 @@ class AsignaturaController extends Controller
             foreach ($Docentes as $doce) {
                 $select_docente .= "<option value='$doce->usuario_profesor'> " . strtoupper($doce->nombre . " " . $doce->apellido) . "</option>";
             }
-            return view('Asignaturas.GestionEvaluaciones', compact('bandera', 'Evaluaciones', 'titTema', 'id', 'select_docente'));
+            return view('Asignaturas.GestionEvaluaciones', compact('bandera', 'Evaluaciones', 'titTema', 'id', 'select_docente','idAsigGrado'));
         } else {
             return redirect("/")->with("error", "Su Sesión ha Terminado");
         }

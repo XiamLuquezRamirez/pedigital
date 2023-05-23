@@ -59,6 +59,38 @@ class ModulosController extends Controller
         }
     }
 
+    public function cambiarCompDocentesEditUnid() {
+        
+        $idMod = request()->get('idMod');
+        $idunid = request()->get('idunid');
+
+        if (Auth::check()) {
+            $Docentes = \App\ModProf::listaProf($idMod);
+            $unidades = \App\UnidadesModulos::TitUnidades($idunid);
+
+            $doceUnid=$unidades->docente;
+
+            $arrayDoc = explode(",", $doceUnid);
+
+            foreach ($Docentes as $Doc) {
+                if (in_array($Doc->usuario_profesor, $arrayDoc)) {
+                    $Doc->Comp = "si";
+                }else{
+                    $Doc->Comp = "no";
+                }
+            }
+
+
+            if (request()->ajax()) {
+                return response()->json([
+                            'Docentes' => $Docentes
+                ]);
+            }
+        } else {
+            return redirect("/")->with("error", "Su sesion ha terminado");
+        }
+    }
+
     
     public function cambiarCompDocentesEdit() {
         $idMod = request()->get('idMod');
@@ -691,7 +723,9 @@ class ModulosController extends Controller
             $limit = 10;
             $Unidades = \App\UnidadesModulos::Gestion($busqueda, $actual, $limit, $nombre);
             $numero_filas = \App\UnidadesModulos::numero_de_registros(request()->get('txtbusqueda'), $nombre);
+            $numero_filas = $numero_filas->count();
             $paginas = ceil($numero_filas / $limit); //$numero_filas/10;
+
             $Asignaturas = \App\GradosModulos::listar();
             $Docentes = \App\Profesores::Listar();
             $select_docente = "<option value='' selected>Seleccione el Docente</option>";
@@ -714,6 +748,8 @@ class ModulosController extends Controller
             return redirect("/")->with("error", "Su sesion ha terminado");
         }
     }
+
+  
 
     public function GestionNuevaUnidad()
     {
@@ -1627,6 +1663,7 @@ class ModulosController extends Controller
             $Evaluaciones = \App\Evaluacion::ListEval($id, 'M');
             $DesTema = \App\TemasModulos::BuscarTema($id);
             $titTema = $DesTema->titu_contenido;
+            $idAsigGrado = $DesTema->modulo;
 
             $Docentes = \App\Profesores::Listar();
             $select_docente = "<option value='' selected>Seleccione el Docente</option>";
@@ -1635,10 +1672,58 @@ class ModulosController extends Controller
                 $select_docente .= "<option value='$doce->usuario_profesor'> " . strtoupper($doce->nombre . " " . $doce->apellido) . "</option>";
             }
 
-            return view('Modulos.GestionEvaluaciones', compact('bandera', 'Evaluaciones', 'titTema', 'id', 'select_docente'));
+            return view('Modulos.GestionEvaluaciones', compact('bandera', 'Evaluaciones', 'titTema', 'id', 'select_docente','idAsigGrado'));
         } else {
             return redirect("/")->with("error", "Su sesion ha terminado");
         }
+    }
+
+    public function docentesCompEval() {
+        
+        $idMod = request()->get('idMod');
+        $idEval = request()->get('idEval');
+
+        if (Auth::check()) {
+            $Docentes = \App\ModProf::listaProf($idMod);
+            $evaluacion = \App\Evaluacion::BusEval($idEval);
+            
+
+            $doceEval=$evaluacion->docente;
+
+            $arrayDoc = explode(",", $doceEval);
+
+            foreach ($Docentes as $Doc) {
+                if (in_array($Doc->usuario_profesor, $arrayDoc)) {
+                    $Doc->Comp = "si";
+                }else{
+                    $Doc->Comp = "no";
+                }
+            }
+
+
+            if (request()->ajax()) {
+                return response()->json([
+                            'Docentes' => $Docentes
+                ]);
+            }
+        } else {
+            return redirect("/")->with("error", "Su sesion ha terminado");
+        }
+    }
+
+    
+    public function compartirEval(){
+        $data = request()->all();
+        
+        $ContEval = \App\Evaluacion::ModifEvalComp($data);
+
+        if (request()->ajax()) {
+            return response()->json([
+                'estado' => 'ok'
+            ]);
+        }
+        
+        
     }
 
     public function AsigEvaluacion($id)
