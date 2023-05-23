@@ -252,8 +252,8 @@ function agregarmov(){
             balon.style.animationName = "";
             balon.style.height = "41px";
             setTimeout(()=>{
-                portero.setAttribute("src", "portero.png");
-                portero.style.height = "117pt";
+                portero.setAttribute("src", "portero.gif");
+                portero.style.height = "125pt";
                 portero.style.left = "44.2%";
                 portero.style.top =  "41%";
                 balon.style.height = "61px";

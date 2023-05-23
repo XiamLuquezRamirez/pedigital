@@ -287,11 +287,11 @@
     "icono": "iconos/EcuacionRecta.png"
   },
   {
-    "grado": "4",
-    "juego": "Fracciones",
-    "ruta": "AreaMatematicas/OperacionesFracciones/index.html",
+    "grado": "9",
+    "juego": "Notación Cientifica",
+    "ruta": "AreaMatematicas/NotacionCientifica/index.html",
     "area": "M",
-    "icono": "iconos/Fracciones.png"
+    "icono": "iconos/NotacionCientifica.png"
   },
   {
     "grado": "4",

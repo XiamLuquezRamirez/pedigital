@@ -290,7 +290,7 @@ function calificar() {
             document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
         }
 
-        document.getElementById("texto_final").innerText = "Has contestado correctamente " + buenas + " preguntas de 4"
+        document.getElementById("texto_final").innerText = "Has contestado correctamente " + buenas + " preguntas de 5"
 
         if (buenas >= 3) {
             var audio = new Audio('../../sounds/victory.mp3');
