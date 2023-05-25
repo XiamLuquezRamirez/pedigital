@@ -71,7 +71,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te mostraran 10 oraciones de las cuales deberás releccionar, A (voz Activa) o P (voz Pasiva), según corresponda <br> ¡Tú Puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te mostraran 10 preguntas relacionadas con el tema "El ADN" deberas estrellar el aviòn con la nube que tenga la respuesta correcta. <br> ¡Tú Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })
@@ -134,6 +134,7 @@ var posicionInicial = 0;
 let preguntaActual = 0;
 function preguntar() {
     let pregunta = frases[preguntaActual];
+    document.getElementById("pregunta").innerText = "";
     document.getElementById("pregunta").innerText = pregunta.pregunta;
     document.getElementById("imagen").setAttribute("src", "");
 
@@ -300,7 +301,7 @@ function finalJuego() {
 }
 
 function reloj(){
-    var timeleft = 180;
+    var timeleft = 300;
     var downloadTimer = setInterval(function(){
       var minutes = Math.floor(timeleft / 60);
       var seconds = timeleft - minutes * 60;

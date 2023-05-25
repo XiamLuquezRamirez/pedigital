@@ -328,19 +328,20 @@ function verify_bingo(){
 				audio.play();
 			}
 		  })
-	}else{
-		if(ok.length == 25){
-			$('#principal').fadeToggle(500);
-			setTimeout(() => {
-				$('#final').fadeToggle(1000);
-			}, 500)
-
-			document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
-
-			document.getElementById("texto_final").innerText = "¡BINGO!, Felicitaciones, has completado la misión....";
-
-			var audio = new Audio('../../sounds/victory.mp3');
-			audio.play();
-		}
 	}
+	
+	if(ok.length == 25){
+		$('#principal').fadeToggle(500);
+		setTimeout(() => {
+			$('#final').fadeToggle(1000);
+		}, 500)
+
+		document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
+
+		document.getElementById("texto_final").innerText = "¡BINGO!, Felicitaciones, has completado la misión....";
+
+		var audio = new Audio('../../sounds/victory.mp3');
+		audio.play();
+	}
+	
 }

@@ -74,80 +74,88 @@ function cerrar_anuncio() {
     }, 2000);
 }
 
-var funciones = [
+var carpetas = [
     {
-        imagen: "img/alcanos.png",
-        tipo: "Alcanos",
+        nombre: "Alcanos",
+        cantidad: 4,
     },
     {
-        imagen: "img/alquenos.png",
-        tipo: "Alquenos",
+        nombre: "Alquinos",
+        cantidad: 4,
     },
     {
-        imagen: "img/alquinos.png",
-        tipo: "Alquinos",
+        nombre: "Aromáticos",
+        cantidad: 3,
     },
     {
-        imagen: "img/aromaticos.png",
-        tipo: "Aromáticos",
+        nombre: "Alcoholes",
+        cantidad: 5,
     },
     {
-        imagen: "img/derivadoshalogenados.png",
-        tipo: "Derivados Halogenados",
+        nombre: "Éteres",
+        cantidad: 3,
     },
     {
-        imagen: "img/alcoholes.png",
-        tipo: "Alcoholes",
+        nombre: "Aldehídos",
+        cantidad: 4,
     },
     {
-        imagen: "img/eteres.png",
-        tipo: "Éteres",
+        nombre: "Cetonas",
+        cantidad: 2,
     },
     {
-        imagen: "img/aldehidos.png",
-        tipo: "Aldehídos",
+        nombre: "Ácidos Carboxílicos",
+        cantidad: 3,
     },
     {
-        imagen: "img/Cetonas.png",
-        tipo: "Cetonas",
+        nombre: "Ésteres",
+        cantidad: 3,
     },
     {
-        imagen: "img/acidoscarboxilicos.png",
-        tipo: "Ácidos Carboxílicos",
+        nombre: "Derivados Halogenados",
+        cantidad: 3,
     },
     {
-        imagen: "img/esteres.png",
-        tipo: "Ésteres",
+        nombre: "Aminas",
+        cantidad: 3,
     },
     {
-        imagen: "img/aminas.png",
-        tipo: "Aminas",
+        nombre: "Amidas",
+        cantidad: 6,
     },
     {
-        imagen: "img/amidas.png",
-        tipo: "Amidas",
+        nombre: "Nitrilos",
+        cantidad: 4,
     },
     {
-        imagen: "img/nitrilos.png",
-        tipo: "Nitrilos",
-    },
-    {
-        imagen: "img/nitrocompuestos.png",
-        tipo: "Nitrocompuestos",
+        nombre: "Nitrocompuestos",
+        cantidad: 3,
     }
 ]
+
+var funciones = []
 
 var funcion = [];
 var grupoFuncional = [];
 
 function generarFraccionesEquivalentesAlAzar() {
+
+    for (let index = 0; index < carpetas.length; index++) {
+        const element = carpetas[index];
+        for (let index2 = 1; index2 <= element.cantidad; index2++) {
+            funciones.push({    
+                imagen: "img/"+element.nombre+"/"+index2+".png",
+                tipo: element.nombre
+            })
+        }
+    }
+
     funciones = randomValueGenerator(funciones);
+    
     grupoFuncional = [];
     funcion = [];
     for (let index = 0; index < 5; index++) {
-       
         var element = funciones[index];
-
         funcion.push({
             html: "<h2>" + element.tipo + "</h2>",
             id: element.tipo
@@ -190,6 +198,7 @@ var respuestas_reci = [];
 var point1 = null;
 var point2 = null;
 var respuesta_a = 0;
+var id_linea = 0;
 function crear_linea(elemento, tipo) {
 
     if (tipo == 1 && point1 == null) {
@@ -213,13 +222,14 @@ function crear_linea(elemento, tipo) {
         respuestas_reci.push({
             pregunta: point1.getAttribute('data-id'),
             respuesta: point2.getAttribute('data-id'),
-            linea: "line_" + point1.getAttribute('data-id'),
+            linea: "line_" + id_linea,
         });
 
 
         var line = document.createElement("div");
         line.classList.add("line");
-        line.setAttribute("id", "line_" + point1.getAttribute('data-id'))
+        line.setAttribute("id", "line_" + id_linea)
+        id_linea++;
 
         // Find the points based off the elements left and top
         var p1 = { x: point1.offsetLeft, y: point1.offsetTop };
@@ -249,8 +259,6 @@ function crear_linea(elemento, tipo) {
         document.body.appendChild(line);
 
         setTimeout(() => {
-            point1.setAttribute("onclick", "#");
-            point2.setAttribute("onclick", "#");
             point1 = null;
             point2 = null;
         }, 500);

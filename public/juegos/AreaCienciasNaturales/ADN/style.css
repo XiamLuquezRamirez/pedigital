@@ -539,6 +539,7 @@ body {
 
 .collapse p {
   margin: 0;
+  line-height: 18px;
 }
 
 .imagen {

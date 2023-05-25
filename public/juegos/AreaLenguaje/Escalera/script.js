@@ -278,6 +278,8 @@ function verificar_escalera(){
             personaje.style.top = (coordenadaY-40)+"px";
 
             setTimeout(()=>{
+                pos_anterior = 23;
+                pos_actual = 23;
                 personaje.style.animationName = "aumentar";
                 setTimeout(()=>{
                     personaje.style.animationName = "";
@@ -297,6 +299,8 @@ function verificar_escalera(){
                 personaje.style.top = (coordenadaY-40)+"px";
     
                 setTimeout(()=>{
+                    pos_anterior = 47;
+                    pos_actual = 47;
                     personaje.style.animationName = "aumentar";
                     setTimeout(()=>{
                         personaje.style.animationName = "";
@@ -316,6 +320,7 @@ function verificar_escalera(){
                     personaje.style.top = (coordenadaY-40)+"px";
         
                     setTimeout(()=>{
+                        pos_anterior = 6;
                         personaje.style.animationName = "aumentar";
                         setTimeout(()=>{
                             personaje.style.animationName = "";
@@ -335,6 +340,8 @@ function verificar_escalera(){
                         personaje.style.top = (coordenadaY-40)+"px";
             
                         setTimeout(()=>{
+                            pos_anterior = 15;
+                            pos_actual = 15;
                             personaje.style.animationName = "aumentar";
                             setTimeout(()=>{
                                 personaje.style.animationName = "";
@@ -354,6 +361,8 @@ function verificar_escalera(){
                             personaje.style.top = (coordenadaY-40)+"px";
                 
                             setTimeout(()=>{
+                                pos_anterior = 23;
+                                pos_actual = 23;
                                 personaje.style.animationName = "aumentar";
                                 setTimeout(()=>{
                                     personaje.style.animationName = "";
@@ -373,6 +382,8 @@ function verificar_escalera(){
                                 personaje.style.top = (coordenadaY-40)+"px";
                     
                                 setTimeout(()=>{
+                                    pos_anterior = 15;
+                                    pos_actual = 15;
                                     personaje.style.animationName = "aumentar";
                                     setTimeout(()=>{
                                         personaje.style.animationName = "";

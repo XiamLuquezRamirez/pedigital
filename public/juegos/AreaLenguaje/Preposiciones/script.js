@@ -135,6 +135,13 @@ function preguntar() {
     let pregunta = frases[preguntaActual];
     document.getElementById("pregunta").innerText = pregunta.ejemplo;
 
+    const sentence = document.getElementById("pregunta");
+    const wordToHighlight = pregunta.preposicion;
+
+    const regex = new RegExp(wordToHighlight, "gi");
+    const highlightedSentence = sentence.innerHTML.replace(regex, '<span class="highlight">$&</span>');
+    sentence.innerHTML = highlightedSentence;
+
     let opciones = randomValueGenerator(["tiempo", "lugar", "dirección", "causa", "modo", "posesión", "concesión", "instrumento", "condición", "comparación", "oposición", "medio", "acompañamiento", "finalidad"]);
     for (let index = 0; index < 14; index++) {
         const element = opciones[index];
@@ -285,7 +292,7 @@ function finalJuego() {
 }
 
 function reloj(){
-    var timeleft = 180;
+    var timeleft = 300;
     var downloadTimer = setInterval(function(){
       var minutes = Math.floor(timeleft / 60);
       var seconds = timeleft - minutes * 60;
