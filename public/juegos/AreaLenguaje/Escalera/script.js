@@ -163,9 +163,9 @@ function lanzarDados() {
 
 let dad1 = 0;
 function rotarImagenes(i, n) {
-    if(pos_actual == 89){
+    if(pos_actual >= 85){
         const imagen = document.getElementById("dado1_1");
-        dad1 = Math.floor(Math.random() * (2 - 0 + 1) + 0);
+        dad1 = Math.floor(Math.random() * (3 - 0 + 1) + 0);
         imagen.src = imagenes[dad1][0];
         imagen.alt = imagenes[dad1][1];
         if (i < n) {
@@ -179,7 +179,7 @@ function rotarImagenes(i, n) {
     }else{
         if (i < n) {
             const imagen = document.getElementById("dado1_1");
-            dad1 = Math.floor(Math.random() * (5 - 0 + 1) + 0);
+            dad1 = Math.floor(Math.random() * (5 - 5 + 1) + 5);
             imagen.src = imagenes[dad1][0];
             imagen.alt = imagenes[dad1][1];
             setTimeout(function () {
@@ -187,7 +187,7 @@ function rotarImagenes(i, n) {
             }, 300);
         } else {
             setTimeout(function () {
-                if((pos_actual + dad1) < 90){
+                if((pos_actual + dad1) < 89){
                     $('#myModal').modal('show');
                     pintar_pregunta();
                 }else{
@@ -197,7 +197,7 @@ function rotarImagenes(i, n) {
                         title: 'lanza nuevamente los dados',
                         showConfirmButton: false,
                         timer: 1500
-                      })
+                    })
                 }   
             }, 500);     
         }
@@ -278,6 +278,8 @@ function verificar_escalera(){
             personaje.style.top = (coordenadaY-40)+"px";
 
             setTimeout(()=>{
+                pos_anterior = 23;
+                pos_actual = 23;
                 personaje.style.animationName = "aumentar";
                 setTimeout(()=>{
                     personaje.style.animationName = "";
@@ -297,6 +299,8 @@ function verificar_escalera(){
                 personaje.style.top = (coordenadaY-40)+"px";
     
                 setTimeout(()=>{
+                    pos_anterior = 47;
+                    pos_actual = 47;
                     personaje.style.animationName = "aumentar";
                     setTimeout(()=>{
                         personaje.style.animationName = "";
@@ -316,6 +320,7 @@ function verificar_escalera(){
                     personaje.style.top = (coordenadaY-40)+"px";
         
                     setTimeout(()=>{
+                        pos_anterior = 6;
                         personaje.style.animationName = "aumentar";
                         setTimeout(()=>{
                             personaje.style.animationName = "";
@@ -335,6 +340,8 @@ function verificar_escalera(){
                         personaje.style.top = (coordenadaY-40)+"px";
             
                         setTimeout(()=>{
+                            pos_anterior = 15;
+                            pos_actual = 15;
                             personaje.style.animationName = "aumentar";
                             setTimeout(()=>{
                                 personaje.style.animationName = "";
@@ -354,6 +361,8 @@ function verificar_escalera(){
                             personaje.style.top = (coordenadaY-40)+"px";
                 
                             setTimeout(()=>{
+                                pos_anterior = 23;
+                                pos_actual = 23;
                                 personaje.style.animationName = "aumentar";
                                 setTimeout(()=>{
                                     personaje.style.animationName = "";
@@ -373,6 +382,8 @@ function verificar_escalera(){
                                 personaje.style.top = (coordenadaY-40)+"px";
                     
                                 setTimeout(()=>{
+                                    pos_anterior = 15;
+                                    pos_actual = 15;
                                     personaje.style.animationName = "aumentar";
                                     setTimeout(()=>{
                                         personaje.style.animationName = "";
@@ -428,8 +439,7 @@ function  respuesta(tipo, elemento){
         audio.play();
         correctas++;
         setTimeout(()=>{
-            pos_actual += dad1;
-            pos_actual += 1;
+            pos_actual += (dad1+1);
             recorrerDivs(pos_anterior+1, pos_actual);
         }, 2100)
     }else{

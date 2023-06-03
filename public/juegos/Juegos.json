@@ -294,11 +294,17 @@
     "icono": "iconos/NotacionCientifica.png"
   },
   {
-    "grado": "4",
+    "grado": "9",
     "juego": "Sistema Solar",
-    "ruta": "AreaCienciasSociales/SistemaSolar/index.html",
+    "ruta": "AreaCienciasSociales/Moto/index.html",
     "area": "CS",
-    "icono": "iconos/SistemaSolar.png"
+    "icono": "iconos/moto.png"
+  },
+  {
+    "juego": "Las Guerras",
+    "ruta": "AreaCienciasSociales/LasGuerras/index.html",
+    "area": "CS",
+    "icono": "iconos/LasGuerras.png"
   },
   {
     "grado": "9",
@@ -357,11 +363,11 @@
     "icono": "iconos/Biotecnologia.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "x y % Challenge",
-    "ruta": "AreaMatematicas/MultiplosyDivisores/index.html",
+    "ruta": "AreaMatematicas/TecnicasConteo/index.html",
     "area": "M",
-    "icono": "iconos/MD.png"
+    "icono": "iconos/TecnicasConteo.png"
   },
   {
     "grado": "5",
@@ -378,25 +384,25 @@
     "icono": "iconos/Porcentaje.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "Crucigrama",
-    "ruta": "AreaCienciasSociales/CrucigramaColombia/index.html",
+    "ruta": "AreaCienciasSociales/ConflictoInternoColombia/index.html",
     "area": "CS",
-    "icono": "iconos/CrucigramaColombia.png"
+    "icono": "iconos/ConflictoInternoColombia.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "Los Presidentes",
-    "ruta": "AreaCienciasSociales/LosPresidentes/index.html",
+    "ruta": "AreaCienciasSociales/LiberalismoNeoliberalismo/index.html",
     "area": "CS",
-    "icono": "iconos/LosPresidentes.png"
+    "icono": "iconos/LiberalismoNeoliberalismo.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "Mi Geografia",
-    "ruta": "AreaCienciasSociales/SopaLetras/index.html",
+    "ruta": "AreaCienciasSociales/Biodiversidad/index.html",
     "area": "CS",
-    "icono": "iconos/MiGeografia.png"
+    "icono": "iconos/Biodiversidad.png"
   },
   {
     "grado": "10",
@@ -404,6 +410,12 @@
     "ruta": "AreaLenguaje/CrucigramaLiteratura/index.html",
     "area": "LC",
     "icono": "iconos/CrucigramaLiteratura.png"
+  },
+    {
+    "juego": "Palabras Multiformes",
+    "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
+    "area": "LC",
+    "icono": "iconos/PalabrasMultiformes.png"
   },
   {
     "grado": "5",

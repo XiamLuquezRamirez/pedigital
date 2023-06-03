@@ -549,3 +549,7 @@ body {
   top: 94px;
   right: 41%;
 }
+
+.highlight {
+  color: red;
+}
