@@ -114,18 +114,20 @@ body {
     font-size: 19px;
 }
 
-#bienvenida {
-    width: 55%;
-    padding-left: 40pt;
-    font-size: 20px !important;
-    text-align: justify;
-}
 #texto-nave {
     width: 44%;
     padding-left: 40pt;
     font-size: 20px !important;
     text-align: justify;
 }
+
+#bienvenida {
+    width: 55%;
+    padding-left: 40pt;
+    font-size: 20px !important;
+    text-align: justify;
+}
+
 
 .nube {
     background-image: url('../../images/nube.png');

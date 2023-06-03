@@ -124,11 +124,13 @@
                                                     @foreach ($Evaluaciones as $Eva)
                                                         <tr data-id='{{ $Eva->id }}' id='eval{{ $Eva->id }}'>
                                                             <td class="text-truncate">
+                                                                @if(Auth::user()->tipo_usuario=="Profesor")
                                                                 <a href="javascript:void(0)"
                                                                     onclick="$.cargarDocentes({{ $Eva->id }});"
                                                                     title="Compartir"
                                                                     class="btn btn-outline-info  btn-sm"><i
                                                                         class="fa fa-share"></i></a>
+                                                                @endif
                                                                 <a href='{{ url('Asignaturas/EditarEvaluacion/' . $Eva->id) }}'
                                                                     title="Editar"
                                                                     class="btn btn-outline-success  btn-sm"><i
@@ -746,15 +748,24 @@
                                 url: url,
                                 data: datos,
                                 success: function(respuesta) {
-                                    Swal.fire({
-                                        title: "",
-                                        text: respuesta.mensaje,
-                                        icon: respuesta.icon,
-                                        button: "Aceptar"
-                                    });
-
-                                    if (respuesta.estado === "ELIMINADO") {
-                                        $("#eval" + id).hide();
+                                    if (respuesta.opc=="NT") {
+                                        Swal.fire({
+                                            title: "Gestionar Evaluaciones",
+                                            text: respuesta.mensaje,
+                                            icon: respuesta.icon,
+                                            button: "Aceptar"
+                                        });
+    
+                                        if (respuesta.estado === "ELIMINADO") {
+                                            $("#eval" + id).hide();
+                                        }
+                                    }else if (respuesta.opc=="VU") {
+                                        Swal.fire({
+                                            title: "Gestionar Evaluaciones",
+                                            text: respuesta.mensaje,
+                                            icon: respuesta.icon,
+                                            button: "Aceptar"
+                                        });
                                     }
 
                                 },

@@ -19,6 +19,7 @@ class Unidades extends Model
         'introduccion',
         'origunidad',
         'docente',
+        'docente_propietario'
     ];
 
     public static function unidad($id)
@@ -58,7 +59,7 @@ class Unidades extends Model
     {
         $VerfDel = Unidades::where('id', $id)
             ->where('id', '>=', 1)
-            ->where('id', '<=', 430)
+            ->where('id', '<=', 442)
             ->get();
 
         return $VerfDel;
@@ -470,11 +471,10 @@ class Unidades extends Model
                     $idDoce .= $datos["idDocente"][$key] . ",";
                 }
             }
+            $idDoce = rtrim($idDoce, $idDoce[-1]);
         } else {
             $idDoce = "";
         }
-
-        $idDoce = rtrim($idDoce, $idDoce[-1]);
 
         return Unidades::create([
             'periodo' => $datos['periodo'],
@@ -485,6 +485,7 @@ class Unidades extends Model
             'introduccion' => $datos['introduccion'],
             'origunidad' => $Ori,
             'docente' => $idDoce,
+            'docente_propietario' => $Doc,
         ]);
     }
 
@@ -503,11 +504,12 @@ class Unidades extends Model
                     $idDoce .= $data["idDocente"][$key] . ",";
                 }
             }
+            $idDoce = rtrim($idDoce, $idDoce[-1]);
         } else {
             $idDoce = "";
         }
 
-        $idDoce = rtrim($idDoce, $idDoce[-1]);
+       
 
         $respuesta = Unidades::where(['id' => $id])->update([
             'periodo' => $data['periodo'],

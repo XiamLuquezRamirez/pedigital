@@ -21,6 +21,7 @@ class TemasModulos extends Model
         'estado',
         'objetivo_general',
         'docente',
+        'docente_propietario'
     ];
 
     public static function temas($id)
@@ -55,7 +56,7 @@ class TemasModulos extends Model
     {
         $VerfDel = TemasModulos::where('id', $id)
             ->where('id', '>=', 1)
-            ->where('id', '<=', 630)
+            ->where('id', '<=', 644)
             ->get();
 
         return $VerfDel;
@@ -601,7 +602,8 @@ class TemasModulos extends Model
             'hab_cont_didact' => $datos['hab_cont_didact'],
             'estado' => 'ACTIVO',
             'objetivo_general' => $datos['objetivo_general'],
-            'docente' => ''
+            'docente' => '',
+            'docente_propietario' => $Doc
         ]);
     }
 

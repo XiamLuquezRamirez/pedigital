@@ -1825,6 +1825,16 @@ class ModuloEController extends Controller
         }
     }
 
+    public function gestionInfSimulacros()
+    {
+        if (Auth::check()) {
+            $bandera = "";
+            return view('ModuloE.gestionInfSimulacros', compact('bandera'));
+        } else {
+            return redirect("/")->with("error", "Su sesión ha terminado");
+        }
+    }
+
     public function GuardarRespEvaluaciones()
     {
         if (Auth::check()) {
@@ -2039,7 +2049,6 @@ class ModuloEController extends Controller
                 $OpciMult =  \App\PregOpcMulMe::ConsulPreg($PregMult->parte);
                 $OpciMult = $OpciMult->pregunta;
                 $RespPregMul = \App\PreguntasParte1::BuscOpcRespPruebaParte($IdPreg, Auth::user()->id);
-
             } else {
                 $PregMult = \App\PregOpcMulMe::ConsulPreg($IdPreg);
                 $OpciMult = \App\OpcPregMulModuloE::ConsulGrupOpcPreg($IdPreg);
@@ -3187,9 +3196,7 @@ class ModuloEController extends Controller
 
     public function ConsultarSimulacros()
     {
-
         if (Auth::check()) {
-
             $Simualacros = \App\Simulacros::CargarSimulacros();
             for ($i = 0; $i < count($Simualacros); $i++) {
                 $DetaSesionxsimulacro = \App\DetaSesionesSimul::ConsultarSesiones($Simualacros[$i]['id']);
@@ -3199,6 +3206,25 @@ class ModuloEController extends Controller
             if (request()->ajax()) {
                 return response()->json([
                     'Simualacros' => $Simualacros,
+                ]);
+            }
+        } else {
+            return redirect('/')->with('error', 'Su sesión ha Terminado');
+        }
+    }
+    public function ConsultarListSimulacros()
+    {             
+        if (Auth::check()) {
+            $Simualacros = \App\Simulacros::CargarListSimulacros();
+
+            $select_Periodo = "<option value='' selected>Seleccione</option>";
+            foreach ($Simualacros as $Simu) {
+                $select_Periodo .= "<option value='$Simu->id' >" . strtoupper($Simu->nombre) . "  / <strong> Prueba: </strong> Saber</b> ".$Simu->prueba." / Fecha: ".$Simu->fecha." </option>";
+            }
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'Simualacros' => $select_Periodo,
                 ]);
             }
         } else {

@@ -77,7 +77,7 @@ use Illuminate\Support\Facades\Input;
         <div class="col-md-12 col-lg-12 ">
             <div class="btn-list">
                 @if(Auth::user()->tipo_usuario=="Profesor")
-                <a class="btn btn-outline-info" id="btn-Compartir" style="display: none;"  onclick="$.cargarDocentes('btn');"  title="Guardar">
+                <a class="btn btn-outline-info" href="javascript:void(0);" id="btn-Compartir" style="display: none;"  onclick="$.cargarDocentes('btn');"  title="Guardar">
                     <i class="fa fa-share"></i> Compartir
                 </a>
                 @endif

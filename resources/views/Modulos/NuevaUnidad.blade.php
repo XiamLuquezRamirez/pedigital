@@ -92,6 +92,7 @@
                 CargPeriodos: function(id) {
                     $("#btn-Compartir").show();
                     var form = $("#formAuxiliarPeri");
+           
                     $("#idAsig").remove();
                     form.append("<input type='hidden' name='id' id='idAsig' value='" + id + "'>");
                     var url = form.attr("action");
@@ -105,15 +106,17 @@
                             $("#periodo").html(respuesta.select_Periodo);
                         }
                     });
+                    $.cargarDocentes('carg');
                 },
-                cargarDocentes: function() {
+                cargarDocentes: function(ori) {
 
                     var id = $("#idAsig").val();
-                                             
-                    $("#ModCompartir").modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
+                    if(ori=="btn"){
+                        $("#ModCompartir").modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                    }   
     
                     var Tabla = "";
                     var j = 1;

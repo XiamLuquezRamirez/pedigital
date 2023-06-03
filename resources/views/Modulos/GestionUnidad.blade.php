@@ -547,13 +547,7 @@
 
                                             $("#unidad" + id).hide();
                                         }
-                                    }else if(respuesta.opc === "NO"){
-                                        Swal.fire({
-                                            title: "",
-                                            text: respuesta.mensaje,
-                                            icon: "warning",
-                                            button: "Aceptar"
-                                        });  
+                             
                                     } else if (respuesta.opc === "VU") {
                                         Swal.fire({
                                             title: "Gestionar Unidades",

@@ -21,6 +21,7 @@ class Temas extends Model
         'estado',
         'objetivo_general',
         'docente',
+        'docente_propietario'
     ];
 
     public static function temas($id)
@@ -612,6 +613,7 @@ class Temas extends Model
             'estado' => 'ACTIVO',
             'objetivo_general' => $datos['objetivo_general'],
             'docente' => "",
+            'docente_propietario' => $Doc
         ]);
     }
 

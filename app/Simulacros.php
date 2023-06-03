@@ -104,6 +104,15 @@ class Simulacros extends Model
     public static function CargarSimulacros(){
         $fecha = date('Y-m-d');
         $respuesta = Simulacros::where('fecha', $fecha)
+        ->where('estado','ACTIVO')
+        ->get();
+        return $respuesta;
+
+
+    }
+
+    public static function CargarListSimulacros(){
+        $respuesta = Simulacros::where('estado', 'ACTIVO')
         ->get();
         return $respuesta;
 

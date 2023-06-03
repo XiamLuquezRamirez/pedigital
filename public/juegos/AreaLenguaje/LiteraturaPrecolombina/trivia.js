@@ -70,7 +70,6 @@ function iniciarTrivia(idTem, idPreg) {
         questions = Div10;
     }
 
-    
 
     quiz_box.classList.add("activeQuiz"); //show quiz box
     result_box.classList.remove("activeResult"); //hide result box

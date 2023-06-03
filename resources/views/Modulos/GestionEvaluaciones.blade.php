@@ -114,7 +114,7 @@
                                                         <th>Opciones</th>
                                                         <th>Titulo</th>
                                                         <th>Clasificación</th>
-                                                        
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -124,23 +124,25 @@
 
                                                     @foreach ($Evaluaciones as $Eva)
                                                         <tr data-id='{{ $Eva->id }}' id='eval{{ $Eva->id }}'>
-                                                         
-                                                                <td class="text-truncate">
+
+                                                            <td class="text-truncate">
+                                                                @if (Auth::user()->tipo_usuario == 'Profesor')
                                                                     <a href="javascript:void(0)"
-                                                                    onclick="$.cargarDocentes({{ $Eva->id }});"
-                                                                    title="Compartir"
-                                                                    class="btn btn-outline-info  btn-sm"><i
-                                                                        class="fa fa-share"></i></a>
-                                                                    <a href='{{ url('Modulos/EditarEvaluacion/' . $Eva->id) }}'
-                                                                        title="Editar"
-                                                                        class="btn btn-outline-success  btn-sm"><i
-                                                                            class="fa fa-edit"></i></a>
-                                                                    <a href='#' title="Eliminar"
-                                                                        class="btn btn-outline-warning  btn-sm btnEliminar"
-                                                                        id="btnActi{{ $Eva->id }}"><i
-                                                                            class="fa fa-trash"
-                                                                            id="iconBoton{{ $Eva->id }}"></i></a>
-                                                                </td>
+                                                                        onclick="$.cargarDocentes({{ $Eva->id }});"
+                                                                        title="Compartir"
+                                                                        class="btn btn-outline-info  btn-sm"><i
+                                                                            class="fa fa-share"></i></a>
+                                                                @endif
+                                                                <a href='{{ url('Modulos/EditarEvaluacion/' . $Eva->id) }}'
+                                                                    title="Editar"
+                                                                    class="btn btn-outline-success  btn-sm"><i
+                                                                        class="fa fa-edit"></i></a>
+                                                                <a href='#' title="Eliminar"
+                                                                    class="btn btn-outline-warning  btn-sm btnEliminar"
+                                                                    id="btnActi{{ $Eva->id }}"><i
+                                                                        class="fa fa-trash"
+                                                                        id="iconBoton{{ $Eva->id }}"></i></a>
+                                                            </td>
                                                             @php
                                                                 $i++;
                                                                 $clasif = $Eva->clasificacion;
@@ -159,7 +161,7 @@
                                                             <td class="text-truncate" style="text-transform:uppercase;">
                                                                 {!! $Eva->titulo !!}</td>
                                                             <td class="text-truncate">{!! $NomClasif !!}</td>
-                                                        
+
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -268,53 +270,53 @@
     </div>
 
     <div class="modal fade text-left show" id="ModCompartir" tabindex="-1" role="dialog"
-    aria-labelledby="myModalLabel15">
-    <div class="modal-dialog comenta" role="document">
-        <div class="modal-content border-blue">
-            <div class="modal-header bg-blue white">
-                <h4 class="modal-title" id="titu_tema">Docentes con los que puedes compartir</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row" style="width:100%">
-                    <div class="col-md-12">
-                        <div class="table-responsive" style="height:250px;">
-                            <form action="{{ url('/Evaluaciones/compartirEvalModu') }}" method="post"
-                                id="formCompartir">
-                                <table id="recent-orders"
-                                    class="table table-hover mb-0 ps-container ps-theme-default table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Docente</th>
-                                            <th>Seleccionar</th>
-                                        </tr>
-                                    </thead>
+        aria-labelledby="myModalLabel15">
+        <div class="modal-dialog comenta" role="document">
+            <div class="modal-content border-blue">
+                <div class="modal-header bg-blue white">
+                    <h4 class="modal-title" id="titu_tema">Docentes con los que puedes compartir</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="width:100%">
+                        <div class="col-md-12">
+                            <div class="table-responsive" style="height:250px;">
+                                <form action="{{ url('/Evaluaciones/compartirEvalModu') }}" method="post"
+                                    id="formCompartir">
+                                    <table id="recent-orders"
+                                        class="table table-hover mb-0 ps-container ps-theme-default table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Docente</th>
+                                                <th>Seleccionar</th>
+                                            </tr>
+                                        </thead>
 
-                                    <tbody id="tdcompartir" style="text-transform: capitalize; ">
+                                        <tbody id="tdcompartir" style="text-transform: capitalize; ">
 
-                                    </tbody>
+                                        </tbody>
 
-                                </table>
-                            </form>
+                                    </table>
+                                </form>
+                            </div>
+
                         </div>
+
 
                     </div>
 
-
                 </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="$.guardarDatosComp();" id="btn_GuarComent"
-                    class="btn grey btn-outline-success"><i class="fa fa-save"></i>
-                    Guardar</button>
+                <div class="modal-footer">
+                    <button type="button" onclick="$.guardarDatosComp();" id="btn_GuarComent"
+                        class="btn grey btn-outline-success"><i class="fa fa-save"></i>
+                        Guardar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
@@ -326,7 +328,7 @@
     {!! Form::open(['url' => '/Modulos/CargarEvalReasignar', 'id' => 'formAuxiliarEval']) !!}
     {!! Form::close() !!}
 
-    
+
     {!! Form::open(['url' => '/cambiar/docentesCompEvalModu', 'id' => 'formAuxiliarCargDocentes']) !!}
     {!! Form::close() !!}
 
@@ -669,8 +671,10 @@
                     var token = $("#token").val();
                     var evalSel = $("#idEval").val();
 
-                    form.append("<input type='hidden' id='idtoken' name='_token'  value='" + token + "'>");
-                    form.append("<input type='hidden' id='evalsel' name='idEval2'  value='" + evalSel +"'>");
+                    form.append("<input type='hidden' id='idtoken' name='_token'  value='" + token +
+                        "'>");
+                    form.append("<input type='hidden' id='evalsel' name='idEval2'  value='" + evalSel +
+                        "'>");
 
                     var url = form.attr("action");
                     var datos = form.serialize();
@@ -681,14 +685,14 @@
                         processData: false,
                         contentType: false,
                         success: function(respuesta) {
-                            if(respuesta.estado=="ok"){
+                            if (respuesta.estado == "ok") {
                                 swal.fire({
                                     title: "Administrar Evaluaciones",
                                     text: "La operación fue realizada exitosamente",
                                     icon: "success",
                                     button: "Aceptar"
                                 });
-                            }else{
+                            } else {
 
                                 swal.fire({
                                     title: "Administrar Evaluaciones",
@@ -735,26 +739,33 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
-                                type: "post",
+                                type: "POST",
                                 url: url,
                                 data: datos,
                                 success: function(respuesta) {
 
-                                    Swal.fire({
-                                        title: "",
-                                        text: respuesta.mensaje,
-                                        icon: respuesta.icon,
-                                        button: "Aceptar"
-                                    });
+                                    if (respuesta.opc == "NT") {
+                                        Swal.fire({
+                                            title: "Gestionar Evaluaciones",
+                                            text: respuesta.mensaje,
+                                            icon: respuesta.icon,
+                                            button: "Aceptar"
+                                        });
 
-                                    if (respuesta.estado === "ELIMINADO") {
-
-                                        $("#eval" + id).hide();
+                                        if (respuesta.estado === "ELIMINADO") {
+                                            $("#eval" + id).hide();
+                                        }
+                                    } else if (respuesta.opc == "VU") {
+                                        Swal.fire({
+                                            title: "Gestionar Evaluaciones",
+                                            text: respuesta.mensaje,
+                                            icon: respuesta.icon,
+                                            button: "Aceptar"
+                                        });
                                     }
-
                                 },
                                 error: function() {
-                                    mensaje = "La Evaluacio no pudo ser Eliminada";
+                                    mensaje = "La Evaluación no pudo ser Eliminada";
                                     Swal.fire(
                                         'Gestionar Evaluaciones',
                                         mensaje,

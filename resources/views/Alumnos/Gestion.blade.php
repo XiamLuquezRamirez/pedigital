@@ -107,22 +107,18 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead class="bg-primary">
                                                     <tr>
+                                                        <th>Opciones</th>
                                                         <th>Identificación</th>
                                                         <th>Nombre</th>
                                                         <th>Apellido</th>
                                                         <th>Grado</th>
                                                         <th>Jornada</th>
-                                                        <th>Opciones</th>
+                                                  
                                                     </tr>
                                                 </thead>
                                                 <tbody style="text-transform: capitalize;">
                                                     @foreach ($Alumnos as $Alu)
                                                         <tr data-id='{{ $Alu->id }}' id='alumno{{ $Alu->id }}'>
-                                                            <td class="text-truncate">{!! $Alu->ident_alumno !!}</td>
-                                                            <td class="text-truncate">{!! $Alu->nombre_alumno !!}</td>
-                                                            <td class="text-truncate">{!! $Alu->apellido_alumno !!}</td>
-                                                            <td class="text-truncate">{!! 'Grado ' . $Alu->grado_alumno . '° - ' . $Alu->descripcion !!}</td>
-                                                            <td class="text-truncate">{!! $Alu->Jorna !!}</td>
                                                             <td class="text-truncate">
                                                                 <a href='{{ url('Alumnos/Consultar/' . $Alu->id) }}'
                                                                     title="Ver" class="btn  btn-outline-info  btn-sm"><i
@@ -135,8 +131,14 @@
                                                                     class="btn  btn-outline-warning  btn-sm btnEliminar"
                                                                     id="btnActi{{ $Alu->id }}"><i
                                                                         class="fa fa-trash"
-                                                                        id="iconBoton{{ $Alu->id }}"></i></a>
+                                                                     id="iconBoton{{ $Alu->id }}"></i></a>
                                                             </td>
+                                                            <td class="text-truncate">{!! $Alu->ident_alumno !!}</td>
+                                                            <td class="text-truncate">{!! $Alu->nombre_alumno !!}</td>
+                                                            <td class="text-truncate">{!! $Alu->apellido_alumno !!}</td>
+                                                            <td class="text-truncate">{!! 'Grado ' . $Alu->grado_alumno . '° - ' . $Alu->descripcion !!}</td>
+                                                            <td class="text-truncate">{!! $Alu->Jorna !!}</td>
+                                                        
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
