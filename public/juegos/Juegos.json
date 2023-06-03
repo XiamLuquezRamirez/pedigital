@@ -358,11 +358,11 @@
     "icono": "iconos/ClasificacionAnimal.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "x y % Challenge",
-    "ruta": "AreaMatematicas/MultiplosyDivisores/index.html",
+    "ruta": "AreaMatematicas/TecnicasConteo/index.html",
     "area": "M",
-    "icono": "iconos/MD.png"
+    "icono": "iconos/TecnicasConteo.png"
   },
   {
     "grado": "5",
