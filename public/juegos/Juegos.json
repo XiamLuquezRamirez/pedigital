@@ -294,18 +294,18 @@
     "icono": "iconos/NotacionCientifica.png"
   },
   {
-    "grado": "4",
+    "grado": "9",
     "juego": "Sistema Solar",
-    "ruta": "AreaCienciasSociales/SistemaSolar/index.html",
+    "ruta": "AreaCienciasSociales/Moto/index.html",
     "area": "CS",
-    "icono": "iconos/SistemaSolar.png"
+    "icono": "iconos/moto.png"
   },
   {
-    "grado": "4",
-    "juego": "Los Contienentes",
-    "ruta": "AreaCienciasSociales/LosContienentes/index.html",
+    "grado": "9",
+    "juego": "Las Guerras",
+    "ruta": "AreaCienciasSociales/LasGuerras/index.html",
     "area": "CS",
-    "icono": "iconos/LosContienentes.png"
+    "icono": "iconos/LasGuerras.png"
   },
   {
     "grado": "4",
@@ -379,32 +379,32 @@
     "icono": "iconos/Porcentaje.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "Crucigrama",
-    "ruta": "AreaCienciasSociales/CrucigramaColombia/index.html",
+    "ruta": "AreaCienciasSociales/ConflictoInternoColombia/index.html",
     "area": "CS",
-    "icono": "iconos/CrucigramaColombia.png"
+    "icono": "iconos/ConflictoInternoColombia.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "Los Presidentes",
-    "ruta": "AreaCienciasSociales/LosPresidentes/index.html",
+    "ruta": "AreaCienciasSociales/LiberalismoNeoliberalismo/index.html",
     "area": "CS",
-    "icono": "iconos/LosPresidentes.png"
+    "icono": "iconos/LiberalismoNeoliberalismo.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "Mi Geografia",
-    "ruta": "AreaCienciasSociales/SopaLetras/index.html",
+    "ruta": "AreaCienciasSociales/Biodiversidad/index.html",
     "area": "CS",
-    "icono": "iconos/MiGeografia.png"
+    "icono": "iconos/Biodiversidad.png"
   },
   {
-    "grado": "5",
-    "juego": "Identifica las Palabra",
-    "ruta": "AreaLenguaje/IdentificaPalabras/index.html",
+    "grado": "10",
+    "juego": "Palabras Multiformes",
+    "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
     "area": "LC",
-    "icono": "iconos/IdentificaPalabras.png"
+    "icono": "iconos/PalabrasMultiformes.png"
   },
   {
     "grado": "5",
