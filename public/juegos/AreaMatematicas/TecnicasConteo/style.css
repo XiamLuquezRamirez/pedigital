@@ -477,13 +477,58 @@ body {
 .miDiv {
   position: absolute;
   top: 100px;
-  width: 1400px;
+  width: 150px;
   height: 150px;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #4195d1 !important;
+}
+
+.miDiv2 {
+  position: absolute;
+  top: 100px;
+  width: 150px;
+  height: 150px;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #4195d1 !important;
+}
+
+.miDiv3 {
+  position: absolute;
+  top: 100px;
+  width: 150px;
+  height: 150px;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #4195d1 !important;
+}
+
+
+@keyframes mover_div {
+  from {
+    left: 1700px;
+  }
+
+  to {
+    left: -400px;
+  }
+}
+
+@keyframes mover_div2 {
+  from {
+    left: -300px;
+  }
+
+  to {
+    left: 1500px;
+  }
 }
 
 

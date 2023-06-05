@@ -80,6 +80,9 @@ function cerrar_anuncio() {
 
 var intervalos = null;
 let preguntaActual = 0;
+var divs = [];
+var divs2 = [];
+
 function preguntar() {
     clearInterval(intervalos);
     let pregunta = frases[preguntaActual];
@@ -88,45 +91,76 @@ function preguntar() {
 
     let opciones = randomValueGenerator(pregunta.opciones);
     for (let index = 0; index < 2; index++) {
+        /*
         const element = opciones[index];
         const elemento = document.getElementById("pregunta" + index);
         elemento.innerText = element.opcion;
         elemento.parentElement.setAttribute("data-id", element.es_correcta);
+        */
     }
 
-    var divs = $(".miDiv");
+    divs = $(".miDiv");
+    for (let index = 0; index < divs.length; index++) {
+        var div = divs[index];
+        $(div).css("animation", "");
+        $(div).css("left", "1700px");
+        $(div).css("top", "100px");
+    }
 
-    var y = 150;
-    for (var i = 0; i < divs.length; i++) {
+    recorrerDivs(0, divs.length);
+
+    divs2 = $(".miDiv2");
+    for (let index = 0; index < divs2.length; index++) {
+        var div = divs2[index];
+        $(div).css("animation", "");
+        $(div).css("left", "-300px");
+        $(div).css("top", "270px");
+    }
+
+    recorrerDivs2(0, divs2.length);
+
+    divs3 = $(".miDiv3");
+    for (let index = 0; index < divs3.length; index++) {
+        var div = divs3[index];
+        $(div).css("animation", "");
+        $(div).css("left", "1700px");
+        $(div).css("top", "440px");
+    }
+
+    recorrerDivs3(0, divs3.length);
+}
+
+function recorrerDivs(i, n) {
+    if (i < n) {
         var div = divs[i];
-
-        if(i == 1){
-            $(div).css("transition", "");
-            $(div).css("left", "-2300px");
-            $(div).css("top", y+"px");
-            posicion = div.offsetLeft;
-            posicion = 1500;
-            $(div).css("transition", "");
-            $(div).css("transition", "left 13s linear");
-            $(div).css("left", posicion + "px");
-            y+=150;
-        }else{
-            $(div).css("transition", "");
-            $(div).css("left", "2000px");
-            $(div).css("top", y+"px");
-            posicion = div.offsetLeft;
-            posicion = -1400;
-            $(div).css("transition", "");
-            $(div).css("transition", "left 13s linear");
-            $(div).css("left", posicion + "px");
-            y+=150;
-        }
+        $(div).css("animation", "mover_div 8s infinite");
+        $(div).css("animation-timing-function", "linear");
+        setTimeout(function () {
+            recorrerDivs(i + 1, n);
+        }, 1000);
     }
+}
 
-    setTimeout(()=>{
-        intervalos = setInterval(preguntar, 12500);
-    }, 500)
+function recorrerDivs2(i, n) {
+    if (i < n) {
+        var div = divs2[i];
+        $(div).css("animation", "mover_div2 8s infinite");
+        $(div).css("animation-timing-function", "linear");
+        setTimeout(function () {
+            recorrerDivs2(i + 1, n);
+        }, 1000);
+    }
+}
 
+function recorrerDivs3(i, n) {
+    if (i < n) {
+        var div = divs3[i];
+        $(div).css("animation", "mover_div 8s infinite");
+        $(div).css("animation-timing-function", "linear");
+        setTimeout(function () {
+            recorrerDivs3(i + 1, n);
+        }, 1000);
+    }
 }
 
 function readText(ruta_local) {
@@ -150,15 +184,15 @@ function finalJuego() {
         $('#final').fadeToggle(1000);
     }, 500);
 
-    if ((correctas/(preguntaActual+1)*100) < 60) {
+    if ((correctas / (preguntaActual + 1) * 100) < 60) {
         document.getElementById("final").style.backgroundImage = "url(../../images/derrota.gif)";
     } else {
         document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
     }
 
-    document.getElementById("texto_final").innerText = "Has contestado correctamente el" + ((correctas/(preguntaActual+1)*100) < 60).toFixed(2) + "% de las pregunta(s)";
+    document.getElementById("texto_final").innerText = "Has contestado correctamente el" + ((correctas / (preguntaActual + 1) * 100) < 60).toFixed(2) + "% de las pregunta(s)";
 
-    if ((correctas/(preguntaActual+1)*100) < 60) {
+    if ((correctas / (preguntaActual + 1) * 100) < 60) {
         var audio = new Audio('../../sounds/victory.mp3');
         audio.play();
     } else {
@@ -204,11 +238,11 @@ function reloj() {
         progressBar.style.width = width + "%";
         remainingSeconds--;
 
-        if(width <= 70){
+        if (width <= 70) {
             progressBar.style.backgroundColor = "yellow";
         }
 
-        if(width <= 40){
+        if (width <= 40) {
             progressBar.style.backgroundColor = "red";
         }
 
