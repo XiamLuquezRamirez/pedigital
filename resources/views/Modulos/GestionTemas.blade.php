@@ -554,9 +554,8 @@
                                 url: url,
                                 data: datos,
                                 success: function(respuesta) {
-
-
-                                    if (respuesta.estado === "ELIMINADO") {
+                                    console.log(respuesta.opc);
+                                    if (respuesta.opc === "NT") {
                                         Swal.fire({
                                             title: "Gestionar Módulos Transversales",
                                             text: respuesta.mensaje,
@@ -566,28 +565,25 @@
 
                                         $("#Tema" + id).hide();
 
-                                    } else if (respuesta.estado == "SINPERMISO") {
-                                        Swal.fire({
-                                            title: "Administrar Temas",
-                                            text: respuesta.mensaje,
-                                            icon: "warning",
-                                            button: "Aceptar"
-                                        });
-                                    } else if (respuesta.estado ===
-                                        "NO ELIMINADO") {
+                                    } else if (respuesta.opc == "VU") {
                                         Swal.fire({
                                             title: "Gestionar Módulos Transversales",
                                             text: respuesta.mensaje,
                                             icon: "warning",
                                             button: "Aceptar"
                                         });
-                                    }
+                                    }else{
+                                        Swal.fire({
+                                            title: "Gestionar Temas",
+                                            text: respuesta.mensaje,
+                                            icon: "warning",
+                                            button: "Aceptar"
+                                        });
 
+                                    }
                                 },
                                 error: function() {
-
                                     mensaje = "La Asignatura no pudo ser Eliminada";
-
                                     Swal.fire(
                                         'Gestionar Módulos Transversales',
                                         mensaje,

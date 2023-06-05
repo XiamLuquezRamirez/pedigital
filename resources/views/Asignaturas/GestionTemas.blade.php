@@ -549,7 +549,7 @@
                                 url: url,
                                 data: datos,
                                 success: function(respuesta) {
-                                    if (respuesta.estado === "ELIMINADO") {
+                                    if (respuesta.opc === "NT") {
                                         Swal.fire({
                                             title: "Gestionar Temas",
                                             text: respuesta.mensaje,
@@ -558,14 +558,14 @@
                                         });
 
                                         $("#Tema" + id).hide();
-                                    }else if (respuesta.estado === "SINPERMISO"){
+                                    }else if (respuesta.opc === "VU"){
                                         Swal.fire({
                                             title: "Gestionar Temas",
                                             text: respuesta.mensaje,
                                             icon: "warning",
                                             button: "Aceptar"
                                         });
-                                    }else if(respuesta.estado==="NO"){
+                                    }else{
                                         Swal.fire({
                                             title: "Gestionar Temas",
                                             text: respuesta.mensaje,

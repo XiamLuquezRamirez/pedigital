@@ -517,6 +517,10 @@ Route::post('/ModuloE/EliminarPregSesionArea', 'ModuloEController@EliminarPregSe
 Route::post('/ModuloE/CargaPregCompexCompo', 'ModuloEController@CargaPregCompexCompo');
 Route::post('/ModuloE/PreguntasxBanco', 'ModuloEController@PreguntasxBanco');
 
+///INFORMNE DE SIMULACROS
+Route::get('/ModuloE/gestionInfSimulacros', 'ModuloEController@gestionInfSimulacros');
+Route::post('/ModuloE/CargarSimulacros', 'ModuloEController@ConsultarListSimulacros');
+
 
 ////Áreas
 Route::get('/Asignaturas/GestionAreas', 'AsignaturaController@GestionAreas');

@@ -162,6 +162,7 @@ class ZonaLibre extends Model
             ->where('grado', $grado)
             ->where('grupo', $grupo)
             ->where('jornada', $jornada)
+            ->where('estado', 'ACTIVO')
             ->get();
         return $Temas;
     }

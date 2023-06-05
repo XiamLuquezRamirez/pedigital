@@ -301,18 +301,24 @@
     "icono": "iconos/moto.png"
   },
   {
-    "grado": "9",
     "juego": "Las Guerras",
     "ruta": "AreaCienciasSociales/LasGuerras/index.html",
     "area": "CS",
     "icono": "iconos/LasGuerras.png"
   },
   {
-    "grado": "4",
-    "juego": "Mi Geografia",
-    "ruta": "AreaCienciasSociales/MiGeografiaDep/index.html",
+    "grado": "9",
+    "juego": "Locomotora Industrial",
+    "ruta": "AreaCienciasSociales/LocomotoraIndustrial/index.html",
     "area": "CS",
-    "icono": "iconos/MiGeografia.png"
+    "icono": "iconos/LocomotoraIndustrial.png"
+  },
+  {
+    "grado": "9",
+    "juego": "Crucigrama",
+    "ruta": "AreaCienciasSociales/Crucigrama/index.html",
+    "area": "CS",
+    "icono": "iconos/CrucigramaBogotazo.png"
   },
   {
     "grado": "9",
@@ -335,27 +341,26 @@
     "area": "LC",
     "icono": "iconos/haveto.png"
   },
-    
   {
-    "grado": "5",
-    "juego": "La Célula",
-    "ruta": "AreaCienciasNaturales/LaCelula/index.html",
+    "grado": "10",
+    "juego": "Tablero Biologico",
+    "ruta": "AreaCienciasNaturales/TableroBiologico/index.html",
     "area": "CN",
-    "icono": "iconos/LaCelula.png"
+    "icono": "iconos/TableroBiologico.png"
   },
   {
-    "grado": "5",
-    "juego": "Sistema del Cuerpo Humano",
-    "ruta": "AreaCienciasNaturales/SistemaCuerpoHumano/index.html",
+    "grado": "10",
+    "juego": "Descrubre el Tejido",
+    "ruta": "AreaCienciasNaturales/DescubreTejido/index.html",
     "area": "CN",
-    "icono": "iconos/SistemaCuerpoHumano.png"
+    "icono": "iconos/DescubreTejido.png"
   },
   {
-    "grado": "5",
-    "juego": "Clasificación Animal",
-    "ruta": "AreaCienciasNaturales/ClasificacionAnimal/index.html",
+    "grado": "10",
+    "juego": "Biotecnologia",
+    "ruta": "AreaCienciasNaturales/Biotecnologia/index.html",
     "area": "CN",
-    "icono": "iconos/ClasificacionAnimal.png"
+    "icono": "iconos/Biotecnologia.png"
   },
   {
     "grado": "10",
@@ -401,6 +406,12 @@
   },
   {
     "grado": "10",
+    "juego": "Crucigrama",
+    "ruta": "AreaLenguaje/CrucigramaLiteratura/index.html",
+    "area": "LC",
+    "icono": "iconos/CrucigramaLiteratura.png"
+  },
+    {
     "juego": "Palabras Multiformes",
     "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
     "area": "LC",

@@ -373,7 +373,7 @@ text-align: center;
     left: 0;
     z-index: 1000;
     opacity: 0;
-    background: rgba(229, 173, 173, 0.95);
+    background: rgba(228, 226, 226, 0.95);
     transition: all .3s ease .5s;
   }
   

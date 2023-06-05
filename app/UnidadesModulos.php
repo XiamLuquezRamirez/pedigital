@@ -59,7 +59,7 @@ class UnidadesModulos extends Model
     {
         $VerfDel = UnidadesModulos::where('id', $id)
             ->where('id', '>=', 1)
-            ->where('id', '<=', 128)
+            ->where('id', '<=', 129)
             ->get();
 
         return $VerfDel;

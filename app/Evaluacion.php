@@ -28,6 +28,7 @@ class Evaluacion extends Model
         'origen_eval',
         'hab_tiempo',
         'calxdoc',
+        'docente_propietario'
     ];
 
     public static function Guardar($datos, $calxdoc)
@@ -61,6 +62,7 @@ class Evaluacion extends Model
             'origen_eval' => $datos['origen_eval'],
             'hab_tiempo' => $datos['TextHabTiempo'],
             'calxdoc' => $calxdoc,
+            'docente_propietario' => $Doc
         ]);
     }
 
@@ -125,7 +127,7 @@ class Evaluacion extends Model
     public static function ModifEvalCalxDoc($id, $calxdoc)
     {
         $respuesta = Evaluacion::where(['id' => $id])->update([
-            'calxdoc' => $calxdoc,
+            
         ]);
 
         return $respuesta;
@@ -135,7 +137,7 @@ class Evaluacion extends Model
     {
         $VerfDel = Evaluacion::where('id', $id)
         ->where('id', '>=', 1)
-        ->where('id', '<=', 6464)
+        ->where('id', '<=', 6510)
         ->get();
        
         return $VerfDel;
@@ -371,7 +373,7 @@ class Evaluacion extends Model
                 ->where('origen_eval', $or)
                 ->where(function ($query) use ($Usu) {
                     $query->where('evaluacion.docente', "")
-                        ->orWhere('evaluacion.docente', $Usu);
+                        ->orWhere('evaluacion.docente','LIKE', "%".$Usu."%");
                 })
                 ->get();
         } else if (Auth::user()->tipo_usuario == "Estudiante") {
@@ -382,7 +384,7 @@ class Evaluacion extends Model
                 ->where('estado', 'ACTIVO')
                 ->where(function ($query) use ($Usu) {
                     $query->where('evaluacion.docente', "")
-                        ->orWhere('evaluacion.docente', $Usu);
+                    ->orWhere('evaluacion.docente','LIKE', "%".$Usu."%");
                 })
                 ->get();
         } else {
@@ -392,6 +394,7 @@ class Evaluacion extends Model
                 ->where('estado', 'ACTIVO')
                 ->get();
         }
+        
 
         return $DesEval;
     }

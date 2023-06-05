@@ -60,16 +60,17 @@ class AsignaturaController extends Controller
         }
     }
 
-    
-    public function cambiarCompDocentes() {
+
+    public function cambiarCompDocentes()
+    {
         $idAsig = request()->get('id2');
         if (Auth::check()) {
             $Docentes = \App\AsigProf::listaProf($idAsig);
-            
+
 
             if (request()->ajax()) {
                 return response()->json([
-                            'Docentes' => $Docentes
+                    'Docentes' => $Docentes
                 ]);
             }
         } else {
@@ -77,17 +78,18 @@ class AsignaturaController extends Controller
         }
     }
 
-    
-    public function cambiarCompDocentesEdit() {
+
+    public function cambiarCompDocentesEdit()
+    {
         $idMod = request()->get('idMod');
         $idTem = request()->get('idTem');
 
         if (Auth::check()) {
-            $Docentes = \App\AsigProf::listaEditProf($idMod,$idTem);
+            $Docentes = \App\AsigProf::listaEditProf($idMod, $idTem);
 
             if (request()->ajax()) {
                 return response()->json([
-                            'Docentes' => $Docentes
+                    'Docentes' => $Docentes
                 ]);
             }
         } else {
@@ -95,25 +97,26 @@ class AsignaturaController extends Controller
         }
     }
 
-    
-    public function docentesCompEval() {
-        
+
+    public function docentesCompEval()
+    {
+
         $idMod = request()->get('idMod');
         $idEval = request()->get('idEval');
 
         if (Auth::check()) {
             $Docentes = \App\AsigProf::listaProf($idMod);
             $evaluacion = \App\Evaluacion::BusEval($idEval);
-            
 
-            $doceEval=$evaluacion->docente;
+
+            $doceEval = $evaluacion->docente;
 
             $arrayDoc = explode(",", $doceEval);
 
             foreach ($Docentes as $Doc) {
                 if (in_array($Doc->usuario_profesor, $arrayDoc)) {
                     $Doc->Comp = "si";
-                }else{
+                } else {
                     $Doc->Comp = "no";
                 }
             }
@@ -121,16 +124,17 @@ class AsignaturaController extends Controller
 
             if (request()->ajax()) {
                 return response()->json([
-                            'Docentes' => $Docentes
+                    'Docentes' => $Docentes
                 ]);
             }
         } else {
             return redirect("/")->with("error", "Su sesion ha terminado");
         }
     }
-    
-    public function cambiarCompDocentesEditUnid() {
-        
+
+    public function cambiarCompDocentesEditUnid()
+    {
+
         $idMod = request()->get('idMod');
         $idunid = request()->get('idunid');
 
@@ -138,14 +142,14 @@ class AsignaturaController extends Controller
             $Docentes = \App\AsigProf::listaProf($idMod);
             $unidades = \App\Unidades::TitUnidades($idunid);
 
-            $doceUnid=$unidades->docente;
+            $doceUnid = $unidades->docente;
 
             $arrayDoc = explode(",", $doceUnid);
 
             foreach ($Docentes as $Doc) {
                 if (in_array($Doc->usuario_profesor, $arrayDoc)) {
                     $Doc->Comp = "si";
-                }else{
+                } else {
                     $Doc->Comp = "no";
                 }
             }
@@ -153,7 +157,7 @@ class AsignaturaController extends Controller
 
             if (request()->ajax()) {
                 return response()->json([
-                            'Docentes' => $Docentes
+                    'Docentes' => $Docentes
                 ]);
             }
         } else {
@@ -161,9 +165,10 @@ class AsignaturaController extends Controller
         }
     }
 
-    public function compartirEval(){
+    public function compartirEval()
+    {
         $data = request()->all();
-        
+
         $ContEval = \App\Evaluacion::ModifEvalComp($data);
 
         if (request()->ajax()) {
@@ -171,8 +176,6 @@ class AsignaturaController extends Controller
                 'estado' => 'ok'
             ]);
         }
-        
-        
     }
 
     public function ModificarArea($id)
@@ -364,7 +367,7 @@ class AsignaturaController extends Controller
             foreach ($Docentes as $doce) {
                 $select_docente .= "<option value='$doce->usuario_profesor'> " . strtoupper($doce->nombre . " " . $doce->apellido) . "</option>";
             }
-            return view('Asignaturas.GestionEvaluaciones', compact('bandera', 'Evaluaciones', 'titTema', 'id', 'select_docente','idAsigGrado'));
+            return view('Asignaturas.GestionEvaluaciones', compact('bandera', 'Evaluaciones', 'titTema', 'id', 'select_docente', 'idAsigGrado'));
         } else {
             return redirect("/")->with("error", "Su Sesión ha Terminado");
         }
@@ -1621,7 +1624,7 @@ class AsignaturaController extends Controller
                 $estado = "SINPERMISO";
             } else {
                 $Grado = \App\Modulos::ListarxAsig($id);
-                
+
                 if ($Grado->count() > 0) {
                     $estado = "NO ELIMINADO";
                     $mensaje = 'La Operación no pudo ser Realizada, La Asignatura tiene grados asignados.';
@@ -1714,50 +1717,50 @@ class AsignaturaController extends Controller
 
     public function EliminarUnidad()
     {
-        $mensaje = ""; 
+        $mensaje = "";
         $id = request()->get('id');
         $opc = "NT";
         if (Auth::check()) {
             $Verf = \App\Unidades::VerfDel($id);
             if ($Verf->count() > 0) {
-                $mensaje = 'Este Contenido es Propio de la Plataforma,  No puede ser Eliminado...';
+                $mensaje = 'Esta Unidad es Propia de la Plataforma,  No puede ser Eliminada...';
                 $estado = "SINPERMISO";
                 $opc = "VU";
             } else {
-                
+
+
                 $UnidTem = \App\Temas::BuscarUnidadxTema($id);
-                $Unid = \App\Unidades::BuscarUnidad($id);
-                if ($Unid->docente == "" && Auth::user()->tipo_usuario == 'Profesor') {
-                    $estado = "NO ELIMINADO";
-                    $opc = "NO";
-                    $mensaje = 'Esta Unidad solo puede ser eliminada desde un perfil Administrador';
+                if ($UnidTem->count() > 0) {
+                    $estado = "ACTIVO";
+                    $opc = "VU";
+                    $mensaje = 'No se Puede Eliminar la Unidad, Porque esta relacionada a un Tema, Verifique...';
                 } else {
+                    $Unid = \App\Unidades::BuscarUnidad($id);
 
-                    if ($UnidTem->count() > 0) {
-                        $estado = "ACTIVO";
-                        $opc = "TR";
-                        $mensaje = 'No se Puede Eliminar la Unidad, Porque esta relacionada a un Tema, Verifique...';
+                    if (Auth::user()->tipo_usuario == "Administrador") {
+                        $estado = "ELIMINADO";
+                        $mensaje = 'Operación Realizada de Manera Exitosa';
                     } else {
-
-                        $estado = "ACTIVO";
-
-                        if ($Unid->estado == "ACTIVO") {
-                            $estado = "ELIMINADO";
-                        } else {
+                        if ($Unid->docente_propietario != Auth::user()->id) {
                             $estado = "ACTIVO";
-                        }
-
-                        $respuesta = \App\Unidades::editarestado($id, $estado);
-
-                        if ($respuesta) {
-                            $Log = \App\Log::Guardar('Unidad Eliminada', $id);
-                            if ($estado == "ELIMINADO") {
-
-                                $mensaje = 'Operación Realizada de Manera Exitosa';
-                            }
+                            $mensaje = 'Esta Unidad solo puede ser eliminada por el Administrador o Docente Propietario.';
+                            $opc = "VU";
                         } else {
-                            $mensaje = 'La Operación no pudo ser Realizada';
+                            $estado = "ELIMINADO";
+                            $mensaje = 'Operación Realizada de Manera Exitosa';
                         }
+                    }
+
+                    $respuesta = \App\Unidades::editarestado($id, $estado);
+
+                    if ($respuesta) {
+                        $Log = \App\Log::Guardar('Unidad Eliminada', $id);
+                        if ($estado == "ELIMINADO") {
+
+                            $mensaje = 'Operación Realizada de Manera Exitosa';
+                        }
+                    } else {
+                        $mensaje = 'La Operación no pudo ser Realizada';
                     }
                 }
             }
@@ -1782,51 +1785,54 @@ class AsignaturaController extends Controller
 
         $mensaje = "";
         $id = request()->get('id');
+        $opc = "NT";
         if (Auth::check()) {
             $Verf = \App\Temas::VerfDel($id);
 
-            if($Verf->count() > 0) {
+            if ($Verf->count() > 0) {
                 $estado = "SINPERMISO";
                 $mensaje = 'Este Contenido es Propio de la Plataforma,  No puede ser Eliminado...';
-            }else{
-                $Tema = \App\Temas::BuscarTema($id);
-
-           //     if ($Tema->docente == "" && Auth::user()->tipo_usuario == 'Profesor') {
-           //         $estado = "NO";
-           //        $mensaje = 'Este Tema solo puede ser eliminado desde un perfil Administrador';
-          //      } else {
-                    $TemaxEval = \App\Evaluacion::BusEvalxtema($id, 'C');
-    
-                    if ($TemaxEval->count() > 0) {
-                        $estado = "NO";
-                        $mensaje = 'La Operación no pudo ser Realizada, El tema tiene evaluaciones relacionadas';
+                $opc = "VU";
+            } else {
+                $TemaxEval = \App\Evaluacion::BusEvalxtema($id, 'C');
+                if ($TemaxEval->count() > 0) {
+                    $estado = "NO";
+                    $mensaje = 'La Operación no pudo ser Realizada, El tema tiene evaluaciones relacionadas';
+                    $opc = "VU";
+                } else {
+                    $Tema = \App\Temas::BuscarTema($id);
+                    if (Auth::user()->tipo_usuario == "Administrador") {
+                        $estado = "ELIMINADO";
+                        $mensaje = 'Operación Realizada de Manera Exitosa';
                     } else {
-    
-                        $estado = "ACTIVO";
-                        if ($Tema->estado == "ACTIVO") {
-                            $estado = "ELIMINADO";
-                        } else {
+                        if ($Tema->docente_propietario != Auth::user()->id) {
                             $estado = "ACTIVO";
-                        }
-    
-                        $respuesta = \App\Temas::editarestado($id, $estado);
-    
-                        if ($respuesta) {
-                            if ($estado == "ELIMINADO") {
-                                $Log = \App\Log::Guardar('Tema Eliminado', $id);
-                                $mensaje = 'Operación Realizada de Manera Exitosa';
-                            }
+                            $mensaje = 'Este Tema solo puede ser eliminado por el Administrador o Docente Propietario.';
+                            $opc = "VU";
                         } else {
-                            $mensaje = 'La Operación no pudo ser Realizada';
+                            $estado = "ELIMINADO";
+                            $mensaje = 'Operación Realizada de Manera Exitosa';
                         }
                     }
-//                }
+
+                    $respuesta = \App\Temas::editarestado($id, $estado);
+
+                    if ($respuesta) {
+                        if ($estado == "ELIMINADO") {
+                            $Log = \App\Log::Guardar('Tema Eliminado', $id);
+                            $mensaje = 'Operación Realizada de Manera Exitosa';
+                        }
+                    } else {
+                        $mensaje = 'La Operación no pudo ser Realizada';
+                    }
+                }
             }
 
             if (request()->ajax()) {
                 return response()->json([
                     'estado' => $estado,
                     'mensaje' => $mensaje,
+                    'opc' => $opc,
                     'id' => $id,
                 ]);
             }
@@ -1906,35 +1912,42 @@ class AsignaturaController extends Controller
         $mensaje = "";
         $icon = "";
         $id = request()->get('id');
-    
-
+        $opc = "NT";
 
         if (Auth::check()) {
             $Verf = \App\Evaluacion::VerfDel($id);
 
-            if($Verf->count() > 0) {
+            if ($Verf->count() > 0) {
                 $estado = "SINPERMISO";
-                $mensaje = 'Este Contenido es Propio de la Plataforma,  No puede ser Eliminado...';
-            }else{
-            $Eval = \App\Evaluacion::BusEval($id);
-
-            if ($Eval->docente == "" && Auth::user()->tipo_usuario == 'Profesor') {
-                $estado = "NO";
-                $mensaje = 'Esta Evaluación solo puede ser eliminada desde un perfil Administrador';
+                $mensaje = 'Esta Evaluación es Propia de la Plataforma,  No puede ser Eliminada...';
                 $icon = 'warning';
+                $opc = "VU";
             } else {
                 $Elib = \App\LibroCalificaciones::BusEvalDel($id);
                 if ($Elib) {
                     $estado = "ACTIVO";
                     $mensaje = 'La Evaluación no puede ser Eliminada, ya que ha sido resuelta por un Estudiante';
                     $icon = 'warning';
+                    $opc = "VU";
                 } else {
-                    $estado = "ACTIVO";
-                    if ($Eval->estado == "ACTIVO") {
+                    $Eval = \App\Evaluacion::BusEval($id);
+                    if (Auth::user()->tipo_usuario == "Administrador") {
                         $estado = "ELIMINADO";
+                        $mensaje = 'Operación Realizada de Manera Exitosa';
+                        $icon = 'success';
                     } else {
-                        $estado = "ACTIVO";
+                        if ($Eval->docente_propietario != Auth::user()->id) {
+                            $estado = "ACTIVO";
+                            $mensaje = 'Esta Evaluación solo puede ser eliminada por el Administrador o Docente Propietario.';
+                            $opc = "VU";
+                            $icon = 'warning';
+                        } else {
+                            $estado = "ELIMINADO";
+                            $mensaje = 'Operación Realizada de Manera Exitosa';
+                            $icon = 'success';
+                        }
                     }
+
                     $respuesta = \App\Evaluacion::editarestado($id, $estado);
                     if ($respuesta) {
                         if ($estado == "ELIMINADO") {
@@ -1947,13 +1960,13 @@ class AsignaturaController extends Controller
                     }
                 }
             }
-        }
 
             if (request()->ajax()) {
                 return response()->json([
                     'estado' => $estado,
                     'mensaje' => $mensaje,
                     'id' => $id,
+                    'opc' => $opc,
                     'icon' => $icon,
                 ]);
             }
@@ -2173,7 +2186,7 @@ class AsignaturaController extends Controller
                 'nom_unidad.required' => 'Seleccione el numero de la Unidad',
             ]);
             $data = request()->all();
-          
+
             $Unid = \App\Unidades::Guardar($data);
             if ($Unid) {
                 $Log = \App\Log::Guardar('Unidad Guardada', $Unid->id);
@@ -2286,9 +2299,8 @@ class AsignaturaController extends Controller
                     if (request()->hasfile('archididatico')) {
                         $ContTemaDidac = \App\ContDidactico::GuardarContDidctico($datos);
                     }
-                    if(Auth::user()->tipo_usuario == 'Profesor'){
+                    if (Auth::user()->tipo_usuario == 'Profesor') {
                         $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
-
                     }
 
                     if ($ContTema) {
@@ -2319,9 +2331,8 @@ class AsignaturaController extends Controller
                     }
 
                     $ContTemaDidac = \App\ContDidactico::GuardarContDidctico($datos);
-                    if(Auth::user()->tipo_usuario == 'Profesor'){
+                    if (Auth::user()->tipo_usuario == 'Profesor') {
                         $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
-
                     }
 
                     if ($ContTemaDidac) {
@@ -2349,9 +2360,8 @@ class AsignaturaController extends Controller
                     }
                     $datos['archi'] = $arch;
                     $ContTemaArc = \App\SubirArcTema::GuardarArchCont($datos);
-                    if(Auth::user()->tipo_usuario == 'Profesor'){
+                    if (Auth::user()->tipo_usuario == 'Profesor') {
                         $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
-
                     }
 
                     if ($ContTemaArc) {
@@ -2369,9 +2379,8 @@ class AsignaturaController extends Controller
                     $datos['tema_id'] = $Tem->id;
 
                     $ContTemaLink = \App\DesarrolloLink::Guardar($datos);
-                    if(Auth::user()->tipo_usuario == 'Profesor'){
+                    if (Auth::user()->tipo_usuario == 'Profesor') {
                         $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
-
                     }
 
                     if ($ContTemaLink) {
@@ -2384,11 +2393,6 @@ class AsignaturaController extends Controller
                     return redirect('Asignaturas/GestionTem')->with('error', 'Datos no Guardados');
                 }
             }
-
-           
-            
-
-
         } else {
             return redirect("/")->with("error", "Su Sesión ha Terminado");
         }
@@ -2701,9 +2705,8 @@ class AsignaturaController extends Controller
                     $datos['archi'] = $arch;
                     $datos['TituAnim'] = $archTit;
                 }
-                if(Auth::user()->tipo_usuario == 'Profesor'){
+                if (Auth::user()->tipo_usuario == 'Profesor') {
                     $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
-
                 }
 
                 if ($Tem) {
@@ -2711,7 +2714,7 @@ class AsignaturaController extends Controller
                     if (request()->hasfile('archididatico')) {
                         $ContTemaDidac = \App\ContDidactico::modificar($datos, $id);
                     }
-                  
+
 
 
                     if ($ContTema) {
@@ -2726,9 +2729,8 @@ class AsignaturaController extends Controller
             } else if ($datos['tip_contenido'] === "CONTENIDO DIDACTICO") {
 
                 $Tem = \App\Temas::Modificar($datos, $id);
-                if(Auth::user()->tipo_usuario == 'Profesor'){
+                if (Auth::user()->tipo_usuario == 'Profesor') {
                     $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
-
                 }
 
                 if ($Tem) {
@@ -2761,9 +2763,8 @@ class AsignaturaController extends Controller
                 }
             } else if ($datos['tip_contenido'] === "ARCHIVO") {
                 $Tem = \App\Temas::Modificar($datos, $id);
-                if(Auth::user()->tipo_usuario == 'Profesor'){
+                if (Auth::user()->tipo_usuario == 'Profesor') {
                     $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
-
                 }
 
                 if (request()->hasfile('archi')) {
@@ -2788,9 +2789,8 @@ class AsignaturaController extends Controller
                 }
             } else if ($datos['tip_contenido'] === "LINK") {
                 $Tem = \App\Temas::Modificar($datos, $id);
-                if(Auth::user()->tipo_usuario == 'Profesor'){
+                if (Auth::user()->tipo_usuario == 'Profesor') {
                     $CompartirTemaDoc = \App\TemasDocentes::GuardarCompTema($datos);
-
                 }
 
                 if ($Tem) {

@@ -207,6 +207,11 @@
                                             class="ft-list"></i>
                                         Banco de Preguntas</a>
                                 </li>
+                                <li id="Men_ModulosE_addSimulacro"><a class="menu-item"
+                                    href="{{ url('/ModuloE/GestionSimulacros/') }}"><i
+                                        class="ft-list"></i>
+                                    Simulacros</a>
+                            </li>
 
                                 <li id="Men_ModulosE_addComp"><a class="menu-item"
                                         href="{{ url('/ModuloE/GestionCompetencia/') }}"><i
@@ -219,10 +224,11 @@
                                         Componentes</a>
                                 </li>
 
-                                <li id="Men_ModulosE_addSimulacro"><a class="menu-item"
-                                        href="{{ url('/ModuloE/GestionSimulacros/') }}"><i
-                                            class="ft-list"></i>
-                                        Simulacros</a>
+                         
+                                <li id="Men_ModulosE_Informe"><a class="menu-item"
+                                        href="{{ url('/ModuloE/gestionInfSimulacros/') }}"><i
+                                            class="ft-file-text"></i>
+                                        Informe de Resultados</a>
                                 </li>
                             </ul>
                         </li>
@@ -459,6 +465,12 @@
                                     href="{{ url('/ModuloE/GestionComponentes/') }}"><i class="ft-list"></i>
                                     Componentes</a>
                             </li>
+
+                            <li id="Men_ModulosE_Informe"><a class="menu-item"
+                                href="{{ url('/ModuloE/gestionInfSimulacros/') }}"><i
+                                    class="ft-file-text"></i>
+                                Informe de Resultados</a>
+                        </li>
                             
                         </ul>
                     </li>
