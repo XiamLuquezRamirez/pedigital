@@ -31,7 +31,7 @@ $(document).ready(function () {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
                     maquina2(
                         "bienvenida",
-                        'Hola, soy Genio. <br> A continuación se te mostraran 10 preguntas relacionadas con el tema "El ADN" deberas estrellar el aviòn con la nube que tenga la respuesta correcta. <br> ¡Tú Puedes!',
+                        'Hola, soy Genio. <br> A continuación se te mostraran 5 ennciados, los cuales deberás resolver y disparar al pato que tenga la respuesta correcta, acierta mas del 60% para ganar.<br> ¡Tú Puedes!',
                         50,
                         1
                     );
