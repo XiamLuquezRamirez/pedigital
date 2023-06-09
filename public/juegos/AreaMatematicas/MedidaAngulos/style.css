@@ -6,6 +6,12 @@
     border: 1px solid black;
 }
 
+* {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
 .line {
     position: absolute;
     top: 50%;
@@ -81,6 +87,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#img_trans {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 

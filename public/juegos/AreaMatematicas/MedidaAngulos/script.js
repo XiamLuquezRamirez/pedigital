@@ -82,7 +82,8 @@ var anguloRadianes = 0;
 
 function generarAngulo() {
   if(preguntaActual <= 5){
-    angulo = Math.floor(Math.random() * (360 - 10 + 1) + 10);
+    angulo = Math.floor(Math.random() * (72 - 10 + 1) + 10);
+    angulo *= 5;
     anguloRadianes = (angulo *  Math.PI ) / 180;
     document.getElementById("pregunta").innerText = "Por favor grafique el siguiente ángulo " + angulo + "° y luego responda";
   
@@ -194,12 +195,16 @@ function rotateLine(event) {
       newAngle += 360; // Ajusta los ángulos negativos
     }
 
-    console.log("ángulo real = " + (360 - newAngle) + "°");
+    console.log("ángulo real = " + Math.round((360 - newAngle)) + "°");
     anguloReal = Math.round(360 - newAngle);
     line2.style.transform = "rotate(" + newAngle + "deg)";
 
 
   }
+}
+
+function validar(){
+  
 }
 
 function getLineRotation(line) {

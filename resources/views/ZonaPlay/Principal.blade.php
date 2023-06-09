@@ -4,7 +4,7 @@
   
 
 
-    <div class="content-body">
+    <div class="content-body" style="overflow: hidden">
         <input type="hidden" name="grado" id="grado" value="{{ $Gradoalumno }}" />
 
         <iframe style="margin-top: 67px" id="myIframe" src="{{ asset('juegos/Index.html?grado=') }}{{$Gradoalumno}}" frameborder="0" scrolling="yes" height="678" width="100%" name="demo">
