@@ -371,11 +371,11 @@
     "icono": "iconos/ResolucionTriangulos.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "Porcentaje",
-    "ruta": "AreaMatematicas/Porcentaje/index.html",
+    "ruta": "AreaMatematicas/MedidaAngulos/index.html",
     "area": "M",
-    "icono": "iconos/Porcentaje.png"
+    "icono": "iconos/MedidaAngulos.png"
   },
   {
     "grado": "10",

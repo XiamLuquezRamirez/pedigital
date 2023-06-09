@@ -51,65 +51,65 @@
 			<div class="col-3"></div>
 		</div>
 	</div>
-	<div style="padding-top: 20pt; height: 100%;" id="principal">
+	<div style="padding-top: 10pt; height: 100%;" id="principal">
 		<div class="row" style="z-index: 100; position: relative">
-			<div class="col-3" style="display: flex; justify-content: center; align-items: center">
-				<i style="color: white" class="fa-solid fa-clock fa-2x"></i>
-				<div class="progress-bar-container">
-					<div id="progress-bar" class="progress-bar"></div>
-				</div>
+			<div class="col-9" style="display: flex; justify-content: center; align-items: center">
+					<h2 class="borde" id="pregunta"></h2>
 			</div>
-			<div class="col-7" style="display: flex; justify-content: center; align-items: center">
-				
+			<div class="col-1" style="display: flex; justify-content: center; align-items: center">
+				<h2 class="borde" id="numero_pregunta"></h2>
 			</div>
 			<div class="col-1"><button onclick="location.reload()" class="btn btn-warning"><i
 						class="fa-solid fa-rotate"></i></button></div>
 			<div class="col-1"><button onclick="history.back()" class="btn btn-danger"><i
 						class="fa-solid fa-arrow-left"></i></button></div>
 		</div>
-		<img src="cortina1.png" class="cortina1" alt="">
-		<img src="cortina2.png" class="cortina2" alt="">
-		<img src="ola.png" class="ola" alt="">
-		<img src="ola.png" class="ola2" alt="">
-		<div style="height: 103px;width: 31%;position: absolute;left: 36%;top: 33px;padding: 10px; display: flex; justify-content: center; align-items: center;">
-			<p class="borde" style="font-size: 17px !important;" id="enunciado"></p>
-		</div>
-		<div class="row" style="height: 470px">
-			<div class="miDiv">
-				
+		<hr>
+        <div class="row">
+            <div class="col-7">
+                <div class="container">
+                    <div id="line1" class="line">
+                        <h4 style="background-color: white"> A</h4>
+						<div class="point"></div>
+                    </div>
+                    <div id="line2" class="line">
+                        <h4 style="background-color: white"> B</h4>
+						<div><i style="color: red;" class="fa-solid fa-right-long"></i></div>
+                    </div>
+                </div>
+            </div>
+			<div style="display: flex; align-items: center; justify-content: center; flex-direction: column; padding-left: 30px; padding-right: 30px;" class="col-5">
+				<h3>¿tipo de ángulo?</h3>
+				<br>
+				<div class="row" id='botones'>
+					
+				</div>
+				<hr>
+				<h4>Convierta el ángulo a radianes</h4>
+				<div class="row" style="width: 100%;">
+					<div class="col-6">
+						<input style="width: 100% !important; font-size: 20px" type="text" class="form-control" placeholder="Ángulo en radienaes">
+					</div>
+					<div style="display: flex; align-items: center; justify-content: center" class="col-6">
+						<button style="width: 70%;" class="btn btn-success">Validar</button>
+					</div>
+				</div>
 			</div>
-			<div class="miDiv">
-				
-			</div>
-			<div class="miDiv">
-				
-			</div>
-			<div class="miDiv">
-				
-			</div>
-			<div class="miDiv">
-				
-			</div>
-			<div class="miDiv2">
-				
-			</div>
-			<div class="miDiv2">
-				
-			</div>
-			<div class="miDiv2">
-				
-			</div>
-			<div class="miDiv2">
-				
-			</div>
-			<div class="miDiv2">
-				
-			</div>
-		</div>
-		
+        </div>
+        
+    
+        <div id="drag-image">
+            <img src="transportador.png" style="z-index: 2;" id="img_trans" draggable="false" height="100%" alt="Imagen">
+            <div  id="drag-image2" draggable="true">
+                <i class="fa-solid fa-maximize"></i>
+            </div>
+            <div onclick="mostrarOcultar()"  id="drag-image-display" draggable="true">
+                <i class="fa-solid fa-down-left-and-up-right-to-center"></i>
+            </div>
+        </div>
 	</div>
 
 	<script src="script.js"></script>
 </body>
 
-</html>
+</html
