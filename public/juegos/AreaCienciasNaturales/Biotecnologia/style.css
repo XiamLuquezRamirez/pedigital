@@ -390,7 +390,7 @@ body {
   }
 
   .playerDer {
-    
+    width: 55px;
     background-image: url("img/genio_parado.gif");
     background-size: cover;
     background-position: center;
@@ -398,6 +398,10 @@ body {
     background-size: 55%;
     background-repeat: no-repeat;
     transition: left 3s linear, top 3s linear;
+    position: absolute;
+    left: 430px;
+    top: 173px;
+    transform: scaleX(1);
 }
 .playerIzq {
     background-image: url("img/genio_parado.gif");
@@ -412,13 +416,7 @@ body {
 }
 
 .player-caminadoRiht {
-    background-image: url('img/genio-caminando.gif');
-    background-size: cover;
-    background-position: center;
-    height: 55px;
-    background-size: 55%;
-    background-repeat: no-repeat;
-    transition: top 1s ease, left 1s ease;
+  background-image: url(img/genio-caminando.gif) !important;
 }
 
 .player-caminadoLeft {
