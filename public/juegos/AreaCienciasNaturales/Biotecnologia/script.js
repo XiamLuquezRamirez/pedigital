@@ -249,10 +249,11 @@ function movePlayer(direction) {
     const targetX = targetPosition.left;
     const targetY = targetPosition.top;
 
-    player.style.transition = "left 3s linear, top 3s linear";
+   
     // Actualizar la posición del jugador
 
     playerPosition = newPosition;
+    cells[playerPosition].style.transition = "left 5s linear, top 5s linear";
     cells[playerPosition].style.left = targetX + "px";
     cells[playerPosition].style.top = targetY + "px";
 
