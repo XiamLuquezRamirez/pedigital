@@ -172,7 +172,7 @@ function actualizarContador() {
   }
 }
 
-function contestador() {
+function contestador() {    
   clearInterval(intervalo);
   clearTimeout(intervaloTimeOut);
   $("#principal").fadeToggle(1000);

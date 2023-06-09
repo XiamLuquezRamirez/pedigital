@@ -412,17 +412,18 @@
     "icono": "iconos/CrucigramaLiteratura.png"
   },
     {
+    "grado": "10",
     "juego": "Palabras Multiformes",
     "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
     "area": "LC",
     "icono": "iconos/PalabrasMultiformes.png"
   },
   {
-    "grado": "5",
-    "juego": "Ortografia challenge",
-    "ruta": "AreaLenguaje/OrtografiaChallengeQuinto/index.html",
+    "grado": "10",
+    "juego": "Carrera de Motos",
+    "ruta": "AreaLenguaje/CarreraMoto/index.html",
     "area": "LC",
-    "icono": "iconos/OrtografiaChallenge5.png"
+    "icono": "iconos/CarreraMoto.png"
   },
   {
     "grado": "5",

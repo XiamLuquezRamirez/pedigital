@@ -36,14 +36,13 @@ body {
     color: #fff;
     color: #262626;
     overflow: hidden;
-    
+
 }
 
 @font-face {
     font-family: nunito_bold;
     src: url('../../nunito/Nunito-ExtraBold.ttf');
 }
-
 
 
 .btn-danger {
@@ -261,7 +260,6 @@ body {
 }
 
 
-
 .div-tiempo {
     font-size: 40px;
     color: #000;
@@ -290,7 +288,7 @@ body {
     width: 90%;
     margin-top: 54pt;
 
-  }
+}
 .centrarTexto {
 
     display: flex;
@@ -299,22 +297,22 @@ body {
     align-items: stretch;
     align-content: center;
     flex-direction: row;
-   
-     }
 
-  .centrarDiv {
+}
+
+.centrarDiv {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
     align-content: center;
     flex-direction: row;
-   height: 250px;
-   padding-top: 227pt;
+    height: 250px;
+    padding-top: 197pt;
 
-  }
-  
-  .cuadro {
+}
+
+.cuadro {
     box-sizing: border-box;
     width: 100px;
     height: 100px;
@@ -333,14 +331,14 @@ body {
     user-select: none;
     font-weight: bolder;
     color: black;
-  }
+}
 
-  .cuadro:hover {
+.cuadro:hover {
     border: 1px solid #1E85D4;
     transform: scale(1.05);
-  }
+}
 
-  .borde2 {
+.borde2 {
     text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
     font-weight: bold;
     color: #fff !important;
@@ -357,7 +355,7 @@ body {
     position: absolute;
     top: 103px;
     left: 144px;
-  }
+}
 .divNPreg {
     position: absolute;
     top: 98px;
@@ -366,21 +364,307 @@ body {
     font-weight: bold;
     color: #fff !important;
     font-size: 35px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(8, 63px);
+    grid-template-rows: repeat(8, 55px);
+    width: 502px;
+    height: 400px;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1px;
+}
+
+
+.cell {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-.puntos{
-    position: absolute;
-    top: -12px;
-    left: 56px;
-    text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
-    font-weight: bold;
-    color: #fff !important;
-    font-size: 39px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-    flex-direction: column;
+  .playerDer {
+    
+    background-image: url("img/genio_parado.gif");
+    background-size: cover;
+    background-position: center;
+    height: 55px;
+    background-size: 55%;
+    background-repeat: no-repeat;
+    transition: left 3s linear, top 3s linear;
+}
+.playerIzq {
+    background-image: url("img/genio_parado.gif");
+    background-size: cover;
+    background-position: center;
+    height: 55px;
+    background-size: 55%;
+    background-repeat: no-repeat;
+    transform: scaleX(-1);
+    transition: left 3s linear, top 3s linear;
+    
+}
 
-}  
+.player-caminadoRiht {
+    background-image: url('img/genio-caminando.gif');
+    background-size: cover;
+    background-position: center;
+    height: 55px;
+    background-size: 55%;
+    background-repeat: no-repeat;
+    transition: top 1s ease, left 1s ease;
+}
+
+.player-caminadoLeft {
+    background-image: url('img/genio-caminando.gif');
+    background-size: cover;
+    background-position: center;
+    height: 55px;
+    background-size: 55%;
+    background-repeat: no-repeat;
+    transition: top 1s ease, left 1s ease;
+    transform: scaleX(-1);
+}
+
+
+#background-transition .active {
+  transition: none;
+}
+
+#background-transition .active #background-layer {
+  transition: opacity 3s ease;
+  opacity: 0;
+}
+  
+  .obstacle {
+  }
+  
+  .destination {
+    background-image: url('img/preg.png');
+    background-size: cover;
+    background-position: center;
+    height: 45px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+  }
+  .destinationMeta {
+    background-image: url('img/meta.png');
+    background-size: cover;
+    background-position: center;
+    height: 56px;
+    background-size: 80%;
+    background-repeat: no-repeat;
+  }
+
+
+  .destinationOk {
+    background-image: url('img/pregOk.png');
+    background-size: cover;
+    background-position: center;
+    height: 45px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+  }
+  .destinationFail {
+    background-image: url('img/pregFail.png');
+    background-size: cover;
+    background-position: center;
+    height: 45px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+  }
+  
+  .moving-obstacle {
+    background-image: url('img/virus.png');
+    background-size: cover;
+    background-position: center;
+    height: 55px;
+    background-size: 55%;
+    background-repeat: no-repeat;
+    animation: moveObstacle 5s infinite alternate;
+
+  }
+  
+  .fixed-obstacle {
+    opacity: 1;
+  }
+  
+  @keyframes moveObstacle {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(200px);
+    }
+  }
+
+  
+
+  /* Estilos para el modal */
+  .md {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 96%;
+    max-width: 1024px;
+    min-width: 320px;
+    z-index: 2000;
+    visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateX(-50%) translateY(-50%);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(100px, 200px) auto;
+  }
+  
+  .md-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    opacity: 0;
+    background: rgba(241, 238, 238, 0.95);
+    transition: all .3s ease .5s;
+  }
+  
+  .md--active {
+    visibility: visible;
+    transition: all .3s ease .5s;
+  }
+  
+  .md--active ~ .md-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .md--active .md-content {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform .5s ease-in-out .8s, opacity .8s ease .8s;
+  }
+  
+  .md-image {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 3000;
+  }
+  
+  .md-content {
+    padding: 16px;
+    opacity: 0;
+    transform: translate(0, -100px);
+    z-index: 2500;
+  }
+  
+  .md-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .md-body + .md-footer {
+    margin-top: 20px;
+  }
+  
+  .md-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .md-footer .md-button {
+    margin-left: auto;
+    background-color: tomato;
+    color: #fff;
+    padding: 5px 15px;
+  }
+  
+  .md-title {
+    font-weight: 300;
+    color: #000;
+  }
+  
+  .md-close {
+    height: 24px;
+  }
+  
+  .md-link {
+    border-bottom: 1px solid tomato;
+  }
+  
+  .md-link:not(:first-of-type) {
+    margin-left: 1rem;
+  }
+  
+
+
+  /* botones Dirección */
+
+  .direccion1 {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(128, 128, 128, 0.452);
+    border: 3px solid white;
+    border-radius: 20px;
+    position: absolute;
+    right: 140px;
+    bottom: 306px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .direccion2 {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(128, 128, 128, 0.452);
+    border: 3px solid white;
+    border-radius: 20px;
+    position: absolute;
+    right: 39px;
+    bottom: 204px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .direccion3 {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(128, 128, 128, 0.452);
+    border: 3px solid white;
+    border-radius: 20px;
+    position: absolute;
+    right: 140px;
+    bottom: 204px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .direccion4 {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(128, 128, 128, 0.452);
+    border: 3px solid white;
+    border-radius: 20px;
+    position: absolute;
+    right: 242px;
+    bottom: 204px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
