@@ -237,13 +237,13 @@ body {
 
 #miObjeto {
   position: absolute;
-  background-image: url(moto.gif);
+  background-image: url(img/personaje/caminando.gif);
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
   top: 2%;
   left: 56px;
-  width: 68px;
+  width: 55px;
   height: 68px;
   text-align: center;
   line-height: 100px;
@@ -251,6 +251,7 @@ body {
   transition: transform 0.5s ease, top 5s ease-in, left 5s ease-in;
   display: flex;
   justify-content: center;
+  z-index: 3;
 }
 
 #miObjeto::before {
@@ -259,7 +260,7 @@ body {
   height: 0;
   overflow: hidden;
   z-index: -1;
-  content: url("moto.gif") url("avion2.gif") url("avion3.png")
+  content: url("img/personaje/caminando.gif") url("img/personaje/nadando.gif")
 }
 
 @font-face {
@@ -352,7 +353,8 @@ body {
   transform-origin: left;
   z-index: 0;
   background-image: url(huellas.png);
-  background-size:  20px 20px;
+  background-size:  15px 15px;
   background-repeat: repeat-x;
   background-position: center center;
+  z-index: 2;
 }

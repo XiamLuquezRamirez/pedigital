@@ -153,7 +153,6 @@ function updateGameBoard() {
       "fixed-obstacle"
     );
     if (index === playerPosition) {
-      cell.classList.add(playe);
     } else if (index === obstacle1Position || index === obstacle2Position) {
       //  cell.classList.add('obstacle', 'moving-obstacle');
     } else if (fixedObstacles.includes(index)) {
@@ -212,6 +211,7 @@ let playe = "playerDer";
 
 function movePlayer(direction) {
   let newPosition;
+  var or;
   let oreintaimg = "player-caminado";
   switch (direction) {
     case "up":
@@ -224,11 +224,13 @@ function movePlayer(direction) {
       newPosition = playerPosition - 1;
       oreintaimg = "player-caminadoLeft";
       playe = "playerIzq";
+      or = -1;
       break;
     case "right":
       newPosition = playerPosition + 1;
       oreintaimg = "player-caminadoRiht";
       playe = "playerDer";
+      or = 1;
       break;
     default:
       return;
@@ -236,9 +238,6 @@ function movePlayer(direction) {
 
   targetCell = cells[newPosition];
   console.log(targetCell);
-
-
-
 
   if (targetCell.classList.contains("obstacle")) {
     return; // No permitir moverse hacia un obstáculo fijo
@@ -248,16 +247,20 @@ function movePlayer(direction) {
     const targetPosition = targetCell.getBoundingClientRect();
     const targetX = targetPosition.left;
     const targetY = targetPosition.top;
+    const player = document.getElementById("player");
+    player.classList.add(oreintaimg);
 
-   
+    player.style.transition = "left 3s linear, top 3s linear";
+    player.style.transform = "scaleX("+or+")"
     // Actualizar la posición del jugador
 
     playerPosition = newPosition;
-    cells[playerPosition].style.transition = "left 5s linear, top 5s linear";
-    cells[playerPosition].style.left = targetX + "px";
-    cells[playerPosition].style.top = targetY + "px";
+    player.style.left = targetX + "px";
+    player.style.top = targetY + "px";
+    
 
   setTimeout(() => {
+    player.classList.remove(oreintaimg);
     updateGameBoard(player);
     checkCollision();
     cells[playerPosition].classList.add(oreintaimg);

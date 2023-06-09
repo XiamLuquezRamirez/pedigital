@@ -107,11 +107,20 @@ var colores = ["#eb1b31", "#6abb45", "#0173ba", "#ffd703", "#eb1b31", "#6abb45",
 var colores2 = [{ op1: '#662482', op2: '#39134a' }, { op1: '#4494d0', op2: '#3372a1' }, { op1: '#f08218', op2: '#c86b12' }, { op1: '#e83967', op2: '#be3156' }];
 
 function pintar_pregunta() {
-    if (preguntaActual < 16) {
+    if (preguntaActual < 15) {
         $('#myModal').modal('show');
         var pregunta = preguntas[preguntaActual];
         var enunciado = pregunta.pregunta;
         var opciones = pregunta.opciones;
+        var personaje = document.getElementById("miObjeto");
+
+        if(pregunta.imagen == "nadando"){
+            personaje.style.width = "70px"; 
+        }else{
+           personaje.style.width = "55px"; 
+        }
+
+        personaje.style.backgroundImage = "url(img/personaje/"+pregunta.imagen + ".gif)";
 
         opciones = randomValueGenerator(opciones);
         colores = randomValueGenerator(colores);
@@ -148,14 +157,24 @@ function respuesta(respuesta, elemento) {
                 var coordenadaX = offset.left;
                 var coordenadaY = offset.top;
 
-                var personaje = document.getElementById("miObjeto");
-                personaje.setAttribute("src", pregunta.imagen + ".gif");
-                crear_linea();
+                var miDiv2 = $("#miObjeto");
+                var offset2 = miDiv2.offset();
+                var coordenadaX2 = offset2.left;
 
-                personaje.style.left = (coordenadaX - 20) + "px";
-                personaje.style.top = (coordenadaY - 20) + "px";
+                var personaje = document.getElementById("miObjeto");
+                if(coordenadaX <= coordenadaX2){
+                    personaje.style.transform = "scaleX(-1)";
+                }else{
+                    personaje.style.transform = "scaleX(1)";
+                }
+
+                crear_linea();
+                
+                personaje.style.backgroundImage = "url(img/personaje/"+pregunta.imagen + ".gif)";
+                personaje.style.left = (coordenadaX - 30) + "px";
+                personaje.style.top = (coordenadaY - 30) + "px";
                 setTimeout(() => {
-                    personaje.setAttribute("src", pregunta.imagen + ".png");
+                    personaje.style.backgroundImage = "url(img/personaje/"+pregunta.imagen + ".png)";
                     pintar_pregunta();
                     resetProgressBar();
                 }, 6000)
