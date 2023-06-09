@@ -295,12 +295,6 @@
   },
   {
     "grado": "9",
-    "juego": "Sistema Solar",
-    "ruta": "AreaCienciasSociales/Moto/index.html",
-    "area": "CS",
-    "icono": "iconos/moto.png"
-  },
-  {
     "juego": "Las Guerras",
     "ruta": "AreaCienciasSociales/LasGuerras/index.html",
     "area": "CS",
@@ -364,24 +358,24 @@
   },
   {
     "grado": "10",
-    "juego": "x y % Challenge",
+    "juego": "Tecnicas de Conteo",
     "ruta": "AreaMatematicas/TecnicasConteo/index.html",
     "area": "M",
     "icono": "iconos/TecnicasConteo.png"
   },
   {
-    "grado": "5",
-    "juego": "Estadistica",
-    "ruta": "AreaMatematicas/Estadistica/index.html",
+    "grado": "10",
+    "juego": "Resolucion de Triangulos",
+    "ruta": "AreaMatematicas/ResolucionTriangulos/index.html",
     "area": "M",
-    "icono": "iconos/Estadistica.png"
+    "icono": "iconos/ResolucionTriangulos.png"
   },
   {
-    "grado": "5",
+    "grado": "10",
     "juego": "Porcentaje",
-    "ruta": "AreaMatematicas/Porcentaje/index.html",
+    "ruta": "AreaMatematicas/MedidaAngulos/index.html",
     "area": "M",
-    "icono": "iconos/Porcentaje.png"
+    "icono": "iconos/MedidaAngulos.png"
   },
   {
     "grado": "10",

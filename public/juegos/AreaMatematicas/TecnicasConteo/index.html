@@ -11,7 +11,7 @@
 	<script src="../../bootstrap/sweetalert.js"></script>
 	<link rel="stylesheet" href="style.css">
 	<script src="jquery-3.6.3.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+	<link rel="stylesheet" href="../../fontawesome/css/all.min.css">
 </head>
 
 <body>
@@ -32,7 +32,7 @@
 	</div>
 
 	<div style="display: none; text-align: center;" id="final" class="final">
-		<h1 style="font-size: 25pt; padding-top: 326pt; padding-bottom: 0px;" class="borde2" id="texto_final"></h1>
+		<h1 style="font-size: 25pt; padding-top: 288pt; padding-bottom: 0px;" class="borde2" id="texto_final"></h1>
 		<hr>
 		<div class="row">
 			<div class="col-12" style="padding-bottom: 0pt; margin-top: 0px;">
@@ -52,44 +52,61 @@
 		</div>
 	</div>
 	<div style="padding-top: 20pt; height: 100%;" id="principal">
-		<div class="row">
+		<div class="row" style="z-index: 100; position: relative">
 			<div class="col-3" style="display: flex; justify-content: center; align-items: center">
-				<i class="fa-solid fa-gas-pump fa-2x"></i>
+				<i style="color: white" class="fa-solid fa-clock fa-2x"></i>
 				<div class="progress-bar-container">
 					<div id="progress-bar" class="progress-bar"></div>
 				</div>
 			</div>
 			<div class="col-7" style="display: flex; justify-content: center; align-items: center">
-				<h2 class="borde" id="pregunta"></h2>
+				
 			</div>
 			<div class="col-1"><button onclick="location.reload()" class="btn btn-warning"><i
 						class="fa-solid fa-rotate"></i></button></div>
 			<div class="col-1"><button onclick="history.back()" class="btn btn-danger"><i
 						class="fa-solid fa-arrow-left"></i></button></div>
 		</div>
-		<div class="imagen">
-			<img src="" id="imagen" alt="" style="height: 100%">
+		<img src="cortina1.png" class="cortina1" alt="">
+		<img src="cortina2.png" class="cortina2" alt="">
+		<img src="ola.png" class="ola" alt="">
+		<img src="ola.png" class="ola2" alt="">
+		<div style="height: 103px;width: 31%;position: absolute;left: 36%;top: 33px;padding: 10px; display: flex; justify-content: center; align-items: center;">
+			<p class="borde" style="font-size: 17px !important;" id="enunciado"></p>
 		</div>
-		<div class="miDiv">
-			<div class="collapse">
+		<div class="row" style="height: 470px">
+			<div class="miDiv">
+				
 			</div>
-			<div class="collapse">
+			<div class="miDiv">
+				
 			</div>
-			<div class="collapse">
+			<div class="miDiv">
+				
 			</div>
-			<div class="collapse">
+			<div class="miDiv">
+				
+			</div>
+			<div class="miDiv">
+				
+			</div>
+			<div class="miDiv2">
+				
+			</div>
+			<div class="miDiv2">
+				
+			</div>
+			<div class="miDiv2">
+				
+			</div>
+			<div class="miDiv2">
+				
+			</div>
+			<div class="miDiv2">
+				
 			</div>
 		</div>
-		<div class="miDiv">
-			<div class="collapse">
-				<p id="pregunta1"></p>
-			</div>
-		</div>
-		<div class="miDiv">
-			<div class="collapse">
-				<p id="pregunta2"></p>
-			</div>
-		</div>
+		
 	</div>
 
 	<script src="script.js"></script>
