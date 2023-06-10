@@ -41,7 +41,7 @@ $(document).ready(function () {
             "url(../../images/ciencia/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola, soy Genio. <br> En este juego se iran presentando imagenes relacionadas al sisetma reproductor de una forma desordenadas y tendras que ordenarla Pulsando en un cuadro y luego en otro para intercambiar sus posiciones!!",
+            "Hola, soy Genio. <br> En este juego deberas salir del laboratorio, para esto deberas recorrer sus pasillos y responder las preguntas que se mostraran cuando llegues a cada punto marcado con un Matraz, al hacerlo la puerta se abrira automatcamente y podras salir.!",
             50,
             1
           );
@@ -274,9 +274,14 @@ function movePlayer(direction) {
 function verfResp() {
   if (Respuesta == "ok") {
     fadeOutBackground(targetCell, 'url("img/pregOk.png")');
+    targetCell.style.backgroundSize ="45%";
+    targetCell.style.backgroundRepeat = 'no-repeat';
   } else {
     fadeOutBackground(targetCell, 'url("img/pregFail.png")');
+    targetCell.style.backgroundSize ="45%";
+    targetCell.style.backgroundRepeat = 'no-repeat';
   }
+
   if (nResp == 5) {
   let posi = 62;
   setTimeout(() => {
@@ -324,9 +329,10 @@ function checkCollision() {
     if (nResp == 5) {
         setTimeout(() => {
         resultadoFinal();
-      }, 4000);
+      }, 3000);
     }
   }
+
   if (destinations.includes(playerPosition)) {
     let busq = PregRespuesta.includes(playerPosition);
     if (!busq) {

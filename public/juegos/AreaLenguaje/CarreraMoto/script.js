@@ -117,9 +117,9 @@ function seleccionaPersonaje() {
       '<div class="col-3"><div ><img onclick="seleccionarMoto(this, 3)" class="imagen_Moto" src="img/genioVerdeInicio.gif" style="cursor:pointer;" width="100" alt=""></div></div>' +
       '<div class="col-12 mt-1"><h2>Selecciona el Tema</h2></div>' +
       '<div class="col-1 ml-5"></div>' +
-      '<div class="col-3 "><div onclick="seleccionaTema(this,1)" class="div_tema">DEMONSTRATIVE: THIS/THESE/THAT/THOSE</div></div>' +
-      '<div class="col-3"><div onclick="seleccionaTema(this,2)" class="div_tema">QUESTIONS WORDS WITH WHICH</div></div>' +
-      '<div class="col-3"><div onclick="seleccionaTema(this,3)" class="div_tema">ADVERBS OF FREQUENCY</div></div>' +
+      '<div class="col-3 "><div style="pointer-events: none;" onclick="seleccionaTema(this,1)" class="div_tema">DEMONSTRATIVE: THIS/THESE/THAT/THOSE</div></div>' +
+      '<div class="col-3"><div style="pointer-events: none;"  onclick="seleccionaTema(this,2)" class="div_tema">QUESTIONS WORDS WITH WHICH</div></div>' +
+      '<div class="col-3"><div style="pointer-events: none;"  onclick="seleccionaTema(this,3)" class="div_tema">ADVERBS OF FREQUENCY</div></div>' +
       '<div class="col-1"></div>' +
       "</div>",
     showCloseButton: false,
@@ -147,6 +147,13 @@ function seleccionarMoto(elemento, tipo) {
     document.getElementById("imgMoto" + cons).src = "img/" + mot;
     cons++;
   });
+
+  var temas = document.getElementsByClassName("div_tema");
+  for (var i = 0; i < temas.length; i++) {
+    var tem = temas[i];
+    tem.style.pointerEvents = 'auto';
+  }
+
 }
 
 var preguntasAleatoria;
@@ -240,11 +247,14 @@ function cargPreg() {
     respCorrecta = preguntaActual.opcion_correcta;
     index++;
   } else {
-    detenerMete= setTimeout(showMetaImage, 5000);
+    cards.forEach((card, index) => {
+      card.style.pointerEvents = "none";   
+    });
+    detenerMete= setTimeout(showMetaImage, 3000);
 
     setTimeout(function () {
       resultadoFinal();
-    }, 2000);
+    }, 6000);
   }
 }
 
