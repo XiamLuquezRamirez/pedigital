@@ -111,7 +111,7 @@ function generarAngulo() {
   
 
     document.getElementById("botones").innerHTML = div;
-    document.getElementById("numero_pregunta").innerText = preguntaActual+" de 5"
+    document.getElementById("numero_pregunta").innerText = preguntaActual+" / 5"
   }else{
     $('#principal').fadeToggle(500);
     setTimeout(() => {
@@ -204,7 +204,63 @@ function rotateLine(event) {
 }
 
 function validar(){
-  
+  var distancia = Math.abs(anguloReal - angulo);
+  if(distancia <= 3){
+    if(tipoAngulo){
+      if(parseFloat(document.getElementById("angulo_radianes").value) == anguloRadianes){
+        Swal.fire({
+          position: "center",
+          imageUrl: "../../images/correcto.gif",
+          imageWidth: 250,
+          imageHeight: 250,
+          title: "Felicidades!",
+          text:'¡haz respondido correctamente!',
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }else{
+        Swal.fire({
+          position: "center",
+          imageUrl: "../../images/incorrecto.gif",
+          imageWidth: 250,
+          imageHeight: 250,
+          title: "Incorrecto!",
+          text:'¡Haz convertido el ángulo a radianes incorrectamente!',
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }
+    }else{
+      Swal.fire({
+        position: "center",
+        imageUrl: "../../images/incorrecto.gif",
+        imageWidth: 250,
+        imageHeight: 250,
+        title: "Incorrecto!",
+        text:'¡el tipo de ángulo es incorrecto!',
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    }
+  }else{
+    Swal.fire({
+      position: "center",
+      imageUrl: "../../images/incorrecto.gif",
+      imageWidth: 250,
+      imageHeight: 250,
+      title: "Incorrecto!",
+      text:'¡Haz medido el ángulo incorrectamente!',
+      showConfirmButton: false,
+      timer: 2500,
+    });
+  }
+
+  setTimeout(()=>{
+    tipoAngulo = false;
+    document.getElementById("angulo_radianes").value = "";
+    preguntaActual++;
+    generarAngulo();
+  }, 3000)
 }
 
 function getLineRotation(line) {
