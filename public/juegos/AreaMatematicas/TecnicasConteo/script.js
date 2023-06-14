@@ -31,7 +31,7 @@ $(document).ready(function () {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
                     maquina2(
                         "bienvenida",
-                        'Hola, soy Genio. <br> A continuación se te mostraran 5 ennciados, los cuales deberás resolver y disparar al pato que tenga la respuesta correcta, acierta mas del 60% para ganar.<br> ¡Tú Puedes!',
+                        'Hola, soy Genio. <br> A continuación se te mostraran 5 enunciados, los cuales deberás resolver y disparar al pato que tenga la respuesta correcta, acierta mas del 60% para ganar.<br> ¡Tú Puedes!',
                         50,
                         1
                     );

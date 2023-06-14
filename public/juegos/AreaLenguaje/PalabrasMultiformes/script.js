@@ -30,7 +30,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te mostraran 10 oroaciones, identifica la respuesta incorrecta en la nave enemiga y dispara hacia ella para salvar la nave amiga, ayudala a llegar hasta el destino. <br> ¡Tú Puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te mostraran 10 oraciones, identifica la respuesta correcta y dispara hacia ella para salvar la nave amiga, ayudala a llegar hasta el destino. <br> ¡Tú Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })
@@ -87,87 +87,115 @@ var posicionInicial2 = 0;
 let preguntaActual = 0;
 
 function preguntar() {
-    posicionInicial = 0;
-    posicionInicial2 = 0;
-    let pregunta = frases[preguntaActual];
-    document.getElementById("pregunta").innerText = "";
-    document.getElementById("pregunta").innerText = pregunta.oracion;
+    if(preguntaActual < 10){
+        posicionInicial = 0;
+        posicionInicial2 = 0;
+        let pregunta = frases[preguntaActual];
+        document.getElementById("pregunta").innerText = "";
+        document.getElementById("pregunta").innerText = pregunta.oracion;
 
 
-    var miDivs = document.getElementsByClassName("miDiv");
-    var elementosArray = Array.from(miDivs);
-    elementosArray.forEach(function (elemento) {
-        elemento.remove();
-    });
+        var miDivs = document.getElementsByClassName("miDiv");
+        var elementosArray = Array.from(miDivs);
+        elementosArray.forEach(function (elemento) {
+            elemento.remove();
+        });
 
-    setTimeout(() => {
-        let opciones = randomValueGenerator(pregunta.opciones);
+        setTimeout(() => {
+            let opciones = randomValueGenerator(pregunta.opciones);
+            var divContenedor = document.getElementById("principal");
+            for (let index = 0; index < opciones.length; index++) {
+                const element = opciones[index];
+
+                var nuevoDiv = document.createElement("div");
+                nuevoDiv.className = "miDiv";
+                var divInterno = document.createElement("div");
+                divInterno.className = "collapse";
+                divInterno.setAttribute("data-id", element[1]);
+
+                var parrafo = document.createElement("p");
+                parrafo.className = "borde2";
+                parrafo.id = "pregunta" + index;
+                var texto = document.createTextNode(element[0]);
+                parrafo.appendChild(texto);
+
+                divInterno.appendChild(parrafo);
+                nuevoDiv.appendChild(divInterno);
+
+                divContenedor.appendChild(nuevoDiv);
+            }
+        }, 100)
+
+        setTimeout(() => {
+            var divs = $(".miDiv");
+            pos_mayor = 0;
+
+
+            for (var i = 0; i < divs.length; i++) {
+                var div = divs[i];
+                div.style.backgroundImage = "url(nube" + i + ".png)";
+
+                if (posicionInicial == 0) {
+                    posicionInicial = Math.floor(Math.random() * (window.innerWidth - 2100)) + 2100;
+                } else {
+                    posicionInicial += Math.floor((Math.random() * (400 - 200 + 1)) + 200);
+                }
+
+                if (divs.length == 2) {
+                    if (posicionInicial2 == 0) {
+                        posicionInicial2 = 160;
+                    } else {
+                        posicionInicial2 += Math.floor((Math.random() * (250 - 190 + 1)) + 190);
+                    }
+                } else {
+                    if (posicionInicial2 == 0) {
+                        posicionInicial2 = 120;
+                    } else {
+                        posicionInicial2 += Math.floor((Math.random() * (180 - 140 + 1)) + 140);
+                    }
+                }
+
+
+                $(div).css("transition", "");
+                $(div).css("left", posicionInicial + "px");
+                $(div).css("top", posicionInicial2 + "px");
+
+                var intervalo = setInterval(moverDiv, 1500, div);
+                intervalos.push(intervalo);
+
+                if (posicionInicial > pos_mayor) {
+                    pos_mayor = posicionInicial;
+                    ultimoDiv = div;
+                }
+            }
+        }, 400)
+    }else{
+        var objeto_nave = document.getElementById('miObjeto');
+        var miDivs = document.getElementsByClassName("miDiv");
+        var elementosArray = Array.from(miDivs);
+        elementosArray.forEach(function (elemento) {
+            elemento.remove();
+        });
+
         var divContenedor = document.getElementById("principal");
-        for (let index = 0; index < opciones.length; index++) {
-            const element = opciones[index];
-
-            var nuevoDiv = document.createElement("div");
-            nuevoDiv.className = "miDiv";
-            var divInterno = document.createElement("div");
-            divInterno.className = "collapse";
-            divInterno.setAttribute("data-id", element[1]);
-
-            var parrafo = document.createElement("p");
-            parrafo.className = "borde2";
-            parrafo.id = "pregunta" + index;
-            var texto = document.createTextNode(element[0]);
-            parrafo.appendChild(texto);
-
-            divInterno.appendChild(parrafo);
-            nuevoDiv.appendChild(divInterno);
-
-            divContenedor.appendChild(nuevoDiv);
-        }
-    }, 100)
-
-    setTimeout(() => {
-        var divs = $(".miDiv");
-        pos_mayor = 0;
-
-
-        for (var i = 0; i < divs.length; i++) {
-            var div = divs[i];
-            div.style.backgroundImage = "url(nube" + i + ".png)";
-
-            if (posicionInicial == 0) {
-                posicionInicial = Math.floor(Math.random() * (window.innerWidth - 2100)) + 2100;
-            } else {
-                posicionInicial += Math.floor((Math.random() * (400 - 200 + 1)) + 200);
-            }
-
-            if (divs.length == 2) {
-                if (posicionInicial2 == 0) {
-                    posicionInicial2 = 160;
-                } else {
-                    posicionInicial2 += Math.floor((Math.random() * (250 - 190 + 1)) + 190);
-                }
-            } else {
-                if (posicionInicial2 == 0) {
-                    posicionInicial2 = 120;
-                } else {
-                    posicionInicial2 += Math.floor((Math.random() * (180 - 140 + 1)) + 140);
-                }
-            }
-
-
-            $(div).css("transition", "");
-            $(div).css("left", posicionInicial + "px");
-            $(div).css("top", posicionInicial2 + "px");
-
-            var intervalo = setInterval(moverDiv, 1500, div);
-            intervalos.push(intervalo);
-
-            if (posicionInicial > pos_mayor) {
-                pos_mayor = posicionInicial;
-                ultimoDiv = div;
-            }
-        }
-    }, 400)
+           
+        var nuevoDiv = document.createElement("div");
+        nuevoDiv.className = "miDiv2";
+        divContenedor.appendChild(nuevoDiv);
+        setTimeout(()=>{
+            nuevoDiv.style.transition = "left 3s linear";
+            nuevoDiv.style.left = "1020px";
+            setTimeout(()=>{
+                objeto_nave.style.left = (nuevoDiv.offsetLeft + 90)+"px";
+                objeto_nave.style.top = (nuevoDiv.offsetTop+170)+"px";
+                setTimeout(()=>{
+                    clearInterval(intervalId);
+                    clearInterval(intervalo_estrelladas);
+                    finalJuego();
+                }, 4000)
+            }, 3000)
+        }, 200)
+    }
 }
 
 function moverDiv(div) {
@@ -250,6 +278,7 @@ function verificarEstrellada() {
         objeto.style.backgroundImage = "url(arma_mal.gif)"
         setTimeout(() => {
             document.body.style.animation = "mover 9s linear infinite forwards";
+            preguntaActual++;
             finalJuego();
         }, 1800)
     }
@@ -298,7 +327,7 @@ function finalJuego() {
         document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
     }
 
-    document.getElementById("texto_final").innerText = "Has contestado correctamente el " + ((correctas / (preguntaActual + 1) * 100)).toFixed(2) + "% de las pregunta(s)";
+    document.getElementById("texto_final").innerText = "Has contestado correctamente el " + ((correctas / (preguntaActual) * 100)).toFixed(2) + "% de las pregunta(s)";
 
     if ((correctas / (preguntaActual + 1) * 100) < 60) {
         var audio = new Audio('../../sounds/victory.mp3');
@@ -310,7 +339,7 @@ function finalJuego() {
 }
 
 var progressBar = document.getElementById("progress-bar");
-var duration = 90;
+var duration = 120;
 var remainingSeconds = duration;
 var intervalId;
 
@@ -318,7 +347,7 @@ var intervalId;
 function resetProgressBar() {
     clearInterval(intervalId);
     var currentSeconds = remainingSeconds;
-    var newSeconds = currentSeconds + 15;
+    var newSeconds = currentSeconds + 25;
     if (newSeconds > duration) {
         newSeconds = duration;
     }
@@ -347,6 +376,7 @@ function reloj() {
             clearInterval(intervalId);
             clearInterval(intervalos.shift());
             intervalos = [];
+            preguntaActual++;
             finalJuego();
         }
     }, 1000);
@@ -357,28 +387,44 @@ var currentPosition = objeto2.getBoundingClientRect().top;
 
 function subir() {
     currentPosition -= 50;
-    objeto2.style.top = currentPosition + "px";
-    abajo = false;
+    if(currentPosition >= 0){
+        objeto2.style.top = currentPosition + "px";
+        abajo = false;
+    }else{
+        currentPosition += 50;
+    }
 }
 
 function bajar() {
     currentPosition += 50;
-    objeto2.style.top = currentPosition + "px";
-    abajo = true;
+    if(currentPosition <= 523){
+        objeto2.style.top = currentPosition + "px";
+        abajo = true;
+    }else{
+        currentPosition -= 50;
+    }  
 }
 
 document.addEventListener("keydown", function (event) {
     if (event.code === "ArrowUp") {
         currentPosition -= 50;
-        objeto2.style.top = currentPosition + "px";
-        abajo = false;
+        if(currentPosition >= 0){
+            objeto2.style.top = currentPosition + "px";
+            abajo = false;
+        }else{
+            currentPosition += 50;
+        }   
         event.preventDefault();
     }
 
     if (event.code === "ArrowDown") {
         currentPosition += 50;
-        objeto2.style.top = currentPosition + "px";
-        abajo = true;
+        if(currentPosition <= 523){
+            objeto2.style.top = currentPosition + "px";
+            abajo = true;
+        }else{
+            currentPosition -= 50;
+        }  
         event.preventDefault();
     }
 
@@ -388,18 +434,29 @@ document.addEventListener("keydown", function (event) {
 });
 
 function disparar() {
-    var espacio = document.getElementById("principal");
-    var div = document.createElement("div");
-    div.classList.add("bala");
-    var currentPositionB = objeto2.getBoundingClientRect().top;
-    div.style.top = (currentPositionB + 30) + "px";
-    div.style.left = "130px";
-    espacio.appendChild(div);
+    var naves = document.getElementsByClassName("miDiv");
+    var bandera = false;
 
-    setTimeout(() => {
-        div.style.left = "2000px";
-    }, 10);
+    for (let index = 0; index < naves.length; index++) {
+        const element = naves[index];
+        if(element.offsetLeft <= 1024){
+            bandera = true;
+        }
+    }
 
+    if(bandera){
+        var espacio = document.getElementById("principal");
+        var div = document.createElement("div");
+        div.classList.add("bala");
+        var currentPositionB = objeto2.getBoundingClientRect().top;
+        div.style.top = (currentPositionB + 30) + "px";
+        div.style.left = "130px";
+        espacio.appendChild(div);
+
+        setTimeout(() => {
+            div.style.left = "2000px";
+        }, 10);
+    }
 }
 
 function eliminarBalas() {
