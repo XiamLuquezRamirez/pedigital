@@ -25,7 +25,7 @@ $(document).ready(function () {
           divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola, soy Genio. <br> En este juego, deberás identificar el Tejido oculto. Para lograrlo, deberás responder correctamente una serie de preguntas las cuales contaran con un tiempo para responder, debes de presionar el boton para contestar.</strong> ",
+            "Hola, soy Genio. En este juego, deberás identificar el tejido oculto. Para lograrlo, deberás responder correctamente una serie de preguntas las cuales contarán con un tiempo para responder, debes de presionar el botón para contestar. ",
             50,
             1
           );

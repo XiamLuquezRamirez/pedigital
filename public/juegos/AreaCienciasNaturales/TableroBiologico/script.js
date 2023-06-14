@@ -154,7 +154,7 @@ var preguntasBacterias = [
   },
   {
     pregunta:
-      "¿Cuál es la bacteria que produce infecciosnes gastrointestinales severas y salmonelosis?",
+      "¿Cuál es la bacteria que produce infecciones gastrointestinales severas y salmonelosis?",
     respuesta: "Salmonella",
   },
   {
@@ -375,7 +375,7 @@ $(document).ready(function () {
             "url(../../images/ciencia/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola, soy Genio. <br> En este juego se iran presentando imagenes relacionadas al sisetma reproductor de una forma desordenadas y tendras que ordenarla Pulsando en un cuadro y luego en otro para intercambiar sus posiciones!!",
+            "Hola, soy Genio. <br> ¡Hola, soy Genio. En  este juego se irá presentando imágenes relacionadas con el sistema reproductor de una forma desordenada y tendrás que ordenarla pulsando en un cuadro y luego en otro para intercambiar sus posiciones!",
             50,
             1
           );
@@ -442,7 +442,7 @@ function resultadoFinal() {
     audio.play();
     document.getElementById("final").style.backgroundImage =
       "url(../../images/ciencia/derrota.gif)";
-    document.getElementById("texto_final").innerText = "Lo siento solo has logrado contestar Correctamente  " + respCorrectas+" de 10 Preguntas Posibles";
+    document.getElementById("texto_final").innerText = "Lo siento solo has logrado contestar correctamente  " + respCorrectas+" de 10 preguntas posibles";
   } else {
     document.getElementById("final").style.backgroundImage =
       "url(../../images/ciencia/victoria.gif)";

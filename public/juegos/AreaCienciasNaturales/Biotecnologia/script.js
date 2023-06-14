@@ -110,7 +110,7 @@ function resultadoFinal() {
     document.getElementById("texto_final").innerText =
       "Lo siento solo has logrado contestar Correctamente  " +
       userScore +
-      " de 10 Preguntas Posibles";
+      " de 5 Preguntas Posibles";
   } else {
     document.getElementById("final").style.backgroundImage =
       "url(../../images/ciencia/victoria.gif)";
@@ -119,7 +119,7 @@ function resultadoFinal() {
     document.getElementById("texto_final").innerText =
       "Felicitaciones has logrado contestar Correctamente  " +
       userScore +
-      " de 10 Preguntas Posibles";
+      " de 5 Preguntas Posibles";
   }
 }
 
