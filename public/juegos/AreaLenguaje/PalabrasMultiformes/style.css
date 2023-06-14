@@ -534,6 +534,21 @@ body {
   justify-content: center;
 }
 
+.miDiv2 {
+  position: absolute;
+  top: 24%;
+  left: 1500px;
+  width: 200pt;
+  height: 240pt;
+  background-image: url("mundo.png");
+  background-size: 70% 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #miDiv::before {
   position: absolute;
   width: 0;
@@ -557,7 +572,7 @@ body {
   text-align: center;
   line-height: 100px;
   cursor: pointer;
-  transition: transform 0.5s ease, top 1s ease;
+  transition: transform 0.5s ease, top 1s ease, left 4s ease-out;
   display: flex;
   justify-content: center;
   transform: rotate(90deg);

@@ -160,8 +160,8 @@
   {
     "oracion": "Mi hermana es vegetariana. _________________, nunca come carne.",
     "opciones": [
-      ["Por tanto", false],
-      ["Sin embargo", true],
+      ["Por tanto", true],
+      ["Sin embargo", false],
       ["En conclusión", false]
     ]
   },
@@ -1100,8 +1100,8 @@
   {
     "oracion": "______ película es muy emocionante.",
     "opciones": [
-      ["Éste", true],
-      ["Este", false]
+      ["Está", true],
+      ["Esta", false]
     ]
   },
   {

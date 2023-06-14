@@ -22,7 +22,7 @@ $(document).ready(function () {
           divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
           maquina2(
             "bienvenida",
-            'Hola, soy Genio. <br> A continuación se te mostrara 5 preguntas con un triangulo y dos medidas, ya sea un lado y un ángulo, o dos lados, y deberás calcular los valores que se te pidan, para disparar a los globos que contengan la respuesta correcta. <br> ¡Tú Puedes!',
+            'Hola, soy Genio. <br> A continuación se te mostraran 5 preguntas con un triangulo y dos medidas, ya sea un lado y un ángulo, o dos lados, y deberás calcular los valores que se te pidan, para disparar a los globos que contengan la respuesta correcta. <br> ¡Tú Puedes!',
             50,
             1
           );
