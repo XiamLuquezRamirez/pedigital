@@ -223,7 +223,7 @@ function finalJuego() {
         document.getElementById("final").style.backgroundImage = "url(../../images/victoria.gif)";
     }
 
-    document.getElementById("texto_final").innerText = "Has contestado correctamente el " + ((correctas / (preguntaActual + 1) * 100)).toFixed(2) + "% de las pregunta(s)";
+    document.getElementById("texto_final").innerText = "Felicitaciones, has contestado llegado al final del recorrido, espero hayas aprendido cosas nuevas.";
 
     if ((correctas / (preguntaActual + 1) * 100) < 60) {
         var audio = new Audio('../../sounds/victory.mp3');

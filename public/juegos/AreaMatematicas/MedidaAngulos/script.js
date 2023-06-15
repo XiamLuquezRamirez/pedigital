@@ -84,7 +84,7 @@ function generarAngulo() {
   if(preguntaActual <= 5){
     angulo = Math.floor(Math.random() * (72 - 10 + 1) + 10);
     angulo *= 5;
-    anguloRadianes = (angulo *  Math.PI ) / 180;
+    anguloRadianes = Number(((angulo *  Math.PI ) / 180).toFixed(2));
     document.getElementById("pregunta").innerText = "Por favor grafique el siguiente ángulo " + angulo + "° y luego responda";
   
     var clases = ['btn-info', 'btn-success', 'btn-warning', 'btn-primary', 'btn-secondary', 'btn-dark']

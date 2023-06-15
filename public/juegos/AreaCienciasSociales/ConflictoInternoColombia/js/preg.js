@@ -215,7 +215,7 @@ for (let i = 0; i < respuestas.length; i++) {
                     document.getElementById("dinero").innerText = dinero_ganado;
                 }
 
-                if (nivel >= 3) {
+                if (nivel >= 10) {
                     felicidades();
                 } else {
                     if ((nivel) % 5 == 0) {
