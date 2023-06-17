@@ -636,6 +636,76 @@
     ]
   },
   {
+    "oracion": "No sé ______ es tu libro favorito.",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
+    "oracion": "Ese es el coche con ______ tuve el accidente.",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
+    "oracion": "No recuerdo ______ era el restaurante donde comimos.",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
+    "oracion": "Explícame ______ es la diferencia entre estos dos productos.",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
+    "oracion": "Este es el libro del ______ te hablé ayer.",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
+    "oracion": "Dime ______ es tu película favorita.",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
+    "oracion": "¿Sabes ______ es el mejor camino para llegar allí?",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
+    "oracion": "No entiendo ______ es tu elección.",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
+    "oracion": "Ella es la amiga con ______ me encontré en el concierto.",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
+    "oracion": "¿Me puedes decir ______ es el mejor restaurante de la ciudad?",
+    "opciones": [
+      ["Cuál", false],
+      ["Cual", true]
+    ]
+  },
+  {
     "oracion": "No pude asistir a la reunión ______ tuve otros compromisos.",
     "opciones": [
       ["porque", true],
@@ -765,6 +835,146 @@
     "oracion": "______ hecho un gran trabajo en el proyecto.",
     "opciones": [
       ["Has", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "¿_____ visto alguna vez una película de terror?",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "Él _______ hecho un gran trabajo en su proyecto.",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "¿_____ pensado en tus metas a largo plazo?",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "Ella _______ viajado a muchos países diferentes.",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "¿_____ leído el último libro de ese autor?",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "Él te _______ enviado un regalo de cumpleaños.",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "¿_____ aprendido a tocar algún instrumento musical?",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "Ella _______ visitado a sus abuelos recientemente.",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "¿_____ probado la nueva comida del restaurante?",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "Él _______ ganado varias competencias de natación.",
+    "opciones": [
+      ["Haz", false],
+      ["Has", true]
+    ]
+  },
+  {
+    "oracion": "¿_____ lo que te digo?",
+    "opciones": [
+      ["Haz", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "No ______ caso a los rumores.",
+    "opciones": [
+      ["Haz", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "______ lo que quieras.",
+    "opciones": [
+      ["Haz", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "______ lo que te hace feliz.",
+    "opciones": [
+      ["Haz", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "No ______ preguntas tontas.",
+    "opciones": [
+      ["Haz", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "______ las cosas a tu manera.",
+    "opciones": [
+      ["Haz", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "¿Por qué no ______ lo que te gusta?",
+    "opciones": [
+      ["Haz", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "______ lo que consideres correcto.",
+    "opciones": [
+      ["Haz", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "______ lo mejor que puedas.",
+    "opciones": [
+      ["Haz", true],
+      ["Haz", false]
+    ]
+  },
+  {
+    "oracion": "No ______ promesas que no puedas cumplir.",
+    "opciones": [
+      ["Haz", true],
       ["Haz", false]
     ]
   },
@@ -1273,7 +1483,7 @@
     ]
   },
   {
-    "oracion": "Esta ______ vez que viajo a ese país.",
+    "oracion": "Esta es la primera ______ que viajo a ese país.",
     "opciones": [
       ["Vez", true],
       ["Ves", false]

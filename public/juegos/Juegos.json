@@ -83,7 +83,7 @@
     "area": "LC",
     "icono": "iconos/Saluda.png"
   },
-   {
+  {
     "grado": "7",
     "juego": "Ármalo",
     "ruta": "AreaCienciasNaturales/Armalo/index.html",
@@ -405,7 +405,7 @@
     "area": "LC",
     "icono": "iconos/CrucigramaLiteratura.png"
   },
-    {
+  {
     "grado": "10",
     "juego": "Palabras Multiformes",
     "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
@@ -484,12 +484,21 @@
   },
   {
     "grado": "11",
+<<<<<<< HEAD
     "juego": "Crucigrama",
     "ruta": "AreaLenguaje/CrucigramaLiteratura/index.html",
     "area": "LC",
     "icono": "iconos/CrucigramaLiteratura.png"
   },
     {
+=======
+    "juego": "Doble Negacion",
+    "ruta": "AreaLenguaje/DobleNegacion/index.html",
+    "area": "LC",
+    "icono": "iconos/DobleNegacion.png"
+  },
+  {
+>>>>>>> 4b8cce23cc6f3856bcdf95e567b78991f4570d84
     "grado": "11",
     "juego": "Palabras Multiformes",
     "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
@@ -498,9 +507,16 @@
   },
   {
     "grado": "11",
+<<<<<<< HEAD
     "juego": "Carrera de Motos",
     "ruta": "AreaLenguaje/CarreraMoto/index.html",
     "area": "LC",
     "icono": "iconos/CarreraMoto.png"
+=======
+    "juego": "Comparative And Superlative",
+    "ruta": "AreaLenguaje/ComparativeAndSuperlative/index.html",
+    "area": "LC",
+    "icono": "iconos/ComparativeAndSuperlative.png"
+>>>>>>> 4b8cce23cc6f3856bcdf95e567b78991f4570d84
   }
 ]

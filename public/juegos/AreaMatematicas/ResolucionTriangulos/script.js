@@ -310,6 +310,7 @@ function verificar(elemento, pos) {
 
   if (elemento.getAttribute("data-id") == "true") {
     elemento.classList.add("ok");
+    bien++;
   } else {
     elemento.classList.add("fall");
     document.body.style.animation = "shake 1s linear infinite forwards";

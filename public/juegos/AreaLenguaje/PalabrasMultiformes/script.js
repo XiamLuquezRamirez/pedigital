@@ -136,7 +136,7 @@ function preguntar() {
                 div.style.backgroundImage = "url(nube" + i + ".png)";
 
                 if (posicionInicial == 0) {
-                    posicionInicial = Math.floor(Math.random() * (window.innerWidth - 2100)) + 2100;
+                    posicionInicial = Math.floor(Math.random() * (window.innerWidth - 1450 + 1)) + 1450;
                 } else {
                     posicionInicial += Math.floor((Math.random() * (400 - 200 + 1)) + 200);
                 }
