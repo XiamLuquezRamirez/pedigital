@@ -83,7 +83,7 @@
     "area": "LC",
     "icono": "iconos/Saluda.png"
   },
-   {
+  {
     "grado": "7",
     "juego": "Ármalo",
     "ruta": "AreaCienciasNaturales/Armalo/index.html",
@@ -405,7 +405,7 @@
     "area": "LC",
     "icono": "iconos/CrucigramaLiteratura.png"
   },
-    {
+  {
     "grado": "10",
     "juego": "Palabras Multiformes",
     "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
@@ -420,10 +420,87 @@
     "icono": "iconos/CarreraMoto.png"
   },
   {
-    "grado": "5",
-    "juego": "Wh Questions",
-    "ruta": "AreaLenguaje/WHQuetions/index.html",
+    "grado": "11",
+    "juego": "Mutrición Seres Vivos",
+    "ruta": "AreaCienciasNaturales/NutricionSeresVivos/index.html",
+    "area": "CN",
+    "icono": "iconos/NutricionSeresVivos.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Descrubre el Tejido",
+    "ruta": "AreaCienciasNaturales/DescubreTejido/index.html",
+    "area": "CN",
+    "icono": "iconos/DescubreTejido.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Biotecnologia",
+    "ruta": "AreaCienciasNaturales/Biotecnologia/index.html",
+    "area": "CN",
+    "icono": "iconos/Biotecnologia.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Tecnicas de Conteo",
+    "ruta": "AreaMatematicas/TecnicasConteo/index.html",
+    "area": "M",
+    "icono": "iconos/TecnicasConteo.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Resolucion de Triangulos",
+    "ruta": "AreaMatematicas/ResolucionTriangulos/index.html",
+    "area": "M",
+    "icono": "iconos/ResolucionTriangulos.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Porcentaje",
+    "ruta": "AreaMatematicas/MedidaAngulos/index.html",
+    "area": "M",
+    "icono": "iconos/MedidaAngulos.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Crucigrama",
+    "ruta": "AreaCienciasSociales/ConflictoInternoColombia/index.html",
+    "area": "CS",
+    "icono": "iconos/ConflictoInternoColombia.png"
+  },
+  {
+    "grado": "11",
+    "juego": "La Guerra Fría",
+    "ruta": "AreaCienciasSociales/GuerraFria/index.html",
+    "area": "CS",
+    "icono": "iconos/GuerraFria.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Mi Geografia",
+    "ruta": "AreaCienciasSociales/Biodiversidad/index.html",
+    "area": "CS",
+    "icono": "iconos/Biodiversidad.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Doble Negacion",
+    "ruta": "AreaLenguaje/DobleNegacion/index.html",
     "area": "LC",
-    "icono": "iconos/WHQuetions.png"
+    "icono": "iconos/DobleNegacion.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Palabras Multiformes",
+    "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
+    "area": "LC",
+    "icono": "iconos/PalabrasMultiformes.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Comparative And Superlative",
+    "ruta": "AreaLenguaje/ComparativeAndSuperlative/index.html",
+    "area": "LC",
+    "icono": "iconos/ComparativeAndSuperlative.png"
   }
 ]
