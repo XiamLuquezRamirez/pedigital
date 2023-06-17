@@ -11,12 +11,13 @@ var preguntas = [
     enunciado:
       "¿Cuál fue el factor que impulsó el desarrollo industrial en Colombia en las primeras décadas del siglo XX?",
     opciones: [
-      "Los beneficios de la Primera Guerra Mundial",
+   
       "Las leyes proteccionistas",
       "La elevación de los ingresos en las zonas cafeteras",
+         "Los beneficios de la Primera Guerra Mundial",
       "El cierre de las empresas artesanales en el oriente colombiano",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 2,
   },
   {
     id: 2,
@@ -30,12 +31,13 @@ var preguntas = [
     enunciado:
       "¿Cuál fue el sector industrial más importante numéricamente en esa época?",
     opciones: [
-      "La industria textil",
+
       "La industria del cemento",
+      "La industria textil",
       "La industria de alimentos",
       "La industria de la energía eléctrica",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
   },
   {
     id: 4,
@@ -66,24 +68,26 @@ var preguntas = [
     enunciado:
       "¿En qué década se fundó la empresa Noel para producir dulces y galletas a escala industrial?",
     opciones: [
-      "Década de 1920",
+    
       "Década de 1930",
       "Década de 1940",
       "Década de 1950",
+      "Década de 1920",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 3,
   },
   {
     id: 7,
     enunciado:
       "¿Qué sector industrial experimentó un crecimiento significativo entre 1930 y 1945 en Colombia?",
     opciones: [
-      "Bienes de consumo corriente",
+   
       "Bienes intermedios",
       "Bienes de capital",
+      "Bienes de consumo corriente",
       "Bienes de lujo",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 2,
   },
   {
     id: 8,
@@ -114,18 +118,19 @@ var preguntas = [
     enunciado:
       "¿Cuál fue el efecto del modelo de sustitución de importaciones en la industria colombiana?",
     opciones: [
-      "Impulsó el crecimiento de la industria nacional",
+    
       "Incrementó la dependencia de las importaciones",
+      "Impulsó el crecimiento de la industria nacional",
       "Generó una crisis económica",
       "Promovió la diversificación de las exportaciones",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
   },
   {
     id: 11,
     enunciado: "¿Cuál fue el período conocido como 'La Violencia' en Colombia?",
-    opciones: ["1948-1958", "1960-1970", "1970-1980", "1980-1990"],
-    respuestaCorrecta: 0,
+    opciones: [ "1960-1970", "1970-1980", "1980-1990","1948-1958",],
+    respuestaCorrecta: 3,
   },
   {
     id: 12,
@@ -167,36 +172,38 @@ var preguntas = [
     enunciado:
       "¿Qué tratado comercial permitió el ingreso de productos extranjeros a Colombia de manera preferencial?",
     opciones: [
-      "Tratado de Libre Comercio con Estados Unidos",
+     
       "Tratado de Libre Comercio con México",
       "Tratado de Libre Comercio con Brasil",
+      "Tratado de Libre Comercio con Estados Unidos",
       "Tratado de Libre Comercio con China",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 2,
   },
   {
     id: 16,
     enunciado:
       "¿Qué tipo de empresas se vieron especialmente afectadas por la apertura económica en Colombia?",
     opciones: [
-      "Pequeñas y medianas empresas (Pymes)",
+ 
       "Grandes empresas multinacionales",
+      "Pequeñas y medianas empresas (Pymes)",
       "Empresas estatales",
       "Empresas del sector agropecuario",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
   },
   {
     id: 17,
     enunciado:
       "¿Cuál es uno de los sectores industriales que ha experimentado un crecimiento importante en Colombia en los últimos años?",
     opciones: [
-      "Tecnología de la información",
       "Manufactura tradicional",
       "Industria pesada",
       "Industria del petróleo",
+      "Tecnología de la información",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 3,
   },
   {
     id: 18,
@@ -214,24 +221,24 @@ var preguntas = [
     id: 19,
     enunciado: "¿Qué es el concepto de 'industria 4.0'?",
     opciones: [
-      "La cuarta revolución industrial basada en la automatización y la digitalización",
       "El retorno a métodos de producción artesanales",
       "La implementación de políticas proteccionistas en la industria",
       "El desarrollo de tecnologías sostenibles en la industria",
+      "La cuarta revolución industrial basada en la automatización y la digitalización",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 3,
   },
   {
     id: 20,
     enunciado:
       "¿Cuál es uno de los beneficios potenciales de la industria 4.0?",
     opciones: [
-      "Aumento de la productividad",
       "Reducción de la competitividad",
+      "Aumento de la productividad",
       "Incremento de la desigualdad social",
       "Aumento de los costos de producción",
     ],
-    respuestaCorrecta: 0,
+    respuestaCorrecta: 1,
   },
 ];
 

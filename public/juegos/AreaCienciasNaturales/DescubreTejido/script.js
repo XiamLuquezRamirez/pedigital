@@ -139,7 +139,7 @@ function descubrirTejido() {
  // clearTimeout(intervaloTimeOut);
  if(ctpreg<5){
   setTimeout(ocultardivsImg, 10000);
-  setTimeout(iniciar, 9500);
+  setTimeout(iniciar, 15000);
   
  }else{
   setTimeout(resultadoFinal, 9000);

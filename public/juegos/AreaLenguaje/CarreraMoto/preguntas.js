@@ -103,108 +103,157 @@ let PreguntasTema1 = [
 ];
 let PreguntasTema2 = [
   {
-    pregunta: "I bought a new car, ___________ I'm very happy.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "with which",
+    pregunta: "The girl had ___________ hair.",
+    opciones: ["blonde", "black", "brown", "red"],
+    opcion_correcta: "blonde",
   },
   {
-    pregunta: "She prepared a delicious meal, ___________ impressed everyone.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "with which",
+    pregunta: "The boy had ___________ eyes.",
+    opciones: ["blue", "brown", "green", "gray"],
+    opcion_correcta: "blue",
   },
   {
-    pregunta:
-      "The student asked a challenging question, ___________ surprised the teacher.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The man was ___________.",
+    opciones: ["tall", "short", "average height", "robust"],
+    opcion_correcta: "tall",
   },
   {
-    pregunta: "He gave me a book, ___________ I'm going to read tonight.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The woman had ___________ skin tone.",
+    opciones: ["fair", "dark", "tanned", "olive"],
+    opcion_correcta: "fair",
   },
   {
-    pregunta: "She received an award, ___________ she was not expecting.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The child had a ___________ build.",
+    opciones: ["slim", "muscular", "sturdy", "athletic"],
+    opcion_correcta: "slim",
   },
   {
-    pregunta: "They built a new house, ___________ took them a year.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The girl had ___________ hair.",
+    opciones: ["straight", "curly", "wavy", "kinky"],
+    opcion_correcta: "curly",
   },
   {
-    pregunta:
-      "The company organized a conference, ___________ many experts attended.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The man had a ___________ beard.",
+    opciones: ["full", "trimmed", "unshaven", "clean-shaven"],
+    opcion_correcta: "full",
   },
   {
-    pregunta: "He wrote a letter, ___________ he expressed his gratitude.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "with which",
+    pregunta: "The woman had ___________ lips.",
+    opciones: ["full", "thin", "plump", "pale"],
+    opcion_correcta: "full",
   },
   {
-    pregunta: "She created a beautiful painting, ___________ she won an award.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "with which",
+    pregunta: "The boy had ___________ eyebrows.",
+    opciones: ["bushy", "thin", "arched", "straight"],
+    opcion_correcta: "bushy",
   },
   {
-    pregunta: "I made a reservation at a hotel, ___________ I will be staying.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "in which",
+    pregunta: "The woman had moles on ___________.",
+    opciones: ["her face", "her neck", "her arms", "her legs"],
+    opcion_correcta: "her face",
   },
   {
-    pregunta:
-      "They organized a party, ___________ they celebrated their success.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The man had a ___________ nose.",
+    opciones: ["straight", "hooked", "button", "bulbous"],
+    opcion_correcta: "hooked",
   },
   {
-    pregunta:
-      "He bought a new laptop, ___________ he can work more efficiently.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "so that",
+    pregunta: "The girl had ___________ cheeks.",
+    opciones: ["rosy", "sunken", "chubby", "high"],
+    opcion_correcta: "chubby",
   },
   {
-    pregunta:
-      "She received a scholarship, ___________ she will pursue her studies.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The boy had ___________ ears.",
+    opciones: ["big", "small", "protruding", "pierced"],
+    opcion_correcta: "protruding",
   },
   {
-    pregunta:
-      "He attended a workshop, ___________ he gained valuable knowledge.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "from which",
+    pregunta: "The woman had ___________ eyes.",
+    opciones: ["almond-shaped", "round", "deep-set", "wide"],
+    opcion_correcta: "almond-shaped",
   },
   {
-    pregunta:
-      "The chef cooked a delicious meal, ___________ impressed the guests.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The man had a ___________ complexion.",
+    opciones: ["smooth", "rough", "freckled", "blemished"],
+    opcion_correcta: "smooth",
   },
   {
-    pregunta: "She visited a museum, ___________ she admired the artwork.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "where",
+    pregunta: "The girl had ___________ teeth.",
+    opciones: ["straight", "crooked", "gap-toothed", "white"],
+    opcion_correcta: "crooked",
   },
   {
-    pregunta: "He received a gift, ___________ he was very grateful for.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The boy had ___________ hands.",
+    opciones: ["large", "small", "calloused", "delicate"],
+    opcion_correcta: "large",
   },
   {
-    pregunta: "She met a famous actor, ___________ she took a picture.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "with which",
+    pregunta: "The woman had ___________ nails.",
+    opciones: ["long", "short", "manicured", "painted"],
+    opcion_correcta: "long",
   },
   {
-    pregunta: "He attended a concert, ___________ he enjoyed the music.",
-    opciones: ["with which", "in which", "by which", "from which"],
-    opcion_correcta: "which",
+    pregunta: "The man had ___________ shoulders.",
+    opciones: ["broad", "narrow", "hunched", "sloping"],
+    opcion_correcta: "broad",
+  },
+  {
+    pregunta: "The girl had a ___________ smile.",
+    opciones: ["radiant", "shy", "crooked", "infectious"],
+    opcion_correcta: "radiant",
+  },
+  {
+    pregunta: "The boy had ___________ feet.",
+    opciones: ["big", "small", "sweaty", "well-groomed"],
+    opcion_correcta: "big",
+  },
+  {
+    pregunta: "The woman had ___________ hips.",
+    opciones: ["curvy", "narrow", "wide", "slender"],
+    opcion_correcta: "curvy",
+  },
+  {
+    pregunta: "The man had a ___________ chin.",
+    opciones: ["strong", "weak", "cleft", "double"],
+    opcion_correcta: "strong",
+  },
+  {
+    pregunta: "The girl had ___________ eyelashes.",
+    opciones: ["long", "short", "thick", "curled"],
+    opcion_correcta: "long",
+  },
+  {
+    pregunta: "The boy had ___________ complexion.",
+    opciones: ["olive", "pale", "ruddy", "flushed"],
+    opcion_correcta: "pale",
+  },
+  {
+    pregunta: "The woman had ___________ eyebrows.",
+    opciones: ["well-defined", "sparse", "bushy", "arched"],
+    opcion_correcta: "well-defined",
+  },
+  {
+    pregunta: "The man had ___________ hairline.",
+    opciones: ["receding", "straight", "widow's peak", "thinning"],
+    opcion_correcta: "receding",
+  },
+  {
+    pregunta: "The girl had ___________ freckles.",
+    opciones: ["scattered", "few", "numerous", "faded"],
+    opcion_correcta: "scattered",
+  },
+  {
+    pregunta: "The boy had a ___________ forehead.",
+    opciones: ["high", "low", "wrinkled", "smooth"],
+    opcion_correcta: "high",
+  },
+  {
+    pregunta: "The woman had ___________ posture.",
+    opciones: ["upright", "slouched", "hunched", "rigid"],
+    opcion_correcta: "upright",
   },
 ];
+
 let PreguntasTema3 = [
   {
     pregunta: "I ___________ go to the gym on Sundays.",
