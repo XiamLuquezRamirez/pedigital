@@ -442,31 +442,31 @@
   },
   {
     "grado": "11",
-    "juego": "Tecnicas de Conteo",
-    "ruta": "AreaMatematicas/TecnicasConteo/index.html",
+    "juego": "Sucesiones",
+    "ruta": "AreaMatematicas/Sucesiones/index.html",
     "area": "M",
-    "icono": "iconos/TecnicasConteo.png"
+    "icono": "iconos/Sucesiones.png"
   },
   {
     "grado": "11",
-    "juego": "Resolucion de Triangulos",
-    "ruta": "AreaMatematicas/ResolucionTriangulos/index.html",
+    "juego": "Intervalos",
+    "ruta": "AreaMatematicas/Intervalos/index.html",
     "area": "M",
-    "icono": "iconos/ResolucionTriangulos.png"
+    "icono": "iconos/Intervalos.png"
   },
   {
     "grado": "11",
-    "juego": "Porcentaje",
-    "ruta": "AreaMatematicas/MedidaAngulos/index.html",
+    "juego": "Muestreo",
+    "ruta": "AreaMatematicas/Muestreo/index.html",
     "area": "M",
-    "icono": "iconos/MedidaAngulos.png"
+    "icono": "iconos/Muestreo.png"
   },
   {
     "grado": "11",
-    "juego": "Crucigrama",
-    "ruta": "AreaCienciasSociales/ConflictoInternoColombia/index.html",
+    "juego": "Conflicto Armado en Colombia",
+    "ruta": "AreaCienciasSociales/ConflictoArmadoColombia/index.html",
     "area": "CS",
-    "icono": "iconos/ConflictoInternoColombia.png"
+    "icono": "iconos/ConflictoArmadoColombia.png"
   },
   {
     "grado": "11",
