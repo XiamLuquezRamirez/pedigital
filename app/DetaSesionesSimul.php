@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DetaSesionesSimul extends Model
 {
@@ -37,7 +39,7 @@ class DetaSesionesSimul extends Model
     }
 
     public static function ConsultarSesiones($simu)
-    {
+    {   
         $DetSesiones = DetaSesionesSimul::leftJoin('me_sesiones_alumnos', 'me_sesiones_alumnos.sesion', '=', 'me_sesiones_simulacros.id')
             ->where('me_sesiones_simulacros.id_simulacro', $simu)
             ->where('me_sesiones_simulacros.estado', "ACTIVO")
@@ -48,11 +50,8 @@ class DetaSesionesSimul extends Model
 
     public static function ConsultarSesion($sesion)
     {
-        $DetSesion = DetaSesionesSimul::leftJoin('me_sesiones_alumnos', 'me_sesiones_alumnos.sesion', '=', 'me_sesiones_simulacros.id')
-            ->where('me_sesiones_simulacros.id', $sesion)
-            ->select('me_sesiones_simulacros.id', 'me_sesiones_simulacros.id_simulacro', 'me_sesiones_simulacros.sesion', 'me_sesiones_simulacros.num_preguntas', 'me_sesiones_simulacros.tiempo_sesion', 'me_sesiones_alumnos.estado')
-            ->first();
-        return $DetSesion;
+        $DetSesion = DB::connection("mysql")->select("SELECT mss.id,mss.sesion, mss.num_preguntas, mss.tiempo_sesion,msa.alumno, msa.estado FROM me_sesiones_simulacros mss LEFT JOIN me_sesiones_alumnos msa ON mss.id=msa.sesion  AND msa.alumno=".Auth::user()->id." LEFT JOIN alumnos alum ON msa.alumno=alum.usuario_alumno  WHERE mss.id = '".$sesion."'");
+        return $DetSesion[0];
 
     }
 
@@ -72,4 +71,6 @@ class DetaSesionesSimul extends Model
         return "1";
     }
 
+
+  
 }
