@@ -435,10 +435,10 @@
   },
   {
     "grado": "11",
-    "juego": "Biotecnologia",
-    "ruta": "AreaCienciasNaturales/Biotecnologia/index.html",
+    "juego": "Hidrocarburo",
+    "ruta": "AreaCienciasNaturales/Ambulancia/index.html",
     "area": "CN",
-    "icono": "iconos/Biotecnologia.png"
+    "icono": "iconos/Ambulancia.png"
   },
   {
     "grado": "11",
@@ -478,27 +478,18 @@
   {
     "grado": "11",
     "juego": "Mi Geografia",
-    "ruta": "AreaCienciasSociales/Biodiversidad/index.html",
+    "ruta": "AreaCienciasSociales/Globalizacion/index.html",
     "area": "CS",
-    "icono": "iconos/Biodiversidad.png"
+    "icono": "iconos/Globalizacion.png"
   },
   {
     "grado": "11",
-<<<<<<< HEAD
     "juego": "Crucigrama",
     "ruta": "AreaLenguaje/CrucigramaLiteratura/index.html",
     "area": "LC",
     "icono": "iconos/CrucigramaLiteratura.png"
   },
     {
-=======
-    "juego": "Doble Negacion",
-    "ruta": "AreaLenguaje/DobleNegacion/index.html",
-    "area": "LC",
-    "icono": "iconos/DobleNegacion.png"
-  },
-  {
->>>>>>> 4b8cce23cc6f3856bcdf95e567b78991f4570d84
     "grado": "11",
     "juego": "Palabras Multiformes",
     "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
@@ -507,16 +498,9 @@
   },
   {
     "grado": "11",
-<<<<<<< HEAD
-    "juego": "Carrera de Motos",
-    "ruta": "AreaLenguaje/CarreraMoto/index.html",
+    "juego": "Categorias Gramaticales",
+    "ruta": "AreaLenguaje/CategoriasGramaticales/index.html",
     "area": "LC",
-    "icono": "iconos/CarreraMoto.png"
-=======
-    "juego": "Comparative And Superlative",
-    "ruta": "AreaLenguaje/ComparativeAndSuperlative/index.html",
-    "area": "LC",
-    "icono": "iconos/ComparativeAndSuperlative.png"
->>>>>>> 4b8cce23cc6f3856bcdf95e567b78991f4570d84
+    "icono": "iconos/CategoriasGramaticales.png"
   }
 ]

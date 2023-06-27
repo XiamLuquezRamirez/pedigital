@@ -520,6 +520,7 @@ Route::post('/ModuloE/PreguntasxBanco', 'ModuloEController@PreguntasxBanco');
 ///INFORMNE DE SIMULACROS
 Route::get('/ModuloE/gestionInfSimulacros', 'ModuloEController@gestionInfSimulacros');
 Route::post('/ModuloE/CargarSimulacros', 'ModuloEController@ConsultarListSimulacros');
+Route::post('/ModuloE/CargaEstxSimulacro', 'ModuloEController@CargaEstxSimulacro');
 
 
 ////Áreas

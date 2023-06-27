@@ -129,6 +129,17 @@ class LibroPruebaModuloE extends Model
 
     }
 
+    public static function buscarEstud($idSimu){
+        $DesPrueba = LibroPruebaModuloE::join('alumnos', 'alumnos.usuario_alumno', 'libro_prueba_me.alumno')
+            ->where("simulacro", $idSimu)
+            ->where("alumnos.estado_alumno", 'ACTIVO')
+            ->groupBy('alumnos.usuario_alumno')
+            ->get();
+            dd($DesPrueba);
+        return $DesPrueba;
+
+    }
+
     public static function BusPruebaArea($Alum, $IdSesion, $IdArea)
     {
         $DesPrueba = LibroPruebaModuloE::where('sesion', $IdSesion)

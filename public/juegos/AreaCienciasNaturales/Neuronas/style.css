@@ -399,19 +399,20 @@ body {
 }  
 
 .desintegrar {
-    animation: desintegrar 1s ease-in-out forwards;
+    animation: desintegrar 1s forwards;
   }
   
   @keyframes desintegrar {
     0% {
       opacity: 1;
+      transform: scale(1);
     }
     100% {
       opacity: 0;
-      transform: scale(0);
+      transform: scale(0.1) rotate(720deg);
     }
   }
-
+  
   .div-tiempo {
     font-size: 33px;
     color: #000;
