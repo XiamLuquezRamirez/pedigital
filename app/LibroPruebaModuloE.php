@@ -23,6 +23,8 @@ class LibroPruebaModuloE extends Model
 
     public static function Guardar($datos, $respviejo, $resp, $fecha)
     {
+
+        
         $Alumno = Auth::user()->id;
         $IdSesion = $datos['IdSesion'];
         $idSimulacro = $datos['idSimulacro'];
@@ -36,6 +38,8 @@ class LibroPruebaModuloE extends Model
             $estado = "EN PROCESO";
         }
 
+
+
         $LibroPrueba = self::BusPruebaArea($Alumno, $IdSesion, $IdArea);
 
         if ($LibroPrueba) {
@@ -46,20 +50,34 @@ class LibroPruebaModuloE extends Model
 
         $Preg = PregOpcMulME::where('id', $resp->pregunta)
             ->first();
-
-        $DesOpcPreg = OpcPregMulModuloE::where('pregunta', $resp->pregunta)
-            ->get();
-
-        foreach ($DesOpcPreg as $OP) {
-            if ($OP->id == $resp->respuesta) {
-                if ($OP->correcta == "si") {
-                    $puntaje = (int) $puntaje + 1;
-                    $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1');
-                } else {
-                    $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0');
-                }
+        if ($datos['partePreg'] == "PARTE 1") {
+            $DesOpcPreg = PreguntasParte1::ConsultarPregParte($resp->pregunta);
+               
+            if($DesOpcPreg->respuesta==$resp->respuesta){
+                $puntaje = (int) $puntaje + 1;
+                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1');
+            }else{
+                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0');
             }
+
+
+        } else {
+            $DesOpcPreg = OpcPregMulModuloE::where('pregunta', $resp->pregunta)
+                ->get();
+
+                foreach ($DesOpcPreg as $OP) {
+                    if ($OP->id == $resp->respuesta) {
+                        if ($OP->correcta == "si") {
+                            $puntaje = (int) $puntaje + 1;
+                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1');
+                        } else {
+                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0');
+                        }
+                    }
+                }
         }
+
+       
 
         if ($datos['PosPreg'] == "Ultima") {
             $estado = "TERMINADA";
@@ -117,27 +135,24 @@ class LibroPruebaModuloE extends Model
                     'tiempo_usado' => $TiemArePrueba,
                     'estado' => $estado,
                 ]);
-
-            }else{
+            } else {
                 $respuesta = LibroPruebaModuloE::where(['alumno' => $Alumno, 'sesion' => $IdSesion, 'area' => $datos["idArea"][$key]])->update([
                     'estado' => $estado
                 ]);
                 return $respuesta;
             }
-
         }
-
     }
 
-    public static function buscarEstud($idSimu){
+    public static function buscarEstud($idSimu)
+    {
         $DesPrueba = LibroPruebaModuloE::join('alumnos', 'alumnos.usuario_alumno', 'libro_prueba_me.alumno')
             ->where("simulacro", $idSimu)
             ->where("alumnos.estado_alumno", 'ACTIVO')
             ->groupBy('alumnos.usuario_alumno')
             ->get();
-            dd($DesPrueba);
+        dd($DesPrueba);
         return $DesPrueba;
-
     }
 
     public static function BusPruebaArea($Alum, $IdSesion, $IdArea)
@@ -148,5 +163,4 @@ class LibroPruebaModuloE extends Model
             ->first();
         return $DesPrueba;
     }
-
 }

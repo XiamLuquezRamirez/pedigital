@@ -87,8 +87,8 @@ function moverPlayer(pos){
       const modal = document.querySelector("#modal");
       modal.classList.add("md--active");
       player.classList.remove(oriPlayer);
-
-      iniciarTrivia();
+      let idPreSelect = obtenerIndiceAleatorio();
+      iniciarTrivia(idPreSelect);
     },3000);
   }
   

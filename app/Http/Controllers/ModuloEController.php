@@ -2055,7 +2055,8 @@ class ModuloEController extends Controller
                 $RespPregMul = \App\OpcPregMulModuloE::BuscOpcRespPrueba($IdPreg, Auth::user()->id);
             }
 
-
+            
+            
 
             if (request()->ajax()) {
                 return response()->json([

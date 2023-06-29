@@ -43,7 +43,7 @@ $(document).ready(function () {
           divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola, soy Genio. <br> En este juego deberas salir del laboratorio, para esto deberas recorrer sus pasillos y responder las preguntas que se mostraran cuando llegues a cada punto marcado con un Matraz, al hacerlo la puerta se abrira automatcamente y podras salir.!",
+            "Hola, soy Genio. <br> En este juego deberás girar la ruleta, la cual te dará el numero de posiciones que genio debe de recorrer, en cada punto se mostrará una pregunta relacionada al tema ‘La Globalización’ que tienes que responder para salir Victorioso. ¡¡¡Tú Puedes!!!",
             50,
             1
           );

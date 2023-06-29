@@ -13,8 +13,7 @@ class PuntPregMEPruebaSimulacro extends Model
         'area',
         'pregunta',
         'alumno',
-        'puntos',
-
+        'puntos'
     ];
 
     public static function Guardar($IdSesion, $IdArea, $preg, $puntos)

@@ -70,7 +70,6 @@ class ModE_PreguntAreas extends Model
             ->where('sesion_area', $id)
             ->select("preguntas_me.*", "banco_preg_me.enunciado", "banco_preg_me.tipo_pregunta")
             ->get();
-
         return $Pregun;
     }
 
@@ -90,6 +89,8 @@ class ModE_PreguntAreas extends Model
                 ->select("preg_competencia.*", "banco_preg_me.enunciado", "banco_preg_me.tipo_pregunta", 'preguntas_me.id AS idpregme',"preguntas_me.pregunta AS pregEnunciado")
                 ->get();
         }
+
+        
         return $Pregun;
     }
 

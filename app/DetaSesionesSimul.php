@@ -40,7 +40,10 @@ class DetaSesionesSimul extends Model
 
     public static function ConsultarSesiones($simu)
     {   
-        $DetSesiones = DetaSesionesSimul::leftJoin('me_sesiones_alumnos', 'me_sesiones_alumnos.sesion', '=', 'me_sesiones_simulacros.id')
+        $DetSesiones = DetaSesionesSimul::leftJoin('me_sesiones_alumnos', function ($join) {
+            $join->on('me_sesiones_alumnos.sesion', '=', 'me_sesiones_simulacros.id')
+                ->where('me_sesiones_alumnos.alumno', '=', Auth::user()->id);
+        })
             ->where('me_sesiones_simulacros.id_simulacro', $simu)
             ->where('me_sesiones_simulacros.estado', "ACTIVO")
             ->select('me_sesiones_simulacros.id', 'me_sesiones_simulacros.id_simulacro', 'me_sesiones_simulacros.sesion', 'me_sesiones_simulacros.num_preguntas', 'me_sesiones_simulacros.tiempo_sesion', 'me_sesiones_alumnos.estado')

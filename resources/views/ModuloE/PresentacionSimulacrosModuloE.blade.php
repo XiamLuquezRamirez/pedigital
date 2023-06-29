@@ -921,6 +921,10 @@
                                 success: function(respuesta) {
                                     if (respuesta.DetaSesion == "1") {
                                         $("#btn_guardarTodoSesion").hide();
+
+                                        localStorage.removeItem('sesionIniciada');
+                                        localStorage.removeItem('horaInicio');
+
                                         Swal.fire({
                                             title: "Notificación Simulacro",
                                             text: "Operación Realizada Exitosamente",
@@ -1102,6 +1106,7 @@
                                             '  <label  for="colorCheck2">'+itemsOpciones[i]+'</label>' +
                                             ' </div>';
                                         }else{
+                                       
                                             opciones +=  '<div class="d-inline-block custom-control custom-radio mr-1">';
                                                 opciones += '<input type="hidden" id="OpcionSel_' + i +'" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
                                                 opciones += '<input type="hidden" id=""  name="Opciones[]" value="' + itemsOpciones[i] + '"/>';
@@ -1109,6 +1114,13 @@
                                             '  <label  for="colorCheck2">'+itemsOpciones[i]+'</label>' +
                                             ' </div>';
                                         }
+                                    }else{
+                                        opciones +=  '<div class="d-inline-block custom-control custom-radio mr-1">';
+                                            opciones += '<input type="hidden" id="OpcionSel_' + i +'" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
+                                            opciones += '<input type="hidden" id=""  name="Opciones[]" value="' + itemsOpciones[i] + '"/>';
+                                            opciones += '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="'+i+'">' +
+                                        '  <label  for="colorCheck2">'+itemsOpciones[i]+'</label>' +
+                                        ' </div>';
                                     }                       
                                   
                            
@@ -1185,6 +1197,7 @@
                                 });
                             }
 
+                            console.log(opciones);
 
                             $("#Pregunta" + id).html(Pregunta + opciones);
 
@@ -1545,6 +1558,8 @@
                 },
                 MostrarAreas: function(id) {
 
+                  
+
                     if (localStorage.getItem('sesionIniciada')) {
                         localStorage.setItem('sesionIniciada', 'Si');
                     } else {
@@ -1822,10 +1837,8 @@
 
                     $("#idAreaSesion").remove();
                     $("#idSes").remove();
-                    form.append("<input type='hidden' name='idAreaSesion' id='idAreaSesion' value='" +
-                        id + "'>");
-                    form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion +
-                        "'>");
+                    form.append("<input type='hidden' name='idAreaSesion' id='idAreaSesion' value='" + id + "'>");
+                    form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion + "'>");
 
                     var datos = form.serialize();
 
@@ -1844,36 +1857,35 @@
                         async: false,
                         success: function(respuesta) {
                             $wrapper.avnSkeleton('remove');
-                            $wrapper.find('> header').append("Preguntas Área " + respuesta
-                                .areaxsesion.nombre_area);
+                            $wrapper.find('> header').append("Preguntas Área " + respuesta.areaxsesion.nombre_area);
 
                             $("#sesion_id").val(respuesta.areaxsesion.sesion);
-                            $("#area_id").val(respuesta.areaxsesion.id);
+                            $("#area_id").val(respuesta.areaxsesion.area);
                             $("#NPreg").val(respuesta.areaxsesion.npreguntas);
 
-                            contenido +=
-                                '  <div class="row"><div class="card-content collapse show">' +
+                            contenido += '<div class="row"><div class="card-content collapse show">' +
                                 '  <div class="card-body" style="padding-top: 0px;">' +
-                                '        <form method="post" action="{{ url('/') }}/ModuloE/RespSimulacro" id="Evaluacion" class="number-tab-stepsPreg wizard-circle">';
+                                '  <form method="post" action="{{ url('/') }}/ModuloE/RespSimulacro" id="Evaluacion" class="number-tab-stepsPreg wizard-circle">';
                             var Preg = 1;
                             var ConsPre = 0;
 
                             $.each(respuesta.PregArea, function(i, item) {
 
-                                contenido += ' <h6></h6>' +
+                                contenido += '<h6></h6>' +
                                     '         <fieldset>' +
-                                    '              <div class="row p-1">' +
-                                    '   <div  style="width: 100%" class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1" >';
-
-                                contenido +=
-                                    ' <div class="row border-bottom-blue-grey"><div class="col-md-12 pb-1"><h6>Enunciado:</h6><label id="enunciado">' +
+                                    '         <div class="row p-1">' +
+                                    '   <div style="width: 100%" class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1" >';
+                                contenido += '<div class="row border-bottom-blue-grey"><div class="col-md-12 pb-1"><h6>Enunciado:</h6><label id="enunciado">' +
                                     item.enunciado + '</label></div></div>';
+                                contenido += '<div class="row pt-1" >';
+                                    if(item.parte=="PARTE 1"){
+                                        contenido += '<input type="hidden" id="id-pregunta' + ConsPre + '"  value="' + item.pregunta +'" />';
 
-                                contenido += ' <div class="row pt-1" >' +
-                                    '<input type="hidden" id="id-pregunta' +
-                                    ConsPre + '"  value="' + item.pregunta +
-                                    '" />' +
-                                    '<input type="hidden" id="id-banco' +
+                                    }else{
+                                        contenido += '<input type="hidden" id="id-pregunta' + ConsPre + '"  value="' + item.id +'" />';
+
+                                    }
+                                    contenido += '<input type="hidden" id="id-banco' +
                                     ConsPre + '"  value="' + item.banco + '" />' +
                                     '<input type="hidden" id="parte' +
                                     ConsPre + '"  value="' + item.parte + '" />' +
@@ -1882,9 +1894,9 @@
 
                                     '      <div class="col-md-12" id="Pregunta' +
                                     ConsPre + '">' +
-                                    '           </div>    ' +
-                                    '           </div>    ' +
-                                    '           </div>    ' +
+                                    '           </div>' +
+                                    '           </div>' +
+                                    '           </div>' +
                                     '             </div>' +
                                     '        </fieldset>';
                                 Preg++;
@@ -1997,6 +2009,7 @@
 
                                         var ahora = new Date().getTime();
                                         localStorage.setItem('horaInicio', ahora);
+                                    
 
                                         countDownDate = countDownDate + ahora;
                                         var tiempoextra = 300000;
@@ -2151,7 +2164,6 @@
                                     // Encuentra la distancia entre ahora y la fecha de la cuenta regresiva
                                     var distance = countDownDate -
                                         now;
-                                    console.log("distance= " + distance);
                                     // Cálculos de tiempo para días, horas, minutos y segundos
                                     var days = Math.floor(distance /
                                         (1000 * 60 *
