@@ -4,13 +4,14 @@
 }
 
 body {
+  background-color: #8f5834 !important;
+  overflow: hidden;
+}
+
+.contenedor {
   background: url(fondo.png);
   background-size: 100% 100%;
   background-position: center center;
-  background-attachment: fixed;
-  color: #fff;
-  color: #262626;
-  overflow: hidden;
 }
 
 html,

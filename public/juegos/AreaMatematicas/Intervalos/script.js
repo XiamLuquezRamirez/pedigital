@@ -19,7 +19,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te presentaran 10 intervalos, en las cuales deberás llevar el astronauta al mundo que tenga los números correctos, responde mas de 6 preguntas correctamente para ganar el juego. <br> ¡Tú Puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te presentarán 10 intervalos, en las cuales deberás llevar el astronauta al mundo que tenga los números correctos, responde mas de 6 preguntas correctamente para ganar el juego. <br> ¡Tú Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })
@@ -262,6 +262,7 @@ function checkPosition() {
                 astronauta.style.transition = "left 3.5s linear, top 3.5s linear";
                 astronauta.style.animation = "";
                 astronauta.style.backgroundImage = "url(cohete.png)";
+                correctas++;
                 setTimeout(() => {
                     astronauta.style.transform = "rotate(45deg)"
                     astronauta.style.height = "90px"
