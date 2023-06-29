@@ -484,17 +484,17 @@
   },
   {
     "grado": "11",
-    "juego": "Crucigrama",
-    "ruta": "AreaLenguaje/CrucigramaLiteratura/index.html",
+    "juego": "Doble Negacion",
+    "ruta": "AreaLenguaje/DobleNegacion/index.html",
     "area": "LC",
-    "icono": "iconos/CrucigramaLiteratura.png"
+    "icono": "iconos/DobleNegacion.png"
   },
-    {
+  {
     "grado": "11",
-    "juego": "Palabras Multiformes",
-    "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
+    "juego": "Comparative And Superlative",
+    "ruta": "AreaLenguaje/ComparativeAndSuperlative/index.html",
     "area": "LC",
-    "icono": "iconos/PalabrasMultiformes.png"
+    "icono": "iconos/ComparativeAndSuperlative.png"
   },
   {
     "grado": "11",
