@@ -39,15 +39,17 @@ let questions;
 let pregSel;
 let Respuesta = "";
 let nResp=0;
+
 const restart_quiz = result_box.querySelector(".buttons .restart");
 const quit_quiz = result_box.querySelector(".buttons .quit");
 
-function iniciarTrivia() {
+function iniciarTrivia(idPreg) {
    
-    pregSel = 0;
+ 
     nPreg = 0;
-    
+   // questions = Preguntas;
 
+    pregSel = idPreg;
     questions = Preguntas;
   
     quiz_box.classList.add("activeQuiz"); //show quiz box
@@ -70,7 +72,6 @@ function iniciarTrivia() {
 }
 
 
-
 // if quitQuiz button clicked
 quit_quiz.onclick = () => {
     window.location.reload(); //reload the current window
@@ -81,7 +82,7 @@ const bottom_ques_counter = document.querySelector("footer .total_que");
 
 // if Next Que button clicked
 next_btn.onclick = () => {
-    console.log(nPreg);
+
     que_count = pregSel;
     if (nPreg <= 2) { //if question count is less than total question length
      

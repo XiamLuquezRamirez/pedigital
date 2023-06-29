@@ -63,7 +63,6 @@ class PreguntasParte1 extends Model
             ->where('resp_pregmultiple_me_prueba.pregunta', $id)
             ->where('resp_pregmultiple_me_prueba.alumno', $Est)
             ->first();
-            
         return $DesOpcPreg;
     }
 

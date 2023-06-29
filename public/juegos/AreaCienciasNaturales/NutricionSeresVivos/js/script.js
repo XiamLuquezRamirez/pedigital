@@ -228,26 +228,26 @@ function seleccionar(nutri) {
 
   switch (nutri) {
     case 1:
-      categoria = "Mueve cada parte del Ave segun la definición mostrada.";
-      textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar las partes del Ave segun la definición mostrada al lugar que corresponda.";
+      categoria = "Mueve cada parte del Ave según la definición mostrada.";
+      textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar las partes del Ave según la definición mostrada al lugar que corresponda.";
       definiciones = parteAve;
       cantParte = definiciones.length;
       break;
     case 2:
-        categoria = "Mueve cada parte del Mamífero segun la definición mostrada.";
-        textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar las partes del Mamífero segun la definición mostrada al lugar que corresponda.";
+        categoria = "Mueve cada parte del Mamífero según la definición mostrada.";
+        textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar las partes del Mamífero según la definición mostrada al lugar que corresponda.";
         definiciones = parteMamifero;
         cantParte = definiciones.length;
       break;
     case 3:
-        categoria = "Mueve cada parte del Humano segun la definición mostrada.";
-        textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar las partes del Humano segun la definición mostrada al lugar que corresponda.";
+        categoria = "Mueve cada parte del Humano según la definición mostrada.";
+        textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar las partes del Humano según la definición mostrada al lugar que corresponda.";
         definiciones = parteHumana;
         cantParte = definiciones.length;
         break;
         case 4:
-            categoria = "Mueve cada parte del Pez segun la definición mostrada.";
-            textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar las partes del Pez segun la definición mostrada al lugar que corresponda.";
+            categoria = "Mueve cada parte del Pez según la definición mostrada.";
+            textTitulo = "Hola, soy Genio. <br> En este juego debes arrastrar las partes del Pez según la definición mostrada al lugar que corresponda.";
             definiciones = partePeces;
             cantParte = definiciones.length;
 
@@ -711,7 +711,7 @@ function cargarPresentacion(textTitulo) {
         divAnimado2.style.animationDirection = "normal";
         divAnimado2.style.display = "block";
         setTimeout(() => {
-          divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
+          divAnimado.style.backgroundImage = "url(../../images/ciencia/normal2.gif)";
           maquina2("bienvenida", textTitulo, 100, 1);
         }, 3000);
       }, 2000);

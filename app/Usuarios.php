@@ -200,7 +200,7 @@ class Usuarios extends Model
     {
 
         $usuarios = Usuarios::where('login_usuario', $Usu)
-        ->where('estado', 'ACTIVO')
+        ->where('estado_usuario', 'ACTIVO')
         ->first();
         return $usuarios;
     }

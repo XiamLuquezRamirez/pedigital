@@ -212,7 +212,6 @@ function verfResp(neur) {
   element.classList.add("cuadroSelected");
   var neur = element.getAttribute("data-id");
 
-  console.log(neusel + "-" + neur);
 
   if (neusel == "") {
     neusel = neur;
@@ -243,9 +242,9 @@ function verfResp(neur) {
     }
   }
 
-  const elementos = document.getElementsByClassName("cuadro");
+  const elementos = document.getElementsByClassName("desintegrar");
 
-  if(elementos<1){
+  if(elementos.length==7){
     resultadoFinal("finalizdo");
   }
 }
@@ -274,7 +273,7 @@ $(document).ready(function () {
             "url(../../images/ciencia/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola, soy Genio. <br> ¡Hola, soy Genio. En  este juego se mostraran definiciones relacionadas con las Neuronas, deberas relacionar la definicion con la imagen correspondiente. Terminar el Juego antes de que termine el tiempo y ganaras. Tu Puedes...",
+            "Hola, soy Genio. En este juego se mostrarán definiciones relacionadas con las Neuronas, deberás relacionar la definición con la imagen correspondiente. Terminar el Juego antes de que termine el tiempo y ganaras. Tú Puedes...",
             50,
             1
           );

@@ -115,7 +115,9 @@
                 format: 'YYYY-MM-DD'
             });
 
-            let conse=1;
+            let conse = 1;
+
+            var pregCompAgregados = [];
 
 
             $.extend({
@@ -166,13 +168,14 @@
                 CargCompetenciasxComponentes: function(Area) {
                     var form = $("#formAuxiliarCompe");
                     var grado = $("#prueba").val();
-                
+                    var idSesion = $("#IdSesionGen").val();
                     $("#idArea").remove();
                     $("#GradoP").remove();
-                   
+                    $("#idSes").remove();
 
                     form.append("<input type='hidden' name='idArea' id='idArea' value='" + Area + "'>");
-                  
+                    form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion +
+                        "'>");
                     form.append("<input type='hidden' name='GradoP' id='GradoP' value='" + grado +
                         "'>");
                     var url = form.attr("action");
@@ -184,10 +187,54 @@
                         async: false,
                         dataType: "json",
                         success: function(respuesta) {
+                          
                             $("#Competencia").html(respuesta.select_compe);
                             $("#Componente").html(respuesta.select_compo);
-                            
+
+                             if (respuesta.sesiones <= 0) {
+                                $.ValCampArea();
+                                } else {
+                                    mensaje = "Esta área ya ha sido agregada a esta Sesión";
+                                    Swal.fire({
+                                        title: "Gestión de Simulacros",
+                                        text: mensaje,
+                                        icon: "warning",
+                                        button: "Aceptar",
+                                    });
+                                   
+                                    $('#area').val('').trigger('change.select2');
+                                }                            
+                        }
+
+                    });
+                },
+                CargCompetenciasxComponentesEdit: function(Area) {
+                    var form = $("#formAuxiliarCompe");
+                    var grado = $("#prueba").val();
+                    var idSesion = $("#IdSesionGen").val();
+                    $("#idArea").remove();
+                    $("#GradoP").remove();
+                    $("#idSes").remove();
+
+                    form.append("<input type='hidden' name='idArea' id='idArea' value='" + Area + "'>");
+                    form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion +
+                        "'>");
+                    form.append("<input type='hidden' name='GradoP' id='GradoP' value='" + grado +
+                        "'>");
+                    var url = form.attr("action");
+                    var datos = form.serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: datos,
+                        async: false,
+                        dataType: "json",
+                        success: function(respuesta) {
+                          
+                            $("#Competencia").html(respuesta.select_compe);
+                            $("#Componente").html(respuesta.select_compo);
                             $.ValCampArea();
+                                                         
                         }
 
                     });
@@ -225,10 +272,9 @@
                         async: false,
                         dataType: "json",
                         success: function(respuesta) {
-                            $('#area').val(respuesta.SesAre.area).trigger(
-                                'change.select2');
+                            $('#area').val(respuesta.SesAre.area);
                             $("#n_preguntas").val(respuesta.SesAre.npreguntas);
-                            $.CargCompetenciasxComponentes(respuesta.SesAre.area);
+                            $.CargCompetenciasxComponentesEdit(respuesta.SesAre.area);
 
                             /////Cargar % Preguntas por Competencia
 
@@ -260,7 +306,7 @@
                                     ")' class='btn btn-danger btn-sm btnQuitar text-white'  title='Eliminar'><i class='fa fa-trash-o font-medium-3' aria-hidden='true'></i></a>&nbsp;";
                                 campo += "<input type='hidden' id='txtComp" +
                                     ConsComp +
-                                    "' name='txtcomp[]' style='" + style +
+                                    "' name='txtcomp[]' data-cantidad='"+item.porcpreg+"' data-nombre='"+item.nomcomp+"-"+item.nomcompo+"' style='" + style +
                                     "'  readonly value='" + item.competencia + "-" +
                                     item.componente + "'>";
 
@@ -533,7 +579,7 @@
                                 $.each(item.DetAreasxSEsiones, function(i2, item2) {
 
                                     sesion +=
-                                        '  <div class="col-xl-6 col-md-12 border-left-blue-grey  overflow-hidden hvr-grow-shadow">' +
+                                        '  <div class="col-xl-6 col-md-12 border-left-blue-grey  overflow-hidden">' +
                                         ' <div class="card">' +
                                         '    <div class="card-content">' +
                                         '       <div class="media align-items-stretch">' +
@@ -783,11 +829,7 @@
                 CargCompetencias: function(Asig) {
                     var form = $("#formAuxiliarCompe");
                     $("#idAsig").remove();
-                    var idSesion = $("#IdSesionGen").val();
-                    $("#idSes").remove();
                     form.append("<input type='hidden' name='id' id='idAsig' value='" + Asig + "'>");
-                    form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion + "'>");
-                    
                     var url = form.attr("action");
                     var datos = form.serialize();
                     $.ajax({
@@ -797,20 +839,8 @@
                         async: false,
                         dataType: "json",
                         success: function(respuesta) {
-                            if(rerspuesta.sesiones==0){
-                                $("#Competencia").html(respuesta.select_compe);
-                                $.ValCampArea();
-                            }else{
-                               
-                                Swal.fire({
-                                    title: "Gestión de Simulacros",
-                                    text: "Esta área ya ha sido agregada a esta sesión",
-                                    icon: "warning",
-                                    button: "Aceptar",
-                                });
-                                $('#area').val("0").trigger("change");
-                            }
-                      
+                            $("#Competencia").html(respuesta.select_compe);
+                            $.ValCampArea();
                         }
 
                     });
@@ -950,7 +980,20 @@
                 selCompxComp: function(val) {
                     var pacomp = val.split("/");
                     $("#nPregCompoxCompe").val(pacomp[1]);
-                    $("#nPregCompoxCompeSel").val("0");
+
+                    var sumaNpreg = 0;
+
+                    // Recorrer el array de componentes
+                    for (var i = 0; i < pregCompAgregados.length; i++) {
+                        // Verificar si el componente cumple la condición de búsqueda
+                        if (pregCompAgregados[i].componente === val) {
+                            // Sumar el valor de npreg al total
+                            sumaNpreg += pregCompAgregados[i].npreg;
+                        }
+                    }
+
+
+                    $("#nPregCompoxCompeSel").val(sumaNpreg);
 
                     var form = $("#formAuxiliarCompxComp");
                     $("#compexcomp").remove();
@@ -980,8 +1023,12 @@
                                     ' </div>' +
                                     ' <div class="col-md-2 d-flex align-items-center">' +
                                     '     <div class="btn-group mx-2" role="group" aria-label="Second Group">' +
-                                    '    <button onclick="$.MostrarPreguntas(' + items.id +')" type="button" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></button>' +
-                                    ' <button onclick="$.AgregarPregunta(' + items.id +')" type="button" class="btn btn-icon btn-outline-info"><i class="fa fa-plus"></i></button>' +
+                                    '    <button onclick="$.MostrarPreguntas(' +
+                                    items.id +
+                                    ')" type="button" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></button>' +
+                                    ' <button onclick="$.AgregarPregunta(' + items
+                                    .id +
+                                    ')" type="button" class="btn btn-icon btn-outline-info"><i class="fa fa-plus"></i></button>' +
                                     '  </div>' +
                                     '   </div>' +
                                     ' </div>' +
@@ -998,14 +1045,14 @@
                     });
 
                 },
-                AgregarPregunta: function (idBanco) {
+                AgregarPregunta: function(idBanco) {
 
                     $('#TablaPreg').show();
-                    $('#GuarCofCompe').show();
+                  //  $('#GuarCofCompe').show();
                     var form = $("#formAuxiliarPreguntasxBanco");
                     $("#idBancoPreg").remove();
                     form.append("<input type='hidden' name='idBancoPreg' id='idBancoPreg' value='" +
-                    idBanco + "'>");
+                        idBanco + "'>");
                     var url = form.attr("action");
                     var datos = form.serialize();
                     let preguntas = '';
@@ -1017,97 +1064,160 @@
                         dataType: "json",
                         success: function(respuesta) {
 
-                          let npreg = parseInt($("#nPregCompoxCompeSel").val())+parseInt(respuesta.Banco.npreguntas);
-                          if(npreg<=parseInt($("#nPregCompoxCompe").val())){
-
-                            //AGREGAR PREGUNTAS A LA  TABLA DE PREGUNTAS
-
-                            let PreEnunciado='';
-                            let Preguntas='';
-                            
-
-                            if(respuesta.Banco.tipo_pregunta=="PARTE 1"){
-                                PreEnunciado="CUAL PALABRA CONCUERDA CON LA DESCRIPCIÓN DE LA FRASE?";
-
-                                Preguntas += '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">'
-                                    + '<h4 class="primary">' + PreEnunciado + '!</h4>'
-                                    + respuesta.Parte1.pregunta
-                                    + '</div>';
-                
-                           
-                            $.each(respuesta.Preguntas, function(x, items) {
-                                    Preguntas += "<div class='row'>";
-                                    Preguntas += "<div class='col-12'>";
-                                    Preguntas += ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">'
-                                        + '<h4 class="success">Pregunta ' + conse + '</h4><input type="hidden" name="Preguntas[]" value="' + items.id + '" />'
-                                        + '<input type="hidden" name="PregBancoId[]" value="' + respuesta.Banco.id + '" />'
-                                        + '<input type="hidden" name="PregTipPreg[]" value="' + respuesta.Banco.tipo_pregunta + '" />';
-                                    Preguntas += "<div class='col-6'>";
-                                    Preguntas += ' <label for="input-15"><b>Pregunta:</b> ' + items.pregunta + '</label></fieldset>';
-                                    Preguntas += "</div>";
-                                    Preguntas += "<div class='col-6'>";
-                                    Preguntas += ' <label for="input-15"><b>Respuesta:</b> ' + items.respuesta + '</label></fieldset>';
-                                    Preguntas += "</div>";
-                                    Preguntas += "</div>";
-                                    Preguntas += "</div>";
-                                    Preguntas += "</div>";
-                                    conse++;
-                                });
-
-                            }else{
-                                PreEnunciado="RESPONDA LA SIGUIENTE PREGUNTA SEGUN EL SIGUIENTE ENUNCIADO";
-                                Preguntas += '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">'
-                                    + '<h4 class="primary">' + PreEnunciado + '!</h4>'
-                                    + respuesta.Banco.enunciado
-                                    + '</div>';
-
-                                     $.each(respuesta.PregMult, function(y, itemsP) {
-                
-                                Preguntas += ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">'
-                                    + '<h4 class="success">Pregunta ' + conse + '</h4><input type="hidden" name="Preguntas[]" value="' + itemsP.id + '" />'
-                                    + '<input type="hidden" name="PregBancoId[]" value="' + respuesta.Banco.id + '" />'
-                                    + '<input type="hidden" name="PregTipPreg[]" value="' + respuesta.Banco.tipo_pregunta + '" />'
-                
-                                    + itemsP.pregunta;
-                    
-                                Preguntas += '  <ul class="list-group icheck-task">';
-                                    $.each(respuesta.OpciMult, function(x, items) {
-                                    let disable = "disabled";
-                                        if(itemsP.id==items.pregunta){
-                                            if (items.$Preg == "si") {
-                                                disable = "disabled checked";
-                                            }
-                        
-                                            Preguntas += '<fieldset><input type="checkbox" ' + disable + ' id="input-15" > <label for="input-15">' + items.opciones + '</label></fieldset>';
-                                        }
-                                    
-
-                                });
-                
-                                Preguntas += ' </ul></div>';
-                                conse++;
-                            });
-
+                            var flag = true;
+                            for (var i = 0; i < pregCompAgregados.length; i++) {
+                                // Verificar si el componente cumple la condición de búsqueda
+                                if (pregCompAgregados[i].banco === respuesta.Banco.id) {
+                                    flag =false;
+                                }
                             }
 
-                         $("#PreguntasxAreas").append(Preguntas);
+                            if(flag){
+                            let npreg = parseInt($("#nPregCompoxCompeSel").val()) +
+                                parseInt(respuesta.Banco.npreguntas);
 
-                            ////////////////////////////////
+                            if (npreg <= parseInt($("#nPregCompoxCompe").val())) {
 
-                            $("#nPregCompoxCompeSel").val(npreg);
-                          }else{
-                            mensaje = "El Número de preguntas no debe ser mayor a "+ $("#nPregCompoxCompe").val();
+                                //AGREGAR PREGUNTAS A LA  TABLA DE PREGUNTAS
+
+                                let PreEnunciado = '';
+                                let Preguntas = '';
+
+
+                                if (respuesta.Banco.tipo_pregunta == "PARTE 1") {
+                                    PreEnunciado =
+                                        "CUAL PALABRA CONCUERDA CON LA DESCRIPCIÓN DE LA FRASE?";
+
+                                    Preguntas +=
+                                        '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">' +
+                                        '<h4 class="primary">' + PreEnunciado + '!</h4>' +
+                                        respuesta.Parte1.pregunta +
+                                        '</div>';
+
+
+                                    $.each(respuesta.Preguntas, function(x, items) {
+                                        Preguntas += "<div class='row'>";
+                                        Preguntas += "<div class='col-12'>";
+                                        Preguntas +=
+                                            ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">' +
+                                            '<h4 class="success">Pregunta ' +
+                                            conse +
+                                            '</h4><input type="hidden" name="Preguntas[]" value="' +
+                                            items.id + '" />' +
+                                            '<input type="hidden" name="PregBancoId[]" value="' +
+                                            respuesta.Banco.id + '" />' +
+                                            '<input type="hidden" name="PregTipPreg[]" value="' +
+                                            respuesta.Banco.tipo_pregunta + '" />';
+                                        Preguntas += "<div class='col-6'>";
+                                        Preguntas +=
+                                            ' <label for="input-15"><b>Pregunta:</b> ' +
+                                            items.pregunta + '</label></fieldset>';
+                                        Preguntas += "</div>";
+                                        Preguntas += "<div class='col-6'>";
+                                        Preguntas +=
+                                            ' <label for="input-15"><b>Respuesta:</b> ' +
+                                            items.respuesta + '</label></fieldset>';
+                                        Preguntas += "</div>";
+                                        Preguntas += "</div>";
+                                        Preguntas += "</div>";
+                                        Preguntas += "</div>";
+                                        conse++;
+                                    });
+
+                                } else {
+                                    PreEnunciado =
+                                        "RESPONDA LA SIGUIENTE PREGUNTA SEGUN EL SIGUIENTE ENUNCIADO";
+                                    Preguntas +=
+                                        '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">' +
+                                        '<h4 class="primary">' + PreEnunciado + '!</h4>' +
+                                        respuesta.Banco.enunciado +
+                                        '</div>';
+
+                                    $.each(respuesta.PregMult, function(y, itemsP) {
+
+                                        Preguntas +=
+                                            ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">' +
+                                            '<h4 class="success">Pregunta ' +
+                                            conse +
+                                            '</h4><input type="hidden" name="Preguntas[]" value="' +
+                                            itemsP.id + '" />' +
+                                            '<input type="hidden" name="PregBancoId[]" value="' +
+                                            respuesta.Banco.id + '" />' +
+                                            '<input type="hidden" name="PregTipPreg[]" value="' +
+                                            respuesta.Banco.tipo_pregunta + '" />'
+
+                                            +
+                                            itemsP.pregunta;
+
+                                        Preguntas +=
+                                            '  <ul class="list-group icheck-task">';
+                                        $.each(respuesta.OpciMult, function(x,
+                                            items) {
+                                            let disable = "disabled";
+                                            if (itemsP.id == items
+                                                .pregunta) {
+                                                if (items.$Preg == "si") {
+                                                    disable =
+                                                        "disabled checked";
+                                                }
+
+                                                Preguntas +=
+                                                    '<fieldset><input type="checkbox" ' +
+                                                    disable +
+                                                    ' id="input-15" > <label for="input-15">' +
+                                                    items.opciones +
+                                                    '</label></fieldset>';
+                                            }
+
+
+                                        });
+
+                                        Preguntas += ' </ul></div>';
+                                        conse++;
+                                    });
+
+                                }
+
+                                var nuevoElemento = {
+                                    componente: $("#compxcompo").val(),
+                                    npreg: parseInt(respuesta.Banco.npreguntas),
+                                    banco: respuesta.Banco.id
+                                };
+
+                                pregCompAgregados.push(nuevoElemento);
+
+                                console.log(pregCompAgregados);
+
+                                $("#PreguntasxAreas").append(Preguntas);
+
+                                ////////////////////////////////
+
+                                $("#nPregCompoxCompeSel").val(npreg);
+
+
+                            } else {
+                                mensaje = "El Número de preguntas no debe ser mayor a " + $(
+                                    "#nPregCompoxCompe").val();
+                                Swal.fire({
+                                    title: "Gestión de Simulacros",
+                                    text: mensaje,
+                                    icon: "warning",
+                                    button: "Aceptar",
+                                });
+                            }
+                        }else{
+                            if(respuesta.Banco.npreg>1){
+                                mensaje="Estas Preguntas ya se encuentran agregadas a la sesión";
+                            }else{
+                                mensaje="Esta Pregunta ya esta agregada a la sesión";
+                            }
                             Swal.fire({
                                 title: "Gestión de Simulacros",
                                 text: mensaje,
                                 icon: "warning",
                                 button: "Aceptar",
-                            });
-                          }
-
-                        
-
-
+                            }); 
+                        }
 
                         }
 
@@ -1120,6 +1230,8 @@
                     });
 
                     $("#div-evaluaciones").html("");
+
+
 
 
                     var form = $("#formAuxiliarEvalDet");
@@ -2332,6 +2444,9 @@
                         confirmButtonText: 'Si, Continuar!'
                     }).then((result) => {
                         if (result.isConfirmed) {
+
+                            pregCompAgregados = [];
+
                             var ParCom = $("#txtComp" + id).val();
                             ParCom = ParCom.split("-");
                             $('#Competencia').val(ParCom[0]).trigger('change.select2');
@@ -2491,7 +2606,10 @@
                                 "</option>";
                         });
 
+
+
                         $("#compxcompo").html(option);
+                        $("#listPreguntas").html("");
 
                     } else {
                         $.ajax({
