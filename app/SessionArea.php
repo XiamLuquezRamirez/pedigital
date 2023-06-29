@@ -101,4 +101,11 @@ class SessionArea extends Model
 
     }
 
+    public static function BuscarSesion($idSesion,$area) {
+        $InfSesion = SessionArea::where('sesion', $idSesion)
+        ->where("area",$area)
+                ->get();
+        return $InfSesion;
+    }
+
 }

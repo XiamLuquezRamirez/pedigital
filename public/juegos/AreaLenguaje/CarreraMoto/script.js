@@ -299,13 +299,13 @@ clearTimeout(detenerMete);
     var audio = new Audio("../../sounds/game_over.mp3");
     audio.play();
     document.getElementById("final").style.backgroundImage =
-      "url(../../images/ciencia/derrota.gif)";
+      "url(../../images/derrota.gif)";
     document.getElementById("texto_final").innerText = "Lo siento solo has perdido la carrera, solo lograste  contestar  " +
     respcorrectas +
       " de 10 Preguntas Posibles";
   } else {
     document.getElementById("final").style.backgroundImage =
-      "url(../../images/ciencia/victoria.gif)";
+      "url(../../images/victoria.gif)";
     var audio = new Audio("../../sounds/victory.mp3");
     audio.play();
     document.getElementById("texto_final").innerText =

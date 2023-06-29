@@ -166,10 +166,13 @@
                 CargCompetenciasxComponentes: function(Area) {
                     var form = $("#formAuxiliarCompe");
                     var grado = $("#prueba").val();
+                
                     $("#idArea").remove();
                     $("#GradoP").remove();
+                   
 
                     form.append("<input type='hidden' name='idArea' id='idArea' value='" + Area + "'>");
+                  
                     form.append("<input type='hidden' name='GradoP' id='GradoP' value='" + grado +
                         "'>");
                     var url = form.attr("action");
@@ -183,6 +186,7 @@
                         success: function(respuesta) {
                             $("#Competencia").html(respuesta.select_compe);
                             $("#Componente").html(respuesta.select_compo);
+                            
                             $.ValCampArea();
                         }
 
@@ -193,6 +197,7 @@
                     $("#div-addSesion").show();
                     $("#btn-volverInicio").show();
                     $("#AreasAgregadas").hide();
+                    $("#detalleSesion").hide();
                 },
                 EditAreaSesion: function(id) {
                     var form = $("#formAuxiliarAreaSesion");
@@ -310,6 +315,7 @@
                         dataType: "json",
                         success: function(respuesta) {
                             $("#tr_areas").html(respuesta.trAreas);
+                            console.log(respuesta.DetaSesion.sesion);
                             $("#DescSesion2").val(respuesta.DetaSesion.sesion);
                             $("#TSesion2").val(respuesta.DetaSesion.tiempo_sesion);
                         }
@@ -777,7 +783,11 @@
                 CargCompetencias: function(Asig) {
                     var form = $("#formAuxiliarCompe");
                     $("#idAsig").remove();
+                    var idSesion = $("#IdSesionGen").val();
+                    $("#idSes").remove();
                     form.append("<input type='hidden' name='id' id='idAsig' value='" + Asig + "'>");
+                    form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion + "'>");
+                    
                     var url = form.attr("action");
                     var datos = form.serialize();
                     $.ajax({
@@ -787,8 +797,20 @@
                         async: false,
                         dataType: "json",
                         success: function(respuesta) {
-                            $("#Competencia").html(respuesta.select_compe);
-                            $.ValCampArea();
+                            if(rerspuesta.sesiones==0){
+                                $("#Competencia").html(respuesta.select_compe);
+                                $.ValCampArea();
+                            }else{
+                               
+                                Swal.fire({
+                                    title: "Gestión de Simulacros",
+                                    text: "Esta área ya ha sido agregada a esta sesión",
+                                    icon: "warning",
+                                    button: "Aceptar",
+                                });
+                                $('#area').val("0").trigger("change");
+                            }
+                      
                         }
 
                     });

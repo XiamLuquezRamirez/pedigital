@@ -435,10 +435,10 @@
   },
   {
     "grado": "11",
-    "juego": "Biotecnologia",
-    "ruta": "AreaCienciasNaturales/Biotecnologia/index.html",
+    "juego": "Hidrocarburo",
+    "ruta": "AreaCienciasNaturales/Ambulancia/index.html",
     "area": "CN",
-    "icono": "iconos/Biotecnologia.png"
+    "icono": "iconos/Ambulancia.png"
   },
   {
     "grado": "11",
@@ -478,9 +478,9 @@
   {
     "grado": "11",
     "juego": "Mi Geografia",
-    "ruta": "AreaCienciasSociales/Biodiversidad/index.html",
+    "ruta": "AreaCienciasSociales/Globalizacion/index.html",
     "area": "CS",
-    "icono": "iconos/Biodiversidad.png"
+    "icono": "iconos/Globalizacion.png"
   },
   {
     "grado": "11",
@@ -491,16 +491,16 @@
   },
   {
     "grado": "11",
-    "juego": "Palabras Multiformes",
-    "ruta": "AreaLenguaje/PalabrasMultiformes/index.html",
-    "area": "LC",
-    "icono": "iconos/PalabrasMultiformes.png"
-  },
-  {
-    "grado": "11",
     "juego": "Comparative And Superlative",
     "ruta": "AreaLenguaje/ComparativeAndSuperlative/index.html",
     "area": "LC",
     "icono": "iconos/ComparativeAndSuperlative.png"
+  },
+  {
+    "grado": "11",
+    "juego": "Categorias Gramaticales",
+    "ruta": "AreaLenguaje/CategoriasGramaticales/index.html",
+    "area": "LC",
+    "icono": "iconos/CategoriasGramaticales.png"
   }
 ]

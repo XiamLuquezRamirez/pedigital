@@ -81,7 +81,7 @@ var preguntas = [
   },
   {
     parte: "Neuronas_bipolares",
-    imagen: "img/neuronas/Salmonella.png",
+    imagen: "img/neuronas/Neuronas_bipolares.png",
     definiciones: {
       1: "Tienen dos prolongaciones: un axón y una dendrita opuesta",
       2: "Se encuentran principalmente en los órganos sensoriales especializados, como la retina y el oído interno",
@@ -89,7 +89,7 @@ var preguntas = [
   },
   {
     parte: "Neuronas_multipolares",
-    imagen: "img/neuronas/Spirilla.png",
+    imagen: "img/neuronas/Neuronas_multipolares.png",
     definiciones: {
       1: "Poseen múltiples dendritas y un solo axón",
       2: "Son las neuronas más comunes y se encuentran en el sistema nervioso central y periférico",
@@ -184,7 +184,7 @@ function cargPreg() {
     x++;
 
     array_divs.push(
-      "<div class='col-3 cuadro' data-id='" +
+      "<div class='col-3 cuadro' style='background-image: url(img/pregunta.png); background-size: 70% 70%; background-repeat: no-repeat; background-position: center;' data-id='" +
         preguntasAleatorias[index].parte +
         "' onclick='verfResp(this.id)' id='" +
         x +
@@ -274,7 +274,7 @@ $(document).ready(function () {
             "url(../../images/ciencia/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola, soy Genio. <br> ¡Hola, soy Genio. En  este juego se irá presentando imágenes relacionadas con el sistema reproductor de una forma desordenada y tendrás que ordenarla pulsando en un cuadro y luego en otro para intercambiar sus posiciones!",
+            "Hola, soy Genio. <br> ¡Hola, soy Genio. En  este juego se mostraran definiciones relacionadas con las Neuronas, deberas relacionar la definicion con la imagen correspondiente. Terminar el Juego antes de que termine el tiempo y ganaras. Tu Puedes...",
             50,
             1
           );
@@ -341,7 +341,7 @@ function resultadoFinal(resul) {
     audio.play();
     document.getElementById("final").style.backgroundImage =
       "url(../../images/ciencia/derrota.gif)";
-    document.getElementById("texto_final").innerText ="Lo siento el tiempo a terminad y no has logrado completar el reto";
+    document.getElementById("texto_final").innerText ="Lo siento el tiempo a terminado y no has logrado completar el reto";
   } else {
     document.getElementById("final").style.backgroundImage = "url(../../images/ciencia/victoria.gif)";
     var audio = new Audio("../../sounds/victory.mp3");

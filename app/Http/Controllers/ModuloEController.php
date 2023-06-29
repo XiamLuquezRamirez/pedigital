@@ -3078,6 +3078,9 @@ class ModuloEController extends Controller
         if (Auth::check()) {
             $idArea = request()->get('idArea');
             $grado = request()->get('GradoP');
+            $idSes = request()->get('idSes');
+
+            $sesiones = \App\SessionArea::BuscarSesion($idSes,$idArea);
             $Compe = \App\CompetenciasModuloE::Compexareas($idArea, $grado);
             $Compo = \App\ComponentesModuloE::Compoxareas($idArea, $grado);
 
@@ -3095,6 +3098,7 @@ class ModuloEController extends Controller
                 return response()->json([
                     'select_compe' => $select_compe,
                     'select_compo' => $select_compo,
+                    'sesiones' => $sesiones->count()
                 ]);
             }
         } else {
@@ -3231,6 +3235,24 @@ class ModuloEController extends Controller
             return redirect('/')->with('error', 'Su sesión ha Terminado');
         }
     }
+    public function CargaEstxSimulacro()
+    {             
+        if (Auth::check()) {
+            $datos = request()->all();
+            $idSimu = $datos['idSimu'];
+
+            $Estusimulacro = \App\LibroPruebaModuloE::buscarEstud($idSimu);
+
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'Estusimulacro' => $Estusimulacro,
+                ]);
+            }
+        } else {
+            return redirect('/')->with('error', 'Su sesión ha Terminado');
+        }
+    }
 
     public function ConsultarSesiones()
     {
@@ -3338,7 +3360,6 @@ class ModuloEController extends Controller
         if (Auth::check()) {
             $idAreaSes = request()->get('idSesi');
             $Sesion = \App\DetaSesionesSimul::ConsultarSesion($idAreaSes);
-
             $SesAre = \App\SessionArea::ConsultarAreasSesion($idAreaSes);
 
             if (request()->ajax()) {
