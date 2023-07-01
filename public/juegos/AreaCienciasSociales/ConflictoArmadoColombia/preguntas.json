@@ -4,8 +4,8 @@
     "opciones": [
       ["Acuerdo de Paz de Caracas", false],
       ["Acuerdo de Paz de Tlaxcala", false],
-      ["Acuerdo de Paz de Corinto", false],
-      ["Acuerdo de Paz de Santo Domingo", true]
+      ["Acuerdo de Paz de Corinto", true],
+      ["Acuerdo de Paz de Santo Domingo", false]
     ]
   },
   {
@@ -13,7 +13,7 @@
     "opciones": [
       ["ELN", false],
       ["MIR", false],
-      ["EPL", true],
+      ["M-19", true],
       ["ERP", false]
     ]
   },
@@ -21,8 +21,8 @@
     "pregunta": "¿Cuál fue el año en que se creó el grupo paramilitar Autodefensas Unidas de Colombia (AUC)?",
     "opciones": [
       ["1982", false],
-      ["1997", false],
-      ["2000", true],
+      ["1997", true],
+      ["2000", false],
       ["2005", false]
     ]
   },
@@ -45,7 +45,7 @@
     ]
   },
   {
-    "pregunta": "¿Cuál fue el año en que se desmovilizaron oficialmente las FARC y se convirtieron en partido político?",
+    "pregunta": "¿Cuál fue el año en que se desmovilizaron oficialmente las FARC?",
     "opciones": [
       ["2012", false],
       ["2016", true],
@@ -65,10 +65,10 @@
   {
     "pregunta": "¿Cuál fue el nombre del movimiento político fundado por exintegrantes de la guerrilla M-19?",
     "opciones": [
-      ["Alianza Democrática M19", false],
+      ["Alianza Democrática M19", true],
       ["Movimiento Nacionalista M19", false],
       ["Alianza Social M19", false],
-      ["Alianza Verde", true]
+      ["Alianza Verde", false]
     ]
   },
   {
@@ -86,7 +86,7 @@
       ["Partido Patriótico", false],
       ["Partido de la Libertad", false],
       ["Partido de la Reconciliación", false],
-      ["Partido de Integración Nacional", true]
+      ["Partido de Integración Nacional(PIN)", true]
     ]
   },
   {
@@ -129,7 +129,7 @@
     "pregunta": "¿Cuál fue el nombre del presidente colombiano que implementó el Plan Colombia en el año 2000?",
     "opciones": [
       ["Álvaro Uribe Vélez", false],
-      ["Andrés Pastrana", true],
+      ["Andrés Pastrana Arango", true],
       ["César Gaviria Trujillo", false],
       ["Ernesto Samper", false]
     ]
@@ -180,19 +180,19 @@
     ]
   },
   {
-    "pregunta": "¿Cuál fue el nombre del grupo paramilitar liderado por los hermanos Rodríguez Orejuela?",
+    "pregunta": "¿Cuál fue el nombre del cartel liderado por los hermanos Rodríguez Orejuela?",
     "opciones": [
       ["FARC", false],
       ["ELN", false],
-      ["Cártel de Cali", false],
-      ["AUC", true]
+      ["Cártel de Cali", true],
+      ["AUC",false]
     ]
   },
   {
     "pregunta": "¿Cuál fue el nombre del movimiento guerrillero fundado en 1966 por una escisión del Partido Comunista Colombiano?",
     "opciones": [
-      ["FARC", false],
-      ["ELN", true],
+      ["FARC", true],
+      ["ELN", false],
       ["M-19", false],
       ["EPL", false]
     ]
@@ -227,9 +227,9 @@
   {
     "pregunta": "¿Cuál fue el nombre del grupo guerrillero fundado en 1970 que se autodenominaba como 'Tendencia Leninista'?",
     "opciones": [
-      ["FARC", false],
+      ["FARC", true],
       ["ELN", false],
-      ["M-19", true],
+      ["M-19", false],
       ["EPL", false]
     ]
   },
@@ -251,16 +251,7 @@
       ["M-19", false]
     ]
   },
-  {
-    "pregunta": "¿Cuál fue el nombre del partido político fundado por exintegrantes de la guerrilla M-19?",
-    "opciones": [
-      ["Alianza Democrática M19", false],
-      ["Movimiento Nacionalista M19", false],
-      ["Alianza Social M19", false],
-      ["Alianza Verde", true]
-    ]
-  },
-  {
+    {
     "pregunta": "¿Cuál fue el año en que se firmó el acuerdo de paz definitivo entre el gobierno colombiano y las FARC?",
     "opciones": [
       ["2014", false],
