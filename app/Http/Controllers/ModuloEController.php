@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class ModuloEController extends Controller
 {
@@ -2047,11 +2048,16 @@ class ModuloEController extends Controller
             if ($partePreg == "PARTE 1") {
                 $PregMult = \App\PreguntasParte1::ConsultarPregParte($IdPreg);
                 $OpciMult =  \App\PregOpcMulMe::ConsulPreg($PregMult->parte);
+                $opciMultCompe= $OpciMult->competencia;
+                $opciMultCompo= $OpciMult->componente;
                 $OpciMult = $OpciMult->pregunta;
+               
                 $RespPregMul = \App\PreguntasParte1::BuscOpcRespPruebaParte($IdPreg, Auth::user()->id);
             } else {
                 $PregMult = \App\PregOpcMulMe::ConsulPreg($IdPreg);
                 $OpciMult = \App\OpcPregMulModuloE::ConsulGrupOpcPreg($IdPreg);
+                $opciMultCompe= $PregMult->competencia;
+                $opciMultCompo= $PregMult->componente;
                 $RespPregMul = \App\OpcPregMulModuloE::BuscOpcRespPrueba($IdPreg, Auth::user()->id);
             }
 
@@ -2063,6 +2069,8 @@ class ModuloEController extends Controller
                     'PregMult' => $PregMult,
                     'OpciMult' => $OpciMult,
                     'RespPregMul' => $RespPregMul,
+                    'opciMultCompe' => $opciMultCompe,
+                    'opciMultCompo' => $opciMultCompo,
                 ]);
             }
         } else {
@@ -3300,7 +3308,7 @@ class ModuloEController extends Controller
             $idAreaSes = request()->get('idAreSes');
             $SesAre = \App\SessionArea::ConsultarInf($idAreaSes);
             $CompAre = \App\CompAreaSession::ConsultarInf($idAreaSes);
-
+            
             if ($SesAre->area == "5") {
                 $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idAreaSes, "Admin");
             } else {
@@ -3335,7 +3343,7 @@ class ModuloEController extends Controller
             }
 
             $areaxsesion = \App\SessionArea::ConsultarInf($idArea);
-
+          ////MODIFICAR CONSULTA QUE TRAE LAS PREGUNTAS DE INGLES
             if ($areaxsesion->area == "5") {
                 $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idArea, "Est");
             } else {

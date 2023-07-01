@@ -20,6 +20,10 @@
     <input type="hidden" class="form-control" id="tiempoSesiom" value="" />
     <input type="hidden" class="form-control" id="PregActual" value="1" />
 
+    <input type="hidden" class="form-control" id="CompeActual" value="" />
+    <input type="hidden" class="form-control" id="CompoActual" value="" />
+    
+
     <div class="content-header row" id="cabe_asig">
         <div class="content-header-left col-md-12 col-12 mb-2">
             <h3 class="content-header-title mb-0" id="Titulo">Módulo E</h3>
@@ -919,12 +923,8 @@
                                 data: datos,
                                 dataType: "json",
                                 success: function(respuesta) {
-                                    if (respuesta.DetaSesion == "1") {
+                                    if (respuesta.DetaSesion) {
                                         $("#btn_guardarTodoSesion").hide();
-
-                                        localStorage.removeItem('sesionIniciada');
-                                        localStorage.removeItem('horaInicio');
-
                                         Swal.fire({
                                             title: "Notificación Simulacro",
                                             text: "Operación Realizada Exitosamente",
@@ -935,6 +935,9 @@
                                         $("#btn_guardarTodoSesion").show();
 
                                     }
+
+                                    localStorage.removeItem('sesionIniciada');
+                                    localStorage.removeItem('horaInicio');
                                 }
                             });
 
@@ -1091,41 +1094,70 @@
                             opciones = '';
                             var l = 1;
 
+
+                            $("#CompeActual").val(respuesta.opciMultCompe);
+                            $("#CompoActual").val(respuesta.opciMultCompo);
+
                             if (parte == "PARTE 1") {
-                                console.log(respuesta.OpciMult);
+
                                 const itemsOpciones = respuesta.OpciMult.split(",");
-                                opciones += '<fieldset>' ;
-                                    //custom-control-input bg-succes
-                                for (let i = 0; i < itemsOpciones.length; i++) {    
-                                    if(respuesta.RespPregMul){
-                                        if(itemsOpciones[i] == respuesta.RespPregMul.resp_alumno){
-                                            opciones +=  '<div class="d-inline-block custom-control custom-radio mr-1">';
-                                                opciones += '<input type="hidden" id="OpcionSel_' + i +'" class="OpcionSel"  name="OpcionSel[]" value="si"/>';
-                                                opciones += '<input type="hidden" id=""  name="Opciones[]" value="' + itemsOpciones[i] + '"/>';
-                                                opciones += '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)" checked  id="'+i+'">' +
-                                            '  <label  for="colorCheck2">'+itemsOpciones[i]+'</label>' +
-                                            ' </div>';
-                                        }else{
-                                       
-                                            opciones +=  '<div class="d-inline-block custom-control custom-radio mr-1">';
-                                                opciones += '<input type="hidden" id="OpcionSel_' + i +'" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
-                                                opciones += '<input type="hidden" id=""  name="Opciones[]" value="' + itemsOpciones[i] + '"/>';
-                                                opciones += '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="'+i+'">' +
-                                            '  <label  for="colorCheck2">'+itemsOpciones[i]+'</label>' +
-                                            ' </div>';
+                                opciones += '<fieldset>';
+                                //custom-control-input bg-succes
+                                for (let i = 0; i < itemsOpciones.length; i++) {
+                                    if (respuesta.RespPregMul) {
+                                        if (itemsOpciones[i] == respuesta.RespPregMul
+                                            .resp_alumno) {
+                                            opciones +=
+                                                '<div class="d-inline-block custom-control custom-radio mr-1">';
+                                            opciones +=
+                                                '<input type="hidden" id="OpcionSel_' + i +
+                                                '" class="OpcionSel"  name="OpcionSel[]" value="si"/>';
+                                            opciones +=
+                                                '<input type="hidden" id=""  name="Opciones[]" value="' +
+                                                itemsOpciones[i] + '"/>';
+                                            opciones +=
+                                                '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)" checked  id="' +
+                                                i + '">' +
+                                                '  <label  for="colorCheck2">' +
+                                                itemsOpciones[i] + '</label>' +
+                                                ' </div>';
+                                        } else {
+
+                                            opciones +=
+                                                '<div class="d-inline-block custom-control custom-radio mr-1">';
+                                            opciones +=
+                                                '<input type="hidden" id="OpcionSel_' + i +
+                                                '" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
+                                            opciones +=
+                                                '<input type="hidden" id=""  name="Opciones[]" value="' +
+                                                itemsOpciones[i] + '"/>';
+                                            opciones +=
+                                                '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="' +
+                                                i + '">' +
+                                                '  <label  for="colorCheck2">' +
+                                                itemsOpciones[i] + '</label>' +
+                                                ' </div>';
                                         }
-                                    }else{
-                                        opciones +=  '<div class="d-inline-block custom-control custom-radio mr-1">';
-                                            opciones += '<input type="hidden" id="OpcionSel_' + i +'" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
-                                            opciones += '<input type="hidden" id=""  name="Opciones[]" value="' + itemsOpciones[i] + '"/>';
-                                            opciones += '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="'+i+'">' +
-                                        '  <label  for="colorCheck2">'+itemsOpciones[i]+'</label>' +
-                                        ' </div>';
-                                    }                       
-                                  
-                           
+                                    } else {
+                                        opciones +=
+                                            '<div class="d-inline-block custom-control custom-radio mr-1">';
+                                                opciones += '<input type="hidden" id="OpcionSel_' +
+                                            i +
+                                            '" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
+                                        opciones +=
+                                            '<input type="hidden" id=""  name="Opciones[]" value="' +
+                                            itemsOpciones[i] + '"/>';
+                                        opciones +=
+                                            '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="' +
+                                            i + '">' +
+                                            '  <label  for="colorCheck2">' + itemsOpciones[
+                                                i] + '</label>' +
+                                            ' </div>';
+                                    }
+
+
                                 }
-                                opciones +=  ' </fieldset>';
+                                opciones += ' </fieldset>';
                             } else {
                                 $.each(respuesta.OpciMult, function(k, itemo) {
 
@@ -1135,7 +1167,7 @@
                                             opciones += '<fieldset>';
                                             if ($.trim(respuesta.RespPregMul
                                                     .respuesta) === $.trim(itemo
-                                                .id)) {
+                                                    .id)) {
                                                 opciones +=
                                                     '<input type="hidden" id="OpcionSel_' +
                                                     l +
@@ -1176,8 +1208,7 @@
                                                 l +
                                                 '" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
                                             opciones +=
-                                                ' <input type="hidden" id=""  name="Opciones[]" value="' +
-                                                itemo.id + '"/>';
+                                                ' <input type="hidden" id=""  name="Opciones[]" value="' + itemo.id + '"/>';
                                             opciones +=
                                                 '<input onclick="$.RespMulPreg(this.id)" id="' +
                                                 l +
@@ -1197,7 +1228,8 @@
                                 });
                             }
 
-                            console.log(opciones);
+                            var compexcomp='';
+
 
                             $("#Pregunta" + id).html(Pregunta + opciones);
 
@@ -1226,6 +1258,8 @@
                     var Preg = $("#id-pregunta" + id).val();
                     var tiempo = $("#tiempoSesiom").val();
                     var parte = $("#parte" + id).val();
+                    var Compe = $("#CompeActual").val();
+                    var Compo = $("#CompoActual").val();
                     var prgAct = id + 1;
                     var PosPreg = npreg;
 
@@ -1260,6 +1294,8 @@
                     $("#PosPreg").remove();
                     $("#CantiPreg").remove();
                     $("#partePreg").remove();
+                    $("#competencia").remove();
+                    $("#componente").remove();
 
                     $("#Tiempo").remove();
                     //    clearInterval(xtiempo);
@@ -1283,6 +1319,10 @@
                     form.append("<input type='hidden' name='Tiempo' id='Tiempo' value='" + tiempo +
                         "'>");
                     form.append("<input type='hidden' name='prgAct' id='prgAct' value='" + prgAct +
+                        "'>");
+                    form.append("<input type='hidden' name='competencia' id='competencia' value='" + Compe +
+                        "'>");
+                    form.append("<input type='hidden' name='componente' id='componente' value='" + Compo +
                         "'>");
 
                     var datos = form.serialize();
@@ -1313,9 +1353,6 @@
                     });
 
                     $("#Pregunta" + id).html("");
-
-
-
                 },
                 mostrarInfSesion: function(respuesta) {
 
@@ -1558,7 +1595,7 @@
                 },
                 MostrarAreas: function(id) {
 
-                  
+
 
                     if (localStorage.getItem('sesionIniciada')) {
                         localStorage.setItem('sesionIniciada', 'Si');
@@ -1837,8 +1874,10 @@
 
                     $("#idAreaSesion").remove();
                     $("#idSes").remove();
-                    form.append("<input type='hidden' name='idAreaSesion' id='idAreaSesion' value='" + id + "'>");
-                    form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion + "'>");
+                    form.append("<input type='hidden' name='idAreaSesion' id='idAreaSesion' value='" +
+                        id + "'>");
+                    form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion +
+                        "'>");
 
                     var datos = form.serialize();
 
@@ -1857,35 +1896,49 @@
                         async: false,
                         success: function(respuesta) {
                             $wrapper.avnSkeleton('remove');
-                            $wrapper.find('> header').append("Preguntas Área " + respuesta.areaxsesion.nombre_area);
+                            $wrapper.find('> header').append("Preguntas Área " + respuesta
+                                .areaxsesion.nombre_area);
 
                             $("#sesion_id").val(respuesta.areaxsesion.sesion);
                             $("#area_id").val(respuesta.areaxsesion.area);
                             $("#NPreg").val(respuesta.areaxsesion.npreguntas);
 
-                            contenido += '<div class="row"><div class="card-content collapse show">' +
+                            contenido +=
+                                '<div class="row"><div class="card-content collapse show">' +
                                 '  <div class="card-body" style="padding-top: 0px;">' +
                                 '  <form method="post" action="{{ url('/') }}/ModuloE/RespSimulacro" id="Evaluacion" class="number-tab-stepsPreg wizard-circle">';
                             var Preg = 1;
                             var ConsPre = 0;
+                            var enunciado ="N/A";
 
                             $.each(respuesta.PregArea, function(i, item) {
+                                console.log(item.enunciado);
+                             
+                                if(item.enunciado!=null){
+                                    enunciado=item.enunciado;
+                                }else{
+                                    enunciado ="N/A";
+                                }
 
                                 contenido += '<h6></h6>' +
                                     '         <fieldset>' +
                                     '         <div class="row p-1">' +
                                     '   <div style="width: 100%" class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1" >';
-                                contenido += '<div class="row border-bottom-blue-grey"><div class="col-md-12 pb-1"><h6>Enunciado:</h6><label id="enunciado">' +
-                                    item.enunciado + '</label></div></div>';
+                                contenido +=
+                                    '<div class="row border-bottom-blue-grey"><div class="col-md-12 pb-1"><h6>Enunciado:</h6><label id="enunciado">' +
+                                        enunciado + '</label></div></div>';
                                 contenido += '<div class="row pt-1" >';
-                                    if(item.parte=="PARTE 1"){
-                                        contenido += '<input type="hidden" id="id-pregunta' + ConsPre + '"  value="' + item.pregunta +'" />';
-
-                                    }else{
-                                        contenido += '<input type="hidden" id="id-pregunta' + ConsPre + '"  value="' + item.id +'" />';
-
-                                    }
-                                    contenido += '<input type="hidden" id="id-banco' +
+                                if (respuesta.areaxsesion.area == "5") {
+                                    contenido +=
+                                        '<input type="hidden" id="id-pregunta' +
+                                        ConsPre + '"  value="' + item.pregunta +
+                                        '" />';
+                                } else {
+                                    contenido +=
+                                        '<input type="hidden" id="id-pregunta' +
+                                        ConsPre + '"  value="' + item.id + '" />';
+                                }
+                                contenido += '<input type="hidden" id="id-banco' +
                                     ConsPre + '"  value="' + item.banco + '" />' +
                                     '<input type="hidden" id="parte' +
                                     ConsPre + '"  value="' + item.parte + '" />' +
@@ -1993,8 +2046,7 @@
                                     if (result.isConfirmed) {
 
                                         clearInterval();
-                                        localStorage.setItem('sesionIniciada',
-                                            'Si');
+                                        localStorage.setItem('sesionIniciada','Si');
                                         var hora = Tiempo;
 
                                         parts = hora.split(':');
@@ -2009,7 +2061,7 @@
 
                                         var ahora = new Date().getTime();
                                         localStorage.setItem('horaInicio', ahora);
-                                    
+
 
                                         countDownDate = countDownDate + ahora;
                                         var tiempoextra = 300000;
@@ -2247,15 +2299,14 @@
                                     }
 
                                     if (tiempofinalizado == "s") {
-                                        console.log(distance);
-                                        alert("tiempo finalizado");
+
                                         return;
                                     }
 
                                 }, 1000);
 
                             }
-
+                         
 
                         }
                     });
@@ -2281,7 +2332,7 @@
 
                     var url = form.attr("action");
                     var datos = form.serialize();
-                    console.log(datos);
+
 
                     $.ajax({
                         type: "POST",

@@ -99,6 +99,8 @@
             }
         });
 
+
+        
         ///////////////////CONFIGURACION EDITOR
 
         CKEDITOR.editorConfig = function(config) {
@@ -3581,8 +3583,12 @@
                                     icon: "success",
                                     button: "Aceptar",
                                 });
-                                $(location).attr('href', rurl +
-                                    "/ModuloE/GestionBancoPreguntas")
+
+                                setTimeout(function() {
+                                    history.go(-1);
+                                }, 3000);
+                                
+                               
                             } else {
                                 mensaje = "Las Pregunta no pudo ser Guardada";
                                 Swal.fire({

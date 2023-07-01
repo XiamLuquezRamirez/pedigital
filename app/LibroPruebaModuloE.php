@@ -32,6 +32,10 @@ class LibroPruebaModuloE extends Model
         $puntMaxi = $datos['CantiPreg'];
         $pregContestada = $datos['prgAct'];
         $TiemArePrueba = "";
+
+        $competencia =$datos["competencia"];
+        $componente =$datos["componente"];
+
         if ($datos['PosPreg'] === "Ultima") {
             $estado = "TERMINADA";
         } else {
@@ -55,9 +59,9 @@ class LibroPruebaModuloE extends Model
                
             if($DesOpcPreg->respuesta==$resp->respuesta){
                 $puntaje = (int) $puntaje + 1;
-                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1');
+                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1',$datos['partePreg'],$competencia,$componente);
             }else{
-                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0');
+                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0',$datos['partePreg'],$competencia,$componente);
             }
 
 
@@ -69,9 +73,9 @@ class LibroPruebaModuloE extends Model
                     if ($OP->id == $resp->respuesta) {
                         if ($OP->correcta == "si") {
                             $puntaje = (int) $puntaje + 1;
-                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1');
+                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1',$datos['partePreg'],$competencia,$componente);
                         } else {
-                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0');
+                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0',$datos['partePreg'],$competencia,$componente);
                         }
                     }
                 }
@@ -89,6 +93,7 @@ class LibroPruebaModuloE extends Model
         foreach ($PunPreg as $PunP) {
             $puntaje = (int) $puntaje + (int) $PunP->puntos;
         }
+
 
         return LibroPruebaModuloE::updateOrCreate([
             'alumno' => $Alumno, 'sesion' => $IdSesion, 'area' => $IdArea,
