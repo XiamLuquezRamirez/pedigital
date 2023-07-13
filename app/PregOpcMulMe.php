@@ -146,6 +146,8 @@ class PregOpcMulMe extends Model
                     ->select("preguntas_me.id")
                     ->limit($nPregxComp)
                     ->get();
+
+                    dd($GrupPreg2);
             }
 
 
