@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use Barryvdh\DomPDF\Facade as PDF;
+use Math\Statistics;
+
 
 class ModuloEController extends Controller
 {
@@ -2048,21 +2051,21 @@ class ModuloEController extends Controller
             if ($partePreg == "PARTE 1") {
                 $PregMult = \App\PreguntasParte1::ConsultarPregParte($IdPreg);
                 $OpciMult =  \App\PregOpcMulMe::ConsulPreg($PregMult->parte);
-                $opciMultCompe= $OpciMult->competencia;
-                $opciMultCompo= $OpciMult->componente;
+                $opciMultCompe = $OpciMult->competencia;
+                $opciMultCompo = $OpciMult->componente;
                 $OpciMult = $OpciMult->pregunta;
-               
+
                 $RespPregMul = \App\PreguntasParte1::BuscOpcRespPruebaParte($IdPreg, Auth::user()->id);
             } else {
                 $PregMult = \App\PregOpcMulMe::ConsulPreg($IdPreg);
                 $OpciMult = \App\OpcPregMulModuloE::ConsulGrupOpcPreg($IdPreg);
-                $opciMultCompe= $PregMult->competencia;
-                $opciMultCompo= $PregMult->componente;
+                $opciMultCompe = $PregMult->competencia;
+                $opciMultCompo = $PregMult->componente;
                 $RespPregMul = \App\OpcPregMulModuloE::BuscOpcRespPrueba($IdPreg, Auth::user()->id);
             }
 
-            
-            
+
+
 
             if (request()->ajax()) {
                 return response()->json([
@@ -3089,7 +3092,7 @@ class ModuloEController extends Controller
             $grado = request()->get('GradoP');
             $idSes = request()->get('idSes');
 
-            $sesiones = \App\SessionArea::BuscarSesion($idSes,$idArea);
+            $sesiones = \App\SessionArea::BuscarSesion($idSes, $idArea);
             $Compe = \App\CompetenciasModuloE::Compexareas($idArea, $grado);
             $Compo = \App\ComponentesModuloE::Compoxareas($idArea, $grado);
 
@@ -3226,13 +3229,13 @@ class ModuloEController extends Controller
         }
     }
     public function ConsultarListSimulacros()
-    {             
+    {
         if (Auth::check()) {
             $Simualacros = \App\Simulacros::CargarListSimulacros();
 
             $select_Periodo = "<option value='' selected>Seleccione</option>";
             foreach ($Simualacros as $Simu) {
-                $select_Periodo .= "<option value='$Simu->id' >" . strtoupper($Simu->nombre) . "  / <strong> Prueba: </strong> Saber</b> ".$Simu->prueba." / Fecha: ".$Simu->fecha." </option>";
+                $select_Periodo .= "<option value='$Simu->id' >" . strtoupper($Simu->nombre) . "  / <strong> Prueba: </strong> Saber</b> " . $Simu->prueba . " / Fecha: " . $Simu->fecha . " </option>";
             }
 
             if (request()->ajax()) {
@@ -3245,7 +3248,7 @@ class ModuloEController extends Controller
         }
     }
     public function CargaEstxSimulacro()
-    {             
+    {
         if (Auth::check()) {
             $datos = request()->all();
             $idSimu = $datos['idSimu'];
@@ -3308,7 +3311,7 @@ class ModuloEController extends Controller
             $idAreaSes = request()->get('idAreSes');
             $SesAre = \App\SessionArea::ConsultarInf($idAreaSes);
             $CompAre = \App\CompAreaSession::ConsultarInf($idAreaSes);
-            
+
             if ($SesAre->area == "5") {
                 $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idAreaSes, "Admin");
             } else {
@@ -3343,7 +3346,7 @@ class ModuloEController extends Controller
             }
 
             $areaxsesion = \App\SessionArea::ConsultarInf($idArea);
-          ////MODIFICAR CONSULTA QUE TRAE LAS PREGUNTAS DE INGLES
+            ////MODIFICAR CONSULTA QUE TRAE LAS PREGUNTAS DE INGLES
             if ($areaxsesion->area == "5") {
                 $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idArea, "Est");
             } else {
@@ -3711,6 +3714,336 @@ class ModuloEController extends Controller
         Session::put('PanelNotifica', $PanelNotifica);
 
         return $PanelNotifica;
+    }
+
+
+    public function InfIndividual(Request $request)
+    {
+
+        $imagePath = public_path('app-assets/images/Colegios/' . Session::get('EscudoColegio'));
+
+        // Obtener los datos de la solicitud POST
+        $datos = $request->all();
+        $html = "<head>
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 8px;
+            }
+            th {
+                background-color: #EAEBF4;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .percentile-line {
+                width: 100%;
+                height: 2px;
+                background-color: #EAEBF4;
+                position: relative;
+              }
+          
+              .percentile-marker {
+                width: 1px;
+                height: 8px;
+                background-color: #000;
+                position: absolute;
+                top: -4px;
+              }
+          
+              .percentile-point {
+                width: 8px;
+                height: 8px;
+                background-color: #02C804;
+                position: absolute;
+                top: -2px;
+                border-radius: 50%;
+                transform: translateX(-50%);
+              }
+          
+              .percentile-value {
+                font-size: 8px;
+                color: black;
+                text-align: center;
+                position: absolute;
+                top: 8px;
+                left: 5px;
+                transform: translateX(-50%);
+              }
+              .no-border-right {
+                border-right: none;
+                text-align: center;
+            }
+              .no-border-left {
+                border-left: none;
+            }
+        </style>
+    </head>";
+        $fecha = date('Y-m-d');
+        $mensajePunTotal = "";
+        $idSimu = $datos['simulacro'];
+
+        $Simulacro = \App\Simulacros::BuscarSimu($idSimu);
+        $prueba = $Simulacro->prueba;
+
+
+        $pdf = app('dompdf.wrapper');
+
+
+
+
+        foreach ($datos["idestu"] as $key => $val) {
+            if ($datos["EstSel"][$key] == "si") {
+                $Alumno = \App\Alumnos::BuscarAlumFoto($datos["usuEstu"][$key]);
+                $html .= '<div style="page-break-after: always;">';
+                $html .= '<table style="width:100%">';
+                $html .= '<tr><td class="no-border-right" style="justify-content: center;"><img src="' . $imagePath . '" style="width: 80px;height: 80px; align-items: center;"></td><td  class="no-border-left"><h4 style="text-align: center;">REPORTE DE RESULTADO DE ESTUDIANTES <br/>  ' . strtoupper($Simulacro->nombre) . '</h4></td></tr>';
+                $html .= '</table>';
+                $html .= '<table style="width:100%">';
+                $html .= '<tr><th colspan="2" style="background: #EBEBF5">Información Básica</th></tr>';
+                $html .= '<tr><td>Institución:</td><td>' . Session::get('NombreColegio') . '</td></tr>';
+                $html .= '<tr><td>Fecha de Aplicación:</td><td>' . $Simulacro->fecha . '</td></tr>';
+                $html .= '<tr><td>Fecha de Impresión:</td><td>' . $fecha . '</td></tr>';
+                $html .= '<tr><td>Nombre Alumno:</td><td>' . $Alumno->apellido_alumno . " " . $Alumno->nombre_alumno . '</td></tr>';
+                $html .= '<tr><td>Prueba:</td><td> Saber ' . $prueba . '</td></tr>';
+                $html .= '</table>';
+
+                $Sesion = \App\DetaSesionesSimul::ConsultarAreasSimulacro($idSimu);
+
+                ////CALCULO DE RESULTADO POR AREA
+                $html .= '<table style="width:100%">';
+                $html .= '<tr><th colspan="3" style="background: #EBEBF5">Resultado por Prueba </th></tr>';
+                $html .= '<tr style="background: #EBEBF5; font-weight: bold;"><td>PRUEBA</td><td>PUNTAJE</td><td>PERCENTIL</td></tr>';
+
+                $TotalSimu = count($Sesion);
+                $totaPunt = 0;
+                $SumPeso = 0;
+                $scoresTotal = collect();
+
+
+                foreach ($Sesion as $Ses) {
+                    $puntArea = \App\PuntPregMEPruebaSimulacro::ConsulPuntAlumno($Ses->area, $idSimu, $datos["usuEstu"][$key]);
+                    $npreg = $Ses->npreg;
+                    $puntarea =  ($puntArea->pts / $npreg) * 100;
+
+                    if ($Ses->area == 5) {
+                        $totaPuntPeso = round($puntarea) * 1;
+                        $SumPeso = $SumPeso + 1;
+                    } else {
+                        $totaPuntPeso  = round($puntarea) * 3;
+                        $SumPeso = $SumPeso + 3;
+                    }
+
+                    $totaPunt = $totaPunt + $totaPuntPeso;
+
+
+                    /////////////PUNTAJES////////////////
+                    $scores = [];
+
+                    $estudentSimu = \App\simulacrosEstudiantes::BuscarEstudiante($idSimu);
+                    foreach ($estudentSimu as $estudent) {
+                        $Sesion_p = \App\DetaSesionesSimul::ConsultarAreasSimulacroxArea($idSimu, $Ses->area);
+
+                        if ($estudent->estudiante != $datos["usuEstu"][$key]) {
+                            foreach ($Sesion_p as $Ses_p) {
+
+                                $puntArea_p = \App\PuntPregMEPruebaSimulacro::ConsulPuntAlumno($Ses_p->area, $idSimu, $estudent->estudiante);
+                                $npreg_p = $Ses_p->npreg;
+                                $puntarea_p =  ($puntArea_p->pts / $npreg_p) * 100;
+                                array_push($scores, round($puntarea_p));
+
+                                $scoresTotal->push(['estudiante' => $estudent->estudiante, 'puntaje' => round($puntarea_p), 'area' => $Ses_p->area]);
+
+                                /////
+                            }
+                        }
+                    }
+
+
+
+                    // Calcular el índice del puntaje en la posición del percentil
+
+                    if (empty($scores)) {
+                        echo "El array de datos está vacío. No se puede calcular el percentil.";
+                    } else {
+                        sort($scores); // Ordenar los datos de forma ascendente
+
+                        $n = count($scores); // Obtener el número total de datos
+
+                        $posicion = 0;
+
+                        // Encontrar la posición del valor dado en el conjunto de datos
+                        for ($i = 0; $i < $n; $i++) {
+                            if (round($puntarea)  <= $scores[$i]) {
+                                $posicion = $i + 1; // La posición se basa en índices (comenzando desde 1)
+                                break;
+                            }
+                        }
+
+                        if ($posicion == 0) {
+                            $percentile = 100;
+                        } else {
+                            $percentile = ($posicion / ($n + 1)) * 100;
+                        }
+
+                        // Calcular el percentil
+                   
+                    }
+                    ////////////////////////////////
+
+
+
+
+                    ///////////////
+
+                    $html .= '<tr><td>' . $Ses->nombre_area . '</td><td style="text-align: center;">' . round($puntarea)
+                        . '</td><td><div class="percentile-line">
+                        <div class="percentile-marker" style="left: 0%"></div>
+                        <div class="percentile-marker" style="left: 20%"></div>
+                        <div class="percentile-marker" style="left: 40%"></div>
+                        <div class="percentile-marker" style="left: 60%"></div>
+                        <div class="percentile-marker" style="left: 80%"></div>
+                        <div class="percentile-point" style="left: ' . round($percentile) . '%;">
+                          <div class="percentile-value">' . round($percentile) . '</div>
+                        </div>
+                      
+                      </div></td></tr>';
+                }
+
+
+                $puntstud = [];
+                $sumAre = 0;
+                $sumPuntAre = 0;
+
+
+                $estSim = \App\simulacrosEstudiantes::BuscarEstudiante($idSimu);
+                foreach ($estSim as $est) {
+                    $sumAre = 0;
+                    $sumPuntAre = 0;
+                    if ($est->estudiante != $datos["usuEstu"][$key]) {
+                        foreach ($scoresTotal as $Resultol) {
+                            if ($est->estudiante == $Resultol['estudiante']) {
+                                if ($Resultol['area'] == 5) {
+                                    $pnt = $Resultol['puntaje'] * 1;
+                                    $sumAre = $sumAre + 1;
+                                } else {
+                                    $pnt = $Resultol['puntaje'] * 3;
+                                    $sumAre = $sumAre + 3;
+                                }
+                                $sumPuntAre = $sumPuntAre + $pnt;
+                            }
+                        }
+
+
+                        $totaPuntEst = ($sumPuntAre / $sumAre) * $TotalSimu;
+
+                        array_push($puntstud, round($totaPuntEst));
+                    }
+                }
+
+
+                $totaPunt = $totaPunt / $SumPeso;
+
+
+                $tot = round($totaPunt * $TotalSimu);
+                $puntEsperado = $TotalSimu * 100;
+
+
+                $puntPerc = round(($tot / $puntEsperado) * 100);
+
+
+
+                ////////////CALCULAR PERCENTIL PUNTAJE TOTAL 
+
+                $porcentajes = [];
+
+                foreach ($puntstud as $nota) {
+                    $porcentaje = ($nota / $puntEsperado) * 100;
+                    $porcentajes[] = round($porcentaje);
+                }
+
+
+
+                // Calcular el índice del puntaje en la posición del percentil
+
+                if (empty($porcentajes)) {
+                    echo "El array de datos está vacío. No se puede calcular el percentil.";
+                } else {
+                    sort($porcentajes); // Ordenar los datos de forma ascendente
+
+
+                    $n = count($porcentajes); // Obtener el número total de datos
+
+                    $posicion = 0;
+
+                    // Encontrar la posición del valor dado en el conjunto de datos
+                    for ($i = 0; $i < $n; $i++) {
+                        if ($puntPerc  <= $porcentajes[$i]) {
+                            $posicion = $i + 1; // La posición se basa en índices (comenzando desde 1)
+                            break;
+                        }
+                    }
+
+
+                    // Calcular el percentil
+
+                    if ($posicion == 0) {
+                        $percentilTotl = 100;
+                    } else {
+                        $percentilTotl = ($posicion / ($n + 1)) * 100;
+                    }
+
+                }
+                ////////////////////////////////
+
+
+
+
+                $html .= '</table>';
+
+                ////CALCULO DE RESULTADO TOTAL
+                $html .= '<table  style="width:100%">';
+                $html .= '<tr><th colspan="2" style="background: #EAEBF4">Resultado Global </th></tr>';
+                $html .= '<tr><td >Puntaje global:</td><td>¿En qué percentil estas?</td></tr>';
+                $html .= '<tr><td >De ' . $puntEsperado . ' puntos posibles, su puntaje global es: ' . $tot . '</td><td><div class="percentile-line">
+                <div class="percentile-marker" style="left: 0%"></div>
+                <div class="percentile-marker" style="left: 20%"></div>
+                <div class="percentile-marker" style="left: 40%"></div>
+                <div class="percentile-marker" style="left: 60%"></div>
+                <div class="percentile-marker" style="left: 80%"></div>
+                <div class="percentile-point" style="left: ' . round($percentilTotl) . '%;">
+                  <div class="percentile-value">' . round($percentilTotl) . '</div>
+                </div>
+              
+              </div></td></tr>';
+                $html .= '</table>';
+
+
+                $html .= '</div>';
+            }
+        }
+
+
+        $pdf->loadHTML($html);
+
+
+        $pdfContent = $pdf->output();
+
+
+
+        // Establecer los encabezados de respuesta
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="Resultado Individual.pdf"'
+        ];
+
+        // Devolver el contenido del PDF como una respuesta HTTP con los encabezados
+        return response($pdfContent, 200, $headers);
     }
 
     public function sanear_string($string)

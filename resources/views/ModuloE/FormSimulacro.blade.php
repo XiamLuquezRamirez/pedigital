@@ -267,7 +267,7 @@
     <div class="col-md-2">
         <div class="form-group">
             <label class="form-label" for="PorPreguntas"># de Preguntas:</label>
-            <input type="text" class="form-control" maxlength="3" disabled
+            <input type="text" class="form-control" onchange="$.valnPregarea(this.value);" maxlength="3" disabled
                 onkeypress="return validartxtnum(event);" id="PorcPreguntas" name="PorcPreguntas" />
         </div>
     </div>
@@ -363,7 +363,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label" for="modulo">Preguntas Selecionadas.:</label>
+                                <label class="form-label" for="modulo">Preguntas Agregadas:</label>
                                 <input type="text" disabled id="nPregCompoxCompeSel" value="0"
                                     class="form-control" />
                             </div>

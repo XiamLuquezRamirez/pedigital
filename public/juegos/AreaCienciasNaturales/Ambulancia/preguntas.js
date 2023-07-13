@@ -1,33 +1,44 @@
 let Preguntas = [
   {
-    imagen: "img/hidrocarburos/1-propanol.png",
-    opciones: ["This", "These", "That", "Those"],
-    opcion_correcta: "these",
+    pregunta: "Cuál de las siguientes cadenas de hidrocarburos corresponden a una Propano. ",
+    opciones: ["hidp1op1.png", "hidp1op2.png", "hidp1op3.png"],
+    opcion_correcta: "hidp1op1.png",
+    tipo: "texto"
   },
   {
-    imagen: "img/hidrocarburos/2-butanol.png",
-    opciones: ["this", "these", "that", "those"],
-    opcion_correcta: "these",
+    pregunta: "Cuál de las siguientes cadenas de Hidrocarburo tiene por nombre 1-hexeno",
+    opciones: ["hidp2op1.png", "hidp2op2.png", "hidp2op3.png"],
+    opcion_correcta: "hidp2op2.png",
+    tipo: "texto"
+
   },
   {
-    imagen: "img/hidrocarburos/2-propanol.png",
-    opciones: ["this", "these", "that", "those"],
-    opcion_correcta: "these",
+    pregunta: "hidp3.png",
+    opciones: ["Heptano", "Heptanol", "Hepteno"],
+    opcion_correcta: "Heptano",
+    tipo: "imagen"
+
   },
   {
-    imagen: "img/hidrocarburos/3-butin-1-ol.png",
-    opciones: ["this", "these", "that", "those"],
-    opcion_correcta: "these",
+    pregunta: "hidp4.png",
+    opciones: ["Fenol", "Metanol", "Benceno"],
+    opcion_correcta: "Benceno",
+    tipo: "imagen"
+
   },
   {
-    imagen: "img/hidrocarburos/3-hexen-1-ol.png",
-    opciones: ["this", "these", "that", "those"],
-    opcion_correcta: "these",
+    pregunta: "hidp5.png",
+    opciones: ["Etileno", "Etino", "Etano"],
+    opcion_correcta: "Etileno",
+    tipo: "imagen"
+
   },
   {
-    imagen: "img/hidrocarburos/3-metil-1-pentanol",
-    opciones: ["this", "these", "that", "those"],
-    opcion_correcta: "these",
+    pregunta: "hidp6.png",
+    opciones: ["Acetileno", "Etileno", "Metano"],
+    opcion_correcta: "Acetileno",
+    tipo: "imagen"
+
   },
 
 ];

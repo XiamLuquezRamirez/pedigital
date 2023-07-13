@@ -57,6 +57,28 @@ class DetaSesionesSimul extends Model
         return $DetSesion[0];
 
     }
+    public static function ConsultarAreasSimulacro($simu)
+    {
+        $DetSesion = DB::connection("mysql")->select("SELECT sa.area, a.nombre_area, SUM(npreguntas) npreg FROM me_sesiones_simulacros mss"
+        ." RIGHT JOIN sesion_area sa ON mss.id=sa.sesion"
+        ." LEFT JOIN  areas_me a ON sa.area=a.id"
+        ." WHERE mss.id_simulacro=".$simu.""
+        ." GROUP BY sa.area");
+        return $DetSesion;
+
+    }
+    public static function ConsultarAreasSimulacroxArea($simu,$area)
+    {
+        $DetSesion = DB::connection("mysql")->select("SELECT sa.area, a.nombre_area, SUM(npreguntas) npreg FROM me_sesiones_simulacros mss"
+        ." RIGHT JOIN sesion_area sa ON mss.id=sa.sesion"
+        ." LEFT JOIN  areas_me a ON sa.area=a.id"
+        ." WHERE mss.id_simulacro=".$simu." AND sa.area=".$area.""
+        ." GROUP BY sa.area");
+        return $DetSesion;
+
+    }
+
+
 
     public static function Modificar($Sesion, $npreg)
     {

@@ -29,7 +29,7 @@ $(document).ready(function () {
             "url(../../images/ciencia/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola, soy Genio. <br> En este juego deberas llegar primero a la meta, para esto debes responder correctamente las preguntas relacionadas al tema DESCRIBING PEOPLE: APPEARANCE, para poder tomar la delantera.  <br> ¡Tú Puedes!",
+            "Hola, soy Genio. <br> En este juego deberas alcanzar la ambulancia para poder salvar al paciente, para esto debes responder correctamente las preguntas relacionadas al tema HIDROCARBUROS, para poder acercarte a tu objetivo.  <br> ¡Tú Puedes!",
             50,
             1
           );
@@ -104,6 +104,7 @@ var preguntasAleatoria;
 var PregMostrada = [];
 
 var respCorrecta;
+var tipoResp;
 var index = 0;
 var detenerMete;
 const cards = document.querySelectorAll(".card");
@@ -111,19 +112,47 @@ const cards = document.querySelectorAll(".card");
 function cargPreg() {
   cards.forEach((card, index) => {
     card.classList.remove("card-selOk", "card-selFail");
+    card.innerHTML ="";
   });
 
   var index = obtenerIndiceAleatorio();
 
   var preguntaActual = Preguntas[index];
-  document.getElementById("pregunta").src = preguntaActual.imagen;
 
-  let x = 1;
-  for (var i = 0; i < preguntaActual.opciones.length; i++) {
-    document.getElementById("Opc" + x).innerHTML = preguntaActual.opciones[i];
-    x++;
+  if(preguntaActual.tipo=="imagen"){
+    document.getElementById("preguntaImg").style.display="block";
+    document.getElementById("preguntaTexto").style.display="none";
+    document.getElementById("preguntaImg").src = "img/hidrocarburos/"+preguntaActual.pregunta;
+
+    let x = 1;
+    for (var i = 0; i < preguntaActual.opciones.length; i++) {
+      document.getElementById("Opc" + x).innerHTML = preguntaActual.opciones[i];
+      x++;
+    }
+
+  }else{
+    document.getElementById("preguntaImg").style.display="none";
+    document.getElementById("preguntaTexto").style.display="block";
+    document.getElementById("preguntaTexto").innerHTML = preguntaActual.pregunta;
+
+    let x = 1;
+    console.log(preguntaActual.opciones);
+    for (var i = 0; i < preguntaActual.opciones.length; i++) {
+      var imagen = document.createElement("img");
+      imagen.src = "img/hidrocarburos/"+preguntaActual.opciones[i];      
+      imagen.style.width="200px";
+      document.getElementById("Opc" + x).dataset.id = preguntaActual.opciones[i];      
+      document.getElementById("Opc" + x).appendChild(imagen);
+      x++;
+    }
   }
+
+
+
   respCorrecta = preguntaActual.opcion_correcta;
+  tipoResp = preguntaActual.tipo;
+
+
   index++;
 }
 
@@ -147,8 +176,20 @@ function verResp(elemento) {
   cards.forEach((card, index) => {
     card.style.pointerEvents = "none";   
   });
+
+  var respAlumno="";
+  console.log(elemento);
+  console.log(tipoResp);
+
+if(tipoResp=="imagen"){
+  respAlumno=elemento.textContent;
+}else{
+  respAlumno = elemento.dataset.id;
+}
   
-  if (elemento.textContent == respCorrecta) {
+console.log(respAlumno+" == "+respCorrecta);
+
+  if (respAlumno == respCorrecta) {
     elemento.classList.add("card-selOk");
     
     isThrusting = true;

@@ -2,313 +2,314 @@ const preguntas = {
   preguntas: {
     "A": [
       {
-        "pregunta": "¿Cómo se denominan los organismos que pueden fabricar su propio alimento?",
-        "respuesta": "Autotrofos"
+        "pregunta": "-	Molécula que codifica los datos genéticos en las células, guarda y transmite de generación en generación toda la información necesaria para el progreso de todas las funciones biológicas de un organismo",
+        "respuesta": "ADN"
       },
       {
-        "pregunta": "¿Cómo se llama la hormona producida por las glándulas suprarrenales que prepara al cuerpo para una situación de peligro o estrés?",
-        "respuesta": "Adrenalina"
+        "pregunta": "Es la abreviatura de ácido desoxirribonucleico",
+        "respuesta": "ADN "
       },
       {
-        "pregunta": "Son Organismos unicelulares o pluricelulares, que viven preferentemente en el agua, tanto dulce como marina, y que en general están provistas de clorofila, acompañada en ocasiones de otros pigmentos de colores variados.",
-        "respuesta": "Algas"
+        "pregunta": "Es la Para de base nitrogenada en el ADN que siempre se aparea con la Timina.",
+        "respuesta": "Adenina"
+      },
+      {
+        "pregunta": "Es un ácido nucleico que se encarga de trasladar la información genética del ADN con el fin de sintetizar las proteínas según las funciones y características indicadas.",
+        "respuesta": "ARN"
       }
     ],
     "B": [
       {
-        "pregunta": "Son bacterias que en su morfología presentan  forma de cilindros alargados",
-        "respuesta": "Bacilos"
+        "pregunta": "Tipo de nomenclatura taxonómica que solamente utiliza el género y la especie como la unidad básica para nombrar a los organismos.",
+        "respuesta": "Binomial"
       },
       {
-        "pregunta": "Son los microrganismos mas abundantes pertenecientes al reino Monera?",
+        "pregunta": "Son organismos que hacen parte del reino Monera.",
         "respuesta": "Bacterias"
       },
       {
-        "pregunta": " Nombre de la teoría que indica que hubo una gran exploción que quedió origen a la materia el espacio y el tiempo en el universo",
-        "respuesta": "Big Bang"
+        "pregunta": "Apellido del científico que estudió la relación entre el volumen y la presión de un gas a temperatura constante, Observando que el volumen de una masa dada de un gas es inversamente proporcional a su presión, siempre que la temperatura permanezca constante",
+        "respuesta": "Boyle"
       }
     ],
     "C": [
       {
-        "pregunta": "¿Cómo se llama el Organelo responsable de la fotosíntesis en las células vegetales?",
-        "respuesta": "Cloroplasto"
+        "pregunta": "Es una categoría taxonómica situada entre el filo o división y el orden, está formada por familias que comparten características con su desarrollo.",
+        "respuesta": "Clase"
       },
       {
-        "pregunta": "¿Cómo se denomimnan a los mamiferos adaptados a la vida acuática como el Delfín rosado?",
-        "respuesta": "Cetáceos"
+        "pregunta": "Es la proporción o relación que hay entre la cantidad de soluto y la cantidad de disolvente.",
+        "respuesta": "Concentración"
       },
       {
-        "pregunta": "¿Cómo se llama la sustancia que se encuentra en las células vegetales y le da rigidez?",
-        "respuesta": "Celulosa"
+        "pregunta": "Fue el fundador de la teoría moderna de la evolución",
+        "respuesta": "Charles Darwin"
       }
     ],
 	   "D": [
       {
-        "pregunta": "¿Como se le conoce al científico que postuló que los átomos eran pequeñas esferas rígidas, indivisibles e indestructibles?",
-        "respuesta": "Dalton"
+        "pregunta": "Nombre que reciben las Células u organismos con dotación doble de cromosomas, es decir, tiene dos copias de cada cromosoma.",
+        "respuesta": "Diploides"
       },
       {
-        "pregunta": "Es la resistencia que oponen las sustancias a ser rayadas",
-        "respuesta": "Dureza"
+        "pregunta": "Es un azúcar de cinco carbonos que se encuentra en el ADN",
+        "respuesta": "Desoxirribosa"
       },
       {
-        "pregunta": "Es la relación que existe entre la masa de una sustancia y su volumen.",
-        "respuesta": "Densidad"
+        "pregunta": "Enfermedad de herencia genética que Consiste en la incapacidad de distinguir determinados colores",
+        "respuesta": "Daltonismo"
       }
     ],
 	"E": [
       {
-        "pregunta": "¿Cómo se llama el proceso por el cual ocurre la salida sustancias o grupos de moléculas desdes el interior de la célula?",
-        "respuesta": "Exocitosis"
+        "pregunta": "Teoría que afirma que todos los seres vivos tienen un origen común y proceden unos de otros",
+        "respuesta": "Evolucionismo"
       },
       {
-        "pregunta": "Es el filo de animales marinos a los que pertenecen las Estrellas de mar",
-        "respuesta": "Equinodermos"
+        "pregunta": "Es el proceso de cambio y adaptación al entorno de los seres vivos",
+        "respuesta": "Evolución"
       },
       {
-        "pregunta": " Es el proceso mediante el cual, introduciendo energía calórica, parte de la masa de un líquido (no necesariamente la totalidad de la masa) se transforma en gas",
-        "respuesta": "Evaporación"
+        "pregunta": "Es el proceso por el que desaparecen todos los miembros de una especie o grupo de seres vivos",
+        "respuesta": "Extinción"
       }
     ],
 	"F": [
       {
-        "pregunta": "¿Cómo se llama el proceso por el cual las células incorporan dentro de ellas moléculas, grandes o pequeñas,?",
-        "respuesta": "Fagocitosis"
+        "pregunta": "Nombre de las características o Propiedades observables o físicas del genotipo",
+        "respuesta": "Fenotipo"
       },
       {
-        "pregunta": "¿Cómo se llama el proceso de transformación de la energía lumínica en energía química que realizan las plantas?",
-        "respuesta": "Fotosíntesis"
+        "pregunta": "Teoria que sostenía que los seres vivos se han mantenido siempre tal y como lo conocemos ahora.",
+        "respuesta": "Fijismo"
       },
       {
 	  
-        "pregunta": "¿Cómo es el nombre de la estructra celula que tiene en forma de látigo que se emplea para la movilidad en algunos son parásitos o tras células?",
-        "respuesta": "Flajelo"
+        "pregunta": "Es la categoría taxonómica conformada por varios géneros estructuralmente relacionados entre sí, con características comunes.",
+        "respuesta": "Familia"
       }
     ],
 		"G": [
       {
-        "pregunta": "¿Cómo se llama el grupo de plantas que no tienen flores ni frutos verdaderos, pero sí producen semillas.?",
-        "respuesta": "Gimnospermas"
+        "pregunta": "Es la rama de la biología que estudia los mecanismos de la herencia biológica y el ADN",
+        "respuesta": "Genética"
       },
       {
-        "pregunta": "Estado de la materia que se caracteriza porque sus partículas no están cohesionadas, y tienden a dispersarse, por lo que no tienen forma ni volumen fijos.",
-        "respuesta": "Gaseoso"
+        "pregunta": "Es todo el material genético de un organismo en particular y se hereda generación tras generación",
+        "respuesta": "Genoma"
       },
       {
 	  
-        "pregunta": "Azúcar común, con seis átomos de carbono (C6H12O6)",
-        "respuesta": "Glucosa"
+        "pregunta": "Son segmentos específicos de ADN son responsable de un determinado carácter en los organismos",
+        "respuesta": "Gen"
       }
     ],
 	"H": [
       {
-        "pregunta": "¿ Sí la concentración de solutos es mayor en el medio extracelular es una solución?",
-        "respuesta": "Hipertónica"
+        "pregunta": "Nombre de las enzimas que separan las dos cadenas del ADN para que puedan servir de molde para la síntesis de las nuevas en el proceso de replicación. ",
+        "respuesta": "Helicasas"
       },
       {
-        "pregunta": "Si la concentración en el medio es menor fuera de la celula que en el interior de la misma se dice que se encuentra en una solución?",
-        "respuesta": "Hipotónica"
+        "pregunta": "Enfermedad hereditaria que se caracteriza por la incapacidad de coagular la sangre, debido a la mutación de uno de los factores proteicos",
+        "respuesta": "Hemofilia"
       },
       {
 	  
-        "pregunta": "¿Cómo se llama el pigmento que da el color rojo a la sangre?",
-        "respuesta": "Hemoglobina"
+        "pregunta": "¿El nombre Fungí se utiliza para designar al reino compuesto por organismos como los?",
+        "respuesta": "Hongos"
       }
     ],
 	"I": [
       {
-        "pregunta": "Son aquellos animales que carecen de cuerda dorsal, columna vertebral y esqueleto interno. Es decir, no tienen huesos",
-        "respuesta": "Invertebrados"
+        "pregunta": "Es el tipo de interacción que tienen lugar usualmente entre dos o más individuos pertenecientes a especies diferentes.",
+        "respuesta": "Interespecifica"
       },
       {
-        "pregunta": "Son animales invertebrados del filo de los artrópodos, caracterizados por presentar un par de antenas?",
-        "respuesta": "Insecto"
+        "pregunta": "Un ecosistema está conformado por _______________, población y comunidad",
+        "respuesta": "Individuo"
       },
       {
-        "pregunta": "¿Cómo se llama el proceso en el cual el agua que ha caído en la superficie terrestre como consecuencia de las precipitaciones penetra en el suelo. Una parte es aprovechada por la naturaleza y los seres vivos, mientras que la otra se incorpora a las aguas subterráneas?",
-        "respuesta": "Infiltración"
+        "pregunta": "-	 Las soluciones electrolíticas también llamada _________",
+        "respuesta": "Iónicas"
       }
     ],
     "J": [
       
       {
-        "pregunta": "Es la unidad de medida de energía definida por el Sistema Internacional de Unidades",
-        "respuesta": "Julio"
+        "pregunta": "Nombre del científico cuyos experimentos demostraron que el calor es una forma de energía",
+        "respuesta": "Joule"
       }
     ],
     "K": [
       {
-        "pregunta": " Es la unidad de temperatura en el sistema internacional",
+        "pregunta": "Unidas de medida para temperatura",
         "respuesta": "Kelvin"
       }
     ],
 	   "L": [
       {
-        "pregunta": "¿Cómo se llama el organelo encargado de la digestión intracelular?",
-        "respuesta": "Lisosomas"
+        "pregunta": "Es el lugar específico de un gen en un cromosoma.",
+        "respuesta": "Locus"
       },
       {
-        "pregunta": "¿Cómo se llama el centífico conocido como el padre de la Microbiología moderna, quien demostro la falsedad de la teoría de la Generación Espontánea?",
-        "respuesta": "Louis Pasteur"
+        "pregunta": "Nombre de las sustancias que pueden disolverse más fácilmente en aceites",
+        "respuesta": "Liposolubles"
       },
       {
-        "pregunta": "¿Cómo se llama el estado de la materia en el que las partículas se encuentran bastante juntas para conservar una cohesión mínima y a la vez que lo suficientemente dispersas para permitir la fluidez y el cambio de forma?",
-        "respuesta": "Líquido"
+        "pregunta": "-	¿El vinagre o agua oxigenada son soluciones __________?",
+        "respuesta": "Líquidas"
       }
     ],
 	"M": [
       {
-        "pregunta": "¿Cómo se llama el instrumento que permite observar objetos que son demasiado pequeños como para ser vistos por la vista del ser humano.?",
-        "respuesta": "Microscopio"
+        "pregunta": "Es una variación espontánea e impredecible en la secuencia de genes que componen el ADN de un ser vivo, que introduce cambios puntuales",
+        "respuesta": "Mutación"
       },
       {
-        "pregunta": "Se denomina el conjunto de normas por el cual debemos regirnos para producir conocimiento con rigor y validez científica",
-        "respuesta": "Método Científico"
+        "pregunta": "Nombre que reciben las enfermedades genéticas que se producen por la alteración de un solo gen",
+        "respuesta": "Monogenéticas"
       },
       {
-        "pregunta": "Es la fábrica de energía de las células. Aquí se efectúa la respiración celular",
-        "respuesta": "Mitocondria"
+        "pregunta": "¿Nombre del proceso de división celular en el que se producen células genéticamente idénticas de modo que el núcleo de las células duplica su material para dividirse?",
+        "respuesta": "Mitosis"
+      },
+      {
+        "pregunta": "Es el número de moles de soluto que están disueltos en un determinado volumen",
+        "respuesta": "Molaridad"
       }
     ],
 	"N": [
       {
-        "pregunta": "Nombre de partícula subatómica presente en el núcleo de algunos átomos y dotada de una carga eléctrica neutra",
-        "respuesta": "Neutrón"
+        "pregunta": "Es el número de Equivalentes Químicos (EQ) o equivalentes-gramo de soluto por litro de disolución.",
+        "respuesta": "Normalidad"
       },
       {
-        "pregunta": " Nombre del organelo celular que contiene el material genético en las células eucariotas.",
-        "respuesta": "Nucleo"
+        "pregunta": "Son enzimas que se encargan de romper los enlaces fosfodiéster entre nucleótidos, dando lugar aun “punto de origen” o inicio de replicación.",
+        "respuesta": "Nucleasas"
       },
       {
 	  
-        "pregunta": "Son sustancias químicas esenciales para el crecimiento, mantenimiento y funcionamiento del cuerpo",
-        "respuesta": "Nutrientes"
+        "pregunta": "¿ (nº de Equivalentes / litros de disolución) corresponde a?",
+        "respuesta": "Normalidad"
       }
     ],
 		"O": [
       {
-        "pregunta": "Es el proceso de difusión de agua a través de una membrana semipermeable","respuesta": "Osmosis"
+        "pregunta": "Es la categoría taxonómica entre la clase y la familia, está formado por familias relacionadas entre sí, que comparten características con su desarrollo.",
+        "respuesta": "Orden"
       },
       {
-        "pregunta": "Es la parte del microscopio que magnifica la imagen producida por el objetivo del microscopio, por donde podemos observar (Singular)",
-        "respuesta": "Ocular"
+        "pregunta": "Se define como una perturbación suelen necesitar de un medio material para propagarse, aunque algunas lo pueden hacer perfectamente en el vacío",
+        "respuesta": "Onda"
       },
       {
 	  
-        "pregunta": "Clasificación de los organismos según su tipo alimentación en los que se alimentan tanto de animales como de plantas (Plural)",
-        "respuesta": "Omnivoros"
+        "pregunta": "Órgano encargado de percibir las ondas sonaras para que estas sean interpretadas ",
+        "respuesta": "Oido"
       }
     ],
 	"P": [
       {
-        "pregunta": " Es el procesos en en el cual las vesículas permiten la ingestión de líquidos y partículas en disolución en las Celulas",
-        "respuesta": "Pinocitosis "
+        "pregunta": "Nombre que reciben las enfermedades genéticas generadas por mutaciones en varios genes, generalmente de diferentes cromosomas.",
+        "respuesta": "Poligénicas "
       },
       {
-        "pregunta": " Nombre de la una partícula subatómica con una carga eléctrica elemental positiva",
-        "respuesta": "Protón"
+        "pregunta": "¿Cuál es reino que barca los protozoos, que son unicelulares, y las algas, que pueden ser unicelulares o pluricelulares (coloniales)?",
+        "respuesta": "Protista"
       },
       {
 	  
-        "pregunta": "Se llama así a la cadena molecular de gran tamaño compuestas por piezas más simples y unidas, para lograr secuencias más largas, que tengan propiedades nuevas y específicas.",
-        "respuesta": "Polimero"
-      },
-      {
-        "pregunta": "Es la fuerza con la cual la gravedad atrae un cuerpo hacia el centro de la Tierra",
-        "respuesta": "Peso"
+        "pregunta": "-	Es el grupo de organismos del mismo tipo (especie), que viven en un mismo lugar.",
+        "respuesta": "Población"
       }
     ],
 	"Q": [
       {
-        "pregunta": "Es la ciencia natural que estudia la composición, estructura y propiedades de la materia",
-        "respuesta": "Química"
+        "pregunta": "El proceso mediante el cual los organismos utilizan la energía química para sintetizar compuestos orgánicos a partir de sustancias inorgánicas.",
+        "respuesta": "Quimiosíntesis"
       },
       {
-        "pregunta": "Es una proteína que, entre otras funciones, contribuye al endurecimiento de la capa superficial de la piel y del pelo",
-        "respuesta": "Queratina"
+        "pregunta": "Receptor sensorial que detecta y responde a los cambios en la concentración de sustancias químicas en el entorno.",
+        "respuesta": "Quimiorreceptor"
       }
     ],
     "R": [
       {
-        "pregunta": "¿Cómo se llama la estructura celular encargada de la producción de proteínas?",
-        "respuesta": "Ribosoma"
+        "pregunta": "Es el proceso mediante el cual una molécula de ADN genera dos idénticas a sí misma.",
+        "respuesta": "Replicación"
       },
       {
-        "pregunta": "¿Cómo se llama el proceso celular en el que se utiliza el oxígeno para producir energía?",
-        "respuesta": "Respiración celular"
+        "pregunta": "Nombre de la azúcar que compone al ARN.",
+        "respuesta": "Ribosa"
       },
       {
-        "pregunta": "Son un grupo de animales vertebrados, provistos de escamas epidérmicas, mudan su piel y habitan lugares secos.",
-        "respuesta": "Reptiles"
+        "pregunta": "Esta categoría taxonómica, es la más conocida por todos. Separa los organismos según el tipo de células, la cantidad de células y los procesos fisiológicos fundamentales.",
+        "respuesta": "Reino"
       }
     ],
     "S": [
       {
-        "pregunta": "Estado de la materia que se caracteriza por una disposición específica sus partículas, basada en nexos muy rígidos y fuertes, lo cual se traduce en una estructura física muy bien definida?",
-        "respuesta": "Solido"
-      },
-      {
-        "pregunta": "¿ Cuál es nombre del proceso mediante el cual, suministrando calor, un sólido se transforma en gas, sin pasar antes por el estado líquido?",
-        "respuesta": "Sublimación"
-      },
-      {
-        "pregunta": "la propiedad que tienen algunas sustancias para disolverse en un líquido formando una solución",
+        "pregunta": "Es la capacidad que posee determinada sustancia para disolverse en otra y formar un sistema homogéneo",
         "respuesta": "Solubilidad"
+      },
+      {
+        "pregunta": "Es la sustancia en la que se disuelve un determinado soluto",
+        "respuesta": "Solvente"
+      },
+      {
+        "pregunta": "¿Cuándo el resultado de la duplicación se obtiene una molécula de ADN posee una hebra vieja y una hebra nueva se denomina?",
+        "respuesta": "Semiconservativa"
       }
     ],
 	   "T": [
       {
-        "pregunta": "¿Cómo se llama la rama de la Biología que se ocupa de clasificar y dar nombre a los seres vivos?",
-        "respuesta": "Taxonimía"
+        "pregunta": "Es la ciencia que estudia el ordenamiento y clasificación de los seres vivos",
+        "respuesta": "Taxonomía"
       },
       {
-        "pregunta": "¿Cómo se llama el Mecanismo por el cual las sustancias atraviesan la membrana celular a favor de sus gradientes de concentración, por lo tanto, no requieren de un aporte energético?",
-        "respuesta": "Transporte Pasivo"
+        "pregunta": "Es el tipo de ARN que se caracterizan por poseer una secuencia específica de tres nucleótidos, llamado anticodón, que reconoce el codón en el ARNm.",
+        "respuesta": "Transferencia"
       },
       {
-        "pregunta": "¿Cómo se llama el Mecanismo por el cual las sustancias que atraviesan la membrana plasmática en contra de un gradiente de concentración y por ello necesitan el aporte energético del ATP?",
-        "respuesta": "Transporte Activo"
+        "pregunta": "Es la cantidad de individuos nacidos en un tiempo determinado",
+        "respuesta": "Tasa de natalidad"
       }
     ],
 	"U": [
       {
-        "pregunta": "¿Característica que describe cuando un organismo esta conformado por una sola célula?",
-        "respuesta": "Unicelular"
+        "pregunta": "Nombre de la base nitrogenada que solo es posible encontrar normalmente en moléculas de ARN.",
+        "respuesta": "Uracilo"
       },
       {
-        "pregunta": "Estructura dura que cubre y protege la parte superior de la punta de los dedos del ser humano y otros vertebrados (Plural).",
-        "respuesta": "Uñas"
-      },
-      {
-        "pregunta": " Nombre del Órgano interno de las hembras de los animales vivíparos en el que se desarrolla el feto",
-        "respuesta": "Útero"
+        "pregunta": "Tipo de Ondas que se propagan a lo largo de una sola dimensión del espacio, como las ondas en los muelles o en las cuerdas.",
+        "respuesta": "Unidimensionales"
       }
     ],
 	"V": [
       {
-        "pregunta": "Son pequeñas bolsas que almacenan y transportan enzimas e iones en las células",
-        "respuesta": "Vacuolas"
+        "pregunta": "Magnitud cuya unidad de medida es el metro cubico m^3",
+        "respuesta": "Volumen"
       },
       {
-        "pregunta": " Son aquellos animales que poseen espina dorsal o columna vertebral.",
-        "respuesta": "Vertebrados"
+        "pregunta": "Es la zona más baja de la onda",
+        "respuesta": "Valle"
       },
       {
 	  
-        "pregunta": " Es el espacio que ocupa un cuerpo. Se expresa en cm3 o m3",
-        "respuesta": "Volumen"
+        "pregunta": "¿Por qué medio se pueden trasmitirse las ondas electromagnéticas, pero no las mecánicas?",
+        "respuesta": "Vacío"
       }
     ],
 	"W": [
       {
         "pregunta": "Es la unidad de medida de la potencia (En Inglés)",
-        "respuesta": "WATT"
+        "respuesta": "Watt"
       }
     ],
 	"X": [
       {
-        "pregunta": "Pigmentos de coloración amarilla parda presentes en hojas, frutos y flores.",
-        "respuesta": "Xantofilas"
+        "pregunta": "Es un elemento químico de la tabla periódica cuyo símbolo es Xe es un Gas noble inodoro, muy pesado, incoloro.",
+        "respuesta": "Xenón "
       },
       {
         "pregunta": "Es una estructura que transporta, a través de la planta, agua y sales minerales disueltas",
@@ -317,18 +318,22 @@ const preguntas = {
     ],
 	"Y": [
       {
-        "pregunta": "Núcleo de los huevos de los vertebrados ovíparos; es esferoidal (singular)",
+        "pregunta": "-	Estructura en forma de brote que se encuentra en las plantas y que contiene células indiferenciadas capaces de crecer y desarrollarse en nuevos tejidos.",
         "respuesta": "Yema"
+      },
+      {
+        "pregunta": "Elemento de la tabla periódica I",
+        "respuesta": "Yodo "
       }
     ],
     "Z": [
       {
-        "pregunta": "¿Nombre de La rama de la biología que se ocupa del estudio de los animales.?",
-        "respuesta": "Zoología"
+        "pregunta": "Célula resultada de la fertilización, que se forma cuando un espermatozoide se fusiona con un óvulo.",
+        "respuesta": "Zigoto"
       },
       {
-        "pregunta": "Es una división parafilética de hongos que se caracterizan por formar zygosporas con gruesas paredes, de origen sexual y esporangiosporas no nadadoras, de origen asexual",
-        "respuesta": "Zygomycota"
+        "pregunta": "-	Nombre de La rama de la biología que se ocupa del estudio de los animales.",
+        "respuesta": "Zoología"
       }
     ]
   }

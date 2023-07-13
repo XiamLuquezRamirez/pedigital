@@ -113,7 +113,7 @@ let Preguntas = [
         },
         {
           "frase": "El pájaro voló alto en el cielo. ¿Cuál es la categoría gramatical de la palabra \"alto\"?",
-          "opciones": ["Verbo", "", "Adjetivo", "Adverbio"],
+          "opciones": ["Verbo", "Adjetivo", "Sustantivo", "Adverbio"],
           "opcion_correcta": "Adjetivo"
         },
         {

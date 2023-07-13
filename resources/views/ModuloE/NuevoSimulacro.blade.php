@@ -208,8 +208,6 @@
                             });
                         }
                     });
-
-
                 },
 
                 AddSesion: function() {
@@ -218,6 +216,8 @@
                         backdrop: 'static',
                         keyboard: false
                     });
+                    $("#DescSesion").val("");
+                    $("#TSesion").val("");
                 },
                 DelAreaSesion: function(Sesi) {
 
@@ -278,12 +278,11 @@
                             });
                         }
                     });
-
-
                 },
                 ParSesion: function(id) {
                     var IdSimu = $("#Id_Simu").val();
                     var IdSesi = $("#" + id).data('value');
+                    var titSesion = "";
 
                     $("#IdSesionGen").val(IdSesi);
 
@@ -302,11 +301,13 @@
                         dataType: "json",
                         success: function(respuesta) {
                             $("#tr_areas").html(respuesta.Areas);
+                            titSesion = respuesta.DetaSesion.sesion;
                         }
                     });
 
 
-                    $("#Tit_ProceSimu").html('<i class="ft-settings"></i> Parametrización Sesión');
+                    $("#Tit_ProceSimu").html('<i class="ft-settings"></i> Parametrización ' +
+                    titSesion);
                     $("#Div_Sesiones").hide();
                     $("#div-addSesion").hide();
                     $("#AreasAgregadas").show();
@@ -315,6 +316,8 @@
                     $("#Div_Sesiones").show();
                     $("#div-addSesion").show();
                     $("#AreasAgregadas").hide();
+                    $("#Tit_ProceSimu").html('<i class="ft-settings"></i> Parametrización Sesiones');
+
                 },
                 AtrasAreas: function() {
                     $("#DetaAreas").hide();
@@ -421,6 +424,25 @@
                     }
                 },
 
+                valnPregarea: function(val) {
+
+                    var nPreArea = $("#n_preguntas").val();
+
+                    if (parseInt(val) > parseInt(nPreArea)) {
+                        mensaje =
+                            "La Cantidad de pregunta por Competencia y Componente no debe ser mayor a la Cantidad de preguntas por Área.";
+                        Swal.fire({
+                            title: "Gestión de Simulacros",
+                            text: mensaje,
+                            icon: "warning",
+                            button: "Aceptar",
+                        });
+                        $("#PorcPreguntas").val("");
+                        return;
+
+                    }
+
+                },
                 AddComp: function() {
 
                     var comptext = $("select[name='Competencia'] option:selected").text();
@@ -616,8 +638,8 @@
                                     '    <button onclick="$.MostrarPreguntas(' +
                                     items.id +
                                     ')" type="button" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></button>' +
-                                    ' <button onclick="$.AgregarPregunta(' + items
-                                    .id +
+                                    ' <button id="btn_addPreg' + items.id +
+                                    '" onclick="$.AgregarPregunta(' + items.id +
                                     ')" type="button" class="btn btn-icon btn-outline-info"><i class="fa fa-plus"></i></button>' +
                                     '  </div>' +
                                     '   </div>' +
@@ -653,6 +675,7 @@
                         async: false,
                         dataType: "json",
                         success: function(respuesta) {
+
                             var flag = true;
                             for (var i = 0; i < pregCompAgregados.length; i++) {
                                 // Verificar si el componente cumple la condición de búsqueda
@@ -667,7 +690,7 @@
 
                                 if (npreg <= parseInt($("#nPregCompoxCompe").val())) {
 
-                                    //AGREGAR PREGUNTAS A LA  TABLA DE PREGUNTAS
+                                    //AGREGAR PREGUNTAS A LA TABLA DE PREGUNTAS
 
                                     let PreEnunciado = '';
                                     let Preguntas = '';
@@ -678,7 +701,8 @@
                                             "CUAL PALABRA CONCUERDA CON LA DESCRIPCIÓN DE LA FRASE?";
 
                                         Preguntas +=
-                                            '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">' +
+                                            '<div class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar' +
+                                            idBanco + '">' +
                                             '<h4 class="primary">' + PreEnunciado +
                                             '!</h4>' +
                                             respuesta.Parte1.pregunta +
@@ -686,7 +710,9 @@
 
 
                                         $.each(respuesta.Preguntas, function(x, items) {
-                                            Preguntas += "<div class='row'>";
+                                            Preguntas +=
+                                                "<div class='row eliminar" +
+                                                idBanco + "'>";
                                             Preguntas += "<div class='col-12'>";
                                             Preguntas +=
                                                 ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">' +
@@ -721,7 +747,8 @@
                                         PreEnunciado =
                                             "RESPONDA LA SIGUIENTE PREGUNTA SEGUN EL SIGUIENTE ENUNCIADO";
                                         Preguntas +=
-                                            '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">' +
+                                            '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar' +
+                                            idBanco + '">' +
                                             '<h4 class="primary">' + PreEnunciado +
                                             '!</h4>' +
                                             respuesta.Banco.enunciado +
@@ -730,7 +757,8 @@
                                         $.each(respuesta.PregMult, function(y, itemsP) {
 
                                             Preguntas +=
-                                                ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">' +
+                                                ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 eliminar' +
+                                                idBanco + '">' +
                                                 '<h4 class="success">Pregunta ' +
                                                 conse +
                                                 '</h4><input type="hidden" name="Preguntas[]" value="' +
@@ -781,14 +809,26 @@
                                     };
 
                                     pregCompAgregados.push(nuevoElemento);
-
                                     console.log(pregCompAgregados);
+
 
                                     $("#PreguntasxAreas").append(Preguntas);
 
                                     ////////////////////////////////
 
                                     $("#nPregCompoxCompeSel").val(npreg);
+
+                                    ////
+
+                                    var button = document.getElementById('btn_addPreg' +
+                                        idBanco);
+                                    var liElement = button.querySelector('i');
+
+                                    liElement.className = liElement.className.replace(
+                                        'fa-plus', 'fa-minus');
+                                    button.setAttribute('onclick', '$.QuitarPregunta(' +
+                                        idBanco + ')');
+                                    button.setAttribute('title', 'Quitar Pregunta');
 
 
                                 } else {
@@ -809,20 +849,60 @@
                                 } else {
                                     mensaje = "Esta Pregunta ya esta agregada a la sesión";
                                 }
+
+                                var button = document.getElementById('btn_addPreg' +
+                                    idBanco);
+                                var liElement = button.querySelector('i');
+
+                                liElement.className = liElement.className.replace('fa-plus',
+                                    'fa-minus');
+                                button.setAttribute('onclick', '$.QuitarPregunta(' +
+                                    idBanco + ')');
+                                button.setAttribute('title', 'Quitar Pregunta');
+
+
+
                                 Swal.fire({
                                     title: "Gestión de Simulacros",
                                     text: mensaje,
                                     icon: "warning",
                                     button: "Aceptar",
                                 });
+
+
                             }
-
-
-
-
 
                         }
 
+                    });
+                },
+
+                QuitarPregunta: function(idBanco) {
+
+                    var button = document.getElementById('btn_addPreg' + idBanco);
+                    var liElement = button.querySelector('i');
+
+                    liElement.className = liElement.className.replace('fa-minus', 'fa-plus');
+                    button.setAttribute('onclick', '$.AgregarPregunta(' + idBanco + ')');
+                    button.setAttribute('title', 'Agregar Pregunta');
+
+                    var elementoEncontrado = pregCompAgregados.find(function(item) {
+                        return item.banco === idBanco;
+                    });
+
+                    $("#nPregCompoxCompeSel").val($("#nPregCompoxCompeSel").val() - elementoEncontrado
+                        .npreg);
+
+                    conse = conse - elementoEncontrado.npreg;
+
+                    pregCompAgregados = pregCompAgregados.filter(function(item) {
+                        return item.banco !== idBanco;
+                    });
+
+                    var pregunatasAdd = document.querySelectorAll('.eliminar' + idBanco);
+
+                    pregunatasAdd.forEach(function(preg) {
+                        preg.remove();
                     });
                 },
                 MostrarPreguntas: function(idBanco) {
@@ -2017,7 +2097,10 @@
                                 "</option>";
                         });
 
+
+
                         $("#compxcompo").html(option);
+                        $("#listPreguntas").html("");
 
                     } else {
                         $.ajax({

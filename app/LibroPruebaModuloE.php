@@ -156,7 +156,6 @@ class LibroPruebaModuloE extends Model
             ->where("alumnos.estado_alumno", 'ACTIVO')
             ->groupBy('alumnos.usuario_alumno')
             ->get();
-        dd($DesPrueba);
         return $DesPrueba;
     }
 

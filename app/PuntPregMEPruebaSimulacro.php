@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class PuntPregMEPruebaSimulacro extends Model
 {
@@ -44,6 +46,9 @@ class PuntPregMEPruebaSimulacro extends Model
 
     }
 
+
+
+
     public static function ConsulPunt($IdSesion, $IdArea, $alum)
     {
         $Opc = PuntPregMEPruebaSimulacro::where('sesion', $IdSesion)
@@ -51,6 +56,14 @@ class PuntPregMEPruebaSimulacro extends Model
             ->where('alumno', $alum)
             ->get();
         return $Opc;
+    }
+
+    public static function ConsulPuntAlumno($IdArea,$Idsimu,$alum)
+    {
+        $DetSesion = DB::connection("mysql")->select("SELECT SUM(puntos) pts FROM  puntuacion_preguntas_me_prueba ppme "
+       ." LEFT JOIN  me_sesiones_simulacros mss ON ppme.sesion=mss.id"
+       ." WHERE ppme.alumno=".$alum." AND mss.id_simulacro=".$Idsimu." AND ppme.area=".$IdArea."");
+        return $DetSesion[0];
     }
 
 }

@@ -521,6 +521,8 @@ Route::post('/ModuloE/PreguntasxBanco', 'ModuloEController@PreguntasxBanco');
 Route::get('/ModuloE/gestionInfSimulacros', 'ModuloEController@gestionInfSimulacros');
 Route::post('/ModuloE/CargarSimulacros', 'ModuloEController@ConsultarListSimulacros');
 Route::post('/ModuloE/CargaEstxSimulacro', 'ModuloEController@CargaEstxSimulacro');
+Route::post('/ModuloE/InfIndividual', 'ModuloEController@InfIndividual');
+//Route::post('/ModuloE/InfIndividual', [ModuloEController::class, 'InfIndividual']);
 
 
 ////Áreas

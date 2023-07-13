@@ -141,16 +141,17 @@
                 <div class="modal-body">
                     <div class="modal-header bg-blue white">
                         <h4 class="modal-title" id="titu_tema">Informe Individual de Prueba</h4>
-                   
+
 
                     </div>
 
                     <div id="importar" class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <label class="form-label"  for="presentacion_modulo">Simulacro:</label>
-                                <select name="simulacro"style="width: 100%" id="simulacro" onchange="$.CargaEstudiantes(this.value);" class="form-control select2">
-                                  
+                                <label class="form-label" for="presentacion_modulo">Simulacro:</label>
+                                <select name="simulacro"style="width: 100%" id="simulacro"
+                                    onchange="$.CargaEstudiantes(this.value);" class="form-control select2">
+
                                 </select>
                             </div>
                             <div class="col-md-12">
@@ -166,8 +167,8 @@
                                                     <th>Nombre</th>
                                                     <th>Apellido</th>
                                                     <th class="text-center"><label style='cursor: pointer;'><input
-                                                                type='checkbox' onclick="$.SelAllEst();"
-                                                                id="SelAll" value=''>
+                                                                type='checkbox' onclick="$.SelAllEst();" id="SelAll"
+                                                                value=''>
                                                             Seleccionar
                                                         </label></th>
                                                 </tr>
@@ -179,11 +180,11 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer" style="display: none;" id="btn-acciones">
-                                    <button type="button" onclick="$.Promover();" class="btn btn-outline-cyan"><i
+                                    <button type="button" onclick="$.imprimirInf();" class="btn btn-outline-cyan"><i
                                             class="fa fa-file-pdf-o"></i>
                                         mostrar Resultado</button>
-                           
-                                   
+
+
                                 </div>
                             </div>
                         </div>
@@ -236,7 +237,8 @@
 
                     var form = $("#formAuxiliarSimu");
                     $("#_token").remove();
-                    form.append("<input type='hidden' name='_token' id='_token' value='" + token + "'>");
+                    form.append("<input type='hidden' name='_token' id='_token' value='" + token +
+                    "'>");
                     var url = form.attr("action");
                     var datos = form.serialize();
                     $.ajax({
@@ -253,38 +255,49 @@
                     $('#modalInforme').modal('toggle');
                 },
                 CargaEstudiantes: function(idSimu) {
-                    alert("entr");
+
                     var token = $("#token").val();
 
                     var form = $("#forminfEstuSimulacro");
                     $("#_token").remove();
                     $("#idSimu").remove();
-                    form.append("<input type='hidden' name='_token' id='_token' value='" + token + "'>");
-                    form.append("<input type='hidden' name='idSimu' id='idSimu' value='" + idSimu + "'>");
+                    form.append("<input type='hidden' name='_token' id='_token' value='" + token +
+                    "'>");
+                    form.append("<input type='hidden' name='idSimu' id='idSimu' value='" + idSimu +
+                        "'>");
                     var url = form.attr("action");
                     var datos = form.serialize();
+
+                    var Tabla = "";
+                    var j = 1;
+
                     $.ajax({
                         type: "POST",
-     
+
                         url: url,
                         data: datos,
                         dataType: "json",
                         success: function(respuesta) {
-                            if (Object.keys(respuesta.Alumnos).length > 0) {
-                                $.each(respuesta.Alumnos, function(i, item) {
+                            if (Object.keys(respuesta.Estusimulacro).length > 0) {
+                                $.each(respuesta.Estusimulacro, function(i, item) {
                                     Tabla += " <tr data-id='" + item.id +
                                         "' id='Alumno" + item.id + "'>";
                                     Tabla += "<td class='text-truncate'>" + j +
                                         "</td> ";
-                                    Tabla += "<td class='text-truncate'>" + item.ident_alumno + "</td> ";
-                                    Tabla += "<td class='text-truncate'>" + item.nombre_alumno + "</td> ";
-                                    Tabla += "<td class='text-truncate'>" + item.apellido_alumno + "</td> ";
+                                    Tabla += "<td class='text-truncate'>" + item
+                                        .ident_alumno + "</td> ";
+                                    Tabla += "<td class='text-truncate'>" + item
+                                        .nombre_alumno + "</td> ";
+                                    Tabla += "<td class='text-truncate'>" + item
+                                        .apellido_alumno + "</td> ";
                                     Tabla +=
-                                        "<input type='hidden' name='idestu[]' value='" + item.id + "'>"+
-                                        "<input type='hidden' name='usuEstu[]' value='" + item.usuario_alumno + "'>"+
+                                        "<input type='hidden' name='idestu[]' value='" +
+                                        item.id + "'>" +
+                                        "<input type='hidden' name='usuEstu[]' value='" +
+                                        item.usuario_alumno + "'>" +
                                         "<input type='hidden' id='EstSel" +
                                         j +
-                                        "' name='EstSel[]' value='no'><td class='text-truncate text-center'><input type='checkbox' onclick='$.SelAlumno(" +
+                                        "' name='EstSel[]' value='no'><td class='text-truncate text-center'><input type='checkbox' name='checkSelEst' onclick='$.SelAlumno(" +
                                         j + ");' id='Seleccion" +
                                         j +
                                         "' style='cursor: pointer;' name='AlumnoSel' value=''></td> ";
@@ -298,7 +311,7 @@
                                 $("#btn-acciones").hide();
                                 swal.fire({
                                     title: "Administrar Estudiantes",
-                                    text: 'No existen Estudiantes registrados con estos parametros',
+                                    text: 'Ningun estudiante a desarrollado este Simulacro',
                                     icon: "warning",
                                     button: "Aceptar",
                                 });
@@ -306,21 +319,105 @@
                         }
                     });
                 },
+                SelAlumno: function(id) {
+
+                    // Nombre del grupo de checkboxes
+                    const nombreCheckboxes = 'checkSelEst';
+
+                    // Obtener todos los checkboxes con el nombre especificado
+                    const checkboxes = document.querySelectorAll(
+                        `input[type="checkbox"][name="${nombreCheckboxes}"]`);
+                    console.log(checkboxes);
+                    // Verificar si todos los checkboxes están seleccionados
+                    const todosSeleccionados = Array.from(checkboxes).every(checkbox => checkbox
+                        .checked);
+
+                    // Generar la respuesta
+                    let respuesta;
+                    if (todosSeleccionados) {
+                        $("#SelAll").prop("checked", true);
+                    } else {
+                        $("#SelAll").prop("checked", false);
+                    }
+
+                    // Imprimir la respuesta
+                    console.log(respuesta);
+
+
+
+                    if ($('#Seleccion' + id).prop('checked')) {
+                        $("#EstSel" + id).val("si");
+                    } else {
+                        $("#EstSel" + id).val("no");
+
+                    }
+                },
                 SelAllEst: function() {
                     var j = 1;
                     if ($('#SelAll').prop('checked')) {
-                        $("input[name='AlumnoSel']").each(function(indice, elemento) {
+                        $("input[name='checkSelEst']").each(function(indice, elemento) {
                             $(elemento).prop("checked", true);
                             $("#EstSel" + j).val("si");
                             j++;
                         });
                     } else {
-                        $("input[name='AlumnoSel']").each(function(indice, elemento) {
+                        $("input[name='checkSelEst']").each(function(indice, elemento) {
                             $(elemento).prop("checked", false);
                             $("#EstSel" + j).val("no");
                             j++;
                         });
                     }
+                },
+                imprimirInf: function(DesEst) {
+                   var simulacro  = $("#simulacro").val();
+                    var flag = "no";
+                    $("input[name='checkSelEst']").each(function(indice, elemento) {
+                        if ($(elemento).prop('checked')) {
+                            flag = "si";
+                            return;
+                        }
+                    });
+
+                    if (flag === "si") {
+                        var form = $("#FormEstudiantes");
+                        var token = $("#token").val();
+                        $("#simulacro").remove();
+                        $("#_token").remove();
+                        form.append("<input type='hidden' name='simulacro' id='simulacro' value='"+simulacro+"'>");
+                        form.append("<input type='hidden' name='_token'  id='_token' value='" + token + "'>");
+                        var url = form.attr("action");
+                        var datos = form.serialize();
+                        var mensaje = "";
+
+                        $.ajax({
+                            url: url,
+                            method: 'POST',
+                            data: datos,
+                            xhrFields: {
+                                responseType: 'blob'
+                            },
+                            success: function (data) {
+                                // Crear un enlace de descarga para el PDF
+                                var a = document.createElement('a');
+                                var url = window.URL.createObjectURL(data);
+                                a.href = url;
+                                a.download = 'ResultadoIndividual.pdf';
+                                a.click();
+                                window.URL.revokeObjectURL(url);
+                            }
+                        });
+
+                    } else {
+                        swal.fire({
+                            title: "Adminitrar Estudiantes",
+                            text: "Debe Seleccionar almenos un Estdiante",
+                            icon: "warning",
+                            button: "Aceptar",
+                        });
+                    }
+
+
+
                 },
             });
 
