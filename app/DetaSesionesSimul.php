@@ -16,6 +16,7 @@ class DetaSesionesSimul extends Model
         'num_preguntas',
         'tiempo_sesion',
         'estado',
+        'habilitado'
     ];
 
     public static function Guardar($datos)
@@ -38,6 +39,14 @@ class DetaSesionesSimul extends Model
         return $respuesta;
     }
 
+    public static function updateStatusSesion($Ses, $status){
+        $respuesta = DetaSesionesSimul::where(['id' => $Ses])->update([
+            'habilitado' => $status
+        ]);
+
+        return $respuesta;
+    }
+
     public static function ConsultarSesiones($simu)
     {   
         $DetSesiones = DetaSesionesSimul::leftJoin('me_sesiones_alumnos', function ($join) {
@@ -46,7 +55,7 @@ class DetaSesionesSimul extends Model
         })
             ->where('me_sesiones_simulacros.id_simulacro', $simu)
             ->where('me_sesiones_simulacros.estado', "ACTIVO")
-            ->select('me_sesiones_simulacros.id', 'me_sesiones_simulacros.id_simulacro', 'me_sesiones_simulacros.sesion', 'me_sesiones_simulacros.num_preguntas', 'me_sesiones_simulacros.tiempo_sesion', 'me_sesiones_alumnos.estado')
+            ->select('me_sesiones_simulacros.id', 'me_sesiones_simulacros.id_simulacro', 'me_sesiones_simulacros.sesion', 'me_sesiones_simulacros.num_preguntas', 'me_sesiones_simulacros.tiempo_sesion','me_sesiones_simulacros.habilitado', 'me_sesiones_alumnos.estado')
             ->get();
         return $DetSesiones;
     }

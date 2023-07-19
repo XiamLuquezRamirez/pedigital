@@ -864,6 +864,9 @@ class ModuloEController extends Controller
             $id = request()->get('IdSes');
             $status = "success";
 
+            $verfSesiones = \App\SesionAlumnos::Verifsesion($id);
+
+            if($verfSesiones->count() <= 0) {           
             $SesionSimulacro = \App\DetaSesionesSimul::Eliminar($id);
             if ($SesionSimulacro) {
                 $SesionArea = \App\SessionArea::EliminarSesion($id);
@@ -885,6 +888,10 @@ class ModuloEController extends Controller
             } else {
                 $status = "error";
             }
+
+        }else{
+            $status="no";
+        }
 
             if (request()->ajax()) {
                 return response()->json([
@@ -3025,7 +3032,23 @@ class ModuloEController extends Controller
     {
         if (Auth::check()) {
             $datos = request()->all();
+            $flagt="1";
+            
             $DetaSesion = \App\SesionAlumnos::Editar($datos);
+
+            $DetaSesion = \App\SesionAlumnos::ConsultarTodo($datos);
+
+            dd($DetaSesion);
+           
+            foreach($DetaSesion as $ses){
+                if($ses->estado != "FINALIZADA"){
+                    $flagt="0";
+                }
+            }
+
+            if($flagt=="1"){
+                $Simula = \App\simulacrosEstudiantes::guardar($datos);
+            }
 
             //   $areaSesion = \App\SesionAlumnos::Guardar($datos);
             if (request()->ajax()) {
@@ -3178,7 +3201,6 @@ class ModuloEController extends Controller
             $datos = request()->all();
             $idSesion = $datos['IdSesion'];
 
-
             if ($datos['OpcGuardado'] == "Guardar") {
                 $SesAre = \App\SessionArea::Guardar($datos);
 
@@ -3313,17 +3335,25 @@ class ModuloEController extends Controller
             $CompAre = \App\CompAreaSession::ConsultarInf($idAreaSes);
 
             if ($SesAre->area == "5") {
-                $PregArea = \App\ModE_PreguntAreas::ConsultarInfIngles($idAreaSes, "Admin");
+                $PreguntasBanco = \App\ModE_PreguntAreas::ConsultarInfIngles($idAreaSes, "Admin");
             } else {
-                $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idAreaSes);
+                $PreguntasBanco = \App\ModE_PreguntAreas::ConsultarInf($idAreaSes);
             }
+           
+            $Preguntas = self::OrganizarPreguntas($PreguntasBanco, $SesAre->area);
 
-            $Preguntas = self::OrganizarPreguntas($PregArea, $SesAre->area);
+            for ($i = 0; $i < count($PreguntasBanco); $i++) {
+                $PregMult = \App\PregOpcMulMe::ConsulPregBan($PreguntasBanco[$i]['banco']);
+                $PreguntasBanco[$i]['competencia'] = $PregMult['competencia'];
+                $PreguntasBanco[$i]['componente'] = $PregMult['componente'];
+            }
+            
 
             if (request()->ajax()) {
                 return response()->json([
                     'SesAre' => $SesAre,
-                    'CompAre' => $CompAre,
+                    'CompAre' => $CompAre,                    
+                    'pregBanco' => $PreguntasBanco,
                     'PregArea' => $Preguntas,
                 ]);
             }
@@ -3339,12 +3369,6 @@ class ModuloEController extends Controller
             $datos = request()->all();
 
             $idArea = $datos['idAreaSesion'];
-            $Sesion = \App\SesionAlumnos::Consultar($datos);
-
-            if ($Sesion->count() == 0) {
-                $Sesion = \App\SesionAlumnos::Guardar($datos);
-            }
-
             $areaxsesion = \App\SessionArea::ConsultarInf($idArea);
             ////MODIFICAR CONSULTA QUE TRAE LAS PREGUNTAS DE INGLES
             if ($areaxsesion->area == "5") {
@@ -3352,6 +3376,9 @@ class ModuloEController extends Controller
             } else {
                 $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idArea);
             }
+
+
+            
 
             //    $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idArea);
             if (request()->ajax()) {
@@ -3363,6 +3390,20 @@ class ModuloEController extends Controller
             }
         } else {
             return redirect("/")->with("error", "Su Sesión ha Terminado");
+        }
+    }
+
+    public function guadarInicioSesion(){
+        $datos = request()->all();
+        $Sesion = \App\SesionAlumnos::Consultar($datos);
+        if ($Sesion->count() == 0) {
+            $Sesion = \App\SesionAlumnos::Guardar($datos);
+        }
+        if (request()->ajax()) {
+            return response()->json([
+                'Sesion' => $Sesion,
+
+            ]);
         }
     }
 
@@ -3397,6 +3438,9 @@ class ModuloEController extends Controller
                 $DetaSesion[$i]['DetAreasxSEsiones'] = $DetaSesionxAreas;
             }
 
+
+          
+
             if (request()->ajax()) {
                 return response()->json([
                     'DetaSesion' => $DetaSesion,
@@ -3405,6 +3449,27 @@ class ModuloEController extends Controller
         } else {
             return redirect("/")->with("error", "Su sesión ha Terminado");
         }
+    }
+
+
+    public function changeEstadoSesion(){
+        
+        $IdSesion = request()->get('idSesion');
+        $Status = request()->get('sesionEstatus');
+
+        if($Status==0){
+            $Status=1;
+        }else{
+            $Status=0;
+        }
+
+        $statusSesion = \App\DetaSesionesSimul::updateStatusSesion($IdSesion,$Status);
+        if (request()->ajax()) {
+            return response()->json([
+                'statusSesion' => $statusSesion,
+            ]);
+        }
+     
     }
 
     public function EliminarPregSesionArea()
@@ -3431,14 +3496,21 @@ class ModuloEController extends Controller
     {
         if (Auth::check()) {
             $datos = request()->all();
+            $IdPreg = array();
 
-            $SesAre = \App\PregOpcMulMe::GenPregAle($datos);
+            $preGeneradas = \App\ModE_PreguntAreas::consultarPregGeneradasSesion($datos['area'], $datos['Id_Simu']);
+
+            foreach ($preGeneradas as $Preg) {
+                array_push($IdPreg, $Preg->pregunta);
+            }
+
+            $SesAre = \App\PregOpcMulMe::GenPregAle($datos,$IdPreg);
             if ($SesAre) {
                 $Preguntas = self::OrganizarPreguntas($SesAre, '');
                 if ($SesAre) {
                     if (request()->ajax()) {
                         return response()->json([
-                            'Preguntas' => $Preguntas,
+                            'Preguntas' => $Preguntas
                         ]);
                     }
                 }
@@ -3451,8 +3523,19 @@ class ModuloEController extends Controller
     public function CargaPregCompexCompo()
     {
         if (Auth::check()) {
-            $compexcomp = explode("-", request()->get('compexcomp'));
-            $SesAre = \App\PregOpcMulMe::BuscaPregCompexCompo($compexcomp[0], $compexcomp[1]);
+            $datos = request()->all();
+            $IdPreg = array();
+
+            if($datos['opc']=="G"){
+                $preGeneradas = \App\ModE_PreguntAreas::consultarPregGeneradasSesion($datos['sesi'], $datos['Simu']);
+
+                foreach ($preGeneradas as $Preg) {
+                    array_push($IdPreg, $Preg->banco);
+                }
+            }
+            
+                  
+            $SesAre = \App\PregOpcMulMe::BuscaPregCompexCompo($datos,$IdPreg);
             if ($SesAre) {
                 if (request()->ajax()) {
                     return response()->json([
@@ -3477,7 +3560,7 @@ class ModuloEController extends Controller
                     $PregMult = \App\PregOpcMulMe::ConsulPregBan($Preg->banco);
 
                     $PreEnunciado = "CUAL PALABRA CONCUERDA CON LA DESCRIPCIÓN DE LA FRASE?";
-                    $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">'
+                    $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar'.$Preg->banco.'">'
                         . '<h4 class="primary">' . $PreEnunciado . '!</h4>'
                         . $PregMult->pregunta
                         . '</div>';
@@ -3486,9 +3569,9 @@ class ModuloEController extends Controller
 
 
                     foreach ($OpcPreg as $opc) {
-                        $Preguntas .= "<div class='row'>";
+                        $Preguntas .= "<div class='row eliminar".$Preg->banco."'>";
                         $Preguntas .= "<div class='col-12'>";
-                        $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">'
+                        $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 ">'
                             . '<h4 class="success">Pregunta ' . $conse . '</h4><input type="hidden" name="Preguntas[]" value="' . $opc->id . '" />'
                             . '<input type="hidden" name="PregBancoId[]" value="' .  $Preg->banco . '" />'
                             . '<input type="hidden" name="PregTipPreg[]" value="' .  $Preg->tipo_pregunta  . '" />';
@@ -3510,12 +3593,12 @@ class ModuloEController extends Controller
 
 
                     $PreEnunciado = "RESPONDA LA SIGUIENTE PREGUNTA SEGUN EL SIGUIENTE ENUNCIADO";
-                    $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">'
+                    $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar'.$Preg->banco.'">'
                         . '<h4 class="primary">' . $PreEnunciado . '!</h4>'
                         . $Preg->enunciado
                         . '</div>';
                     foreach ($PregMult as $preg) {
-                        $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">'
+                        $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 eliminar'.$Preg->banco.'">'
                             . '<h4 class="success">Pregunta ' . $conse . '</h4><input type="hidden" name="Preguntas[]" value="' . $preg->id . '" />'
                             . '<input type="hidden" name="PregBancoId[]" value="' .  $Preg->banco . '" />'
                             . '<input type="hidden" name="PregTipPreg[]" value="' .  $Preg->tipo_pregunta  . '" />'
@@ -3537,12 +3620,12 @@ class ModuloEController extends Controller
             } else {
 
                 $PreEnunciado = "RESPONDA LA SIGUIENTE PREGUNTA SEGUN EL SIGUIENTE ENUNCIADO";
-                $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">'
+                $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar'.$Preg->banco.'">'
                     . '<h4 class="primary">' . $PreEnunciado . '!</h4>'
                     . $Preg->enunciado
                     . '</div>';
 
-                $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">'
+                $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 eliminar'.$Preg->banco.'">'
                     . '<h4 class="success">Pregunta ' . $conse . '</h4><input type="hidden" name="Preguntas[]" value="' . $Preg->id . '" />'
                     . '<input type="hidden" name="PregBancoId[]" value="' .  $Preg->banco . '" />'
                     . '<input type="hidden" name="PregTipPreg[]" value="' .  $Preg->tipo_pregunta  . '" />'

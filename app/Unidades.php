@@ -68,8 +68,11 @@ class Unidades extends Model
 
     public static function listar($id)
     {
+
+        
         if (Auth::user()->tipo_usuario == "Profesor") {
             $Usu = Auth::user()->id;
+            
             $Unidade = Unidades::where('periodo', $id)
                 ->where('unidades.estado', 'ACTIVO')
                 ->where(function ($query) use ($Usu) {
@@ -78,10 +81,13 @@ class Unidades extends Model
                 })
                 ->get();
         } else {
+       
             $Unidade = Unidades::where('periodo', $id)
                 ->where('unidades.estado', 'ACTIVO')
                 ->get();
         }
+
+    
 
         return $Unidade;
     }

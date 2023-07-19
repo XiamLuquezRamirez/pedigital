@@ -191,13 +191,14 @@
                     var id = $("#modulo").val();
                     var idPer = $("#tema_periodo").val();
                     $("#idAsig").remove();
+                    $("#idPer").remove();
                     form.append("<input type='hidden' name='id' id='idModd' value='" + id +
                         "'><input type='hidden' name='idPer' id='idPer' value='" + idPer + "'>");
                     var url = form.attr("action");
                     var datos = form.serialize();
                     $.ajax({
                         type: "POST",
-                        async: false,
+                        async: true,
                         url: url,
                         data: datos,
                         dataType: "json",
@@ -212,9 +213,10 @@
                 CargUnidades: function() {
 
                     var form = $("#formAuxiliarUnid");
-                    var idPer = $("#periodo").val();
+                    var idPer = $("#tema_periodo").val();
                     var idUnid = $("#tema_unidad").val();
                     $("#idPer").remove();
+                    $("#idUnid").remove();
                     form.append("<input type='hidden' name='idPer' id='idPer' value='" + idPer +
                         "'><input type='hidden' name='idUnid' id='idUnid' value='" + idUnid + "'>");
                     var url = form.attr("action");
@@ -223,6 +225,7 @@
                         type: "POST",
                         url: url,
                         data: datos,
+                        async: true,
                         dataType: "json",
                         success: function(respuesta) {
                             $("#unidad").html(respuesta.select_Unidades);

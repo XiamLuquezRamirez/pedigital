@@ -93,6 +93,8 @@
     {!! Form::close() !!}
     {!! Form::open(['url' => '/ModuloE/PreguntasxBanco', 'id' => 'formAuxiliarPreguntasxBanco']) !!}
     {!! Form::close() !!}
+    {!! Form::open(['url' => '/ModuloE/changeEstadoSesion', 'id' => 'formAuxiliarHabilSesion']) !!}
+    {!! Form::close() !!}
 
 
 
@@ -116,9 +118,8 @@
             });
 
             let conse = 1;
-
             var pregCompAgregados = [];
-
+            var nuevoElemento = [];
 
             $.extend({
                 GuardarSimulacro: function() {
@@ -247,6 +248,7 @@
                     $("#detalleSesion").hide();
                 },
                 EditAreaSesion: function(id) {
+                    nuevoElemento = [];
                     var form = $("#formAuxiliarAreaSesion");
                     var grado = $("#prueba").val();
                     $("#IdSesion").val(id);
@@ -281,6 +283,10 @@
                             var ConsComp = 1;
                             var style = 'text-transform: uppercase;background-color:white;';
                             var clase = 'text-truncate';
+
+
+
+
 
                             $.each(respuesta.CompAre, function(i, item) {
 
@@ -330,6 +336,31 @@
                             $('#TablaPreg').show();
                             $("#PreguntasxAreas").html(respuesta.PregArea);
 
+                            $.each(respuesta.pregBanco, function(i, item) {
+                                var npregTotal = 0;
+
+                                $("input[name='txtcomp[]']").each(function(indice,
+                                    elemento) {
+                                    if ($(elemento).val() == item
+                                        .competencia + '-' + item.componente
+                                        ) {
+                                        npregTotal = $(elemento).data(
+                                            "cantidad")
+                                    }
+                                });
+
+                                nuevoElemento = {
+                                    componente: item.competencia + '-' + item
+                                        .componente + '/' + npregTotal,
+                                    npreg: parseInt(item.npreguntas),
+                                    banco: item.banco
+                                };
+                                pregCompAgregados.push(nuevoElemento);
+
+                            });
+
+                           
+
                             $("#EditCofCompeEdit").show();
 
                         }
@@ -343,6 +374,8 @@
                 ParSesion: function(id) {
                     var IdSimu = $("#Id_Simu").val();
                     var IdSesi = $("#" + id).data('value');
+                    var titSesion = "";
+                    $("#tr_areas").html("");
 
                     $("#IdSesionGen").val(IdSesi);
                     $("#detalleSesion").show();
@@ -363,9 +396,9 @@
                         dataType: "json",
                         success: function(respuesta) {
                             $("#tr_areas").html(respuesta.trAreas);
-                            console.log(respuesta.DetaSesion.sesion);
                             $("#DescSesion2").val(respuesta.DetaSesion.sesion);
                             $("#TSesion2").val(respuesta.DetaSesion.tiempo_sesion);
+                            titSesion = respuesta.DetaSesion.sesion;
                         }
                     });
 
@@ -555,6 +588,7 @@
                         dataType: "json",
                         success: function(respuesta) {
 
+
                             $.each(respuesta.DetaSesion, function(i, item) {
 
                                 sesion +=
@@ -623,10 +657,29 @@
                                     '                   <div class="form-actions right">' +
                                     ' <button type="button" onclick="$.DelSesion(this.id);" id="DelSesion_' +
                                     conse + '" data-value="' + item.id +
-                                    '" class="btn btn-outline-primary">' +
+                                    '" class="btn btn-outline-warning">' +
                                     '                               <i class="ft-trash"></i> Eliminar' +
-                                    '                             </button>' +
-                                    '                       <button type="button" onclick="$.ParSesion(this.id);" id="ParSesion_' +
+                                    '                             </button>';
+
+                                if (item.habilitado == 1) {
+                                    sesion +=
+                                        ' <button type="button" onclick="$.cambioEstado(this.id,1);" id="cambioestado_' +
+                                        conse + '" data-value="' + item.id +
+                                        '" class="btn btn-outline-success">' +
+                                        '                               <i class="ft-unlock"></i> Habilitado' +
+                                        '                             </button>';
+                                } else {
+                                    sesion +=
+                                        ' <button type="button" onclick="$.cambioEstado(this.id,0);" id="cambioestado_' +
+                                        conse + '" data-value="' + item.id +
+                                        '" class="btn btn-outline-danger">' +
+                                        '                               <i class="ft-lock"></i> Deshabilitado' +
+                                        '                             </button>';
+                                }
+
+
+                                sesion +=
+                                    '                        <button type="button" onclick="$.ParSesion(this.id);" id="ParSesion_' +
                                     conse + '" data-value="' + item.id +
                                     '" class="btn btn-outline-grey-blue">' +
                                     '                               <i class="ft-settings"></i> Parametrizar' +
@@ -649,6 +702,55 @@
 
 
                 },
+
+                cambioEstado: function(id, status) {
+                    var form = $("#formAuxiliarHabilSesion");
+                    var url = form.attr("action");
+
+                    idSeSes = $("#" + id).data('value');
+
+                    $("#idSesion").remove();
+                    $("#sesionEstatus").remove();
+                    form.append("<input type='hidden' name='idSesion' id='idSesion' value='" + idSeSes +
+                        "'>");
+                    form.append("<input type='hidden' name='sesionEstatus' id='sesionEstatus' value='" +
+                        status + "'>");
+
+                    var datos = form.serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: datos,
+                        async: false,
+                        dataType: "json",
+                        success: function(respuesta) {
+                            if (respuesta.statusSesion) {
+                                var button = document.getElementById(id);
+                                if (status == 1) {
+                                    button.innerHTML =
+                                        '<i class="ft-lock"></i> Deshabilitado';
+                                    button.className = button.className.replace(
+                                        'btn btn-outline-success',
+                                        'btn btn-outline-danger');
+                                    button.setAttribute('onclick',
+                                        '$.cambioEstado(this.id,0)');
+
+                                } else {
+                                    button.className = button.className.replace(
+                                        'btn btn-outline-danger',
+                                        'btn btn-outline-success');
+                                    button.innerHTML =
+                                        '<i class="ft-unlock"></i> Habilitado';
+                                    button.setAttribute('onclick',
+                                        '$.cambioEstado(this.id,1)');
+
+                                }
+                            }
+
+                        }
+                    });
+
+                },
                 AddSesion: function() {
 
                     $("#DescSesion").val("");
@@ -668,6 +770,7 @@
                     $("#n_preguntas").val("");
                     $("#PorcPreguntas").val("");
                     $("#tr_competencias").html("");
+                    conse = 1;
                     $("#GenPreg").hide();
                     $('#TablaPreg').hide();
                     $('#PreguntasxAreas').html("");
@@ -679,7 +782,7 @@
                     $('#Componente').prop('disabled', true);
                     $("#OpcSesion").val("G");
 
-
+                    pregCompAgregados = [];
                     $.CargAreas();
                 },
 
@@ -950,6 +1053,13 @@
                                             button: "Aceptar",
                                         });
                                         $.CargarInfoSim();
+                                    } else if (respuesta.Resp == "no") {
+                                        Swal.fire({
+                                            title: "Gestión de Simulacros",
+                                            text: "No se pudo Eliminar, ya que esta sesión ya ha sido desarrollada por un Estudiante.",
+                                            icon: "warning",
+                                            button: "Aceptar",
+                                        });
                                     } else {
                                         Swal.fire({
                                             title: "Gestión de Simulacros",
@@ -980,77 +1090,111 @@
                 },
 
                 selCompxComp: function(val) {
-                    var pacomp = val.split("/");
-                    $("#nPregCompoxCompe").val(pacomp[1]);
 
-                    var sumaNpreg = 0;
+                    if (val != "0/0") {
+                        var pacomp = val.split("/");
+                        $("#nPregCompoxCompe").val(pacomp[1]);
+                        var sumaNpreg = 0;
 
-                    // Recorrer el array de componentes
-                    for (var i = 0; i < pregCompAgregados.length; i++) {
-                        // Verificar si el componente cumple la condición de búsqueda
-                        if (pregCompAgregados[i].componente === val) {
-                            // Sumar el valor de npreg al total
-                            sumaNpreg += pregCompAgregados[i].npreg;
+                        // Recorrer el array de componentes
+                        for (var i = 0; i < pregCompAgregados.length; i++) {
+                            // Verificar si el componente cumple la condición de búsqueda
+                            if (pregCompAgregados[i].componente === val) {
+                                // Sumar el valor de npreg al total
+                                sumaNpreg += pregCompAgregados[i].npreg;
+                            }
                         }
+
+                        var idSimu = $("#Id_Simu").val();
+                        var IdSesion = $("#IdSesion").val();
+                        var OpcSesion = $("#OpcSesion").val();
+
+
+                        $("#nPregCompoxCompeSel").val(sumaNpreg);
+
+                        var form = $("#formAuxiliarCompxComp");
+                        $("#compexcomp").remove();
+                        $("#Simu").remove();
+                        $("#sesi").remove();
+                        $("#opc").remove();
+                        form.append("<input type='hidden' name='compexcomp' id='compexcomp' value='" +pacomp[0] + "'>");
+                        form.append("<input type='hidden' name='Simu' id='Simu' value='" + idSimu + "'>");
+                        form.append("<input type='hidden' name='sesi' id='sesi' value='" + IdSesion + "'>");
+                        form.append("<input type='hidden' name='opc' id='opc' value='" + OpcSesion + "'>");
+                        
+                        var url = form.attr("action");
+                        var datos = form.serialize();
+                        let preguntas = '';
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: datos,
+                            async: false,
+                            dataType: "json",
+                            success: function(respuesta) {
+                              
+                                $.each(respuesta.Preguntas, function(x, items) {
+
+
+                                    var elementoBuscado = pregCompAgregados.find(
+                                        function(item) {
+                                            return item.banco == items.id;
+                                        });
+                                        
+
+                                    preguntas += '   <div class="col-md-12 pb-1">' +
+                                        ' <div class="bs-callout-primary callout-border-left callout-bordered callout-transparent p-1">' +
+                                        '     <div class="row">' +
+                                        '         <div class="col-md-10">' +
+                                        '        <h4 class="primary">' + items
+                                        .tipo_pregunta +
+                                        ' - <strong>No. Preguntas: </strong> ' +
+                                        items
+                                        .npreguntas + ' </h4>' +
+                                        '     <p> ' + items.descripcion + '</p>' +
+                                        ' </div>' +
+                                        ' <div class="col-md-2 d-flex align-items-center">' +
+                                        '     <div class="btn-group mx-2" role="group" aria-label="Second Group">' +
+                                        '    <button onclick="$.MostrarPreguntas(' +
+                                        items.id +
+                                        ')" type="button" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></button>';
+
+                                    if (elementoBuscado) {
+                                        preguntas += ' <button id="btn_addPreg' + items
+                                        .id +
+                                        '" onclick="$.QuitarPregunta(' + items.id +
+                                        ')" type="button" title="Quitar Pregunta" class="btn btn-icon btn-outline-info"><i class="fa fa-minus"></i></button>';
+
+                                    } else {
+                                        preguntas += ' <button id="btn_addPreg' + items
+                                        .id +
+                                        '" onclick="$.AgregarPregunta(' + items.id +
+                                        ')" type="button" title="Agregar Pregunta" class="btn btn-icon btn-outline-info"><i class="fa fa-plus"></i></button>';
+                                    }
+                                  
+
+                                    preguntas += ' </div>' +
+                                        '   </div>' +
+                                        ' </div>' +
+                                        '  </div>' +
+                                        ' </div>';
+
+                                });
+
+
+                                $("#listPreguntas").html(preguntas);
+
+                            }
+
+                        });
                     }
 
-
-                    $("#nPregCompoxCompeSel").val(sumaNpreg);
-
-                    var form = $("#formAuxiliarCompxComp");
-                    $("#compexcomp").remove();
-                    form.append("<input type='hidden' name='compexcomp' id='compexcomp' value='" +
-                        pacomp[0] + "'>");
-                    var url = form.attr("action");
-                    var datos = form.serialize();
-                    let preguntas = '';
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: datos,
-                        async: false,
-                        dataType: "json",
-                        success: function(respuesta) {
-
-                            $.each(respuesta.Preguntas, function(x, items) {
-                                preguntas += '   <div class="col-md-12 pb-1">' +
-                                    ' <div class="bs-callout-primary callout-border-left callout-bordered callout-transparent p-1">' +
-                                    '     <div class="row">' +
-                                    '         <div class="col-md-10">' +
-                                    '        <h4 class="primary">' + items
-                                    .tipo_pregunta +
-                                    ' - <strong>No. Preguntas: </strong> ' + items
-                                    .npreguntas + ' </h4>' +
-                                    '     <p> ' + items.descripcion + '</p>' +
-                                    ' </div>' +
-                                    ' <div class="col-md-2 d-flex align-items-center">' +
-                                    '     <div class="btn-group mx-2" role="group" aria-label="Second Group">' +
-                                    '    <button onclick="$.MostrarPreguntas(' +
-                                    items.id +
-                                    ')" type="button" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></button>' +
-                                    ' <button onclick="$.AgregarPregunta(' + items
-                                    .id +
-                                    ')" type="button" class="btn btn-icon btn-outline-info"><i class="fa fa-plus"></i></button>' +
-                                    '  </div>' +
-                                    '   </div>' +
-                                    ' </div>' +
-                                    '  </div>' +
-                                    ' </div>';
-
-                            });
-
-
-                            $("#listPreguntas").html(preguntas);
-
-                        }
-
-                    });
 
                 },
                 AgregarPregunta: function(idBanco) {
 
                     $('#TablaPreg').show();
-                    //  $('#GuarCofCompe').show();
+
                     var form = $("#formAuxiliarPreguntasxBanco");
                     $("#idBancoPreg").remove();
                     form.append("<input type='hidden' name='idBancoPreg' id='idBancoPreg' value='" +
@@ -1058,6 +1202,7 @@
                     var url = form.attr("action");
                     var datos = form.serialize();
                     let preguntas = '';
+                    let npreg = 0;
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -1069,18 +1214,22 @@
                             var flag = true;
                             for (var i = 0; i < pregCompAgregados.length; i++) {
                                 // Verificar si el componente cumple la condición de búsqueda
+                                
                                 if (pregCompAgregados[i].banco === respuesta.Banco.id) {
                                     flag = false;
                                 }
                             }
 
+
                             if (flag) {
-                                let npreg = parseInt($("#nPregCompoxCompeSel").val()) +
+                                npreg = parseInt($("#nPregCompoxCompeSel").val()) +
                                     parseInt(respuesta.Banco.npreguntas);
+
+                              
 
                                 if (npreg <= parseInt($("#nPregCompoxCompe").val())) {
 
-                                    //AGREGAR PREGUNTAS A LA  TABLA DE PREGUNTAS
+                                    //AGREGAR PREGUNTAS A LA TABLA DE PREGUNTAS
 
                                     let PreEnunciado = '';
                                     let Preguntas = '';
@@ -1091,7 +1240,8 @@
                                             "CUAL PALABRA CONCUERDA CON LA DESCRIPCIÓN DE LA FRASE?";
 
                                         Preguntas +=
-                                            '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">' +
+                                            '<div class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar' +
+                                            idBanco + '">' +
                                             '<h4 class="primary">' + PreEnunciado +
                                             '!</h4>' +
                                             respuesta.Parte1.pregunta +
@@ -1099,7 +1249,9 @@
 
 
                                         $.each(respuesta.Preguntas, function(x, items) {
-                                            Preguntas += "<div class='row'>";
+                                            Preguntas +=
+                                                "<div class='row eliminar" +
+                                                idBanco + "'>";
                                             Preguntas += "<div class='col-12'>";
                                             Preguntas +=
                                                 ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">' +
@@ -1134,7 +1286,8 @@
                                         PreEnunciado =
                                             "RESPONDA LA SIGUIENTE PREGUNTA SEGUN EL SIGUIENTE ENUNCIADO";
                                         Preguntas +=
-                                            '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3">' +
+                                            '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar' +
+                                            idBanco + '">' +
                                             '<h4 class="primary">' + PreEnunciado +
                                             '!</h4>' +
                                             respuesta.Banco.enunciado +
@@ -1143,7 +1296,8 @@
                                         $.each(respuesta.PregMult, function(y, itemsP) {
 
                                             Preguntas +=
-                                                ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1">' +
+                                                ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 eliminar' +
+                                                idBanco + '">' +
                                                 '<h4 class="success">Pregunta ' +
                                                 conse +
                                                 '</h4><input type="hidden" name="Preguntas[]" value="' +
@@ -1187,7 +1341,7 @@
 
                                     }
 
-                                    var nuevoElemento = {
+                                    nuevoElemento = {
                                         componente: $("#compxcompo").val(),
                                         npreg: parseInt(respuesta.Banco.npreguntas),
                                         banco: respuesta.Banco.id
@@ -1195,7 +1349,7 @@
 
                                     pregCompAgregados.push(nuevoElemento);
 
-                                    console.log(pregCompAgregados);
+                                    
 
                                     $("#PreguntasxAreas").append(Preguntas);
 
@@ -1204,8 +1358,6 @@
                                     $("#nPregCompoxCompeSel").val(npreg);
 
                                     ////
-
-
 
                                     var button = document.getElementById('btn_addPreg' +
                                         idBanco);
@@ -1216,6 +1368,7 @@
                                     button.setAttribute('onclick', '$.QuitarPregunta(' +
                                         idBanco + ')');
                                     button.setAttribute('title', 'Quitar Pregunta');
+
 
                                 } else {
                                     mensaje =
@@ -1236,7 +1389,6 @@
                                     mensaje = "Esta Pregunta ya esta agregada a la sesión";
                                 }
 
-
                                 var button = document.getElementById('btn_addPreg' +
                                     idBanco);
                                 var liElement = button.querySelector('i');
@@ -1247,7 +1399,6 @@
                                     idBanco + ')');
                                 button.setAttribute('title', 'Quitar Pregunta');
 
-
                                 Swal.fire({
                                     title: "Gestión de Simulacros",
                                     text: mensaje,
@@ -1255,10 +1406,22 @@
                                     button: "Aceptar",
                                 });
                             }
+                        }
+                    });
+
+
+                    if (npreg == parseInt($("#nPregCompoxCompe").val())) {
+                        if ($("#OpcSesion").val() == "G") {
+                            $('#GuarCofCompe').show();
+                            $('#EditCofCompeEdit').hide();
+                        } else {
+                            $('#EditCofCompeEdit').show();
+                            $('#GuarCofCompe').hide();
 
                         }
 
-                    });
+                    }
+
                 },
                 QuitarPregunta: function(idBanco) {
 
@@ -1269,12 +1432,12 @@
                     button.setAttribute('onclick', '$.AgregarPregunta(' + idBanco + ')');
                     button.setAttribute('title', 'Agregar Pregunta');
 
-                    var elementoEncontrado = pregCompAgregados.find(function(item) {
-                        return item.banco === idBanco;
-                    });
+                    var elementoBuscado = pregCompAgregados.find(
+                        function(item) {
+                            return item.banco == idBanco;
+                        });
 
-                    $("#nPregCompoxCompeSel").val($("#nPregCompoxCompeSel").val() - elementoEncontrado
-                        .npreg);
+                    $("#nPregCompoxCompeSel").val($("#nPregCompoxCompeSel").val() - elementoBuscado.npreg);
 
                     conse = conse - elementoEncontrado.npreg;
 
@@ -2621,6 +2784,8 @@
                                     button: "Aceptar",
                                 });
 
+                                pregCompAgregados = [];
+                                conse = 1;
 
                                 var campo = "";
                                 var ConsArea = 1;
@@ -2674,6 +2839,7 @@
                 GenPreg: function() {
                     var rurl = $("#Ruta").val();
                     var area = $("#area").val();
+                    $("#nPregCompoxCompeSel").val("0");
 
                     if (area == "5") {
                         $("#selPreguntas").modal({

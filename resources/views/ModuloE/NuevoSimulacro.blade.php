@@ -283,6 +283,7 @@
                     var IdSimu = $("#Id_Simu").val();
                     var IdSesi = $("#" + id).data('value');
                     var titSesion = "";
+                    $("#tr_areas").html("");
 
                     $("#IdSesionGen").val(IdSesi);
 
@@ -589,72 +590,105 @@
 
                 },
                 selCompxComp: function(val) {
-                    var pacomp = val.split("/");
-                    $("#nPregCompoxCompe").val(pacomp[1]);
 
+                    if (val != "0/0") {
+                        var pacomp = val.split("/");
+                        $("#nPregCompoxCompe").val(pacomp[1]);
+                        var sumaNpreg = 0;
 
-                    var sumaNpreg = 0;
-
-                    // Recorrer el array de componentes
-                    for (var i = 0; i < pregCompAgregados.length; i++) {
-                        // Verificar si el componente cumple la condición de búsqueda
-                        if (pregCompAgregados[i].componente === val) {
-                            // Sumar el valor de npreg al total
-                            sumaNpreg += pregCompAgregados[i].npreg;
+                        // Recorrer el array de componentes
+                        for (var i = 0; i < pregCompAgregados.length; i++) {
+                            // Verificar si el componente cumple la condición de búsqueda
+                            if (pregCompAgregados[i].componente === val) {
+                                // Sumar el valor de npreg al total
+                                sumaNpreg += pregCompAgregados[i].npreg;
+                            }
                         }
+
+                        var idSimu = $("#Id_Simu").val();
+                        var IdSesion = $("#IdSesion").val();
+                        var OpcSesion = $("#OpcSesion").val();
+
+
+                        $("#nPregCompoxCompeSel").val(sumaNpreg);
+
+                        var form = $("#formAuxiliarCompxComp");
+                        $("#compexcomp").remove();
+                        $("#Simu").remove();
+                        $("#sesi").remove();
+                        $("#opc").remove();
+                        form.append("<input type='hidden' name='compexcomp' id='compexcomp' value='" +pacomp[0] + "'>");
+                        form.append("<input type='hidden' name='Simu' id='Simu' value='" + idSimu + "'>");
+                        form.append("<input type='hidden' name='sesi' id='sesi' value='" + IdSesion + "'>");
+                        form.append("<input type='hidden' name='opc' id='opc' value='" + OpcSesion + "'>");
+                        
+                        var url = form.attr("action");
+                        var datos = form.serialize();
+                        let preguntas = '';
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: datos,
+                            async: false,
+                            dataType: "json",
+                            success: function(respuesta) {
+                              
+                                $.each(respuesta.Preguntas, function(x, items) {
+
+
+                                    var elementoBuscado = pregCompAgregados.find(
+                                        function(item) {
+                                            return item.banco == items.id;
+                                        });
+                                        
+
+                                    preguntas += '   <div class="col-md-12 pb-1">' +
+                                        ' <div class="bs-callout-primary callout-border-left callout-bordered callout-transparent p-1">' +
+                                        '     <div class="row">' +
+                                        '         <div class="col-md-10">' +
+                                        '        <h4 class="primary">' + items
+                                        .tipo_pregunta +
+                                        ' - <strong>No. Preguntas: </strong> ' +
+                                        items
+                                        .npreguntas + ' </h4>' +
+                                        '     <p> ' + items.descripcion + '</p>' +
+                                        ' </div>' +
+                                        ' <div class="col-md-2 d-flex align-items-center">' +
+                                        '     <div class="btn-group mx-2" role="group" aria-label="Second Group">' +
+                                        '    <button onclick="$.MostrarPreguntas(' +
+                                        items.id +
+                                        ')" type="button" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></button>';
+
+                                    if (elementoBuscado) {
+                                        preguntas += ' <button id="btn_addPreg' + items
+                                        .id +
+                                        '" onclick="$.QuitarPregunta(' + items.id +
+                                        ')" type="button" title="Quitar Pregunta" class="btn btn-icon btn-outline-info"><i class="fa fa-minus"></i></button>';
+
+                                    } else {
+                                        preguntas += ' <button id="btn_addPreg' + items
+                                        .id +
+                                        '" onclick="$.AgregarPregunta(' + items.id +
+                                        ')" type="button" title="Agregar Pregunta" class="btn btn-icon btn-outline-info"><i class="fa fa-plus"></i></button>';
+                                    }
+                                  
+
+                                    preguntas += ' </div>' +
+                                        '   </div>' +
+                                        ' </div>' +
+                                        '  </div>' +
+                                        ' </div>';
+
+                                });
+
+
+                                $("#listPreguntas").html(preguntas);
+
+                            }
+
+                        });
                     }
 
-
-                    $("#nPregCompoxCompeSel").val(sumaNpreg);
-
-                    var form = $("#formAuxiliarCompxComp");
-                    $("#compexcomp").remove();
-                    form.append("<input type='hidden' name='compexcomp' id='compexcomp' value='" +
-                        pacomp[0] + "'>");
-                    var url = form.attr("action");
-                    var datos = form.serialize();
-                    let preguntas = '';
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: datos,
-                        async: false,
-                        dataType: "json",
-                        success: function(respuesta) {
-
-                            $.each(respuesta.Preguntas, function(x, items) {
-                                preguntas += '   <div class="col-md-12 pb-1">' +
-                                    ' <div class="bs-callout-primary callout-border-left callout-bordered callout-transparent p-1">' +
-                                    '     <div class="row">' +
-                                    '         <div class="col-md-10">' +
-                                    '        <h4 class="primary">' + items
-                                    .tipo_pregunta +
-                                    ' - <strong>No. Preguntas: </strong> ' + items
-                                    .npreguntas + ' </h4>' +
-                                    '     <p> ' + items.descripcion + '</p>' +
-                                    ' </div>' +
-                                    ' <div class="col-md-2 d-flex align-items-center">' +
-                                    '     <div class="btn-group mx-2" role="group" aria-label="Second Group">' +
-                                    '    <button onclick="$.MostrarPreguntas(' +
-                                    items.id +
-                                    ')" type="button" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></button>' +
-                                    ' <button id="btn_addPreg' + items.id +
-                                    '" onclick="$.AgregarPregunta(' + items.id +
-                                    ')" type="button" class="btn btn-icon btn-outline-info"><i class="fa fa-plus"></i></button>' +
-                                    '  </div>' +
-                                    '   </div>' +
-                                    ' </div>' +
-                                    '  </div>' +
-                                    ' </div>';
-
-                            });
-
-
-                            $("#listPreguntas").html(preguntas);
-
-                        }
-
-                    });
 
                 },
                 AgregarPregunta: function(idBanco) {
@@ -687,6 +721,8 @@
                             if (flag) {
                                 let npreg = parseInt($("#nPregCompoxCompeSel").val()) +
                                     parseInt(respuesta.Banco.npreguntas);
+
+                            
 
                                 if (npreg <= parseInt($("#nPregCompoxCompe").val())) {
 
@@ -820,14 +856,11 @@
 
                                     ////
 
-                                    var button = document.getElementById('btn_addPreg' +
-                                        idBanco);
+                                    var button = document.getElementById('btn_addPreg' +idBanco);
                                     var liElement = button.querySelector('i');
 
-                                    liElement.className = liElement.className.replace(
-                                        'fa-plus', 'fa-minus');
-                                    button.setAttribute('onclick', '$.QuitarPregunta(' +
-                                        idBanco + ')');
+                                    liElement.className = liElement.className.replace('fa-plus', 'fa-minus');
+                                    button.setAttribute('onclick', '$.QuitarPregunta(' + idBanco + ')');
                                     button.setAttribute('title', 'Quitar Pregunta');
 
 
@@ -850,8 +883,8 @@
                                     mensaje = "Esta Pregunta ya esta agregada a la sesión";
                                 }
 
-                                var button = document.getElementById('btn_addPreg' +
-                                    idBanco);
+                                var button = document.getElementById('btn_addPreg' +idBanco);
+                                console.log(button);
                                 var liElement = button.querySelector('i');
 
                                 liElement.className = liElement.className.replace('fa-plus',

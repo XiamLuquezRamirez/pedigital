@@ -67,13 +67,18 @@ class PregOpcMulMe extends Model
         return $GrupPreg;
     }
 
-    public static function BuscaPregCompexCompo($copmpe, $Compo)
+    public static function BuscaPregCompexCompo($datos,$idAdd)
     {
+
+        $compexcomp = explode("-", $datos['compexcomp']);
+        
+
         $GrupPreg = PregOpcMulMe::join("banco_preg_me", "banco_preg_me.id", "preguntas_me.banco")
             ->join("asignaturas_mode", "asignaturas_mode.id", "banco_preg_me.asignatura")
             ->join("partes_me", "banco_preg_me.tipo_pregunta", "partes_me.parte")
-            ->where("competencia", $copmpe)
-            ->where("componente", $Compo)
+            ->where("competencia", $compexcomp[0])
+            ->where("componente", $compexcomp[1])
+            ->whereNotIn('preguntas_me.banco', $idAdd)
             ->select("banco_preg_me.id", "banco_preg_me.npreguntas", "componente", "banco_preg_me.tipo_pregunta", "partes_me.descripcion")
             ->groupBy('banco_preg_me.id')
             ->get();
@@ -81,7 +86,7 @@ class PregOpcMulMe extends Model
         return $GrupPreg;
     }
 
-    public static function GenPregAle($datos)
+    public static function GenPregAle($datos,$pregGen)
     {
         $npreg = $datos['n_preguntas'];
         $grado = $datos['prueba'];
@@ -90,6 +95,8 @@ class PregOpcMulMe extends Model
         $IdPreg = array();
         $IdBanco = array();
         $prueba = array();
+
+       // dd($datos);
 
         $tPregTot = 0;
         $cont = 1;
@@ -110,6 +117,7 @@ class PregOpcMulMe extends Model
                     ->where("componente", $compo)
                     ->where("asignaturas_mode.area", $area)
                     ->where("asignaturas_mode.grado", $grado)
+                    ->whereNotIn('preguntas_me.id', $pregGen)
                     ->inRandomOrder()
                     ->select("banco_preg_me.id", "banco_preg_me.npreguntas", "componente")
                     ->get();
@@ -136,18 +144,20 @@ class PregOpcMulMe extends Model
                     ->select("preguntas_me.id")
                     ->get();
             } else {
+
+
                 $GrupPreg2 = PregOpcMulMe::join("banco_preg_me", "banco_preg_me.id", "preguntas_me.banco")
                     ->join("asignaturas_mode", "asignaturas_mode.id", "banco_preg_me.asignatura")
                     ->where("competencia", $compe)
                     ->where("componente", $compo)
                     ->where("asignaturas_mode.area", $area)
                     ->where("asignaturas_mode.grado", $grado)
+                    ->whereNotIn('preguntas_me.id', $pregGen)
                     ->inRandomOrder()
                     ->select("preguntas_me.id")
                     ->limit($nPregxComp)
                     ->get();
 
-                    dd($GrupPreg2);
             }
 
 
@@ -157,6 +167,8 @@ class PregOpcMulMe extends Model
                 array_push($IdPreg, $Preg->id);
             }
         }
+
+ 
 
         array_push($prueba, $IdPreg);
 

@@ -223,13 +223,13 @@
                     }
 
                     if ($("#tipo_contenido").val() === "IMAGEN" && !$('#ImageFile').val()) {
-                        Swal.fire({
+                        {{--  Swal.fire({
                             title: "Gestionar Módulo E",
                             text: "Seleccione la Imagen a Subir.",
                             icon: "warning",
                             button: "Aceptar",
                         });
-                        return;
+                        return;  --}}
                     } else if ($("#tipo_contenido").val() === "VIDEO" && !$('#VideoFile').val()) {
                         Swal.fire({
                             title: "Gestionar Módulo E",

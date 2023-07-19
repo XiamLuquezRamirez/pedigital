@@ -22,7 +22,7 @@
 
     <input type="hidden" class="form-control" id="CompeActual" value="" />
     <input type="hidden" class="form-control" id="CompoActual" value="" />
-    
+
 
     <div class="content-header row" id="cabe_asig">
         <div class="content-header-left col-md-12 col-12 mb-2">
@@ -469,6 +469,9 @@
     {!! Form::open(['url' => '/ModuloE/consulPregAlumnoSimu', 'id' => 'formAuxiliarCargEval']) !!}
     {!! Form::close() !!}
 
+    {!! Form::open(['url' => '/ModuloE/guadarInicioSesion', 'id' => 'formAuxiliarGuardarInicioSesion']) !!}
+    {!! Form::close() !!}
+
 
 
 @endsection
@@ -887,6 +890,7 @@
                 GuardarTodoSesion: function(ori) {
 
                     var idSesion = $("#idSesi").val();
+                    var idSimu = $("#idSimu").val();
 
 
                     if (ori == "Est") {
@@ -910,10 +914,10 @@
                         } else {
                             var form = $("#formAuxiliarGuardarSesion");
                             $("#idSes").remove();
+                            $("#idSimula").remove();
 
-                            form.append("<input type='hidden' name='idSes' id='idSes' value='" +
-                                idSesion +
-                                "'>");
+                            form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion + "'>");
+                            form.append("<input type='hidden' name='idSimula' id='idSimula' value='" + idSimu + "'>");
                             var url = form.attr("action");
                             var datos = form.serialize();
 
@@ -925,15 +929,19 @@
                                 success: function(respuesta) {
                                     if (respuesta.DetaSesion) {
                                         $("#btn_guardarTodoSesion").hide();
+                                        $("#Div_PruebaInf").hide();
+                                        $("#Div_Areas").hide();
+
                                         Swal.fire({
                                             title: "Notificación Simulacro",
                                             text: "Operación Realizada Exitosamente",
                                             icon: "success",
                                             button: "Aceptar",
                                         });
+                                        localStorage.clear();
+                                        $.MostrarSesiones($("#simulacro_id").val());
                                     } else {
                                         $("#btn_guardarTodoSesion").show();
-
                                     }
 
                                     localStorage.removeItem('sesionIniciada');
@@ -1141,7 +1149,7 @@
                                     } else {
                                         opciones +=
                                             '<div class="d-inline-block custom-control custom-radio mr-1">';
-                                                opciones += '<input type="hidden" id="OpcionSel_' +
+                                        opciones += '<input type="hidden" id="OpcionSel_' +
                                             i +
                                             '" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
                                         opciones +=
@@ -1208,7 +1216,8 @@
                                                 l +
                                                 '" class="OpcionSel"  name="OpcionSel[]" value="-"/>';
                                             opciones +=
-                                                ' <input type="hidden" id=""  name="Opciones[]" value="' + itemo.id + '"/>';
+                                                ' <input type="hidden" id=""  name="Opciones[]" value="' +
+                                                itemo.id + '"/>';
                                             opciones +=
                                                 '<input onclick="$.RespMulPreg(this.id)" id="' +
                                                 l +
@@ -1228,7 +1237,7 @@
                                 });
                             }
 
-                            var compexcomp='';
+                            var compexcomp = '';
 
 
                             $("#Pregunta" + id).html(Pregunta + opciones);
@@ -1320,9 +1329,11 @@
                         "'>");
                     form.append("<input type='hidden' name='prgAct' id='prgAct' value='" + prgAct +
                         "'>");
-                    form.append("<input type='hidden' name='competencia' id='competencia' value='" + Compe +
+                    form.append("<input type='hidden' name='competencia' id='competencia' value='" +
+                        Compe +
                         "'>");
-                    form.append("<input type='hidden' name='componente' id='componente' value='" + Compo +
+                    form.append("<input type='hidden' name='componente' id='componente' value='" +
+                        Compo +
                         "'>");
 
                     var datos = form.serialize();
@@ -1509,8 +1520,7 @@
                 MostrarSesiones: function(id) {
                     var form = $("#formAuxiliarSesiones");
                     var url = form.attr("action");
-                    var datos = form.serialize();
-
+                    $("#simulacro_id").val(id);
                     var contenido = '';
 
                     $("#idSimu").remove();
@@ -1532,39 +1542,55 @@
                             $("#li_simulacro").html(respuesta.Simulacro.nombre);
                             $("#li_cursos").html("SESIONES");
 
-                            if (respuesta.Simulacro.estado == null) {
-                                $("#Resu_Simulacr").hide();
-                            } else {
-                                $("#Resu_Simulacr").show();
-                            }
-
                             var id = 1;
 
                             $.each(respuesta.Sesiones, function(i, item) {
-                                if (item.estado == null) {
 
+                                if (item.habilitado == 1) {
                                     var bs_callout = "bs-callout-info";
                                     var bg = "bg-info";
-                                    var ico = "fa fa-info";
-
+                                    var ico = "fa fa-unlock";
+                                    var disabled = "block"
+                                    var cursor = "pointer";
                                 } else {
 
-                                    var bs_callout = "bs-callout-success";
-                                    var bg = "bg-success";
-                                    var ico = "fa fa-check";
+                                    var bs_callout = "bs-callout-warning";
+                                    var bg = "bg-warning";
+                                    var ico = "fa fa-lock";
+                                    var disabled = "none";
+                                    var cursor = "not-allowed";
 
                                 }
+
+
+
                                 var areas = [];
                                 $.each(item.AreasxSesiones, function(j, item2) {
                                     areas.push(item2.nombre_area)
                                 });
 
+                                var estado="";
+                                var colorEst="";
+
+                                if(item.estado=="FINALIZADA"){
+                                    estado="FINALIZADA";
+                                    colorEst="#16D39A";
+                                }else if(item.estado=="INICIADA"){
+                                    estado="INICIADA";
+                                    colorEst="#2DCEE3";
+                                }else{
+                                    estado="PENDIENTE";
+                                    colorEst="#FF7588";
+                                }
+
                                 contenido +=
-                                    '<div  style="cursor: pointer;" id="Sesiones' +
+                                    '<div  style="cursor: ' + cursor +
+                                    '; pointer-events:' + disabled +
+                                    '" id="Sesiones' +
                                     id + '" data-sesion="' + item.id +
                                     '" data-nombre="' + item.sesion +
                                     '"  onclick="$.MostrarAreas(this.id);" class="' +
-                                    bs_callout + ' callout-bordered pt-0"> ' +
+                                    bs_callout + ' callout-bordered mb-1"> ' +
                                     '    <div class="media align-items-stretch"> ' +
                                     '      <div class="media-body p-1"> ' +
                                     '     <strong style="font-size:20px; text-transform: capitalize">' +
@@ -1573,7 +1599,7 @@
                                     ' <p style="font-style: italic;"><b>Áreas: </b> ' +
                                     areas.toString() +
                                     ' <b> - No. Preguntas: </b>' + item
-                                    .num_preguntas + '</p> ' +
+                                    .num_preguntas + ' <b> - Estado:</b> <label style="color: '+colorEst+';">'+estado+'</label></p> ' +
                                     ' </div> ' +
                                     ' <div class="d-flex align-items-center ' + bg +
                                     ' p-2"> ' +
@@ -1594,7 +1620,6 @@
 
                 },
                 MostrarAreas: function(id) {
-
 
 
                     if (localStorage.getItem('sesionIniciada')) {
@@ -1860,6 +1885,7 @@
                     var contenido = '';
                     var Tiempo = $("#tiempo").val();
                     var idSesion = $("#idSesi").val();
+                    var idSimu = $("#idSimu").val();
 
                     if ($("#estaSesion").val() == "FINALIZADA") {
                         Swal.fire({
@@ -1909,15 +1935,15 @@
                                 '  <form method="post" action="{{ url('/') }}/ModuloE/RespSimulacro" id="Evaluacion" class="number-tab-stepsPreg wizard-circle">';
                             var Preg = 1;
                             var ConsPre = 0;
-                            var enunciado ="N/A";
+                            var enunciado = "N/A";
 
                             $.each(respuesta.PregArea, function(i, item) {
                                 console.log(item.enunciado);
-                             
-                                if(item.enunciado!=null){
-                                    enunciado=item.enunciado;
-                                }else{
-                                    enunciado ="N/A";
+
+                                if (item.enunciado != null) {
+                                    enunciado = item.enunciado;
+                                } else {
+                                    enunciado = "N/A";
                                 }
 
                                 contenido += '<h6></h6>' +
@@ -1926,7 +1952,7 @@
                                     '   <div style="width: 100%" class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1" >';
                                 contenido +=
                                     '<div class="row border-bottom-blue-grey"><div class="col-md-12 pb-1"><h6>Enunciado:</h6><label id="enunciado">' +
-                                        enunciado + '</label></div></div>';
+                                    enunciado + '</label></div></div>';
                                 contenido += '<div class="row pt-1" >';
                                 if (respuesta.areaxsesion.area == "5") {
                                     contenido +=
@@ -2045,8 +2071,33 @@
                                 }).then((result) => {
                                     if (result.isConfirmed) {
 
+                                        var form = $("#formAuxiliarGuardarInicioSesion");
+                                        $("#idSes").remove();
+                                        $("#idSimula").remove();
+                                        form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion + "'>");
+                                        form.append("<input type='hidden' name='idSimula' id='idSimula' value='" + idSimu + "'>");
+
+
+                                        var datos = form.serialize();
+                                        var url = form.attr("action");
+                                        var datos = form.serialize();
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: url,
+                                            data: datos,
+                                            dataType: "json",
+                                            async: false,
+                                            success: function(respuesta) {
+
+                                            }
+                                        });
+
+
+
                                         clearInterval();
-                                        localStorage.setItem('sesionIniciada','Si');
+                                        localStorage.setItem('sesionIniciada',
+                                        'Si');
                                         var hora = Tiempo;
 
                                         parts = hora.split(':');
@@ -2293,6 +2344,7 @@
                                                 icon: "warning",
                                                 button: "Aceptar",
                                             });
+                                            localStorage.clear();
                                             tiempofinalizado = "s";
 
                                         }
@@ -2306,7 +2358,7 @@
                                 }, 1000);
 
                             }
-                         
+
 
                         }
                     });

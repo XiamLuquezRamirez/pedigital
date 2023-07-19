@@ -516,6 +516,8 @@ Route::post('/ModuloE/ConsultarPreguntasAreas', 'ModuloEController@ConsultarPreg
 Route::post('/ModuloE/EliminarPregSesionArea', 'ModuloEController@EliminarPregSesionArea');
 Route::post('/ModuloE/CargaPregCompexCompo', 'ModuloEController@CargaPregCompexCompo');
 Route::post('/ModuloE/PreguntasxBanco', 'ModuloEController@PreguntasxBanco');
+Route::post('/ModuloE/changeEstadoSesion', 'ModuloEController@changeEstadoSesion');
+Route::post('/ModuloE/guadarInicioSesion', 'ModuloEController@guadarInicioSesion');
 
 ///INFORMNE DE SIMULACROS
 Route::get('/ModuloE/gestionInfSimulacros', 'ModuloEController@gestionInfSimulacros');

@@ -14,6 +14,7 @@ class SessionArea extends Model
         'sesion',
         'area',
         'npreguntas',
+        'simulacro'
     ];
 
     public static function Guardar($datos)
@@ -22,6 +23,7 @@ class SessionArea extends Model
             'sesion' => $datos['IdSesionGen'],
             'area' => $datos['area'],
             'npreguntas' => $datos['n_preguntas'],
+            'simulacro' => $datos['Id_Simu'],
         ]);
     }
     
@@ -52,11 +54,13 @@ class SessionArea extends Model
 
     public static function ConsultarAreasSesion($Sesion)
     {
+        
         $Areas = DB::connection("mysql")->select("SELECT sa.id idarea, ame.nombre_area, ame.icon, sa.npreguntas, lme.puntuacion, lme.estado estadoarea,sa.id idSesion,lme.resp_preguntas," .
         " (SELECT imagen FROM asignaturas_mode am WHERE am.area=ame.id LIMIT 1) imagen FROM libro_prueba_me lme ".
-        " RIGHT JOIN sesion_area sa ON lme.area=sa.area AND lme.alumno=".Auth::user()->id.
-        " LEFT JOIN areas_me ame ON sa.area=ame.id ".
+        " RIGHT JOIN sesion_area sa ON lme.area=sa.area AND lme.alumno=".Auth::user()->id." AND lme.sesion=".$Sesion.
+        " LEFT JOIN areas_me ame ON sa.area=ame.id  ".
         " WHERE sa.sesion=".$Sesion);
+        
         return $Areas;
     }
 

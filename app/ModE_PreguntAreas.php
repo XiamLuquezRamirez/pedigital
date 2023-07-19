@@ -12,7 +12,8 @@ class ModE_PreguntAreas extends Model
         'pregunta',
         'sesion',
         'banco',
-        'parte'
+        'parte',
+        'simulacro'
     ];
 
     public static function Guardar($datos, $id)
@@ -25,6 +26,7 @@ class ModE_PreguntAreas extends Model
                 'sesion' => $datos['IdSesionGen'],
                 'banco' => $datos["PregBancoId"][$key],
                 'parte' => $datos["PregTipPreg"][$key],
+                'simulacro' => $datos['Id_Simu']
             ]);
         }
 
@@ -57,10 +59,20 @@ class ModE_PreguntAreas extends Model
                 'sesion' => $datos['IdSesionGen'],
                 'banco' => $datos["PregBancoId"][$key],
                 'parte' => $datos["PregTipPreg"][$key],
+                'simulacro' => $datos['Id_Simu']
             ]);
         }
 
         return $respu;
+    }
+
+    public static function consultarPregGeneradasSesion($area, $simu){
+
+      $preGen = ModE_PreguntAreas::where('sesion_area', $area)
+      ->where('simulacro', $simu)
+      ->get();
+
+      return $preGen;
     }
 
     public static function ConsultarInf($id)
@@ -79,25 +91,22 @@ class ModE_PreguntAreas extends Model
             $Pregun = ModE_PreguntAreas::join("preguntas_me", "preguntas_me.id", "preg_competencia.pregunta")
                 ->join("banco_preg_me", "banco_preg_me.id", "preg_competencia.banco")
                 ->where('sesion_area', $id)
-                ->select("preg_competencia.*", "banco_preg_me.enunciado", "banco_preg_me.tipo_pregunta", 'preguntas_me.id AS idpregme',"preguntas_me.pregunta AS pregEnunciado")
+                ->select("preg_competencia.*", "banco_preg_me.enunciado", "banco_preg_me.tipo_pregunta", 'banco_preg_me.npreguntas', 'preguntas_me.id AS idpregme',"preguntas_me.pregunta AS pregEnunciado",'preguntas_me.competencia','preguntas_me.componente')
                 ->groupBy("banco_preg_me.id")
                 ->get();
         } else {
             $Pregun = ModE_PreguntAreas::join("preguntas_me", "preguntas_me.id", "preg_competencia.pregunta")
                 ->join("banco_preg_me", "banco_preg_me.id", "preg_competencia.banco")
                 ->where('sesion_area', $id)
-                ->select("preg_competencia.*", "banco_preg_me.enunciado", "banco_preg_me.tipo_pregunta", 'preguntas_me.id AS idpregme',"preguntas_me.pregunta AS pregEnunciado")
+                ->select("preg_competencia.*", "banco_preg_me.enunciado", "banco_preg_me.tipo_pregunta", 'banco_preg_me.npreguntas','preguntas_me.id AS idpregme',"preguntas_me.pregunta AS pregEnunciado",'preguntas_me.competencia','preguntas_me.componente')
                 ->get();
-                
-        }
+       }
 
-        
         return $Pregun;
     }
 
     public static function Eliminar($Id)
     {
-
         $Are = ModE_PreguntAreas::where('sesion_area', $Id);
         $Are->delete();
         return "1";

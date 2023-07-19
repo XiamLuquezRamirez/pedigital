@@ -14,6 +14,8 @@ class TemasModuloE_Img extends Model
 
     public static function Guardar($data)
     {
+
+        if (isset($data['ImgTema'])){
         foreach ($data["ImgTema"] as $key => $val) {
            $ImgTemas = TemasModuloE_Img::create([
                 'tema' => $data['tema_id'],
@@ -21,6 +23,12 @@ class TemasModuloE_Img extends Model
             ]);
 
         }
+    }else{
+        $ImgTemas = TemasModuloE_Img::create([
+            'tema' => $data['tema_id'],
+            'imagen' => ""
+        ]);
+    }
         return $ImgTemas;
     }
 
