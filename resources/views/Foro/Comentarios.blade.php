@@ -121,7 +121,7 @@
                 form.append("<input type='hidden' name='id' id='idAuxiliar' value='" + id + "'>");
                 var url = form.attr("action");
                 var datos = form.serialize();
-                mensaje = "¿Desea Elimninar este Foro?";
+                mensaje = "¿Desea Eliminar este Foro?";
 
                 Swal.fire({
                     title: 'Gestionar Foros',

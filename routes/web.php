@@ -262,6 +262,7 @@ Route::post('/Profesores/ValProfesor', 'ProfesoresController@ValProfesor');
 Route::post('/Profesores/CargaAcademica', 'ProfesoresController@CargaAcademica');
 Route::post('/Profesores/DelASigDocente', 'ProfesoresController@DelASigDocente');
 Route::post('/Profesores/DelModDocente', 'ProfesoresController@DelModDocente');
+Route::post('/Profesores/ValAsigAsignatura', 'ProfesoresController@ValAsigAsignatura');
 
 ////////////CHAT
 Route::post('/guardarchat', 'UsuariosController@guardarchat');
@@ -466,6 +467,8 @@ Route::post('/ModuloE/CargarEvaluacion', 'ModuloEController@ConsulEval');
 Route::get('/ModuloE/EditarPregPract/{id}', 'ModuloEController@EditarEval');
 Route::post('/ModuloE/EliminarEval', 'ModuloEController@EliminarEval');
 Route::post('/ModuloE/ComponetesAsignatura', 'ModuloEController@ComponetesAsignatura');
+Route::post('/ModuloE/CargarAlumnosCalif', 'ModuloEController@CargarAlumnosCalif');
+Route::post('/ModuloE/CargarAlumnosCalifGrupo', 'ModuloEController@CargarAlumnosCalifGrupo');
 
 
 
@@ -524,7 +527,8 @@ Route::get('/ModuloE/gestionInfSimulacros', 'ModuloEController@gestionInfSimulac
 Route::post('/ModuloE/CargarSimulacros', 'ModuloEController@ConsultarListSimulacros');
 Route::post('/ModuloE/CargaEstxSimulacro', 'ModuloEController@CargaEstxSimulacro');
 Route::post('/ModuloE/InfIndividual', 'ModuloEController@InfIndividual');
-//Route::post('/ModuloE/InfIndividual', [ModuloEController::class, 'InfIndividual']);
+Route::post('/ModuloE/informeArea',  'ModuloEController@informeArea');
+Route::post('/ModuloE/informeComp',  'ModuloEController@informeComp');
 
 
 ////Áreas

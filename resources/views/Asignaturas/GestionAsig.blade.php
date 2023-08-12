@@ -113,24 +113,16 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead class="bg-primary">
                                                     <tr>
+                                                        <th>Opciones</th>
                                                         <th>Asignatura</th>
                                                         <th>Grado</th>
                                                         <th>Estado</th>
-                                                        <th>Opciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
                                                     @foreach ($Asignatura as $Asig)
                                                         <tr data-id='{{ $Asig->id }}' id='Asig{{ $Asig->id }}'>
-                                                            <td class="text-truncate">{!! $Asig->nombre !!}</td>
-                                                            <td class="text-truncate">{!! 'Grado ' . $Asig->grado_modulo . '°' !!}</td>
-                                                            <!--                                                    <td class="text-center font-small-2">{!! $Asig->avance_modulo !!}%
-                                                                            <div class="progress progress-sm mt-1 mb-0">
-                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ $Asig->avance_modulo }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                            </div>
-                                                                        </td>-->
-                                                            <td class="text-truncate">{!! $Asig->estado_modulo !!}</td>
                                                             <td class="text-truncate">
                                                                 <!--<a href='{{ url('Asignaturas/Consultar/' . $Asig->id) }}' data-toggle="tooltip" title="Ver" class="btn btn-icon btn-outline-info btn-social-icon btn-sm"><i class="fa fa-search"></i></a>-->
                                                                 <a href='{{ url('Asignaturas/EditarAsig/' . $Asig->id) }}'
@@ -142,6 +134,15 @@
                                                                     id="btnActi{{ $Asig->id }}"><i class="fa fa-trash"
                                                                         id="iconBoton{{ $Asig->id }}"></i></a>
                                                             </td>
+                                                            <td class="text-truncate">{!! $Asig->nombre !!}</td>
+                                                            <td class="text-truncate">{!! 'Grado ' . $Asig->grado_modulo . '°' !!}</td>
+                                                            <!--                                                    <td class="text-center font-small-2">{!! $Asig->avance_modulo !!}%
+                                                                                <div class="progress progress-sm mt-1 mb-0">
+                                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ $Asig->avance_modulo }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                </div>
+                                                                            </td>-->
+                                                            <td class="text-truncate">{!! $Asig->estado_modulo !!}</td>
+
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -190,11 +191,11 @@
                     var url = form.attr("action");
                     var datos = form.serialize();
                     var mensaje = "";
-                
+
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar este Grado?";
+                    mensaje = "¿Desea Eliminar este Grado?";
 
                     Swal.fire({
                         title: 'Gestionar Grados',
@@ -220,7 +221,7 @@
                                         });
 
                                         $("#Asig" + id).hide();
-                                    }else if (respuesta.estado == "SINPERMISO"){    
+                                    } else if (respuesta.estado == "SINPERMISO") {
                                         Swal.fire({
                                             title: "Gestionar Grados",
                                             text: respuesta.mensaje,

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class CompAreaSession extends Model
 {
@@ -77,6 +78,44 @@ class CompAreaSession extends Model
         $Are = CompAreaSession::where('sesion', $Id);
         $Are->delete();
         return "1";
+
+    }
+
+    public static function BuscarPregcompe($IdSimu, $IdArea){
+
+        $DetSesion = DB::connection("mysql")->select("SELECT csa.competencia, compe.nombre, SUM(csa.porcpreg) npreg  FROM sesion_area sa 
+        RIGHT JOIN comp_sesio_area csa ON sa.id=csa.id_sexarea 
+        LEFT JOIN competencias compe ON compe.id=csa.competencia
+        WHERE sa.simulacro=".$IdSimu."  AND sa.area=".$IdArea."
+        GROUP BY csa.competencia ");
+     return $DetSesion;
+
+    }
+
+    public static function BuscarPregAcertadascompe($IdSimu, $IdArea,$Compe){
+        $DetSesion = DB::connection("mysql")->select("SELECT SUM(puntos) acertados FROM sesion_area sa
+        RIGHT JOIN puntuacion_preguntas_me_prueba ppp ON sa.sesion=ppp.sesion AND ppp.area=".$IdArea."
+        WHERE sa.simulacro=".$IdSimu." AND sa.area=".$IdArea." AND competencia=".$Compe);
+     return $DetSesion[0];
+    }
+
+    
+    public static function BuscarPregAcertadascompo($IdSimu, $IdArea,$Compe){
+        $DetSesion = DB::connection("mysql")->select("SELECT SUM(puntos) acertados FROM sesion_area sa
+        RIGHT JOIN puntuacion_preguntas_me_prueba ppp ON sa.sesion=ppp.sesion AND ppp.area=".$IdArea."
+        WHERE sa.simulacro=".$IdSimu." AND sa.area=".$IdArea." AND componente=".$Compe);
+     return $DetSesion[0];
+    }
+
+
+    public static function BuscarPregcompo($IdSimu, $IdArea){
+
+        $DetSesion = DB::connection("mysql")->select("SELECT csa.componente, compe.nombre, SUM(csa.porcpreg) npreg  FROM sesion_area sa 
+        RIGHT JOIN comp_sesio_area csa ON sa.id=csa.id_sexarea 
+        LEFT JOIN componentes compe ON compe.id=csa.componente
+        WHERE sa.simulacro=".$IdSimu."  AND sa.area=".$IdArea."
+        GROUP BY csa.componente");
+     return $DetSesion;
 
     }
 

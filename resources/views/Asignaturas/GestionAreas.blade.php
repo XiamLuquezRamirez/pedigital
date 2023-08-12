@@ -86,14 +86,13 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead>
                                                     <tr>
-                                                        <th>Nombre</th>
                                                         <th>Opciones</th>
+                                                        <th>Nombre</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($Areas as $Ar)
                                                         <tr data-id='{{ $Ar->id }}' id='Asig{{ $Ar->id }}'>
-                                                            <td class="text-truncate">{!! $Ar->nombre_area !!}</td>
                                                             <td class="text-truncate">
                                                                 <a href='{{ url('Asignaturas/EditarArea/' . $Ar->id) }}'
                                                                     title="Editar" class="btn btn-outline-success btn-sm"><i
@@ -103,6 +102,8 @@
                                                                     id="btnActi{{ $Ar->id }}"><i class="fa fa-trash"
                                                                         id="iconBoton{{ $Ar->id }}"></i></a>
                                                             </td>
+                                                            <td class="text-truncate">{!! $Ar->nombre_area !!}</td>
+
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -149,9 +150,9 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar esta Área?";
+                    mensaje = "¿Desea Eliminar esta Área?";
 
-             
+
                     Swal.fire({
                         title: 'Gestionar Área',
                         text: mensaje,
@@ -169,34 +170,34 @@
                                 success: function(respuesta) {
 
 
-                                   if(respuesta.estado === "ELIMINADO"){
-
-                                    Swal.fire({
-                                        title: "Gestionar Área",
-                                        text: respuesta.mensaje,
-                                        icon: "success",
-                                        button: "Aceptar"
-                                    });
-
                                     if (respuesta.estado === "ELIMINADO") {
 
-                                        $("#Asig" + id).hide();
+                                        Swal.fire({
+                                            title: "Gestionar Área",
+                                            text: respuesta.mensaje,
+                                            icon: "success",
+                                            button: "Aceptar"
+                                        });
+
+                                        if (respuesta.estado === "ELIMINADO") {
+
+                                            $("#Asig" + id).hide();
+                                        }
+
+                                    } else {
+
+                                        Swal.fire({
+                                            title: "Gestionar Área",
+                                            text: respuesta.mensaje,
+                                            icon: "warning",
+                                            button: "Aceptar"
+                                        });
                                     }
-
-                                }else{
-
-                                    Swal.fire({
-                                        title: "Gestionar Área",
-                                        text: respuesta.mensaje,
-                                        icon: "warning",
-                                        button: "Aceptar"
-                                    });
-                                }
 
                                 },
                                 error: function() {
 
-                              
+
                                     mensaje =
                                         "El Área no pudo ser Eliminada!";
 

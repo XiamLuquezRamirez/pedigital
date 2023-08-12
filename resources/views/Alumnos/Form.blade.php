@@ -82,7 +82,7 @@ use Illuminate\Support\Facades\Input;
             <select name="jornada" id="jornada" class="form-control select2">
                 <option value="">-- Seleccionar --</option>
                 <option value="JM" @if (Input::old('jornada', $Alumno->jornada) == 'JM') selected="selected" @endif>Jornada Mañana</option>
-                <option value="JT" @if (Input::old('jornada', $Alumno->jornada) == 'JT') selected="selected" @endif>Jornada Tarte</option>
+                <option value="JT" @if (Input::old('jornada', $Alumno->jornada) == 'JT') selected="selected" @endif>Jornada Tarde</option>
                 <option value="JN" @if (Input::old('jornada', $Alumno->jornada) == 'JN') selected="selected" @endif>Jornada Nocturna</option>
             </select>
 

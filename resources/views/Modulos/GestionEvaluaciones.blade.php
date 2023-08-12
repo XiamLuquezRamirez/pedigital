@@ -726,7 +726,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar esta Evaluación?";
+                    mensaje = "¿Desea Eliminar esta Evaluación?";
 
                     Swal.fire({
                         title: 'Gestionar Evaluaciones',

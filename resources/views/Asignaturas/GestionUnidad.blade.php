@@ -524,7 +524,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar esta Unidad?";
+                    mensaje = "¿Desea Eliminar esta Unidad?";
 
                     Swal.fire({
                         title: 'Gestionar Unidades',

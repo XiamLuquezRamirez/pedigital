@@ -50,13 +50,13 @@ use Illuminate\Support\Facades\Input;
             {!! Form::text('email', old('email', $Profesores->email), ['class' => 'form-control', 'placeholder' => 'Email', 'id' => 'email', 'onchange' => 'return validarEmail(event)']) !!}
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="form-group">
             {{ Form::label('Jornada', 'Jornada:', ['class' => 'form-label']) }}
-            <select name="jornada" id="jornada" class="form-control select2">
+            <select name="jornada" id="jornada" onchange="$.validAsignacion(this.value)" class="form-control select2">
                 <option value="">-- Seleccionar --</option>
                 <option value="JM" @if (Input::old('jornada', $Profesores->jornada) == 'JM') selected="selected" @endif>Jornada Mañana</option>
-                <option value="JT" @if (Input::old('jornada', $Profesores->jornada) == 'JT') selected="selected" @endif>Jornada Tarte</option>
+                <option value="JT" @if (Input::old('jornada', $Profesores->jornada) == 'JT') selected="selected" @endif>Jornada Tarde</option>
                 <option value="JN" @if (Input::old('jornada', $Profesores->jornada) == 'JN') selected="selected" @endif>Jornada Nocturna
                 </option>
             </select>

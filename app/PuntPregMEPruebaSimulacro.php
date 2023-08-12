@@ -18,7 +18,8 @@ class PuntPregMEPruebaSimulacro extends Model
         'puntos',
         'parte',
         'competencia',
-        'componente'
+        'componente',
+        'simulacro'
     ];
 
     public static function Guardar($IdSesion, $IdArea, $preg, $puntos,$parte,$compe,$compo)
@@ -64,6 +65,22 @@ class PuntPregMEPruebaSimulacro extends Model
        ." LEFT JOIN  me_sesiones_simulacros mss ON ppme.sesion=mss.id"
        ." WHERE ppme.alumno=".$alum." AND mss.id_simulacro=".$Idsimu." AND ppme.area=".$IdArea."");
         return $DetSesion[0];
+    }
+
+    public static function puntCompEst($idSimu, $competencia,$est){
+        $PuntcompEst = DB::connection("mysql")->select("SELECT ppp.competencia, CONCAT(alum.apellido_alumno,' ',nombre_alumno) nombre, SUM(ppp.puntos) puntos FROM `puntuacion_preguntas_me_prueba` ppp
+        LEFT JOIN alumnos alum ON alum.usuario_alumno=ppp.alumno
+        WHERE ppp.simulacro=".$idSimu." AND ppp.competencia =".$competencia." AND ppp.alumno=".$est."
+        GROUP BY ppp.alumno");
+         return $PuntcompEst;
+    }
+
+    public static function puntCompoEst($idSimu, $componente,$est){
+        $PuntcompEst = DB::connection("mysql")->select("SELECT ppp.componente, CONCAT(alum.apellido_alumno,' ',nombre_alumno) nombre, SUM(ppp.puntos) puntos FROM `puntuacion_preguntas_me_prueba` ppp
+        LEFT JOIN alumnos alum ON alum.usuario_alumno=ppp.alumno
+        WHERE ppp.simulacro=".$idSimu." AND ppp.componente =".$componente." AND ppp.alumno=".$est."
+        GROUP BY ppp.alumno");
+         return $PuntcompEst;
     }
 
 }

@@ -51,7 +51,7 @@ class SesionAlumnos extends Model
     public static function ConsultarTodo($datos)
     {
 
-        $respuesta = DB::connection("mysql")->select("SELECT * FROM  me_sesiones_alumnos saa RIGHT JOIN sesion_area sa ON saa.sesion=sa.id AND alumno=".Auth::user()->id." WHERE simulacro=".$datos['idSimula']);
+        $respuesta = DB::connection("mysql")->select("SELECT * FROM me_sesiones_simulacros mss LEFT JOIN me_sesiones_alumnos msa ON mss.id=msa.sesion AND msa.alumno=".Auth::user()->id." WHERE mss.id_simulacro=".$datos['idSimula']);
         return $respuesta;
     }
 

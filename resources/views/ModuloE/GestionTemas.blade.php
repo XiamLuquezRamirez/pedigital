@@ -42,7 +42,13 @@
                                             </div>
 
                                             <div class="col-md-5">
-                                                {!! Form::model(Request::all(), ['url' => '/ModuloE/GestionTema', 'method' => 'GET', 'autocomplete' => 'off', 'role' => 'search', 'class' => '']) !!}
+                                                {!! Form::model(Request::all(), [
+                                                    'url' => '/ModuloE/GestionTema',
+                                                    'method' => 'GET',
+                                                    'autocomplete' => 'off',
+                                                    'role' => 'search',
+                                                    'class' => '',
+                                                ]) !!}
                                                 <div class="form-group">
                                                     <select class="form-control select2" name="nombre" id="nombre">
                                                         {!! $select_Asig !!}
@@ -108,11 +114,11 @@
                                             class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                             <thead class="bg-primary">
                                                 <tr>
+                                                    <th>Opciones</th>
                                                     <th>#</th>
                                                     <th>Título</th>
                                                     <th>Componente</th>
                                                     <th>Asignatura</th>
-                                                    <th>Opciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -121,10 +127,6 @@
                                                 @endphp
                                                 @foreach ($Temas as $Tem)
                                                     <tr data-id='{{ $Tem->id }}' id='Tem{{ $Tem->id }}'>
-                                                        <td class="text-truncate">{!! $cont !!}</td>
-                                                        <td class="text-truncate">{!! $Tem->titulo !!}</td>
-                                                        <td class="text-truncate">{!! $Tem->ncom !!}</td>
-                                                        <td class="text-truncate">{!! $Tem->nombre . ' - Grado ' . $Tem->grado . '°' !!}</td>
                                                         <td class="text-truncate">
                                                             <a href='{{ url('ModuloE/EditarTema/' . $Tem->id) }}'
                                                                 title="Editar" class="btn btn-outline-success btn-sm"><i
@@ -140,6 +142,10 @@
                                                                     class="fa fa-check-square-o"
                                                                     id="iconBoton{{ $Tem->id }}"></i> </a>
                                                         </td>
+                                                        <td class="text-truncate">{!! $cont !!}</td>
+                                                        <td class="text-truncate">{!! $Tem->titulo !!}</td>
+                                                        <td class="text-truncate">{!! $Tem->ncom !!}</td>
+                                                        <td class="text-truncate">{!! $Tem->nombre . ' - Grado ' . $Tem->grado . '°' !!}</td>
                                                     </tr>
                                                     @php
                                                         $cont++;
@@ -191,7 +197,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar este Tema?";
+                    mensaje = "¿Desea Eliminar este Tema?";
 
                     Swal.fire({
                         title: 'Gestionar Módulo E',
@@ -201,7 +207,7 @@
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Si, Eliminar!'
-                      }).then((result) => {
+                    }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
                                 type: "post",
@@ -231,19 +237,19 @@
                                     mensaje = "El Tema no pudo ser Eliminado";
 
                                     Swal.fire(
-                              
+
                                         'Eliminado!',
                                         mensaje,
                                         'success'
-                                      )
+                                    )
                                 }
                             });
 
 
-                         
+
                         }
-                      })
-                  
+                    })
+
                 }
             });
         });

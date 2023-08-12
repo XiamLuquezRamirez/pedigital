@@ -155,6 +155,14 @@ class TemasModuloE extends Model
             ->first();
         return $Asig;
     }
+    public static function BuscarTemDet($tem)
+    {
+        $Asig = TemasModuloE::join("asignaturas_mode", "asignaturas_mode.id", "temas_moduloe.asignatura")
+            ->where('temas_moduloe.id', $tem)
+            ->select('temas_moduloe.*', 'asignaturas_mode.grado')
+            ->first();
+        return $Asig;
+    }
 
     public static function editarestado($id, $estado)
     {

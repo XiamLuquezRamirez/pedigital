@@ -65,6 +65,9 @@
         </section>
     </div>
 
+    {!! Form::open(['url' => '/Usuarios/ValUsuario', 'id' => 'formAuxiliarUsu']) !!}
+    {!! Form::close() !!}
+
 @endsection
 @section('scripts')
     <script>
@@ -114,7 +117,32 @@
                         return;
                     
                     }
-                }
+                },
+                ValidUsu: function(Usu) {
+
+                    var form = $("#formAuxiliarUsu");
+                    $("#Usu").remove();
+                    form.append("<input type='hidden' name='Usu' id='Usu' value='" + Usu + "'>");
+                    var url = form.attr("action");
+                    var datos = form.serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: datos,
+                        async: false,
+                        dataType: "json",
+                        success: function(respuesta) {
+                            if (respuesta.exit === "si") {
+                                Swal.fire('Alerta!',
+                                    'Este Nombre de Usuario ya se Encuentra Registrado...',
+                                    'warning');
+                                    $("#usuario_alumno").val("");
+                            }
+
+                        }
+
+                    });
+                },
             });
 
         });
@@ -123,9 +151,7 @@
             tecla = e.which || e.keyCode;
             patron = /[0-9]+$/;
             te = String.fromCharCode(tecla);
-            //    if(e.which==46 || e.keyCode==46) {
-            //        tecla = 44;
-            //    }
+          
             return (patron.test(te) || tecla == 9 || tecla == 8 || tecla == 37 || tecla == 39 || tecla == 44);
         }
 

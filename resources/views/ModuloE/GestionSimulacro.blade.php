@@ -46,7 +46,13 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                {!! Form::model(Request::all(), ['url' => '/ModuloE/GestionSimulacros', 'method' => 'GET', 'autocomplete' => 'off', 'role' => 'search', 'class' => '']) !!}
+                                                {!! Form::model(Request::all(), [
+                                                    'url' => '/ModuloE/GestionSimulacros',
+                                                    'method' => 'GET',
+                                                    'autocomplete' => 'off',
+                                                    'role' => 'search',
+                                                    'class' => '',
+                                                ]) !!}
                                                 <div class="input-group">
                                                     {!! Form::text('txtbusqueda', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'BUSQUEDA..']) !!}
                                                     <span class="input-group-append">
@@ -103,11 +109,11 @@
                                             class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                             <thead class="bg-primary">
                                                 <tr>
+                                                    <th>Opciones</th>
                                                     <th>#</th>
                                                     <th>Nombre</th>
                                                     <th>Prueba</th>
                                                     <th>Fecha Presentación</th>
-                                                    <th>Opciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -116,10 +122,6 @@
                                                 @endphp
                                                 @foreach ($Simulacros as $Simu)
                                                     <tr data-id='{{ $Simu->id }}' id='Comp{{ $Simu->id }}'>
-                                                        <td class="text-truncate">{!! $cont !!}</td>
-                                                        <td class="text-truncate">{!! $Simu->nombre !!}</td>
-                                                        <td class="text-truncate">{!! 'Grado ' . $Simu->prueba !!}</td>
-                                                        <td class="text-truncate">{!! $Simu->fecha !!}</td>
                                                         <td class="text-truncate">
                                                             <a href="{{ url('ModuloE/EditarSimulacro/' . $Simu->id) }}"
                                                                 title="Editar" class="btn btn-outline-success  btn-sm"><i
@@ -129,6 +131,10 @@
                                                                 id="btnActi{{ $Simu->id }}"><i class="fa fa-trash"
                                                                     id="iconBoton{{ $Simu->id }}"></i></a>
                                                         </td>
+                                                        <td class="text-truncate">{!! $cont !!}</td>
+                                                        <td class="text-truncate">{!! $Simu->nombre !!}</td>
+                                                        <td class="text-truncate">{!! 'Grado ' . $Simu->prueba !!}</td>
+                                                        <td class="text-truncate">{!! $Simu->fecha !!}</td>
                                                     </tr>
                                                     @php
                                                         $cont++;
@@ -180,7 +186,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar este Simulacro?";
+                    mensaje = "¿Desea Elimnnar este Simulacro?";
 
                     Swal.fire({
                         title: 'Gestionar Módulo E',

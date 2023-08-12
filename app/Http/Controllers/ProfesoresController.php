@@ -21,7 +21,7 @@ class ProfesoresController extends Controller
             }
             $limit = 5;
             $Profesores = \App\Profesores::Gestion($busqueda, $actual, $limit);
-//            dd($Profesores);die();
+            //            dd($Profesores);die();
             $numero_filas = \App\Profesores::numero_de_registros(request()->get('txtbusqueda'));
             $paginas = ceil($numero_filas / $limit); //$numero_filas/10;
 
@@ -65,9 +65,9 @@ class ProfesoresController extends Controller
                 $trAsig .= '<tr id="Fila_Asig' . $i . '">
                     <td class="text-truncate">' . $i . '</td>
                     <td class="text-truncate">' . $AP->nombre . ' Grado ' . $AP->grado_modulo . '° ' . $AP->descripcion
-                . '</td><input type="hidden" id="Asig' . $i . '" name="txtasig[]"  value="' . $AP->asignatura . '">'
-                . '</td><input type="hidden" id="grado' . $i . '" name="txtgrado[]"  value="' . $AP->grado . '">'
-                . '</td><input type="hidden" id="grupo' . $i . '" class="grupo" name="txtgrupo[]"  value="' . $AP->grupo . '">
+                    . '</td><input type="hidden" id="Asig' . $i . '" name="txtasig[]"  value="' . $AP->asignatura . '">'
+                    . '</td><input type="hidden" id="grado' . $i . '" name="txtgrado[]"  value="' . $AP->grado . '">'
+                    . '</td><input type="hidden" id="grupo' . $i . '" class="grupo" name="txtgrupo[]"  value="' . $AP->grupo . '">
                     <td class="text-truncate">
                         <a onclick="$.DelAsig(' . $i . ')"  title="Eliminar" class="btn  btn-outline-warning btn-sm"><i class="fa fa-trash"></i></a>
                     </td>
@@ -112,9 +112,7 @@ class ProfesoresController extends Controller
                             "dia" => "Día " . $i,
                         );
                     }
-
                 }
-
             }
 
             $tablaAsit = '';
@@ -153,17 +151,14 @@ class ProfesoresController extends Controller
                             $ValAsit = 'Excusa';
                         } elseif ($InfAsist[$i]["ValorAsis"] == "*") {
                             $ValAsit = '';
-
                         }
 
                         $tablaAsit .= '<td>' . $ValAsit . '</td>';
                         $cons++;
-
                     }
                     if (empty($InfAsist[$i + 1]['Alumno'])) {
                         $tablaAsit .= '</tr>';
                     }
-
                 } else {
                     $tablaAsit .= '<tr>
                 <td>' . $cons . '</td>
@@ -179,14 +174,12 @@ class ProfesoresController extends Controller
                         $ValAsit = 'Excusa';
                     } elseif ($InfAsist[$i]["ValorAsis"] == "*") {
                         $ValAsit = '';
-
                     }
 
                     $tablaAsit .= '<td>' . $ValAsit . '</td>';
 
                     $cons++;
                 }
-
             }
 
             if (request()->ajax()) {
@@ -214,9 +207,9 @@ class ProfesoresController extends Controller
                 $trAsig .= '<tr id="Fila_Asig' . $i . '">
                     <td class="text-truncate">' . $i . '</td>
                     <td class="text-truncate">' . $AP->nombre . ' Grado ' . $AP->grado_modulo . '° ' . $AP->descripcion
-                . '</td><input type="hidden" id="Asig' . $i . '" name="txtasig[]"  value="' . $AP->asignatura . '">'
-                . '</td><input type="hidden" id="grado' . $i . '" name="txtgrado[]"  value="' . $AP->grado . '">'
-                . '</td><input type="hidden" id="grupo' . $i . '" class="grupo" name="txtgrupo[]"  value="' . $AP->grupo . '">
+                    . '</td><input type="hidden" id="Asig' . $i . '" name="txtasig[]"  value="' . $AP->asignatura . '">'
+                    . '</td><input type="hidden" id="grado' . $i . '" name="txtgrado[]"  value="' . $AP->grado . '">'
+                    . '</td><input type="hidden" id="grupo' . $i . '" class="grupo" name="txtgrupo[]"  value="' . $AP->grupo . '">
                     <td class="text-truncate">
                         <a onclick="$.DelAsig(' . $i . ')" data-toggle="tooltip" title="Eliminar" class="btn btn-icon btn-outline-warning btn-social-icon btn-sm"><i class="fa fa-trash"></i></a>
                     </td>
@@ -274,7 +267,7 @@ class ProfesoresController extends Controller
                             $jornada = "Jornada Nocturna";
                         }
                         $tablaAsit .= '<div class="bs-callout-blue callout-border-right callout-bordered callout-transparent p-1 mb-1">'
-                        . '<h4 style="color:#000000; weight: bold;" class="card-title">' . $doce->nombre . ' ' . $doce->apellido . ' - ' . $jornada . '</h4>';
+                            . '<h4 style="color:#000000; weight: bold;" class="card-title">' . $doce->nombre . ' ' . $doce->apellido . ' - ' . $jornada . '</h4>';
                         $tablaAsit .= '  <div class="modal-body">';
 
                         $CarAsig = \App\AsigProf::listar($doce->usuario_profesor);
@@ -288,7 +281,6 @@ class ProfesoresController extends Controller
                             }
                         } else {
                             $tablaAsit .= ' <li>--NO TIENE ASIGNATURAS ASIGNADAS--</li>';
-
                         }
 
                         $tablaAsit .= '</ul>';
@@ -309,7 +301,6 @@ class ProfesoresController extends Controller
 
                         $tablaAsit .= '</div></div>';
                     }
-
                 }
             } else {
 
@@ -326,7 +317,7 @@ class ProfesoresController extends Controller
                         $jornada = "Jornada Nocturna";
                     }
                     $tablaAsit .= '<div class="bs-callout-blue callout-border-right callout-bordered callout-transparent p-1 mb-1">'
-                    . '<h4 style="color:#000000; weight: bold;" class="card-title">' . $Docentes->nombre . ' ' . $Docentes->apellido . ' - ' . $jornada . '</h4>';
+                        . '<h4 style="color:#000000; weight: bold;" class="card-title">' . $Docentes->nombre . ' ' . $Docentes->apellido . ' - ' . $jornada . '</h4>';
                     $tablaAsit .= '  <div class="modal-body">';
 
                     $CarAsig = \App\AsigProf::listar($Docentes->usuario_profesor);
@@ -340,7 +331,6 @@ class ProfesoresController extends Controller
                         }
                     } else {
                         $tablaAsit .= ' <li>--NO TIENE ASIGNATURAS ASIGNADAS--</li>';
-
                     }
 
                     $tablaAsit .= '</ul>';
@@ -364,7 +354,6 @@ class ProfesoresController extends Controller
 
                     $tablaAsit .= '</div></div>';
                 }
-
             }
 
             if (request()->ajax()) {
@@ -439,7 +428,7 @@ class ProfesoresController extends Controller
         $idGrado = request()->get('idGrado2');
         $idGrupo = request()->get('IdGrupo2');
         $jornada = request()->get('jorna');
-      
+
 
         if ($jornada == "Jornada Mañana") {
             $jornada = "JM";
@@ -448,18 +437,17 @@ class ProfesoresController extends Controller
         } else {
             $jornada = "JN";
         }
-        
-     
+
+
         if (Auth::check()) {
             $Resp = \App\AsigProf::BuscAsigAsing($idGrado, $idGrupo, $jornada);
-            
+
             $docente = "";
             $exit = "no";
             if ($Resp) {
                 $docente = $Resp->nombre . ' ' . $Resp->apellido . ' - ' . $Resp->Jorna;
                 $exit = "si";
             } else {
-
             }
 
             if (request()->ajax()) {
@@ -490,7 +478,6 @@ class ProfesoresController extends Controller
             if ($Prof) {
                 $exit = "si";
             }
-
         }
 
         if (request()->ajax()) {
@@ -521,7 +508,6 @@ class ProfesoresController extends Controller
                 $docente = $Resp->nombre . ' ' . $Resp->apellido . ' - ' . $Resp->Jorna;
                 $exit = "si";
             } else {
-
             }
 
             if (request()->ajax()) {
@@ -595,7 +581,7 @@ class ProfesoresController extends Controller
     {
         $bandera = "Menu4";
         $data = request()->all();
-//        dd($data);die();
+        //        dd($data);die();
         if (isset($data["txtasig"])) {
             $AsiProf = \App\AsigProf::Guardar($data);
             if ($AsiProf) {
@@ -612,7 +598,7 @@ class ProfesoresController extends Controller
     {
         $bandera = "Menu4";
         $data = request()->all();
-//        dd($data);die();
+        //        dd($data);die();
         if (isset($data["txtasig"])) {
             $AsiProf = \App\ModProf::Guardar($data);
             if ($AsiProf) {
@@ -629,7 +615,7 @@ class ProfesoresController extends Controller
     {
         $bandera = "Menu4";
         if (Auth::check()) {
-//            dd(request()->all());die();
+            //            dd(request()->all());die();
             $this->validate(request(), [
                 'identificacion' => 'required',
                 'nombre' => 'required',
@@ -876,7 +862,6 @@ class ProfesoresController extends Controller
                                     </div>
                                 </a>';
                     $UsuAct++;
-
                 } else {
                     $listUsuNoCo .= ' <a href="javascript:void(0)">
                                     <div class="media">
@@ -1014,5 +999,48 @@ class ProfesoresController extends Controller
             }
         }
     }
+    public function ValAsigAsignatura()
+    {
+        if (Auth::check()) {
+            $InfAsiga = array(); //creamos un array
 
+            $data = request()->all();
+
+            $idDoc = $data['idProf'];
+
+            $jornadad = $data['jornadaSel'];
+            $profesor = \App\Profesores::BuscarProf($idDoc);
+
+            ///verificacion de asignacion Asignaturas
+            $asig = \App\AsigProf::listar($profesor->usuario_profesor);
+            if ($asig) {
+                $InfAsiga[] = array(
+                    "asignados" => 'Asignaturas'
+                );
+            }
+            ///verificacion de asignacion Modulos
+
+            $mod = \App\ModProf::listar($profesor->usuario_profesor);
+            if ($mod) {
+                $InfAsiga[] = array(
+                    "asignados" => 'Modulos'
+                );
+            }
+
+            $totalElementos = count($InfAsiga);
+            $respVal="";
+
+            if($jornadad != $profesor->jornada && $totalElementos>0){
+                $respVal="s";
+            }
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'respVal' => $respVal,
+                    'InfAsiga' => $InfAsiga,
+                    'jornadad' => $profesor->jornada
+                ]);
+            }
+        }
+    }
 }

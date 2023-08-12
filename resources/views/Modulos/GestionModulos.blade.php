@@ -105,9 +105,9 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead class="bg-primary">
                                                     <tr>
+                                                        <th>Opciones</th>
                                                         <th>#</th>
                                                         <th>Módulo</th>
-                                                        <th>Opciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -116,8 +116,6 @@
                                                     @endphp
                                                     @foreach ($Modulos as $Mod)
                                                         <tr data-id='{{ $Mod->id }}' id='Asig{{ $Mod->id }}'>
-                                                            <td class="text-truncate">{!! $cont !!}</td>
-                                                            <td class="text-truncate">{!! $Mod->nombre !!}</td>
                                                             <td class="text-truncate">
                                                                 <a href='{{ url('Modulos/EditarModulo/' . $Mod->id) }}'
                                                                     title="Editar"
@@ -129,6 +127,8 @@
                                                                         class="fa fa-trash"
                                                                         id="iconBoton{{ $Mod->id }}"></i></a>
                                                             </td>
+                                                            <td class="text-truncate">{!! $cont !!}</td>
+                                                            <td class="text-truncate">{!! $Mod->nombre !!}</td>
                                                         </tr>
                                                         @php
                                                             $cont++;
@@ -180,7 +180,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar este Módulo?";
+                    mensaje = "¿Desea Eliminar este Módulo?";
                     Swal.fire({
                         title: 'Gestionar Módulos Transversales',
                         text: mensaje,

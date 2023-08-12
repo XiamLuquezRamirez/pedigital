@@ -66,10 +66,9 @@ class ModE_PreguntAreas extends Model
         return $respu;
     }
 
-    public static function consultarPregGeneradasSesion($area, $simu){
+    public static function consultarPregGeneradasSesion($simu){
 
-      $preGen = ModE_PreguntAreas::where('sesion_area', $area)
-      ->where('simulacro', $simu)
+      $preGen = ModE_PreguntAreas::where('simulacro', $simu)
       ->get();
 
       return $preGen;

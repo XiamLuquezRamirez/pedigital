@@ -127,7 +127,7 @@ class Evaluacion extends Model
     public static function ModifEvalCalxDoc($id, $calxdoc)
     {
         $respuesta = Evaluacion::where(['id' => $id])->update([
-            
+            'calxdoc' => $calxdoc,
         ]);
 
         return $respuesta;
@@ -137,7 +137,7 @@ class Evaluacion extends Model
     {
         $VerfDel = Evaluacion::where('id', $id)
         ->where('id', '>=', 1)
-        ->where('id', '<=', 6510)
+        ->where('id', '<=', 6539)
         ->get();
        
         return $VerfDel;

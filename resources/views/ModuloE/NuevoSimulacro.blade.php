@@ -155,7 +155,7 @@
                 },
                 DelSesion: function(id) {
 
-                    mensaje = "¿Desea Elimninar esta Sesión?";
+                    mensaje = "¿Desea Eliminar esta Sesión?";
                     var IdSesi = $("#" + id).data('value');
 
                     Swal.fire({
@@ -221,7 +221,7 @@
                 },
                 DelAreaSesion: function(Sesi) {
 
-                    mensaje = "¿Desea Elimninar esta Área de la Sesión?";
+                    mensaje = "¿Desea Eliminar esta Área de la Sesión?";
 
                     Swal.fire({
                         title: 'Gestionar Simulacros',
@@ -2114,6 +2114,7 @@
                 GenPreg: function() {
                     var rurl = $("#Ruta").val();
                     var area = $("#area").val();
+                    $("#nPregCompoxCompeSel").val("0");
 
                     if (area == "5") {
                         $("#selPreguntas").modal({
@@ -2144,24 +2145,42 @@
                             contentType: false,
                             success: function(respuesta) {
                                 if (respuesta) {
-                                    Swal.fire({
-                                        title: "Gestión de Simulacros",
-                                        text: "Preguntas Generadas Exitosamente",
-                                        icon: "success",
-                                        button: "Aceptar",
-                                    });
 
-                                    $("#PreguntasxAreas").html(respuesta.Preguntas);
-                                    if ($("#OpcSesion").val() === "G") {
-                                        $('#GuarCofCompe').show();
-                                        $('#EditCofCompeEdit').hide();
+                                    if (parseInt(respuesta.Preguntas.cantidPreg) < parseInt(
+                                            $("#n_preguntas").val())) {
+                                        Swal.fire({
+                                            title: "Gestión de Simulacros",
+                                            text: "Solo se encontraron para estos parametros " +
+                                                respuesta.Preguntas.cantidPreg +
+                                                " de las " + $("#n_preguntas")
+                                            .val() +
+                                                " que se tenian que encontrar.",
+                                            icon: "warning",
+                                            button: "Aceptar",
+                                        });
                                     } else {
-                                        $('#EditCofCompeEdit').show();
-                                        $('#GuarCofCompe').hide();
+
+                                        Swal.fire({
+                                            title: "Gestión de Simulacros",
+                                            text: "Preguntas Generadas Exitosamente",
+                                            icon: "success",
+                                            button: "Aceptar",
+                                        });
+
+                                        $("#PreguntasxAreas").html(respuesta.Preguntas
+                                            .preguntas);
+
+                                        if ($("#OpcSesion").val() === "G") {
+                                            $('#GuarCofCompe').show();
+                                            $('#EditCofCompeEdit').hide();
+                                        } else {
+                                            $('#EditCofCompeEdit').show();
+                                            $('#GuarCofCompe').hide();
+                                        }
+
+                                        $('#TablaPreg').show();
 
                                     }
-                                    $('#TablaPreg').show();
-
 
                                 } else {
                                     mensaje = "Las Preguntas no Lograron ser Generadas";
@@ -2542,7 +2561,7 @@
                             });
 
                             /////Cargar Preguntas x areas
-                            $("#PreguntasxAreas").html(respuesta.PregArea);
+                            $("#PreguntasxAreas").html(respuesta.PregArea.preguntas);
 
                             $("#EditCofCompeEdit").show();
 

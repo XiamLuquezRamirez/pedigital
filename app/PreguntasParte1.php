@@ -56,12 +56,13 @@ class PreguntasParte1 extends Model
 
     }
 
-    public static function BuscOpcRespPruebaParte($id,$Est)
+    public static function BuscOpcRespPruebaParte($id,$Est,$ses)
     {
         $DesOpcPreg = PreguntasParte1::join('resp_pregmultiple_me_prueba', 'resp_pregmultiple_me_prueba.pregunta', 'preguntas_parte1.id')
             ->select('preguntas_parte1.id', 'preguntas_parte1.respuesta', 'resp_pregmultiple_me_prueba.respuesta AS resp_alumno')
             ->where('resp_pregmultiple_me_prueba.pregunta', $id)
             ->where('resp_pregmultiple_me_prueba.alumno', $Est)
+            ->where('resp_pregmultiple_me_prueba.sesion', $ses)
             ->first();
         return $DesOpcPreg;
     }

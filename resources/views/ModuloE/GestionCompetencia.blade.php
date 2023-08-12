@@ -46,7 +46,13 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                {!! Form::model(Request::all(), ['url' => '/ModuloE/GestionCompetencia', 'method' => 'GET', 'autocomplete' => 'off', 'role' => 'search', 'class' => '']) !!}
+                                                {!! Form::model(Request::all(), [
+                                                    'url' => '/ModuloE/GestionCompetencia',
+                                                    'method' => 'GET',
+                                                    'autocomplete' => 'off',
+                                                    'role' => 'search',
+                                                    'class' => '',
+                                                ]) !!}
                                                 <div class="input-group">
                                                     {!! Form::text('txtbusqueda', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'BUSQUEDA..']) !!}
                                                     <span class="input-group-append">
@@ -103,10 +109,10 @@
                                             class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                             <thead class="bg-primary">
                                                 <tr>
+                                                    <th>Opciones</th>
                                                     <th>#</th>
                                                     <th>Nombre</th>
                                                     <th>Grado</th>
-                                                    <th>Opciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -115,9 +121,6 @@
                                                 @endphp
                                                 @foreach ($Competencias as $Comp)
                                                     <tr data-id='{{ $Comp->id }}' id='Comp{{ $Comp->id }}'>
-                                                        <td class="text-truncate">{!! $cont !!}</td>
-                                                        <td class="text-truncate">{!! $Comp->nombre !!}</td>
-                                                        <td class="text-truncate">{!! 'Grado ' . $Comp->grado !!}</td>
                                                         <td class="text-truncate">
                                                             <a href='{{ url('ModuloE/EditarCompetencia/' . $Comp->id) }}'
                                                                 title="Editar" class="btn btn-outline-success btn-sm"><i
@@ -127,6 +130,10 @@
                                                                 id="btnActi{{ $Comp->id }}"><i class="fa fa-trash"
                                                                     id="iconBoton{{ $Comp->id }}"></i></a>
                                                         </td>
+                                                        <td class="text-truncate">{!! $cont !!}</td>
+                                                        <td class="text-truncate">{!! $Comp->nombre !!}</td>
+                                                        <td class="text-truncate">{!! 'Grado ' . $Comp->grado !!}</td>
+
                                                     </tr>
                                                     @php
                                                         $cont++;
@@ -178,7 +185,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar esta Competencia?";
+                    mensaje = "¿Desea Eliminar esta Competencia?";
 
                     Swal.fire({
                         title: 'Gestionar Módulo E',
@@ -210,7 +217,7 @@
                                 error: function() {
 
                                     mensaje =
-                                    "La Competencia no pudo ser Eliminada";
+                                        "La Competencia no pudo ser Eliminada";
                                     Swal.fire(
                                         'Eliminado!',
                                         mensaje,

@@ -284,10 +284,6 @@
                             var style = 'text-transform: uppercase;background-color:white;';
                             var clase = 'text-truncate';
 
-
-
-
-
                             $.each(respuesta.CompAre, function(i, item) {
 
                                 var campo = "";
@@ -334,7 +330,7 @@
                             /////Cargar Preguntas x areas
                             $("#GenPreg").show();
                             $('#TablaPreg').show();
-                            $("#PreguntasxAreas").html(respuesta.PregArea);
+                            $("#PreguntasxAreas").html(respuesta.PregArea.preguntas);
 
                             $.each(respuesta.pregBanco, function(i, item) {
                                 var npregTotal = 0;
@@ -343,7 +339,7 @@
                                     elemento) {
                                     if ($(elemento).val() == item
                                         .competencia + '-' + item.componente
-                                        ) {
+                                    ) {
                                         npregTotal = $(elemento).data(
                                             "cantidad")
                                     }
@@ -359,7 +355,7 @@
 
                             });
 
-                           
+
 
                             $("#EditCofCompeEdit").show();
 
@@ -952,7 +948,7 @@
                 },
                 DelAreaSesion: function(Sesi) {
 
-                    mensaje = "¿Desea Elimninar esta Área de la Sesión?";
+                    mensaje = "¿Desea Eliminar esta Área de la Sesión?";
 
                     Swal.fire({
                         title: 'Gestionar Simulacros',
@@ -1014,7 +1010,7 @@
                 },
                 DelSesion: function(id) {
 
-                    mensaje = "¿Desea Elimninar esta Sesión?";
+                    mensaje = "¿Desea Eliminar esta Sesión?";
                     var IdSesi = $("#" + id).data('value');
 
                     Swal.fire({
@@ -1117,11 +1113,15 @@
                         $("#Simu").remove();
                         $("#sesi").remove();
                         $("#opc").remove();
-                        form.append("<input type='hidden' name='compexcomp' id='compexcomp' value='" +pacomp[0] + "'>");
-                        form.append("<input type='hidden' name='Simu' id='Simu' value='" + idSimu + "'>");
-                        form.append("<input type='hidden' name='sesi' id='sesi' value='" + IdSesion + "'>");
-                        form.append("<input type='hidden' name='opc' id='opc' value='" + OpcSesion + "'>");
-                        
+                        form.append("<input type='hidden' name='compexcomp' id='compexcomp' value='" +
+                            pacomp[0] + "'>");
+                        form.append("<input type='hidden' name='Simu' id='Simu' value='" + idSimu +
+                            "'>");
+                        form.append("<input type='hidden' name='sesi' id='sesi' value='" + IdSesion +
+                            "'>");
+                        form.append("<input type='hidden' name='opc' id='opc' value='" + OpcSesion +
+                            "'>");
+
                         var url = form.attr("action");
                         var datos = form.serialize();
                         let preguntas = '';
@@ -1132,7 +1132,7 @@
                             async: false,
                             dataType: "json",
                             success: function(respuesta) {
-                              
+
                                 $.each(respuesta.Preguntas, function(x, items) {
 
 
@@ -1140,7 +1140,7 @@
                                         function(item) {
                                             return item.banco == items.id;
                                         });
-                                        
+
 
                                     preguntas += '   <div class="col-md-12 pb-1">' +
                                         ' <div class="bs-callout-primary callout-border-left callout-bordered callout-transparent p-1">' +
@@ -1160,18 +1160,22 @@
                                         ')" type="button" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></button>';
 
                                     if (elementoBuscado) {
-                                        preguntas += ' <button id="btn_addPreg' + items
-                                        .id +
-                                        '" onclick="$.QuitarPregunta(' + items.id +
-                                        ')" type="button" title="Quitar Pregunta" class="btn btn-icon btn-outline-info"><i class="fa fa-minus"></i></button>';
+                                        preguntas += ' <button id="btn_addPreg' +
+                                            items
+                                            .id +
+                                            '" onclick="$.QuitarPregunta(' + items
+                                            .id +
+                                            ')" type="button" title="Quitar Pregunta" class="btn btn-icon btn-outline-info"><i class="fa fa-minus"></i></button>';
 
                                     } else {
-                                        preguntas += ' <button id="btn_addPreg' + items
-                                        .id +
-                                        '" onclick="$.AgregarPregunta(' + items.id +
-                                        ')" type="button" title="Agregar Pregunta" class="btn btn-icon btn-outline-info"><i class="fa fa-plus"></i></button>';
+                                        preguntas += ' <button id="btn_addPreg' +
+                                            items
+                                            .id +
+                                            '" onclick="$.AgregarPregunta(' + items
+                                            .id +
+                                            ')" type="button" title="Agregar Pregunta" class="btn btn-icon btn-outline-info"><i class="fa fa-plus"></i></button>';
                                     }
-                                  
+
 
                                     preguntas += ' </div>' +
                                         '   </div>' +
@@ -1214,7 +1218,7 @@
                             var flag = true;
                             for (var i = 0; i < pregCompAgregados.length; i++) {
                                 // Verificar si el componente cumple la condición de búsqueda
-                                
+
                                 if (pregCompAgregados[i].banco === respuesta.Banco.id) {
                                     flag = false;
                                 }
@@ -1225,7 +1229,7 @@
                                 npreg = parseInt($("#nPregCompoxCompeSel").val()) +
                                     parseInt(respuesta.Banco.npreguntas);
 
-                              
+
 
                                 if (npreg <= parseInt($("#nPregCompoxCompe").val())) {
 
@@ -1349,7 +1353,7 @@
 
                                     pregCompAgregados.push(nuevoElemento);
 
-                                    
+
 
                                     $("#PreguntasxAreas").append(Preguntas);
 
@@ -1437,7 +1441,8 @@
                             return item.banco == idBanco;
                         });
 
-                    $("#nPregCompoxCompeSel").val($("#nPregCompoxCompeSel").val() - elementoBuscado.npreg);
+                    $("#nPregCompoxCompeSel").val($("#nPregCompoxCompeSel").val() - elementoBuscado
+                        .npreg);
 
                     conse = conse - elementoEncontrado.npreg;
 
@@ -2870,24 +2875,42 @@
                             contentType: false,
                             success: function(respuesta) {
                                 if (respuesta) {
-                                    Swal.fire({
-                                        title: "Gestión de Simulacros",
-                                        text: "Preguntas Generadas Exitosamente",
-                                        icon: "success",
-                                        button: "Aceptar",
-                                    });
 
-                                    $("#PreguntasxAreas").html(respuesta.Preguntas);
-                                    if ($("#OpcSesion").val() === "G") {
-                                        $('#GuarCofCompe').show();
-                                        $('#EditCofCompeEdit').hide();
+                                    if (parseInt(respuesta.Preguntas.cantidPreg) < parseInt(
+                                            $("#n_preguntas").val())) {
+                                        Swal.fire({
+                                            title: "Gestión de Simulacros",
+                                            text: "Solo se encontraron para estos parametros " +
+                                                respuesta.Preguntas.cantidPreg +
+                                                " de las " + $("#n_preguntas")
+                                            .val() +
+                                                " que se tenian que encontrar.",
+                                            icon: "warning",
+                                            button: "Aceptar",
+                                        });
                                     } else {
-                                        $('#EditCofCompeEdit').show();
-                                        $('#GuarCofCompe').hide();
+
+                                        Swal.fire({
+                                            title: "Gestión de Simulacros",
+                                            text: "Preguntas Generadas Exitosamente",
+                                            icon: "success",
+                                            button: "Aceptar",
+                                        });
+
+                                        $("#PreguntasxAreas").html(respuesta.Preguntas
+                                            .preguntas);
+
+                                        if ($("#OpcSesion").val() === "G") {
+                                            $('#GuarCofCompe').show();
+                                            $('#EditCofCompeEdit').hide();
+                                        } else {
+                                            $('#EditCofCompeEdit').show();
+                                            $('#GuarCofCompe').hide();
+                                        }
+
+                                        $('#TablaPreg').show();
 
                                     }
-                                    $('#TablaPreg').show();
-
 
                                 } else {
                                     mensaje = "Las Preguntas no Lograron ser Generadas";

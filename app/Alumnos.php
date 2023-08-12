@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class Alumnos extends Model
 {
@@ -170,8 +171,7 @@ class Alumnos extends Model
 
     public static function BuscarAlumVal($iden)
     {
-
-        return Alumnos::where("id", $iden)
+       return Alumnos::where("id", $iden)
         ->where("estado","ACTIVO")
         ->first();
     }
@@ -180,6 +180,26 @@ class Alumnos extends Model
     {
 
         return Alumnos::where("estado_alumno", "ACTIVO")->get();
+    }
+
+    public static function ListarxGrado($grado)
+    {
+        return Alumnos::where("estado_alumno", "ACTIVO")
+        ->where("grado_alumno",$grado)
+        ->select("grupo")
+        ->groupBy("grupo")
+        ->get();
+    }
+    public static function ListarxGradoTotal($grado,$grupo,$eval)
+    {
+        $listAlumnos = DB::connection("mysql")->select("SELECT lc.id, alum.ident_alumno, lc.alumno, CONCAT(apellido_alumno,' ',nombre_alumno) nalumno, lc.evaluacion, lc.puntuacion, lc.estado_eval, eval.punt_max, eval.calif_usando  
+        FROM alumnos alum 
+        LEFT JOIN  libro_calificaciones lc ON alum.usuario_alumno=lc.alumno AND lc.evaluacion=".$eval."
+        LEFT JOIN evaluacion eval ON eval.id=lc.evaluacion 
+        WHERE grado_alumno=".$grado." AND grupo=".$grupo." AND alum.estado_alumno='ACTIVO' ");
+
+        return $listAlumnos;
+
     }
 
     public static function BuscarIdAlum($iden)

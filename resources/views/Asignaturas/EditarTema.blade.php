@@ -203,7 +203,6 @@
                         data: datos,
                         dataType: "json",
                         success: function(respuesta) {
-
                             $("#periodo").html(respuesta.select_Periodo);
                         }
 
@@ -260,7 +259,6 @@
                         $("#Archivo").hide();
                         $("#TipUrl").hide();
                         $("#Cont_documento").hide();
-
                         $("#rowtit").removeClass("col-md-7");
                         $("#rowtit").addClass("col-md-9");
 

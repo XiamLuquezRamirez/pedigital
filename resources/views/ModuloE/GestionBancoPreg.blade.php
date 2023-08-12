@@ -34,7 +34,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <a class="btn btn-outline-primary"
-                                                         href="{{ url('/ModuloE/NuevaPregunta') }}" title="Nuevas Preguntas">
+                                                        href="{{ url('/ModuloE/NuevaPregunta') }}" title="Nuevas Preguntas">
                                                         <i class="fa fa-plus"></i> Crear Pregunta
                                                     </a>
                                                 </div>
@@ -61,11 +61,12 @@
                                                 <select class="form-control select2" name="componente" id="componente">
                                                     {!! $select_Comp !!}
                                                 </select>
-                                             
+
                                             </div>
                                             <div class="col-md-1">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-primary text-right"> <i class="fa fa-search"></i></button>
+                                                    <button type="submit" class="btn btn-primary text-right"> <i
+                                                            class="fa fa-search"></i></button>
                                                 </div>
                                             </div>
                                             {!! Form::close() !!}
@@ -116,10 +117,10 @@
                                             class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                             <thead class="bg-primary">
                                                 <tr>
+                                                    <th>Opciones</th>
                                                     <th>#</th>
                                                     <th>Asignatura</th>
                                                     <th>No. Preguntas</th>
-                                                    <th>Opciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -127,17 +128,14 @@
                                                     $cont = 1;
                                                 @endphp
                                                 @foreach ($Preguntas as $Preg)
-                                                @php
-                                                $Parte = "";
-                                                if($Preg->tipo_pregunta!== null){
-                                                    $Parte =" - ".$Preg->tipo_pregunta;
-                                                }
-                                                @endphp
+                                                    @php
+                                                        $Parte = '';
+                                                        if ($Preg->tipo_pregunta !== null) {
+                                                            $Parte = ' - ' . $Preg->tipo_pregunta;
+                                                        }
+                                                    @endphp
 
                                                     <tr data-id='{{ $Preg->id }}' id='Asig{{ $Preg->id }}'>
-                                                        <td class="text-truncate">{!! $cont !!}</td>
-                                                        <td class="text-truncate">{!! $Preg->nombre . ' - Grado ' . $Preg->grado. '°'.$Parte !!}</td>
-                                                        <td class="text-truncate">{!! $Preg->npreguntas  !!}</td>
                                                         <td class="text-truncate">
                                                             <a href='{{ url('ModuloE/EditarPregBanco/' . $Preg->id) }}'
                                                                 title="Editar" class="btn  btn-outline-success  btn-sm"><i
@@ -147,6 +145,10 @@
                                                                 id="btnActi{{ $Preg->id }}"><i class="fa fa-trash"
                                                                     id="iconBoton{{ $Preg->id }}"></i></a>
                                                         </td>
+                                                        <td class="text-truncate">{!! $cont !!}</td>
+                                                        <td class="text-truncate">{!! $Preg->nombre . ' - Grado ' . $Preg->grado . '°' . $Parte !!}</td>
+                                                        <td class="text-truncate">{!! $Preg->npreguntas !!}</td>
+
                                                     </tr>
                                                     @php
                                                         $cont++;
@@ -221,7 +223,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar este Registro de Pregunta(s)?";
+                    mensaje = "¿Desea Eliminar este Registro de Pregunta(s)?";
 
                     Swal.fire({
                         title: 'Gestionar Módulo E',

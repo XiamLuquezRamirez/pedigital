@@ -161,8 +161,8 @@
 
             $("#Men_Inicio").removeClass("active");
             $("#Men_Presentacion").removeClass("active");
-            $("#Men_Asignaturas").addClass("has-sub open");
-            $("#Men_Asignaturas_addTem").addClass("active");
+            $("#Men_Modulos_E").addClass("has-sub open");
+            $("#Men_ModulosE_addTem").addClass("active");
 
             $.extend({
            

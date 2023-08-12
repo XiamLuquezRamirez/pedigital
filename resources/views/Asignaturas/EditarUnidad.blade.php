@@ -163,7 +163,7 @@
                             $("#btn-acciones").hide();
                             swal.fire({
                                 title: "Administrar Temas",
-                                text: 'No existen docentes con los que puedas compartir este tema a crear',
+                                text: 'No existen docentes con los que puedas compartir esta Unidad a crear',
                                 icon: "warning",
                                 button: "Aceptar",
                             });
@@ -188,9 +188,7 @@
         
         $.CargPeriodos();
         $.cargarDocentes("loading");
-
         
-
     });
 
     function validartxtnum(e) {

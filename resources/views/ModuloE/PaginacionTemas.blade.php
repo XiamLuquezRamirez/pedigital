@@ -10,7 +10,7 @@
                 @if ($actual != 1)
                     <li class="page-item ">
                         <a class="page-link"
-                            href="{{ url('/ModuloE/GestionTema/?page=' . ($actual - 1) . '&txtbusqueda=' . $busqueda) }}"
+                            href="{{ url('/ModuloE/GestionTema/?page=' . ($actual - 1) . '&txtbusqueda=' . $busqueda . '&nombre=' . $nombre) }}"
                             aria-label="Previous">
                             <span aria-hidden="true">«</span>
                         </a>
@@ -21,7 +21,7 @@
                 @if ($primera != 1)
                     <li class="page-item ">
                         <a class="page-link"
-                            href="{{ url('/ModuloE/GestionTema/?page=1&txtbusqueda=' . $busqueda) }}"
+                            href="{{ url('/ModuloE/GestionTema/?page=1&txtbusqueda=' . $busqueda . '&nombre=' . $nombre) }}"
                             aria-label="Previous">
                             <span aria-hidden="true">1</span>
                         </a>
@@ -43,7 +43,7 @@
                     @else
                         <li class="page-item">
                             <a class="page-link"
-                                href="{{ url('/ModuloE/GestionTema/?page=' . $i . '&txtbusqueda=' . $busqueda) }}"
+                                href="{{ url('/ModuloE/GestionTema/?page=' . $i . '&txtbusqueda=' . $busqueda . '&nombre=' . $nombre) }}"
                                 aria-label="Previous">
                                 <span aria-hidden="true">{{ $i }}</span>
                             </a>
@@ -60,7 +60,7 @@
                     </li>
                     <li class="page-item ">
                         <a class="page-link"
-                            href="{{ url('/ModuloE/GestionTema/?page=' . $paginas . '&txtbusqueda=' . $busqueda) }}"
+                            href="{{ url('/ModuloE/GestionTema/?page=' . $paginas . '&txtbusqueda=' . $busqueda . '&nombre=' . $nombre) }}"
                             aria-label="Previous">
                             <span aria-hidden="true">{{ $paginas }}</span>
                         </a>
@@ -70,7 +70,7 @@
                 @if ($actual != $paginas)
                     <li class="page-item {{ $actual == $paginas ? ' disabled' : '' }}">
                         <a class="page-link"
-                            href="{{ url('/ModuloE/GestionTema/?page=' . ($paginas + 1) . '&txtbusqueda=' . $busqueda) }}">»</a>
+                            href="{{ url('/ModuloE/GestionTema/?page=' . ($paginas + 1) . '&txtbusqueda=' . $busqueda . '&nombre=' . $nombre) }}">»</a>
                     </li>
                 @endif
             </ul>

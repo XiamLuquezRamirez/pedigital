@@ -173,13 +173,16 @@
                                 Swal.fire('Alerta!',
                                     'Este Nombre de Usuario ya se Encuentra Registrado...',
                                     'warning');
-                                $("#usuario_alumno").val("");
+                                    $("#usuario_profesor").val("");
                             }
 
                         }
 
                     });
                 },
+                validAsignacion: function(val){
+                return;
+                }
             });
 
 

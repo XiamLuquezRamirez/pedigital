@@ -539,6 +539,9 @@
                 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,SelectAll,Button,ImageButton,HiddenField,Strike,CopyFormatting,RemoveFormat,Indent,Blockquote,Outdent,CreateDiv,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Link,Unlink,Anchor,Flash,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Styles,Format,BGColor,ShowBlocks,About,Underline,Italic';
         };
 
+        let tiempoTranscurrido = 0;
+        let intervalo;
+
         $(document).ready(function() {
 
             var flagGlobal = "n";
@@ -1066,6 +1069,7 @@
 
                     var npreg = $("#NPreg").val();
                     var pregAct = $("#PregActual").val();
+                    var sesion_id = $("#sesion_id").val();
 
 
                     var form = $("#formAuxiliarCargEval");
@@ -1082,6 +1086,8 @@
                     form.append("<input type='hidden' name='Pregunta' id='Pregunta' value='" + Preg +
                         "'>");
                     form.append("<input type='hidden' name='partePreg' id='partePreg' value='" + parte +
+                        "'>");
+                    form.append("<input type='hidden' name='sesionId' id='sesionId' value='" + sesion_id +
                         "'>");
 
                     var url = form.attr("action");
@@ -1109,6 +1115,7 @@
                             if (parte == "PARTE 1") {
 
                                 const itemsOpciones = respuesta.OpciMult.split(",");
+                                opciones +='<div class="skin skin-flat">';
                                 opciones += '<fieldset>';
                                 //custom-control-input bg-succes
                                 for (let i = 0; i < itemsOpciones.length; i++) {
@@ -1124,7 +1131,7 @@
                                                 '<input type="hidden" id=""  name="Opciones[]" value="' +
                                                 itemsOpciones[i] + '"/>';
                                             opciones +=
-                                                '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)" checked  id="' +
+                                                '  <input type="radio" class="iradio_flat-green checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)" checked  id="' +
                                                 i + '">' +
                                                 '  <label  for="colorCheck2">' +
                                                 itemsOpciones[i] + '</label>' +
@@ -1140,7 +1147,7 @@
                                                 '<input type="hidden" id=""  name="Opciones[]" value="' +
                                                 itemsOpciones[i] + '"/>';
                                             opciones +=
-                                                '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="' +
+                                                '  <input type="radio" class="iradio_flat-green checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="' +
                                                 i + '">' +
                                                 '  <label  for="colorCheck2">' +
                                                 itemsOpciones[i] + '</label>' +
@@ -1156,7 +1163,7 @@
                                             '<input type="hidden" id=""  name="Opciones[]" value="' +
                                             itemsOpciones[i] + '"/>';
                                         opciones +=
-                                            '  <input type="radio" class="checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="' +
+                                            '  <input type="radio" class="iradio_flat-green checksel" name="OpcionSel[]" onclick="$.RespMulPreg(this.id)"  id="' +
                                             i + '">' +
                                             '  <label  for="colorCheck2">' + itemsOpciones[
                                                 i] + '</label>' +
@@ -1166,7 +1173,9 @@
 
                                 }
                                 opciones += ' </fieldset>';
+                                opciones += ' </div>';
                             } else {
+                                opciones +='<div class="skin skin-flat">';
                                 $.each(respuesta.OpciMult, function(k, itemo) {
 
                                     if ($.trim(itemo.pregunta) === $.trim(respuesta
@@ -1186,7 +1195,7 @@
                                                 opciones +=
                                                     '<input onclick="$.RespMulPreg(this.id)" id="' +
                                                     l +
-                                                    '" class="checksel" checked type="checkbox" >';
+                                                    '" class="iradio_flat-gree checksel" checked type="radio" >';
                                             } else {
                                                 opciones +=
                                                     '<input type="hidden" id="OpcionSel_' +
@@ -1198,7 +1207,7 @@
                                                 opciones +=
                                                     '<input onclick="$.RespMulPreg(this.id)" id="' +
                                                     l +
-                                                    '" class="checksel" type="checkbox" >';
+                                                    '" class="iradio_flat-gree checksel" type="radio" >';
                                             }
 
 
@@ -1221,7 +1230,7 @@
                                             opciones +=
                                                 '<input onclick="$.RespMulPreg(this.id)" id="' +
                                                 l +
-                                                '" class="checksel" type="checkbox" >';
+                                                '" class="iradio_flat-green checksel"  type="radio" >';
 
                                             opciones +=
                                                 ' <label for="input-15"> ' +
@@ -1235,6 +1244,7 @@
                                     }
 
                                 });
+                                opciones +='</div>';
                             }
 
                             var compexcomp = '';
@@ -1305,6 +1315,7 @@
                     $("#partePreg").remove();
                     $("#competencia").remove();
                     $("#componente").remove();
+                    $("#TiempoxSesion").remove();
 
                     $("#Tiempo").remove();
                     //    clearInterval(xtiempo);
@@ -1327,6 +1338,8 @@
                         "'>");
                     form.append("<input type='hidden' name='Tiempo' id='Tiempo' value='" + tiempo +
                         "'>");
+                    form.append("<input type='hidden' name='TiempoxSesion' id='TiempoxSesion' value='" + tiempoTranscurrido +
+                        "'>");
                     form.append("<input type='hidden' name='prgAct' id='prgAct' value='" + prgAct +
                         "'>");
                     form.append("<input type='hidden' name='competencia' id='competencia' value='" +
@@ -1346,6 +1359,8 @@
                         async: false,
                         success: function(respuesta) {
                             if (PosPreg === "Ultima") {
+                                clearInterval(intervalo);
+                                tiempoTranscurrido = 0;
                                 $.mostrarInfSesion(respuesta);
                             } else {
 
@@ -1878,7 +1893,15 @@
                     $('#ModPrueba').modal('toggle');
 
                 },
+                actualizarTiempo:function(){
+                    tiempoTranscurrido++;
+                },
                 MostrarPrueba: function(id) {
+
+                    clearInterval(intervalo);
+                    tiempoTranscurrido = 0;
+
+                    intervalo = setInterval($.actualizarTiempo, 1000);
 
                     var form = $("#formAuxiliarPreguntas");
                     var url = form.attr("action");
@@ -1896,6 +1919,8 @@
                         });
                         return;
                     }
+
+                    
 
 
                     $("#idAreaSesion").remove();
@@ -2070,6 +2095,7 @@
                                     cancelButtonText: 'Cancelar'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
+                                       
 
                                         var form = $("#formAuxiliarGuardarInicioSesion");
                                         $("#idSes").remove();

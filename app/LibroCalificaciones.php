@@ -264,13 +264,11 @@ class LibroCalificaciones extends Model
 
     public static function BusDetLib($id)
     {
-
         $InfEval = LibroCalificaciones::join('alumnos', 'alumnos.usuario_alumno', 'libro_calificaciones.alumno')
             ->join('evaluacion', 'evaluacion.id', 'libro_calificaciones.evaluacion')
             ->select('alumnos.nombre_alumno', 'alumnos.apellido_alumno', 'alumnos.grado_alumno', 'evaluacion.titulo', 'evaluacion.enunciado', 'evaluacion.calif_usando', 'evaluacion.punt_max', 'libro_calificaciones.*')
             ->where('libro_calificaciones.id', $id)
             ->first();
-
         return $InfEval;
     }
 
@@ -281,6 +279,8 @@ class LibroCalificaciones extends Model
             ->first();
         return $DesEval;
     }
+
+ 
 
     public static function BusEvalDel($id)
     {

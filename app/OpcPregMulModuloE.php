@@ -84,13 +84,14 @@ class OpcPregMulModuloE extends Model
         return $DesOpcPreg;
     }
 
-    public static function BuscOpcRespPrueba($id,$Est)
+    public static function BuscOpcRespPrueba($id,$Est,$Ses)
     {
         $DesOpcPreg = OpcPregMulModuloE::join('resp_pregmultiple_me_prueba', 'resp_pregmultiple_me_prueba.respuesta', 'opc_mult_eval_me.id')
             ->join('preguntas_me', 'preguntas_me.id', 'opc_mult_eval_me.pregunta')
             ->select('opc_mult_eval_me.pregunta', 'opc_mult_eval_me.correcta', 'resp_pregmultiple_me_prueba.respuesta')
             ->where('resp_pregmultiple_me_prueba.pregunta', $id)
             ->where('resp_pregmultiple_me_prueba.alumno', $Est)
+            ->where('resp_pregmultiple_me_prueba.sesion', $Ses)
             ->first();
             
         return $DesOpcPreg;

@@ -68,7 +68,7 @@
                                                             class="form-control select2">
                                                             <option value="">Seleccione la Jornada</option>
                                                             <option value="JM">Jornada Mañana</option>
-                                                            <option value="JT">Jornada Tarte</option>
+                                                            <option value="JT">Jornada Tarde</option>
                                                             <option value="JN">Jornada Nocturna</option>
                                                         </select>
 
@@ -198,7 +198,7 @@
                                         data-placeholder="Seleccione La Jornada" class="form-control select2">
                                         <option value="">Seleccione la Jornada</option>
                                         <option value="JM">Jornada Mañana</option>
-                                        <option value="JT">Jornada Tarte</option>
+                                        <option value="JT">Jornada Tarde</option>
                                         <option value="JN">Jornada Nocturna</option>
                                     </select>
                                 </div>
@@ -282,7 +282,7 @@
                                                         class="form-control select2">
                                                         <option value="">Seleccione la Jornada</option>
                                                         <option value="JM">Jornada Mañana</option>
-                                                        <option value="JT">Jornada Tarte</option>
+                                                        <option value="JT">Jornada Tarde</option>
                                                         <option value="JN">Jornada Nocturna</option>
                                                     </select>
                                                 </div>
@@ -377,7 +377,7 @@
                                         data-placeholder="Seleccione La Jornada" class="form-control select2">
                                         <option value="">Seleccione la Jornada</option>
                                         <option value="JM">Jornada Mañana</option>
-                                        <option value="JT">Jornada Tarte</option>
+                                        <option value="JT">Jornada Tarde</option>
                                         <option value="JN">Jornada Nocturna</option>
                                     </select>
                                 </div>

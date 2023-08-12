@@ -28,7 +28,7 @@ class UnidadesModulos extends Model
             $Unidade = UnidadesModulos::where('modulo', $id)
                 ->where(function ($query) use ($Usu) {
                     $query->where('unidades_modulos.docente', "")
-                    ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
+                        ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                 })
                 ->where('estado', 'ACTIVO')
                 ->orderBy('periodo', 'ASC')
@@ -39,7 +39,7 @@ class UnidadesModulos extends Model
             $Unidade = UnidadesModulos::where('modulo', $id)
                 ->where(function ($query) use ($Usu) {
                     $query->where('unidades_modulos.docente', "")
-                    ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
+                        ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                 })
                 ->where('estado', 'ACTIVO')
 
@@ -74,7 +74,7 @@ class UnidadesModulos extends Model
                 ->where('unidades_modulos.estado', 'ACTIVO')
                 ->where(function ($query) use ($Usu) {
                     $query->where('unidades_modulos.docente', "")
-                    ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
+                        ->orWhere('unidades_modulos.docente', 'LIKE', "%" . $Usu . "%");
                 })
                 ->get();
         } else {
@@ -414,7 +414,6 @@ class UnidadesModulos extends Model
                         ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
                         ->groupBy("unidades_modulos.id")
                         ->orderBy('nom_unidad', 'ASC');
-                     
                 }
             } else {
                 if (Auth::user()->tipo_usuario == "Profesor") {
@@ -434,18 +433,17 @@ class UnidadesModulos extends Model
                         ->orderBy('nom_unidad', 'ASC');
                 } else {
                     $respuesta = UnidadesModulos::join('grados_modulos', 'grados_modulos.id', 'unidades_modulos.modulo')
-                    ->join('periodos_modtransv', 'periodos_modtransv.id', 'unidades_modulos.periodo')
-                    ->join('modulos_transversales', 'modulos_transversales.id', 'grados_modulos.modulo')
-                    ->where('unidades_modulos.estado', 'ACTIVO')
-                    ->where('modulos_transversales.estado', 'ACTIVO')
-                    ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
-                    ->groupBy("unidades_modulos.id")
-                    ->orderBy('nom_unidad', 'ASC');
-              
+                        ->join('periodos_modtransv', 'periodos_modtransv.id', 'unidades_modulos.periodo')
+                        ->join('modulos_transversales', 'modulos_transversales.id', 'grados_modulos.modulo')
+                        ->where('unidades_modulos.estado', 'ACTIVO')
+                        ->where('modulos_transversales.estado', 'ACTIVO')
+                        ->select('unidades_modulos.*', 'modulos_transversales.nombre', 'periodos_modtransv.des_periodo', 'grados_modulos.grado_modulo')
+                        ->groupBy("unidades_modulos.id")
+                        ->orderBy('nom_unidad', 'ASC');
                 }
             }
         }
-      //  dd($respuesta->get());
+        //  dd($respuesta->get());
         return $respuesta->get();
     }
 
@@ -484,11 +482,11 @@ class UnidadesModulos extends Model
                     $idDoce .= $datos["idDocente"][$key] . ",";
                 }
             }
+            $idDoce = rtrim($idDoce, $idDoce[-1]);
         } else {
             $idDoce = "";
         }
 
-        $idDoce = rtrim($idDoce, $idDoce[-1]);
         return UnidadesModulos::create([
             'periodo' => $datos['periodo'],
             'modulo' => $datos['modulo'],
@@ -517,11 +515,12 @@ class UnidadesModulos extends Model
                     $idDoce .= $data["idDocente"][$key] . ",";
                 }
             }
+            $idDoce = rtrim($idDoce, $idDoce[-1]);
         } else {
             $idDoce = "";
         }
 
-        $idDoce = rtrim($idDoce, $idDoce[-1]);
+
 
         $respuesta = UnidadesModulos::where(['id' => $id])->update([
             'periodo' => $data['periodo'],

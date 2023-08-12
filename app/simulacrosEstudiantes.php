@@ -18,7 +18,7 @@ class simulacrosEstudiantes extends Model
     ];
 
     public static function BuscarEstudiante($idSimu){
-        $Alumnos = DB::connection("mysql")->select("SELECT estudiante FROM simulacro_estudiante se
+        $Alumnos = DB::connection("mysql")->select("SELECT se.estudiante, CONCAT(alu.apellido_alumno,' ',alu.nombre_alumno) nalumno FROM simulacro_estudiante se LEFT JOIN alumnos alu on alu.usuario_alumno = se.estudiante
         where se.simulacro=".$idSimu." and  se.estado='TERMINADO'");
         return $Alumnos;
     }

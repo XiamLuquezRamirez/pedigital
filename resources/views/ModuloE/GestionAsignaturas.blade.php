@@ -43,7 +43,13 @@
                                             </div>
 
                                             <div class="col-md-5">
-                                                {!! Form::model(Request::all(), ['url' => '/ModuloE/GestionAsignaturas', 'method' => 'GET', 'autocomplete' => 'off', 'role' => 'search', 'class' => '']) !!}
+                                                {!! Form::model(Request::all(), [
+                                                    'url' => '/ModuloE/GestionAsignaturas',
+                                                    'method' => 'GET',
+                                                    'autocomplete' => 'off',
+                                                    'role' => 'search',
+                                                    'class' => '',
+                                                ]) !!}
                                                 <div class="form-group">
                                                     <select class="form-control select2" name="nombre" id="nombre">
                                                         {!! $select_Areas !!}
@@ -109,11 +115,11 @@
                                             class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                             <thead class="bg-primary">
                                                 <tr>
+                                                    <th>Opciones</th>
                                                     <th>#</th>
                                                     <th>Nombre</th>
                                                     <th>Grado</th>
                                                     <th>Área</th>
-                                                    <th>Opciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -122,10 +128,6 @@
                                                 @endphp
                                                 @foreach ($Asignatura as $Asig)
                                                     <tr data-id='{{ $Asig->id }}' id='Asig{{ $Asig->id }}'>
-                                                        <td class="text-truncate">{!! $cont !!}</td>
-                                                        <td class="text-truncate">{!! $Asig->nombre !!}</td>
-                                                        <td class="text-truncate">{!! 'Grado ' . $Asig->grado . '°' !!}</td>
-                                                        <td class="text-truncate">{!! $Asig->nombre_area !!}</td>
                                                         <td class="text-truncate">
                                                             <a href='{{ url('ModuloE/EditarAsignatura/' . $Asig->id) }}'
                                                                 title="Editar" class="btn btn-outline-success  btn-sm"><i
@@ -135,6 +137,10 @@
                                                                 id="btnActi{{ $Asig->id }}"><i class="fa fa-trash"
                                                                     id="iconBoton{{ $Asig->id }}"></i></a>
                                                         </td>
+                                                        <td class="text-truncate">{!! $cont !!}</td>
+                                                        <td class="text-truncate">{!! $Asig->nombre !!}</td>
+                                                        <td class="text-truncate">{!! 'Grado ' . $Asig->grado . '°' !!}</td>
+                                                        <td class="text-truncate">{!! $Asig->nombre_area !!}</td>
                                                     </tr>
                                                     @php
                                                         $cont++;
@@ -186,7 +192,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar esta Asignatura?";
+                    mensaje = "¿Desea Eliminar esta Asignatura?";
 
 
                     Swal.fire({
@@ -204,7 +210,7 @@
                                 url: url,
                                 data: datos,
                                 success: function(respuesta) {
-                                  
+
 
                                     if (respuesta.estado === "ELIMINADO") {
                                         Swal.fire({

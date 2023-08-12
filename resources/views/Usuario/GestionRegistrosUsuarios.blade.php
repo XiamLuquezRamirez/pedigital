@@ -250,7 +250,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar este Grado?";
+                    mensaje = "¿Desea Eliminar este Grado?";
 
                     Swal.fire({
                         title: 'Gestionar Grados',

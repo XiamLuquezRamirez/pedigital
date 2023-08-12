@@ -74,7 +74,10 @@ class PuntPreg extends Model
 
      public static function ConsulRetro($eval){
 
-        $InfRetro = DB::connection("mysql")->select("SELECT ra.retro, pp.puntos, pp.pregunta, ep.tipo FROM evalpreg ep LEFT JOIN puntuacion_preguntas pp ON ep.idpreg=pp.pregunta LEFT JOIN retroalimentacion ra ON ep.idpreg=ra.pregunta  where ep.ideval ='".$eval."' and pp.alumno='".Auth::user()->id."'");
+        $InfRetro = DB::connection("mysql")->select("SELECT ra.retro, pp.puntos, pp.pregunta, ep.tipo 
+        FROM evalpreg ep LEFT JOIN puntuacion_preguntas pp ON ep.idpreg=pp.pregunta 
+        LEFT JOIN retroalimentacion ra ON ep.idpreg=ra.pregunta AND ra.evaluacion=".$eval."
+        WHERE ep.ideval =".$eval." and pp.alumno='".Auth::user()->id."'");
 
         return $InfRetro;
 

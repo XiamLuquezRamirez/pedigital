@@ -102,22 +102,17 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead class="bg-primary">
                                                     <tr>
+                                                        <th>Opciones</th>
                                                         <th>Identificación</th>
                                                         <th>Nombre</th>
                                                         <th>Apellido</th>
                                                         <th>Jornada</th>
-                                                        <th>Opciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($Profesores as $Prof)
                                                         <tr data-id='{{ $Prof->id }}' id='profesor{{ $Prof->id }}'
                                                             style="text-transform: capitalize;">
-                                                            <td class="text-truncate">{!! $Prof->identificacion !!}</td>
-                                                            <td class="text-truncate">{!! $Prof->nombre !!}</td>
-                                                            <td class="text-truncate">{!! $Prof->apellido !!}</td>
-
-                                                            <td class="text-truncate">{!! $Prof->Jorna !!}</td>
                                                             <td class="text-truncate">
                                                                 <a href='{{ url('Profesores/Consultar/' . $Prof->id) }}'
                                                                     title="Ver" class="btn  btn-outline-info  btn-sm"><i
@@ -151,6 +146,10 @@
                                                                      @endif
                                                                 </div>
                                                             </td>
+                                                            <td class="text-truncate">{!! $Prof->identificacion !!}</td>
+                                                            <td class="text-truncate">{!! $Prof->nombre !!}</td>
+                                                            <td class="text-truncate">{!! $Prof->apellido !!}</td>
+                                                            <td class="text-truncate">{!! $Prof->Jorna !!}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

@@ -321,6 +321,44 @@
             </div>
         </div>
 
+        <div class="modal fade text-left" id="modDetEval" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel15" aria-hidden="true">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success white">
+                    <h4 class="modal-title" style="text-transform: capitalize;"
+                        id="titu_temaAnim">
+                        Retroalimentación de la Evaluación
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div id='DetaEval' style="height: 400px; overflow: auto;">
+                        <div class="card-content collapse show">
+                            <div class="card-body" id="RespPreg">
+                            </div>
+                            <div class="card-body" style="display: none;"
+                                id="DetRespPregunta">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn_atrasRetro" data-dismiss="modal"
+                    onClick="$.moslistPractica();"  class="btn grey btn-outline-secondary"><i
+                            class="ft-corner-up-left position-right"></i>
+                        Atras</button>
+                    <button type="button" id="btn_atras2" style="display: none;"
+                        onClick="$.mosRetro();" class="btn grey btn-outline-secondary"><i
+                            class="ft-corner-up-left position-right"></i>
+                        Atras</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -370,6 +408,12 @@
     {!! Form::open(['url' => '/ModuloE/consulPregAlumnoSimu', 'id' => 'formAuxiliarCargEval']) !!}
     {!! Form::close() !!}
     {!! Form::open(['url' => '/ModuloE/consulPregAlumno', 'id' => 'formAuxiliarCargPregTem']) !!}
+    {!! Form::close() !!}
+
+    {!! Form::open(['url' => '/Calificaciones/ConsulRetroalimentacion', 'id' => 'formCalifRetro']) !!}
+    {!! Form::close() !!}
+
+    {!! Form::open(['url' => '/Calificaciones/VerRespAlumno', 'id' => 'formAuxiliarCargEval2']) !!}
     {!! Form::close() !!}
 
 
@@ -1988,7 +2032,7 @@
                         "  <div class='card'>" +
                         "    <div class='card-content' style='height: 400px; overflow: auto;'>" +
                         "      <div class='card-body' >";
-
+                    let estadoEval="none";
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -1998,18 +2042,23 @@
                         success: function(respuesta) {
                             $("#TemDetTit").html(respuesta.TitTemas);
                             $.each(respuesta.Eval, function(i, item) {
+                                if(item.evaluado=="CALIFICADA"){
+                                    estadoEval="block";
+                                }
                                 contenido +=
-                                    "<div class='bs-callout-success callout-square callout-bordered mt-1'>" +
+                                    "<div class='bs-callout-info callout-square callout-bordered mt-1'>" +
                                     "<div class='media align-items-stretch'>" +
                                     " <div style='cursor:pointer' onclick='$.MostEval(" +
                                     item.id +
-                                    ");' class='d-flex align-items-center bg-success p-2'>" +
+                                    ");' class='d-flex align-items-center bg-info p-2'>" +
                                     "       <i class='ft-user-check white font-medium-5'></i>" +
                                     " </div>" +
                                     "    <div class='media-body p-1'>" +
-                                    "    <a style='cursor:pointer;text-transform: capitalize;font-weight: bold;' onclick='$.MostEval(" +
-                                    item.id + ");'> " + item.titulo.toLowerCase(); +
+                                    "    <a style='cursor:pointer;text-transform: capitalize;font-weight: bold;'> " + item.titulo.toLowerCase(); +
                                 "</a>";
+                                contenido += " </div>" +
+                                    "    <div class='media-body p-1' style='display:"+estadoEval+"'>" +
+                                    "   <button type='button' onclick='$.detalleEvaluacion("+item.id+");' class='btn btn-icon btn-success mr-1'><i class='fa fa-check-square-o'></i> Calificada</button>";
                                 contenido += " </div>" +
                                     "    </div>" +
                                     "  </div>";
@@ -2024,6 +2073,522 @@
 
 
 
+                },
+                detalleEvaluacion: function(ideval) {
+
+                        $("#modDetEval").modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+
+                        $('#VisTema').modal('toggle');
+
+                        var form = $("#formCalifRetro");
+
+                        $("#idEvalRetro").remove();
+
+                        form.append("<input type='hidden' name='idEvalRetro' id='idEvalRetro' value='" +
+                        ideval + "'>");
+                        var url = form.attr("action");
+                        var datos = form.serialize();
+                        var Respreg = "";
+                        var consPreg = 1;
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: datos,
+                            async: false,
+                            dataType: "json",
+                            success: function(respuesta) {
+                                $.each(respuesta.Retro, function(i, item) {
+
+                                    let retro = item.retro === null ?
+                                        "No se realizo ninguna Retroalimentació" :
+                                        "Se realizo una Retroalimentación";
+
+                                    if (item.promPunt >= 60) {
+                                        Respreg +=
+                                            '  <div class="bs-callout-success callout-transparent callout-bordered mt-1" >' +
+                                            '<div class="media align-items-stretch">' +
+                                            '<div class="media-body p-1">' +
+                                            '<strong>Pregunta ' + consPreg +
+                                            '</strong>' +
+                                            '     <ul class="list-inline mb-1">' +
+                                            '  <li class="pr-1">' +
+                                            '  <a href="#"  class="">' +
+                                            '  <span class="fa fa-thumbs-o-up"></span> Puntos: ' +
+                                            item.puntos + ' Pts.</a>' +
+                                            ' </li>' +
+                                            '  <li class="pr-1">' +
+                                            '  <a href="#"  onclick="$.VerRespPreg(' +
+                                            item.pregunta + ');" class="">' +
+                                            '  <span class="fa fa-eye"></span> Ver Respuesta</a>' +
+                                            ' </li>' +
+                                            '</ul>' +
+                                            '    <h6 class="form-section"><i class="fa fa-undo"></i> ' +
+                                            retro + '</h6>' +
+                                            ' </div>' +
+                                            ' <div class="d-flex align-items-center bg-success  position-relative callout-arrow-right p-2">' +
+                                            '   <i class="fa fa-check-circle white font-medium-5"></i>' +
+                                            '  </div>' +
+                                            ' </div>' +
+                                            '    </div>';
+                                    } else {
+                                        Respreg +=
+                                            '  <div  style="cursor: pointer;" class="bs-callout-warning  callout-transparent callout-bordered mt-1"";>' +
+                                            '<div class="media align-items-stretch">' +
+                                            '<div class="media-body p-1">' +
+                                            '<strong>Pregunta ' + consPreg +
+                                            '</strong>' +
+                                            '     <ul class="list-inline mb-1">' +
+                                            '  <li class="pr-1">' +
+                                            '  <a href="#" class="">' +
+                                            '  <span class="fa fa-thumbs-o-down"></span> Puntos: ' +
+                                            item.puntos + ' Pts.</a>' +
+                                            ' </li>' +
+                                            '  <li class="pr-1">' +
+                                            '  <a href="#"  onclick="$.VerRespPreg(' +
+                                            item.pregunta + ');" class="">' +
+                                            '  <span class="fa fa-eye"></span> Ver Respuesta</a>' +
+                                            ' </li>' +
+                                            '</ul>' +
+                                            '    <h6 class="form-section"><i class="fa fa-undo"></i> ' +
+                                            retro + '</h6>' +
+                                            ' </div>' +
+                                            ' <div class="d-flex align-items-center bg-warning  position-relative callout-arrow-right p-2">' +
+                                            '   <i class="fa fa-times-circle white font-medium-5"></i>' +
+                                            '  </div>' +
+                                            ' </div>' +
+                                            '    </div>';
+
+                                    }
+
+                                    consPreg++;
+
+                                });
+
+                                $("#RespPreg").html(Respreg);
+
+
+                            }
+
+                        });
+                    
+
+
+
+                },
+                mosRetro: function() {
+                    $("#DetRespPregunta").hide();
+                    $("#RespPreg").show();
+                    $("#btn_atras2").hide();
+                    $("#btn_atrasRetro").show();
+                },
+                moslistPractica: function() {
+                    $("#VisTema").modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+
+                    $('#modDetEval').modal('toggle');
+                },
+                VerRespPreg: function(idpreg) {
+                    var form = $("#formAuxiliarCargEval2");
+                    var eval = $("#idEvalRetro").val();
+                    var Pregunta = "";
+                    $("#PreguntaResp").remove();
+                    $("#idEvaVerResp").remove();
+                    form.append("<input type='hidden' name='PreguntaResp' id='PreguntaResp' value='" +
+                        idpreg + "'>");
+                    form.append(
+                        "<input type='hidden' name='idEvaVerResp' id='idEvaVerResp' value='" +
+                        eval +
+                        "'>");
+
+                    var url = form.attr("action");
+                    var datos = form.serialize();
+
+                    $("#RespPreg").hide();
+                    $("#DetRespPregunta").show();
+                    $("#btn_atrasRetro").hide();
+                    $("#btn_atras2").show();
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: datos,
+                        async: true,
+                        dataType: "json",
+                        success: function(respuesta) {
+
+                            if (respuesta.tipo === "PREGENSAY") {
+
+                                Pregunta +=
+                                    '<div class="bs-callout-primary callout-transparent callout-bordered">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-primary position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-question fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Pregunta</strong>' +
+                                    '<div >' + respuesta.PregEnsayo.pregunta + '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                Pregunta +=
+                                    '<div class="bs-callout-success callout-transparent callout-bordered mt-1">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-success position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-check fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Respuesta</strong>' +
+                                    '<div >' + respuesta.RespPregEnsayo.respuesta +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                if (respuesta.retro !== null) {
+                                    Pregunta +=
+                                        '<div class="bs-callout-danger callout-transparent callout-bordered mt-1">' +
+                                        '<div class="media align-items-stretch">' +
+                                        '<div class="d-flex align-items-center bg-danger position-relative callout-arrow-left p-2">' +
+                                        '<i class="fa fa-repeat fa-lg white font-medium-5"></i>' +
+                                        '</div>' +
+                                        '<div class="media-body p-1">' +
+                                        '<strong>Retroalimentación</strong>' +
+                                        '<div >' + respuesta.retro + '</div>' +
+                                        ' </div>' +
+                                        '  </div>' +
+                                        ' </div>';
+                                }
+
+                                $("#DetRespPregunta").html(Pregunta);
+
+                            } else if (respuesta.tipo === "COMPLETE") {
+
+                                Pregunta +=
+                                    '<div class="bs-callout-primary callout-transparent callout-bordered">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-primary position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-question fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Complete el Parrafo con las Siguientes Opciones</strong>' +
+                                    '<div >' + respuesta.PregComple.opciones + '</div>' +
+                                    '<div >' + respuesta.PregComple.parrafo + '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                Pregunta +=
+                                    '<div class="bs-callout-success callout-transparent callout-bordered mt-1">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-success position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-pencil-square-o fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Respuesta</strong>' +
+                                    '<div >' + respuesta.RespPregComple.respuesta +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                if (respuesta.retro !== null) {
+                                    Pregunta +=
+                                        '<div class="bs-callout-danger callout-transparent callout-bordered mt-1">' +
+                                        '<div class="media align-items-stretch">' +
+                                        '<div class="d-flex align-items-center bg-danger position-relative callout-arrow-left p-2">' +
+                                        '<i class="fa fa-repeat fa-lg white font-medium-5"></i>' +
+                                        '</div>' +
+                                        '<div class="media-body p-1">' +
+                                        '<strong>Retroalimentación</strong>' +
+                                        '<div >' + respuesta.retro + '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>';
+                                }
+
+                                $("#DetRespPregunta").html(Pregunta);
+                            } else if (respuesta.tipo === "OPCMULT") {
+                                Pregunta +=
+                                    '<div class="bs-callout-primary callout-transparent callout-bordered">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-primary position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-question fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Seleccione una Opción Segun la siguiente Pregunta</strong>' +
+                                    '<div >' + respuesta.PregMult.pregunta + '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                Pregunta +=
+                                    '<div class="bs-callout-success callout-transparent callout-bordered mt-1">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-success position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-pencil-square-o fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Opciones</strong>';
+
+
+                                let cheked = "";
+                                $.each(respuesta.OpciMult, function(i, item) {
+                                    cheked = "";
+                                    console.log(item.opciones);
+                                    if (respuesta.RespPregMul.respuesta == item
+                                        .id) {
+                                        cheked = "checked";
+                                    }
+
+                                    Pregunta +=
+                                        '<fieldset class="checkbox disabled">' +
+
+                                        ' <input type="checkbox" value="" disabled="" ' +
+                                        cheked + ' > ';
+                                    Pregunta +=
+                                        ' <label for="input-15"> ' +
+                                        item
+                                        .opciones +
+                                        '</label>' +
+                                        '</fieldset>';
+                                });
+
+                                Pregunta += '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                if (respuesta.retro !== null) {
+                                    Pregunta +=
+                                        '<div class="bs-callout-danger callout-transparent callout-bordered mt-1">' +
+                                        '<div class="media align-items-stretch">' +
+                                        '<div class="d-flex align-items-center bg-danger position-relative callout-arrow-left p-2">' +
+                                        '<i class="fa fa-repeat fa-lg white font-medium-5"></i>' +
+                                        '</div>' +
+                                        '<div class="media-body p-1">' +
+                                        '<strong>Retroalimentación</strong>' +
+                                        '<div >' + respuesta.retro + '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>';
+                                }
+
+                                $("#DetRespPregunta").html(Pregunta);
+                            } else if (respuesta.tipo === "VERFAL") {
+                                Pregunta +=
+                                    '<div class="bs-callout-primary callout-transparent callout-bordered">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-primary position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-question fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Indique Verdadero o Falso segun la Afirmación</strong>' +
+                                    '<div >' + respuesta.PregVerFal.pregunta + '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                Pregunta +=
+                                    '<div class="bs-callout-success callout-transparent callout-bordered mt-1">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-success position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-pencil-square-o fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Respuesta</strong>' +
+                                    '<div class="form-group row">' +
+                                    '<div class="col-md-12">' +
+                                    '    <fieldset >' +
+                                    '        <div class="input-group">';
+
+                                Pregunta +=
+                                    '<input name="radpregVerFal[]" id="RadVer" disabled value="si"  type="radio">';
+
+                                Pregunta +=
+                                    ' <div class="input-group-append" style="margin-left:5px;">' +
+                                    '            <span  id="basic-addon2">Verdadero</span>' +
+                                    '          </div>' +
+                                    '        </div>' +
+                                    '      </fieldset>' +
+                                    '</div>' +
+                                    '<div  class="col-md-12">' +
+                                    '    <fieldset >' +
+                                    '        <div class="input-group">';
+                                Pregunta +=
+                                    ' <input name="radpregVerFal[]" id="RadFal" disabled value="no"  type="radio">';
+                                Pregunta +=
+                                    '<div class="input-group-append" style="margin-left:5px;">' +
+                                    '            <span  id="basic-addon2">Falso</span>' +
+                                    '          </div>' +
+                                    '        </div>' +
+                                    '      </fieldset>' +
+                                    '</div>' +
+                                    '            </div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                if (respuesta.retro !== null) {
+                                    Pregunta +=
+                                        '<div class="bs-callout-danger callout-transparent callout-bordered mt-1">' +
+                                        '<div class="media align-items-stretch">' +
+                                        '<div class="d-flex align-items-center bg-danger position-relative callout-arrow-left p-2">' +
+                                        '<i class="fa fa-repeat fa-lg white font-medium-5"></i>' +
+                                        '</div>' +
+                                        '<div class="media-body p-1">' +
+                                        '<strong>Retroalimentación</strong>' +
+                                        '<div >' + respuesta.retro + '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>';
+                                }
+                                $("#DetRespPregunta").html(Pregunta);
+
+                                if (respuesta.RespPregVerFal) {
+                                    if (respuesta.RespPregVerFal.respuesta_alumno ===
+                                        "si") {
+                                        $('#RadVer').prop("checked", "checked");
+                                    } else {
+                                        $('#RadFal').prop("checked", "checked");
+                                    }
+                                }
+
+                            } else if (respuesta.tipo === "RELACIONE") {
+
+                                Pregunta +=
+                                    '<div class="bs-callout-primary callout-transparent callout-bordered">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-primary position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-question fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>' + respuesta.PregRelacione.enunciado +
+                                    '</strong>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                Pregunta +=
+                                    '<div class="bs-callout-success callout-transparent callout-bordered mt-1">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-success position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-pencil-square-o fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Respuesta</strong>' +
+                                    '<div class="row">';
+                                let j = 1;
+                                $.each(respuesta.PregRelIndi, function(k, item) {
+                                    Pregunta +=
+                                        '<div class="col-md-5 pb-2" style="display: flex;align-items: center;justify-content: center;"> <div  id="DivInd' +
+                                        j + '">' + item.definicion + '</div></div>';
+
+                                    Pregunta +=
+                                        '<div class="col-md-2 pb-2" style="display: flex;align-items: center;justify-content: center;"><li class="fa fa-long-arrow-right"></li></div>';
+
+                                    Pregunta +=
+                                        '<div class="col-md-5 pb-2" style="display: flex;align-items: center;justify-content: center;"> <div  id="DivDefi' +
+                                        j + '"></div></div>';
+                                    j++;
+                                });
+
+                                Pregunta += '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                if (respuesta.retro !== null) {
+                                    Pregunta +=
+                                        '<div class="bs-callout-danger callout-transparent callout-bordered mt-1">' +
+                                        '<div class="media align-items-stretch">' +
+                                        '<div class="d-flex align-items-center bg-danger position-relative callout-arrow-left p-2">' +
+                                        '<i class="fa fa-repeat fa-lg white font-medium-5"></i>' +
+                                        '</div>' +
+                                        '<div class="media-body p-1">' +
+                                        '<strong>Retroalimentación</strong>' +
+                                        '<div >' + respuesta.retro + '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>';
+                                }
+
+                                $("#DetRespPregunta").html(Pregunta);
+                                j = 1;
+                                $.each(respuesta.RespPregRelacione, function(k, item) {
+                                    $("#DivDefi" + j).html(item.respuesta);
+                                    j++;
+                                });
+                            } else if (respuesta.tipo === "TALLER") {
+                                let id = "1";
+
+                                Pregunta +=
+                                    '<div class="bs-callout-primary callout-transparent callout-bordered">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-primary position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-question fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Desarrolle el siguiente Taller: </strong>' +
+                                    ' <div class="btn-group" role="group" aria-label="Basic example">' +
+                                    '   <button id="idimg' + id +
+                                    '" type="button" data-archivo="' + respuesta.PregTaller
+                                    .nom_archivo +
+                                    '" onclick="$.MostArc(this.id);" class="btn btn-success"><i' +
+                                    '             class="fa fa-download"></i> Descargar Archivo</button>' +
+                                    '      </div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                Pregunta +=
+                                    '<div class="bs-callout-success callout-transparent callout-bordered mt-1">' +
+                                    '<div class="media align-items-stretch">' +
+                                    '<div class="d-flex align-items-center bg-success position-relative callout-arrow-left p-2">' +
+                                    '<i class="fa fa-pencil-square-o fa-lg white font-medium-5"></i>' +
+                                    '</div>' +
+                                    '<div class="media-body p-1">' +
+                                    '<strong>Respuesta: </strong>' +
+                                    '<div class="btn-group" role="group" aria-label="Basic example">' +
+                                    ' <button type="button" id="archi" onclick="$.VerArchResp(this.id);" data-archivo="' +
+                                    respuesta.RespPregTaller.archivo +
+                                    '" class="btn btn-success"><i' +
+                                    '            class="fa fa-search"></i> Ver Archivo</button>' +
+                                    ' </div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                if (respuesta.retro !== null) {
+                                    Pregunta +=
+                                        '<div class="bs-callout-danger callout-transparent callout-bordered mt-1">' +
+                                        '<div class="media align-items-stretch">' +
+                                        '<div class="d-flex align-items-center bg-danger position-relative callout-arrow-left p-2">' +
+                                        '<i class="fa fa-repeat fa-lg white font-medium-5"></i>' +
+                                        '</div>' +
+                                        '<div class="media-body p-1">' +
+                                        '<strong>Retroalimentación</strong>' +
+                                        '<div >' + respuesta.retro + '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>';
+                                }
+
+                                $("#DetRespPregunta").html(Pregunta);
+
+
+                            }
+
+
+                        }
+                    });
                 },
                   MostrResulEval: function(respuesta) {
 

@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Input;
         </div>
     </div>
 
-</div><br>
+</div><br> 
 
 <div class="form-actions right">
     <div class="row ">

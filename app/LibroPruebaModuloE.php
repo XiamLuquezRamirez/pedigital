@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LibroPruebaModuloE extends Model
 {
@@ -31,7 +32,7 @@ class LibroPruebaModuloE extends Model
         $IdArea = $datos['IdArea'];
         $puntMaxi = $datos['CantiPreg'];
         $pregContestada = $datos['prgAct'];
-        $TiemArePrueba = "";
+      
 
         $competencia =$datos["competencia"];
         $componente =$datos["componente"];
@@ -59,9 +60,9 @@ class LibroPruebaModuloE extends Model
                
             if($DesOpcPreg->respuesta==$resp->respuesta){
                 $puntaje = (int) $puntaje + 1;
-                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1',$datos['partePreg'],$competencia,$componente);
+                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1',$datos['partePreg'],$competencia,$componente,$idSimulacro);
             }else{
-                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0',$datos['partePreg'],$competencia,$componente);
+                $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0',$datos['partePreg'],$competencia,$componente,$idSimulacro);
             }
 
 
@@ -73,9 +74,9 @@ class LibroPruebaModuloE extends Model
                     if ($OP->id == $resp->respuesta) {
                         if ($OP->correcta == "si") {
                             $puntaje = (int) $puntaje + 1;
-                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1',$datos['partePreg'],$competencia,$componente);
+                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '1',$datos['partePreg'],$competencia,$componente,$idSimulacro);
                         } else {
-                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0',$datos['partePreg'],$competencia,$componente);
+                            $PunPreg = \App\PuntPregMEPruebaSimulacro::Guardar($IdSesion, $IdArea, $resp->pregunta, '0',$datos['partePreg'],$competencia,$componente,$idSimulacro);
                         }
                     }
                 }
@@ -106,7 +107,7 @@ class LibroPruebaModuloE extends Model
             'n_preguntas' => $puntMaxi,
             'resp_preguntas' => $pregContestada,
             'fecha_presentacion' => $fecha,
-            'tiempo_usado' => $TiemArePrueba,
+            'tiempo_usado' => $datos["TiempoxSesion"],
             'estado' => $estado,
         ]);
     }
@@ -117,7 +118,7 @@ class LibroPruebaModuloE extends Model
         $Alumno = Auth::user()->id;
         $IdSesion = $datos['idSes'];
         $idSimulacro = $datos['idSimulacro'];
-        $TiemArePrueba = "";
+       
         $estado = "TERMINADA";
 
         foreach ($datos["idArea"] as $key => $val) {
@@ -137,7 +138,7 @@ class LibroPruebaModuloE extends Model
                     'n_preguntas' => $datos["npreg"][$key],
                     'resp_preguntas' => '0',
                     'fecha_presentacion' => $fecha,
-                    'tiempo_usado' => $TiemArePrueba,
+                    'tiempo_usado' => $datos["TiempoxSesion"],
                     'estado' => $estado,
                 ]);
             } else {
@@ -157,6 +158,14 @@ class LibroPruebaModuloE extends Model
             ->groupBy('alumnos.usuario_alumno')
             ->get();
         return $DesPrueba;
+    }
+
+    public static function buscarTimpoSesion($idSimu){
+        $DetSesion = DB::connection("mysql")->select("SELECT ame.nombre_area area, SUM(lpm.tiempo_usado) AS tiempo
+        FROM  libro_prueba_me lpm LEFT JOIN areas_me ame ON lpm.area=ame.id
+        WHERE lpm.simulacro=".$idSimu."
+        GROUP BY lpm.area");
+         return $DetSesion;
     }
 
     public static function BusPruebaArea($Alum, $IdSesion, $IdArea)

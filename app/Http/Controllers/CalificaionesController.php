@@ -891,10 +891,11 @@ class CalificaionesController extends Controller
                 if ($Retro->tipo == "PREGENSAY") {
 
                     $PuntMax = \App\EvalPregEnsay::consulPregEnsay($Retro->pregunta);
+                
 
                     $puntmax = $PuntMax->puntaje;
 
-                    $promPunt = ($Retro->puntos / $puntmax) * 100;
+                    $promPunt = (intval($Retro->puntos) / intval($puntmax)) * 100;
 
                     $Retro->promPunt = $promPunt;
                 } else if ($Retro->tipo == "COMPLETE") {

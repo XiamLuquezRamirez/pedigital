@@ -56,7 +56,7 @@ use Illuminate\Support\Facades\Input;
     <div class="col-md-2">
         <div class="form-group">
             <label class="form-label" for="login_usuario">Usuario:</label>
-            {!! Form::text('login_usuario', old('login_usuario', $Usuarios->login_usuario), ['class' => 'form-control', 'placeholder' => 'Usuario', 'id' => 'usuario_alumno']) !!}
+            {!! Form::text('login_usuario', old('login_usuario', $Usuarios->login_usuario), ['class' => 'form-control', 'placeholder' => 'Usuario', 'onchange' => '$.ValidUsu(this.value)',   'id' => 'usuario_alumno']) !!}
         </div>
     </div>
 <input type="hidden" value="{{$method}}" id="proc"/>

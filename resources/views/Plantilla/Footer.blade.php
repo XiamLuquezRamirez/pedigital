@@ -89,6 +89,10 @@
 <script src="{{ asset('app-assets/js/scripts/ExportExcel/jquery.table2excel.js') }}" type="text/javascript"></script>
 <script src="{{ asset('app-assets/js/jquery.zoom.js') }}" type="text/javascript"></script>
 <script src="{{ asset('app-assets/js/printThis.js') }}" type="text/javascript"></script>
+<script src="{{ asset('app-assets/js/pdfmake.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+
 
 
 

@@ -17,7 +17,6 @@
             </div>
         </div>
     </div>
-
     <div class="content-body">
         <section id="number-tabs">
             <div class="row">
@@ -44,7 +43,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    {!! Form::model(Request::all(), ['url' => '/Asignaturas/GestionAsignaturas', 'method' => 'GET', 'autocomplete' => 'off', 'role' => 'search', 'class' => '']) !!}
+                                                    {!! Form::model(Request::all(), [
+                                                        'url' => '/Asignaturas/GestionAsignaturas',
+                                                        'method' => 'GET',
+                                                        'autocomplete' => 'off',
+                                                        'role' => 'search',
+                                                        'class' => '',
+                                                    ]) !!}
                                                     <div class="input-group">
                                                         {!! Form::text('txtbusqueda', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'BUSQUEDA..']) !!}
                                                         <span class="input-group-append">
@@ -101,18 +106,15 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead class="bg-primary">
                                                     <tr>
+                                                        <th>Opciones</th>
                                                         <th>Asignatura</th>
                                                         <th>Área</th>
-                                                        <th>Opciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
                                                     @foreach ($Asignatura as $Asig)
                                                         <tr data-id='{{ $Asig->id }}' id='Asig{{ $Asig->id }}'>
-                                                            <td class="text-truncate">{!! $Asig->nombre !!}</td>
-                                                            <td class="text-truncate">{!! $Asig->nombre_area !!}</td>
-
                                                             <td class="text-truncate">
                                                                 <a href='{{ url('Asignaturas/EditarAsignaturas/' . $Asig->id) }}'
                                                                     title="Editar"
@@ -120,10 +122,11 @@
                                                                         class="fa fa-edit"></i></a>
                                                                 <a href='#' title="Eliminar"
                                                                     class="btn  btn-outline-warning  btn-sm btnEliminar"
-                                                                    id="btnActi{{ $Asig->id }}"><i
-                                                                        class="fa fa-trash"
+                                                                    id="btnActi{{ $Asig->id }}"><i class="fa fa-trash"
                                                                         id="iconBoton{{ $Asig->id }}"></i></a>
                                                             </td>
+                                                            <td class="text-truncate">{!! $Asig->nombre !!}</td>
+                                                            <td class="text-truncate">{!! $Asig->nombre_area !!}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -171,7 +174,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar esta Asignatura?";
+                    mensaje = "¿Desea Eliminar esta Asignatura?";
 
                     Swal.fire({
                         title: 'Gestionar Asignaturas',
@@ -188,26 +191,26 @@
                                 url: url,
                                 data: datos,
                                 success: function(respuesta) {
-                                    if(respuesta.estado === "ELIMINADO"){
+                                    if (respuesta.estado === "ELIMINADO") {
                                         Swal.fire({
                                             title: "Gestionar Asignaturas",
                                             text: respuesta.mensaje,
                                             icon: "success",
                                             button: "Aceptar"
                                         });
-    
+
                                         if (respuesta.estado === "ELIMINADO") {
-    
+
                                             $("#Asig" + id).hide();
                                         }
-                                    }else if (respuesta.estado == "SINPERMISO"){    
+                                    } else if (respuesta.estado == "SINPERMISO") {
                                         Swal.fire({
-                                            title: "Gestionar Grados",
+                                            title: "Gestionar Asignaturas",
                                             text: respuesta.mensaje,
                                             icon: "warning",
                                             button: "Aceptar"
                                         });
-                                    }else{
+                                    } else {
                                         Swal.fire({
                                             title: "Gestionar Asignaturas",
                                             text: respuesta.mensaje,
@@ -215,9 +218,6 @@
                                             button: "Aceptar"
                                         });
                                     }
-
-                                   
-
                                 },
                                 error: function() {
 

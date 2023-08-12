@@ -100,26 +100,27 @@
                                                 class="table table-hover mb-0 ps-container ps-theme-default table-sm">
                                                 <thead class="bg-primary">
                                                     <tr>
+                                                        <th>Opciones</th>
                                                         <th>Nombre</th>
                                                         <th>Usuario</th>
                                                         <th>Perfil</th>
                                                         <th>Estado</th>
-                                                        <th>Opciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody style="text-transform: capitalize;">
                                                     @foreach ($Usuarios as $Usu)
                                                         <tr data-id='{{ $Usu->id }}' id='Usuario{{ $Usu->id }}'>
-                                                            <td class="text-truncate">{!! $Usu->nombre_usuario !!}</td>
-                                                            <td class="text-truncate">{!! $Usu->login_usuario !!}</td>
-                                                            <td class="text-truncate">{!! $Usu->tipo_usuario !!}</td>
-                                                            <td class="text-truncate">{!! $Usu->estado_usuario !!}</td>
                                                             <td class="text-truncate">
                                                                 <a href='{{ url('Usuarios/Editar/' . $Usu->id) }}'
                                                                      title="Editar"
                                                                     class="btn btn-outline-success btn-sm"><i
                                                                         class="fa fa-edit"></i></a>
                                                             </td>
+                                                            
+                                                            <td class="text-truncate">{!! $Usu->nombre_usuario !!}</td>
+                                                            <td class="text-truncate">{!! $Usu->login_usuario !!}</td>
+                                                            <td class="text-truncate">{!! $Usu->tipo_usuario !!}</td>
+                                                            <td class="text-truncate">{!! $Usu->estado_usuario !!}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -172,7 +173,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar este Alumno?";
+                    mensaje = "¿Desea Eliminar este Alumno?";
 
                     swal({
                         title: mensaje,

@@ -512,7 +512,7 @@ class AsignaturaController extends Controller
 
             $paginas = ceil($numero_filas->count() / $limit); //$numero_filas/10;
 
-            return view('Asignaturas.GestionTemas', compact('bandera', 'numero_filas', 'paginas', 'actual', 'limit', 'busqueda', 'nombre', 'Temas', 'nombre', 'select_Asig', 'select_docente'));
+            return view('Asignaturas.GestionTemas', compact('bandera', 'numero_filas', 'paginas', 'actual', 'limit', 'busqueda', 'nombre', 'Temas',  'select_Asig', 'select_docente'));
         } else {
             return redirect("/")->with("error", "Su Sesión ha Terminado");
         }

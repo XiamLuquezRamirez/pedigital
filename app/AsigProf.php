@@ -54,7 +54,6 @@ class AsigProf extends Model
 
     public static function ConsultarGrupo($Grupo)
     {
-
         $Grupo = AsigProf::where('grupo', $Grupo)
             ->count();
         return $Grupo;
@@ -101,10 +100,9 @@ class AsigProf extends Model
 
         return $DelTem;
     }
+
     public static function DelAsignacion($doce)
     {
-
-
 
         $DelTem = DB::connection("mysql")->select("DELETE FROM asig_prof WHERE profesor=" . $doce . "");
 

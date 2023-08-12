@@ -1,10 +1,11 @@
 @extends('Plantilla.Principal')
 @section('title', 'Calificar Alumnos')
 @section('Contenido')
-    <input type="hidden" data-id='id-dat' id="dattaller"
-        data-ruta="{{ asset('/app-assets/Archivos_EvaluacionTaller') }}" />
+ 
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     <input type="hidden" name="idEvaluacion" id="idEvaluacion" value="{{ $InfEval->id }}">
+    <input type="hidden" data-id='id-dat' id="dattaller"
+    data-ruta="{{ asset('/app-assets/Archivos_EvaluacionTaller') }}" />
     <input type="hidden" name="idAlumno" id="idAlumno" value="">
     <input type="hidden" data-id='id-dat' id="Respdattaller"
         data-ruta="{{ Session::get('URL') }}/Archivos_EvalTaller_Resp" />
@@ -936,7 +937,7 @@
                     var parr = "";
                     var punt = "";
 
-                     $("#Pregunta").remove();
+                    $("#Pregunta").remove();
                     $("#TipPregunta").remove();
                     $("#IdLibCalif").remove();
                     form.append("<input type='hidden' name='Pregunta' id='Pregunta' value='" +
@@ -1099,13 +1100,12 @@
 
                                     });
 
-                                 var Retro = '<div id="Retro" class="col-xl-12 col-lg-6 col-md-12 pt-1">' +
-                                        '   <label style="font-weight:bold;" for="placeTextarea">Retroalimentacion:</label>' +
+                            var Retro = '<div id="Retro" class="col-xl-12 col-lg-6 col-md-12 pt-1">' +
+                                        '<label style="font-weight:bold;" for="placeTextarea">Retroalimentacion:</label>' +
                                         '<div><textarea cols="80" id="Resptroalimentacion" name="Resptroalimentacion"' +
                                         ' rows="3"></textarea></div>' +
-                                        ' </div>';
+                                        '</div>';
                       
-
                                 $("#Pregunta" + id).html(Pregunta + opciones + Retro);
                                 $.hab_editRetro();
                                 if (respuesta.Retro) {

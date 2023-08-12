@@ -191,7 +191,7 @@
 
                     var cadena = fila.find("td:eq(8)").text();
 
-                    mensaje = "¿Desea Elimninar este Estudiante?";
+                    mensaje = "¿Desea Eliminar este Estudiante?";
 
                     Swal.fire({
                         title: 'GESTIONAR ESTUDIANTES',

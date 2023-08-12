@@ -381,7 +381,7 @@ class ModuloEController extends Controller
             }
 
             $paginas = ceil($numero_filas / $limit); //$numero_filas/10;
-            return view('ModuloE.GestionTemas', compact('numero_filas', 'paginas', 'actual', 'limit', 'busqueda', 'Temas', 'select_Asig'));
+            return view('ModuloE.GestionTemas', compact('numero_filas', 'paginas', 'actual', 'limit', 'busqueda', 'Temas', 'select_Asig', 'nombre'));
         } else {
             return redirect("/")->with("error", "Su sesión ha terminado");
         }
@@ -866,16 +866,19 @@ class ModuloEController extends Controller
 
             $verfSesiones = \App\SesionAlumnos::Verifsesion($id);
 
-            if($verfSesiones->count() <= 0) {           
-            $SesionSimulacro = \App\DetaSesionesSimul::Eliminar($id);
-            if ($SesionSimulacro) {
-                $SesionArea = \App\SessionArea::EliminarSesion($id);
-                if ($SesionArea) {
-                    $CompArea = \App\CompAreaSession::EliminarSesion($id);
-                    if ($CompArea) {
-                        $PregArea = \App\ModE_PreguntAreas::EliminarSesion($id);
-                        if ($PregArea) {
-                            $status = "success";
+            if ($verfSesiones->count() <= 0) {
+                $SesionSimulacro = \App\DetaSesionesSimul::Eliminar($id);
+                if ($SesionSimulacro) {
+                    $SesionArea = \App\SessionArea::EliminarSesion($id);
+                    if ($SesionArea) {
+                        $CompArea = \App\CompAreaSession::EliminarSesion($id);
+                        if ($CompArea) {
+                            $PregArea = \App\ModE_PreguntAreas::EliminarSesion($id);
+                            if ($PregArea) {
+                                $status = "success";
+                            } else {
+                                $status = "error";
+                            }
                         } else {
                             $status = "error";
                         }
@@ -886,12 +889,8 @@ class ModuloEController extends Controller
                     $status = "error";
                 }
             } else {
-                $status = "error";
+                $status = "no";
             }
-
-        }else{
-            $status="no";
-        }
 
             if (request()->ajax()) {
                 return response()->json([
@@ -1078,9 +1077,11 @@ class ModuloEController extends Controller
     {
         $idAsig = request()->get('id');
         if (Auth::check()) {
+           
             $Compe = \App\AsigCompmduloE::Listarxasig($idAsig);
+          
             $Compo = \App\AsigComponentemduloE::Listarxasig($idAsig);
-
+        
             $select_compe = "<option value='' selected>Seleccione la Competencia</option>";
             foreach ($Compe as $Comp) {
                 $select_compe .= "<option value='$Comp->id' >" . strtoupper($Comp->nombre) . "</option>";
@@ -1090,6 +1091,9 @@ class ModuloEController extends Controller
             foreach ($Compo as $Comp) {
                 $select_compo .= "<option value='$Comp->id' >" . strtoupper($Comp->nombre) . "</option>";
             }
+
+            $select_compe = mb_convert_encoding($select_compe, 'UTF-8', 'UTF-8');
+$select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
 
             if (request()->ajax()) {
                 return response()->json([
@@ -1971,6 +1975,7 @@ class ModuloEController extends Controller
         }
     }
 
+
     public function consulPregAlumno()
     {
         if (Auth::check()) {
@@ -2053,6 +2058,7 @@ class ModuloEController extends Controller
         if (Auth::check()) {
             $IdPreg = request()->get('Pregunta');
             $partePreg = request()->get('partePreg');
+            $sesion = request()->get('sesionId');
 
 
             if ($partePreg == "PARTE 1") {
@@ -2062,13 +2068,13 @@ class ModuloEController extends Controller
                 $opciMultCompo = $OpciMult->componente;
                 $OpciMult = $OpciMult->pregunta;
 
-                $RespPregMul = \App\PreguntasParte1::BuscOpcRespPruebaParte($IdPreg, Auth::user()->id);
+                $RespPregMul = \App\PreguntasParte1::BuscOpcRespPruebaParte($IdPreg, Auth::user()->id, $sesion);
             } else {
                 $PregMult = \App\PregOpcMulMe::ConsulPreg($IdPreg);
                 $OpciMult = \App\OpcPregMulModuloE::ConsulGrupOpcPreg($IdPreg);
                 $opciMultCompe = $PregMult->competencia;
                 $opciMultCompo = $PregMult->componente;
-                $RespPregMul = \App\OpcPregMulModuloE::BuscOpcRespPrueba($IdPreg, Auth::user()->id);
+                $RespPregMul = \App\OpcPregMulModuloE::BuscOpcRespPrueba($IdPreg, Auth::user()->id, $sesion);
             }
 
 
@@ -2180,6 +2186,19 @@ class ModuloEController extends Controller
             $Temas = \App\TemasModuloE::BuscarTem($id);
 
             $Eval = \App\Evaluacion::ListEvalxClasif($id, $Clasf, 'ME');
+            
+
+            foreach ($Eval as $eval){
+                $busResp = \App\LibroCalificaciones::BusEval($eval->id,Auth::user()->id);
+                if($busResp){
+                    $eval->evaluado = $busResp->estado_eval;
+                   
+                }else{
+                    $eval->evaluado ="no";
+                }
+             
+            }
+            
 
             $Sesiones = \App\sesiones::Guardar(Auth::user()->id);
             if (request()->ajax()) {
@@ -2265,10 +2284,12 @@ class ModuloEController extends Controller
         if (Auth::check()) {
 
             $Evaluaciones = \App\Evaluacion::ListEval($id, 'ME');
-            $DesTema = \App\TemasModuloE::BuscarTem($id);
-            $titTema = $DesTema->titulo;
+            $DesTema = \App\TemasModuloE::BuscarTemDet($id);
 
-            return view('ModuloE.GestionPracticasTemas', compact('Evaluaciones', 'titTema', 'id'));
+            $titTema = $DesTema->titulo;
+            $grado = $DesTema->grado;
+
+            return view('ModuloE.GestionPracticasTemas', compact('Evaluaciones', 'titTema', 'id', 'grado'));
         } else {
             return redirect("/")->with("error", "Su sesión ha terminado");
         }
@@ -2386,6 +2407,48 @@ class ModuloEController extends Controller
             if (request()->ajax()) {
                 return response()->json([
                     'select_comp' => $select_comp,
+                ]);
+            }
+        } else {
+            return redirect("/")->with("error", "Su Sesión ha Terminado");
+        }
+    }
+    public function CargarAlumnosCalif()
+    {
+
+        if (Auth::check()) {
+            $gradoSel = request()->get('gradoSel');
+            $eval = request()->get('eval');
+          
+            $alumnosGrupos = \App\Alumnos::ListarxGrado($gradoSel);
+            foreach ($alumnosGrupos as $alumno) {
+                $alumnosListado = \App\Alumnos::ListarxGradoTotal($gradoSel, $alumno->grupo,$eval);
+                break;
+            }
+
+                    if (request()->ajax()) {
+                return response()->json([
+                    'alumnosGrupos' => $alumnosGrupos,
+                    'alumnosListado' => $alumnosListado
+                ]);
+            }
+        } else {
+            return redirect("/")->with("error", "Su Sesión ha Terminado");
+        }
+    }
+    public function CargarAlumnosCalifGrupo()
+    {
+        
+        if (Auth::check()) {
+            $gradoSel = request()->get('gradoSel');
+            $grupo = request()->get('grupo');
+            $eval = request()->get('eval');
+                  
+                $alumnosListado = \App\Alumnos::ListarxGradoTotal($gradoSel, $grupo,$eval);
+             
+                    if (request()->ajax()) {
+                      return response()->json([
+                    'alumnosListado' => $alumnosListado
                 ]);
             }
         } else {
@@ -3032,21 +3095,21 @@ class ModuloEController extends Controller
     {
         if (Auth::check()) {
             $datos = request()->all();
-            $flagt="1";
-            
+            $flagt = "1";
+
             $DetaSesion = \App\SesionAlumnos::Editar($datos);
 
             $DetaSesion = \App\SesionAlumnos::ConsultarTodo($datos);
 
-            dd($DetaSesion);
-           
-            foreach($DetaSesion as $ses){
-                if($ses->estado != "FINALIZADA"){
-                    $flagt="0";
+
+
+            foreach ($DetaSesion as $ses) {
+                if ($ses->estado != "FINALIZADA") {
+                    $flagt = "0";
                 }
             }
 
-            if($flagt=="1"){
+            if ($flagt == "1") {
                 $Simula = \App\simulacrosEstudiantes::guardar($datos);
             }
 
@@ -3274,14 +3337,21 @@ class ModuloEController extends Controller
         if (Auth::check()) {
             $datos = request()->all();
             $idSimu = $datos['idSimu'];
-
-            $Estusimulacro = \App\LibroPruebaModuloE::buscarEstud($idSimu);
-
-
-            if (request()->ajax()) {
-                return response()->json([
-                    'Estusimulacro' => $Estusimulacro,
-                ]);
+            $tipInf = $datos['tipInf'];
+            if ($tipInf == "individual") {
+                $Estusimulacro = \App\LibroPruebaModuloE::buscarEstud($idSimu);
+                if (request()->ajax()) {
+                    return response()->json([
+                        'Estusimulacro' => $Estusimulacro,
+                    ]);
+                }
+            } else if ($tipInf == "area" || $tipInf == "competencia") {
+                $Sesiones = \App\DetaSesionesSimul::ConsultarAreasSimulacro($idSimu);
+                if (request()->ajax()) {
+                    return response()->json([
+                        'Sesiones' => $Sesiones,
+                    ]);
+                }
             }
         } else {
             return redirect('/')->with('error', 'Su sesión ha Terminado');
@@ -3339,7 +3409,7 @@ class ModuloEController extends Controller
             } else {
                 $PreguntasBanco = \App\ModE_PreguntAreas::ConsultarInf($idAreaSes);
             }
-           
+
             $Preguntas = self::OrganizarPreguntas($PreguntasBanco, $SesAre->area);
 
             for ($i = 0; $i < count($PreguntasBanco); $i++) {
@@ -3347,12 +3417,12 @@ class ModuloEController extends Controller
                 $PreguntasBanco[$i]['competencia'] = $PregMult['competencia'];
                 $PreguntasBanco[$i]['componente'] = $PregMult['componente'];
             }
-            
+
 
             if (request()->ajax()) {
                 return response()->json([
                     'SesAre' => $SesAre,
-                    'CompAre' => $CompAre,                    
+                    'CompAre' => $CompAre,
                     'pregBanco' => $PreguntasBanco,
                     'PregArea' => $Preguntas,
                 ]);
@@ -3378,7 +3448,7 @@ class ModuloEController extends Controller
             }
 
 
-            
+
 
             //    $PregArea = \App\ModE_PreguntAreas::ConsultarInf($idArea);
             if (request()->ajax()) {
@@ -3393,7 +3463,8 @@ class ModuloEController extends Controller
         }
     }
 
-    public function guadarInicioSesion(){
+    public function guadarInicioSesion()
+    {
         $datos = request()->all();
         $Sesion = \App\SesionAlumnos::Consultar($datos);
         if ($Sesion->count() == 0) {
@@ -3439,7 +3510,7 @@ class ModuloEController extends Controller
             }
 
 
-          
+
 
             if (request()->ajax()) {
                 return response()->json([
@@ -3452,24 +3523,24 @@ class ModuloEController extends Controller
     }
 
 
-    public function changeEstadoSesion(){
-        
+    public function changeEstadoSesion()
+    {
+
         $IdSesion = request()->get('idSesion');
         $Status = request()->get('sesionEstatus');
 
-        if($Status==0){
-            $Status=1;
-        }else{
-            $Status=0;
+        if ($Status == 0) {
+            $Status = 1;
+        } else {
+            $Status = 0;
         }
 
-        $statusSesion = \App\DetaSesionesSimul::updateStatusSesion($IdSesion,$Status);
+        $statusSesion = \App\DetaSesionesSimul::updateStatusSesion($IdSesion, $Status);
         if (request()->ajax()) {
             return response()->json([
                 'statusSesion' => $statusSesion,
             ]);
         }
-     
     }
 
     public function EliminarPregSesionArea()
@@ -3498,15 +3569,17 @@ class ModuloEController extends Controller
             $datos = request()->all();
             $IdPreg = array();
 
-            $preGeneradas = \App\ModE_PreguntAreas::consultarPregGeneradasSesion($datos['area'], $datos['Id_Simu']);
+            $preGeneradas = \App\ModE_PreguntAreas::consultarPregGeneradasSesion($datos['Id_Simu']);
 
             foreach ($preGeneradas as $Preg) {
                 array_push($IdPreg, $Preg->pregunta);
             }
 
-            $SesAre = \App\PregOpcMulMe::GenPregAle($datos,$IdPreg);
+
+            $SesAre = \App\PregOpcMulMe::GenPregAle($datos, $IdPreg);
             if ($SesAre) {
                 $Preguntas = self::OrganizarPreguntas($SesAre, '');
+
                 if ($SesAre) {
                     if (request()->ajax()) {
                         return response()->json([
@@ -3526,16 +3599,18 @@ class ModuloEController extends Controller
             $datos = request()->all();
             $IdPreg = array();
 
-            if($datos['opc']=="G"){
-                $preGeneradas = \App\ModE_PreguntAreas::consultarPregGeneradasSesion($datos['sesi'], $datos['Simu']);
+            if ($datos['opc'] == "G") {
+                $preGeneradas = \App\ModE_PreguntAreas::consultarPregGeneradasSesion($datos['Simu']);
 
                 foreach ($preGeneradas as $Preg) {
                     array_push($IdPreg, $Preg->banco);
                 }
             }
-            
-                  
-            $SesAre = \App\PregOpcMulMe::BuscaPregCompexCompo($datos,$IdPreg);
+
+
+
+
+            $SesAre = \App\PregOpcMulMe::BuscaPregCompexCompo($datos, $IdPreg);
             if ($SesAre) {
                 if (request()->ajax()) {
                     return response()->json([
@@ -3560,7 +3635,7 @@ class ModuloEController extends Controller
                     $PregMult = \App\PregOpcMulMe::ConsulPregBan($Preg->banco);
 
                     $PreEnunciado = "CUAL PALABRA CONCUERDA CON LA DESCRIPCIÓN DE LA FRASE?";
-                    $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar'.$Preg->banco.'">'
+                    $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar' . $Preg->banco . '">'
                         . '<h4 class="primary">' . $PreEnunciado . '!</h4>'
                         . $PregMult->pregunta
                         . '</div>';
@@ -3569,7 +3644,7 @@ class ModuloEController extends Controller
 
 
                     foreach ($OpcPreg as $opc) {
-                        $Preguntas .= "<div class='row eliminar".$Preg->banco."'>";
+                        $Preguntas .= "<div class='row eliminar" . $Preg->banco . "'>";
                         $Preguntas .= "<div class='col-12'>";
                         $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 ">'
                             . '<h4 class="success">Pregunta ' . $conse . '</h4><input type="hidden" name="Preguntas[]" value="' . $opc->id . '" />'
@@ -3593,12 +3668,12 @@ class ModuloEController extends Controller
 
 
                     $PreEnunciado = "RESPONDA LA SIGUIENTE PREGUNTA SEGUN EL SIGUIENTE ENUNCIADO";
-                    $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar'.$Preg->banco.'">'
+                    $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar' . $Preg->banco . '">'
                         . '<h4 class="primary">' . $PreEnunciado . '!</h4>'
                         . $Preg->enunciado
                         . '</div>';
                     foreach ($PregMult as $preg) {
-                        $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 eliminar'.$Preg->banco.'">'
+                        $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 eliminar' . $Preg->banco . '">'
                             . '<h4 class="success">Pregunta ' . $conse . '</h4><input type="hidden" name="Preguntas[]" value="' . $preg->id . '" />'
                             . '<input type="hidden" name="PregBancoId[]" value="' .  $Preg->banco . '" />'
                             . '<input type="hidden" name="PregTipPreg[]" value="' .  $Preg->tipo_pregunta  . '" />'
@@ -3620,12 +3695,12 @@ class ModuloEController extends Controller
             } else {
 
                 $PreEnunciado = "RESPONDA LA SIGUIENTE PREGUNTA SEGUN EL SIGUIENTE ENUNCIADO";
-                $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar'.$Preg->banco.'">'
+                $Preguntas .= '<div  class="bs-callout-primary callout-border-right callout-bordered callout-transparent p-1 mt-3 eliminar' . $Preg->banco . '">'
                     . '<h4 class="primary">' . $PreEnunciado . '!</h4>'
                     . $Preg->enunciado
                     . '</div>';
 
-                $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 eliminar'.$Preg->banco.'">'
+                $Preguntas .= ' <div class="bs-callout-success callout-border-right callout-bordered callout-transparent mt-1 p-1 eliminar' . $Preg->banco . '">'
                     . '<h4 class="success">Pregunta ' . $conse . '</h4><input type="hidden" name="Preguntas[]" value="' . $Preg->id . '" />'
                     . '<input type="hidden" name="PregBancoId[]" value="' .  $Preg->banco . '" />'
                     . '<input type="hidden" name="PregTipPreg[]" value="' .  $Preg->tipo_pregunta  . '" />'
@@ -3646,7 +3721,11 @@ class ModuloEController extends Controller
             }
         }
 
-        return $Preguntas;
+        $respuesta = [
+            'preguntas' => $Preguntas,
+            'cantidPreg' => $conse - 1
+        ];
+        return $respuesta;
     }
 
     public function PanelActivos()
@@ -3877,9 +3956,6 @@ class ModuloEController extends Controller
 
         $pdf = app('dompdf.wrapper');
 
-
-
-
         foreach ($datos["idestu"] as $key => $val) {
             if ($datos["EstSel"][$key] == "si") {
                 $Alumno = \App\Alumnos::BuscarAlumFoto($datos["usuEstu"][$key]);
@@ -3929,6 +4005,8 @@ class ModuloEController extends Controller
                     $scores = [];
 
                     $estudentSimu = \App\simulacrosEstudiantes::BuscarEstudiante($idSimu);
+
+
                     foreach ($estudentSimu as $estudent) {
                         $Sesion_p = \App\DetaSesionesSimul::ConsultarAreasSimulacroxArea($idSimu, $Ses->area);
 
@@ -3940,7 +4018,7 @@ class ModuloEController extends Controller
                                 $puntarea_p =  ($puntArea_p->pts / $npreg_p) * 100;
                                 array_push($scores, round($puntarea_p));
 
-                                $scoresTotal->push(['estudiante' => $estudent->estudiante, 'puntaje' => round($puntarea_p), 'area' => $Ses_p->area]);
+                                $scoresTotal->push(['estudiante' => $estudent->estudiante, 'nombre_est' => $estudent->nalumno, 'puntaje' => round($puntarea_p), 'area' => $Ses_p->area]);
 
                                 /////
                             }
@@ -3950,7 +4028,7 @@ class ModuloEController extends Controller
 
 
                     // Calcular el índice del puntaje en la posición del percentil
-
+                    $percentile = 100;
                     if (empty($scores)) {
                         echo "El array de datos está vacío. No se puede calcular el percentil.";
                     } else {
@@ -3968,17 +4046,19 @@ class ModuloEController extends Controller
                             }
                         }
 
+
                         if ($posicion == 0) {
                             $percentile = 100;
                         } else {
                             $percentile = ($posicion / ($n + 1)) * 100;
                         }
 
+
+
                         // Calcular el percentil
-                   
+
                     }
                     ////////////////////////////////
-
 
 
 
@@ -4002,6 +4082,7 @@ class ModuloEController extends Controller
                 $puntstud = [];
                 $sumAre = 0;
                 $sumPuntAre = 0;
+                $percentilTotl = 100;
 
 
                 $estSim = \App\simulacrosEstudiantes::BuscarEstudiante($idSimu);
@@ -4080,7 +4161,6 @@ class ModuloEController extends Controller
                     } else {
                         $percentilTotl = ($posicion / ($n + 1)) * 100;
                     }
-
                 }
                 ////////////////////////////////
 
@@ -4128,6 +4208,190 @@ class ModuloEController extends Controller
         // Devolver el contenido del PDF como una respuesta HTTP con los encabezados
         return response($pdfContent, 200, $headers);
     }
+
+    public function informeArea(Request $request)
+    {
+        if (Auth::check()) {
+            $datos = $request->all();
+            $idSimu =  $datos['simu'];
+            $estI =  $datos['estI'];
+            $mayM =  $datos['mayM'];
+            $puntAreas = collect();
+
+            $Sesion = \App\DetaSesionesSimul::ConsultarAreasSimulacro($idSimu);
+
+            foreach ($Sesion as $Ses) {
+                $estudentSimu = \App\simulacrosEstudiantes::BuscarEstudiante($idSimu);
+                foreach ($estudentSimu as $estudent) {
+                    $Sesion_p = \App\DetaSesionesSimul::ConsultarAreasSimulacroxArea($idSimu, $Ses->area);
+
+                    foreach ($Sesion_p as $Ses_p) {
+
+                        $puntArea_p = \App\PuntPregMEPruebaSimulacro::ConsulPuntAlumno($Ses_p->area, $idSimu, $estudent->estudiante);
+                        $npreg_p = $Ses_p->npreg;
+                        $puntarea_p =  ($puntArea_p->pts / $npreg_p) * 100;
+
+                        $puntAreas->push(['estudiante' => $estudent->estudiante, 'nombre_est' => $estudent->nalumno, 'puntaje' => round($puntarea_p), 'area' => $Ses_p->nombre_area, 'idarea' => $Ses_p->area]);
+
+                        /////
+                    }
+                }
+            }
+
+            // Calcular el promedio para cada área
+            $promedios = [];
+            $count = [];
+            foreach ($puntAreas as $item) {
+
+                $area = $item['area'];
+                $puntaje = $item['puntaje'];
+
+
+                if (!isset($promedios[$area])) {
+                    $promedios[$area] = 0;
+                    $count[$area] = 0;
+                }
+
+                $promedios[$area] += $puntaje;
+                $count[$area]++;
+            }
+
+
+            foreach ($promedios as $area => $puntajeTotal) {
+                $promedio = $puntajeTotal / $count[$area];
+                $promedios[$area] = $promedio;
+            }
+
+            // Reorganizar el resultado en el formato deseado
+            $resultado = [];
+
+            foreach ($promedios as $area => $promedio) {
+
+                $resulBus = $puntAreas->where('area', $area);
+
+                $resultado[] = [
+                    'area' => $area,
+                    'promedio' => round($promedio),
+                    'idarea' => $resulBus->first()['idarea']
+                ];
+            }
+
+            // Ordenar el resultado por el nombre del área
+            usort($resultado, function ($a, $b) {
+                return strcmp($a['area'], $b['area']);
+            });
+
+            //consultar Tiempo promedio
+            $Sesion_tiempo = \App\LibroPruebaModuloE::buscarTimpoSesion($idSimu);
+            foreach ($Sesion_tiempo as $tiemp) {
+                $tiemp->tiempo = round($tiemp->tiempo  / 60); // Convertir de segundos a minutos
+            }
+
+
+
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'promPuntArea' => $resultado,
+                    'allPuntArea' => $puntAreas,
+                    'Sesion_tiempo' => $Sesion_tiempo,
+                ]);
+            }
+
+
+            // echo json_encode($resultado, JSON_PRETTY_PRINT);
+
+        } else {
+            return redirect("/")->with("error", "Su Sesión ha Terminado");
+        }
+    }
+
+
+    public function informeComp(Request $request)
+    {
+        if (Auth::check()) {
+            $datos = $request->all();
+            $idSimu =  $datos['simu'];
+            $ASel =  $datos['ASel'];
+
+            $detCompe = \App\CompAreaSession::BuscarPregcompe($idSimu, $ASel);
+            $detCompo = \App\CompAreaSession::BuscarPregcompo($idSimu, $ASel);
+
+            ///Agregar pregAcertadas competencas
+            foreach ($detCompe as $det) {
+                $preAcert = \App\CompAreaSession::BuscarPregAcertadascompe($idSimu, $ASel, $det->competencia);
+                $det->preAcert = $preAcert->acertados;
+            }
+
+
+
+            ///Agregar pregAcertadas competencas
+            foreach ($detCompo as $det) {
+                $preAcert = \App\CompAreaSession::BuscarPregAcertadasCompo($idSimu, $ASel, $det->componente);
+                $det->preAcert = $preAcert->acertados;
+            }
+
+            $estudentSimu = \App\simulacrosEstudiantes::BuscarEstudiante($idSimu);
+            $dataPuntCompe = [];
+            $dataPuntCompo = [];
+
+            $numeroEstudiantes = count($estudentSimu);
+
+
+            foreach ($estudentSimu as $estudent) {
+                $rowDataCompe = ['nombre' => $estudent->nalumno]; // Crear una fila para cada estudiante
+                foreach ($detCompe as $det) {
+                    $PuntEstuComp = \App\PuntPregMEPruebaSimulacro::puntCompEst($idSimu, $det->competencia, $estudent->estudiante);
+
+                    // Asignar el puntaje a la competencia correspondiente en la fila
+                    $rowDataCompe[$det->nombre] = isset($PuntEstuComp[0]) ? $PuntEstuComp[0]->puntos : 0;
+                }
+
+                $dataPuntCompe[] = $rowDataCompe;
+
+                ////llenar componentes
+                $rowDataCompo = ['nombre' => $estudent->nalumno]; // Crear una fila para cada estudiante
+                foreach ($detCompo as $det) {
+                    $PuntEstuCompo = \App\PuntPregMEPruebaSimulacro::puntCompoEst($idSimu, $det->componente, $estudent->estudiante);
+
+                    // Asignar el puntaje a la competencia correspondiente en la fila
+                    $rowDataCompo[$det->nombre] = isset($PuntEstuCompo[0]) ? $PuntEstuCompo[0]->puntos : 0;
+                }
+
+                $dataPuntCompo[] = $rowDataCompo;
+            }
+
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'detCompe' => $detCompe,
+                    'detCompo' => $detCompo,
+                    'dataPuntCompe' => $dataPuntCompe,
+                    'dataPuntCompo' => $dataPuntCompo,
+                    'numeroEstudiantes' => $numeroEstudiantes
+                ]);
+            }
+        } else {
+            return redirect("/")->with("error", "Su Sesión ha Terminado");
+        }
+    }
+
+    // Función para obtener el idarea desde $puntAreas
+    function obtenerIdAreaDesdePuntAreas($nombre_area)
+    {
+        global $puntAreas; // Accedemos a la variable global $puntAreas que se creó en el código original
+
+        // Buscamos el idarea correspondiente al nombre del área ($nombre_area) en $puntAreas
+        foreach ($puntAreas as $item) {
+            if ($item['area'] === $nombre_area) {
+                return $item['idarea'];
+            }
+        }
+
+        // Si el área no tiene un idarea asignado o no se encuentra en $puntAreas, retornamos null.
+        return null;
+    }
+
 
     public function sanear_string($string)
     {
