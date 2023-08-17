@@ -444,7 +444,6 @@
     {!! Form::open(['url' => '/ModuloE/ConsultarSimulacros', 'id' => 'formAuxiliarSimulacros']) !!}
     {!! Form::close() !!}
 
-
     {!! Form::open(['url' => '/ModuloE/ConsultarSesiones', 'id' => 'formAuxiliarSesiones']) !!}
     {!! Form::close() !!}
 
@@ -1467,8 +1466,6 @@
                     $("#Titulo").html('SIMULACROS - MÓDULO E');
                     $("#li_simulacro").html("TABLERO MÓDULO E");
                     $("#li_cursos").html("SIMULACROS");
-
-
 
                     $("#Div_Principal").hide();
                     $("#Div_Simulacros").show();

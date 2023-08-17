@@ -547,7 +547,6 @@ class ContenidoController extends Controller
                         $contenido .= '  <div class="carousel-item ' . $active . '">
                                         <img src="' . asset('app-assets/images/Img_Modulos/' . $img->url_img) . '" stylej="height: 200px; width: 350px;" class="img-fluid" alt="First slide">
                                     </div>';
-
                         $active = "";
                     }
                 }

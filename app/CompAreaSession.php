@@ -83,8 +83,8 @@ class CompAreaSession extends Model
 
     public static function BuscarPregcompe($IdSimu, $IdArea){
 
-        $DetSesion = DB::connection("mysql")->select("SELECT csa.competencia, compe.nombre, SUM(csa.porcpreg) npreg  FROM sesion_area sa 
-        RIGHT JOIN comp_sesio_area csa ON sa.id=csa.id_sexarea 
+        $DetSesion = DB::connection("mysql")->select("SELECT csa.competencia, compe.nombre, SUM(csa.porcpreg) npreg  FROM sesion_area sa
+        RIGHT JOIN comp_sesio_area csa ON sa.id=csa.id_sexarea
         LEFT JOIN competencias compe ON compe.id=csa.competencia
         WHERE sa.simulacro=".$IdSimu."  AND sa.area=".$IdArea."
         GROUP BY csa.competencia ");
@@ -111,7 +111,7 @@ class CompAreaSession extends Model
     public static function BuscarPregcompo($IdSimu, $IdArea){
 
         $DetSesion = DB::connection("mysql")->select("SELECT csa.componente, compe.nombre, SUM(csa.porcpreg) npreg  FROM sesion_area sa 
-        RIGHT JOIN comp_sesio_area csa ON sa.id=csa.id_sexarea 
+        RIGHT JOIN comp_sesio_area csa ON sa.id=csa.id_sexarea
         LEFT JOIN componentes compe ON compe.id=csa.componente
         WHERE sa.simulacro=".$IdSimu."  AND sa.area=".$IdArea."
         GROUP BY csa.componente");

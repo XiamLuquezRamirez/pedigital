@@ -621,6 +621,19 @@
                 },
                 generarInforme: function() {
 
+                    if ($('#simulacro').val() === "") {
+                        Swal.fire({
+                            title: "Informes de Resultados por Áreas",
+                            text: "Seleccione el simulacro.",
+                            icon: "warning",
+                            button: "Aceptar",
+                        });
+                        $("#divResultado").hide();
+                        return;
+
+                    }
+
+
                     $("#divResultado").show();
 
                     const estIcfes = document.getElementById("estIcfes");
@@ -644,7 +657,7 @@
                     ///CONSUTLAR TODO
 
                     var token = $("#token").val();
-                    var simulacro = $("#simulacro_id").val();
+                    var simulacro = $("#simulacro").val();
 
                     $("#chartPuntaje").html("");
                     $("#chartCompNacio").html("");
@@ -935,6 +948,28 @@
 
                 generarinformeComp: function() {
 
+                    if ($('#simulacro').val() === "") {
+                        Swal.fire({
+                            title: "Informes de Competencia y Componentes",
+                            text: "Seleccione el simulacro.",
+                            icon: "warning",
+                            button: "Aceptar",
+                        });
+                        $("#divResultadoComp").hide();
+                        return;
+                    }
+
+                    if ($('#AreaSel').val() === " ") {
+                        Swal.fire({
+                            title: "Informes de Competencia y Componentes",
+                            text: "Seleccione el Área.",
+                            icon: "warning",
+                            button: "Aceptar",
+                        });
+                        $("#divResultadoComp").hide();
+                        return;
+                    }
+
                     $("#divResultadoComp").show();
 
                     var token = $("#token").val();
@@ -949,7 +984,7 @@
 
                     $("#chartCompetencia").html("");
                     $("#chartComponente").html("");
-                    $("#chartPregCompetencia").html("");
+                    $("#chartPregCom petencia").html("");
                     $("#chartPregComponennte").html("");
 
                     $("#chartCompEstudiantes").html("");

@@ -43,6 +43,7 @@ class PregOpcMulMe extends Model
             ->first();
         return $GrupPreg;
     }
+    
     public static function ConsulPregBan($idBanco)
     {
         $GrupPreg = PregOpcMulMe::where('banco', $idBanco)

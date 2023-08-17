@@ -42,7 +42,7 @@
                 @if (Auth::user()->tipo_usuario == 'Estudiante')
                     <div class="row">
                         @foreach ($Asignatura as $Asig)
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                            <div class="col-xl-4 col-lg-4 col-md-12">
                                 <div class="card hvr-grow-shadow">
                                     <div class="card-content border-blue border-danger">
                                         <div id="carousel-example" class="carousel slide" data-ride="carousel">
@@ -106,7 +106,7 @@
                 @else
                     <div class="row">
                         @foreach ($Asignatura as $Asig)
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" onclick="$.EntrarAsig({!! $Asig->id !!});"
+                            <div class="col-xl-3 col-lg-3 col-md-12" onclick="$.EntrarAsig({!! $Asig->id !!});"
                                 style="cursor: pointer;">
                                 <div class="card hvr-grow-shadow">
                                     <div class="card-content text-success border-success ">
@@ -190,7 +190,7 @@
                 @if (Auth::user()->tipo_usuario == 'Estudiante')
                     <div class="row">
                         @foreach ($Modulos as $Asig)
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                            <div class="col-xl-3 col-lg-3 col-md-12">
                                 <div class="card hvr-grow-shadow">
                                     <div class="card-content border-blue border-danger">
                                         <div id="carousel-example" class="carousel slide" data-ride="carousel">
@@ -254,7 +254,7 @@
                 @else
                     <div class="row">
                         @foreach ($Modulos as $Asig)
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" onclick="$.EntrarModu({!! $Asig->id !!});"
+                            <div class="col-xl-3 col-lg-3 col-md-12" onclick="$.EntrarModu({!! $Asig->id !!});"
                                 style="cursor: pointer;">
                                 <div class="card hvr-grow-shadow">
                                     <div class="card-content text-success border-success ">

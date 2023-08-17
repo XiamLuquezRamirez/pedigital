@@ -3298,7 +3298,8 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
     public function ConsultarSimulacros()
     {
         if (Auth::check()) {
-            $Simualacros = \App\Simulacros::CargarSimulacros();
+
+          $Simualacros = \App\Simulacros::CargarSimulacros();
             for ($i = 0; $i < count($Simualacros); $i++) {
                 $DetaSesionxsimulacro = \App\DetaSesionesSimul::ConsultarSesiones($Simualacros[$i]['id']);
                 $Simualacros[$i]['SesionesxSimulacro'] = $DetaSesionxsimulacro;
@@ -4219,6 +4220,7 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
             $puntAreas = collect();
 
             $Sesion = \App\DetaSesionesSimul::ConsultarAreasSimulacro($idSimu);
+            
 
             foreach ($Sesion as $Ses) {
                 $estudentSimu = \App\simulacrosEstudiantes::BuscarEstudiante($idSimu);
@@ -4313,8 +4315,9 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
             $datos = $request->all();
             $idSimu =  $datos['simu'];
             $ASel =  $datos['ASel'];
-
+           
             $detCompe = \App\CompAreaSession::BuscarPregcompe($idSimu, $ASel);
+            
             $detCompo = \App\CompAreaSession::BuscarPregcompo($idSimu, $ASel);
 
             ///Agregar pregAcertadas competencas

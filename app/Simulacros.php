@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
 
 class Simulacros extends Model
 {
@@ -104,11 +106,10 @@ class Simulacros extends Model
     public static function CargarSimulacros(){
         $fecha = date('Y-m-d');
         $respuesta = Simulacros::where('fecha', $fecha)
+        ->where("prueba", Auth::user()->grado_usuario)
         ->where('estado','ACTIVO')
         ->get();
         return $respuesta;
-
-
     }
 
     public static function CargarListSimulacros(){

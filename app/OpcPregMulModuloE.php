@@ -5,7 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class OpcPregMulModuloE extends Model
-{    protected $table = 'opc_mult_eval_me';
+{    
+    protected $table = 'opc_mult_eval_me';
     protected $fillable = [
         'pregunta',
         'opciones',
