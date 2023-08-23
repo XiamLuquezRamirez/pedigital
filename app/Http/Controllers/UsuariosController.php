@@ -18,7 +18,6 @@ class UsuariosController extends Controller
         return view('ModuloJ.Juego1');
     }
 
-
     public function Gestion()
     {
         $bandera = "Menu4";
@@ -32,7 +31,7 @@ class UsuariosController extends Controller
             $Usuarios = \App\Usuarios::Gestion($busqueda, $actual, $limit);
             $numero_filas = \App\Usuarios::numero_de_registros(request()->get('txtbusqueda'));
             $paginas = ceil($numero_filas / $limit); //$numero_filas/10;
-           
+
             return view('Usuario.Gestion', compact('bandera', 'numero_filas', 'paginas', 'actual', 'limit', 'busqueda', 'Usuarios'));
         } else {
             return redirect("/")->with("error", "Su Sesión ha Terminado");
@@ -97,20 +96,30 @@ class UsuariosController extends Controller
                 $Modulos = \App\ModulosTransversales::AsigxUsu(Auth::user()->id, Auth::user()->tipo_usuario, '', '');
                 $imgmodulo = \App\ImgModulosTransversales::imgAsig();
 
+                $AsigModuloE = \App\AsignaturasModuloE::AsigxUsu("", Auth::user()->tipo_usuario);
+
                 ///MODULOS TRANSVERSALES
             } else if (Auth::user()->tipo_usuario == "Profesor") {
+
+                $InfDoce = \App\Profesores::Buscar(Auth::user()->id);
+
                 $Asignatura = \App\Asignaturas::AsigxUsu(Auth::user()->id, Auth::user()->tipo_usuario, '', '');
+               
                 Session::put('IDMODULO', '');
                 $imgasig = \App\ImgAsignatura::imgAsig();
 
                 $Modulos = \App\ModulosTransversales::AsigxUsu(Auth::user()->id, Auth::user()->tipo_usuario, '', '');
                 $imgmodulo = \App\ImgModulosTransversales::imgAsig();
 
-                $InfDoce = \App\Profesores::Buscar(Auth::user()->id);
+                $AsigModuloE = \App\AsignaturasModuloE::AsigxDocente($InfDoce->id);
+
                 Session::put('JORDOCE', $InfDoce->jornada);
                 Session::put('IDDOCE', $InfDoce->id);
             } else if (Auth::user()->tipo_usuario == "Estudiante") {
-                ////////INF. ASIGANTURAS
+
+                $AsigModuloE = \App\AsignaturasModuloE::AsigxUsu(Auth::user()->grado_usuario, Auth::user()->tipo_usuario);
+
+                ///////INF. ASIGANTURAS
                 $Alum = \App\Alumnos::Buscar(Auth::user()->id);
                 $Asignatura = \App\Asignaturas::AsigxUsu(Auth::user()->grado_usuario, Auth::user()->tipo_usuario, $Alum->grupo, $Alum->jornada);
 
@@ -154,6 +163,9 @@ class UsuariosController extends Controller
 
             }
 
+           
+
+
             Session::put('ZonaJuegoAct', 'no');
 
             $Log = \App\Log::Guardar('Inicio sesión', '');
@@ -165,7 +177,7 @@ class UsuariosController extends Controller
 
                 return view('AdministrarParametros', compact('Asignatura', 'Modulos', 'Colegios'));
             } else {
-                return view('Administrador', compact('bandera', 'Asignatura', 'imgasig', 'Modulos', 'imgmodulo'));
+                return view('Administrador', compact('bandera', 'Asignatura', 'imgasig', 'Modulos', 'imgmodulo', 'AsigModuloE'));
 
             }
 
@@ -229,7 +241,7 @@ class UsuariosController extends Controller
             } else if ($respuesta->tipo_usuario == "Estudiante") {
                 $FotoUsu = \App\Alumnos::Buscar($respuesta->id);
                 Session::put('ImgUsu', 'Img_Estudiantes/' . $FotoUsu->foto_alumno);
-                Session::put('GrupoEst',  $FotoUsu->grupo);
+                Session::put('GrupoEst', $FotoUsu->grupo);
             } else if ($respuesta->tipo_usuario == "root") {
                 Session::put('ImgUsu', 'avatar-s-1.png');
             } else {
@@ -372,7 +384,7 @@ class UsuariosController extends Controller
             $id = $data['id'];
             if (Auth::user()->tipo_usuario == "Profesor") {
                 $Profesores = \App\Profesores::BuscarProf($id);
-                if($Profesores->identificacion==$data['identificacion']){
+                if ($Profesores->identificacion == $data['identificacion']) {
                     $this->validate(request(), [
                         'identificacion' => 'required',
                         'nombre' => 'required',
@@ -382,7 +394,7 @@ class UsuariosController extends Controller
                         'nombre.required' => 'El Nombre es obligatorio',
                         'apellido.required' => 'El Apellido es Obligatorio',
                     ]);
-                }else{
+                } else {
                     $this->validate(request(), [
                         'identificacion' => 'required|unique:profesores,identificacion,' . $Profesores->id,
                         'nombre' => 'required',
@@ -415,7 +427,7 @@ class UsuariosController extends Controller
                 }
             } else {
                 $Alumnos = \App\Alumnos::BuscarAlum($id);
-                if($Alumnos->ident_alumno==$data['ident_alumno']){
+                if ($Alumnos->ident_alumno == $data['ident_alumno']) {
                     $this->validate(request(), [
                         'ident_alumno' => 'required',
                         'nombre_alumno' => 'required',
@@ -426,7 +438,7 @@ class UsuariosController extends Controller
                         'apellido_alumno.required' => 'El Apellido es Obligatorio',
                     ]);
 
-                }else{
+                } else {
                     $this->validate(request(), [
                         'ident_alumno' => 'required|unique:alumnos,ident_alumno,' . $Alumnos->id,
                         'nombre_alumno' => 'required',

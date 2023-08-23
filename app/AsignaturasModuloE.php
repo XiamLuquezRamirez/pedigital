@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class AsignaturasModuloE extends Model
 {
@@ -27,42 +28,40 @@ class AsignaturasModuloE extends Model
         }
         if (!empty($busqueda)) {
             if (!empty($Asig)) {
-                $respuesta = AsignaturasModuloE::join("areas_me","areas_me.id","asignaturas_mode.area")
-                ->where('asignaturas_mode.estado', 'ACTIVO')
+                $respuesta = AsignaturasModuloE::join("areas_me", "areas_me.id", "asignaturas_mode.area")
+                    ->where('asignaturas_mode.estado', 'ACTIVO')
                     ->where('asignaturas_mode.area', $Asig)
                     ->where(function ($query) use ($busqueda) {
                         $query->where('nombre', 'LIKE', '%' . $busqueda . '%');
                     })
-                    ->select("asignaturas_mode.*","areas_me.nombre_area")
+                    ->select("asignaturas_mode.*", "areas_me.nombre_area")
                     ->orderBy('nombre', 'ASC')
                     ->limit($limit)->offset($offset);
             } else {
-                $respuesta = AsignaturasModuloE::join("areas_me","areas_me.id","asignaturas_mode.area")
-                ->where('asignaturas_mode.estado', 'ACTIVO')
+                $respuesta = AsignaturasModuloE::join("areas_me", "areas_me.id", "asignaturas_mode.area")
+                    ->where('asignaturas_mode.estado', 'ACTIVO')
                     ->where(function ($query) use ($busqueda) {
                         $query->where('nombre', 'LIKE', '%' . $busqueda . '%');
                     })
-                    ->select("asignaturas_mode.*","areas_me.nombre_area")
+                    ->select("asignaturas_mode.*", "areas_me.nombre_area")
                     ->orderBy('nombre', 'ASC')
                     ->limit($limit)->offset($offset);
             }
-
         } else {
             if (!empty($Asig)) {
-                $respuesta = AsignaturasModuloE::join("areas_me","areas_me.id","asignaturas_mode.area")
-                ->where('asignaturas_mode.estado', 'ACTIVO')
+                $respuesta = AsignaturasModuloE::join("areas_me", "areas_me.id", "asignaturas_mode.area")
+                    ->where('asignaturas_mode.estado', 'ACTIVO')
                     ->where('asignaturas_mode.area', $Asig)
-                    ->select("asignaturas_mode.*","areas_me.nombre_area")
+                    ->select("asignaturas_mode.*", "areas_me.nombre_area")
                     ->orderBy('nombre', 'ASC')
                     ->limit($limit)->offset($offset);
             } else {
-                $respuesta = AsignaturasModuloE::join("areas_me","areas_me.id","asignaturas_mode.area")
-                ->where('asignaturas_mode.estado', 'ACTIVO')
-                    ->select("asignaturas_mode.*","areas_me.nombre_area")
+                $respuesta = AsignaturasModuloE::join("areas_me", "areas_me.id", "asignaturas_mode.area")
+                    ->where('asignaturas_mode.estado', 'ACTIVO')
+                    ->select("asignaturas_mode.*", "areas_me.nombre_area")
                     ->orderBy('nombre', 'ASC')
                     ->limit($limit)->offset($offset);
             }
-
         }
 
         return $respuesta->get();
@@ -85,7 +84,6 @@ class AsignaturasModuloE extends Model
                     })
                     ->orderBy('nombre', 'ASC');
             }
-
         } else {
             if (!empty($Asig)) {
                 $respuesta = AsignaturasModuloE::where('estado', 'ACTIVO')
@@ -95,7 +93,6 @@ class AsignaturasModuloE extends Model
                 $respuesta = AsignaturasModuloE::where('estado', 'ACTIVO')
                     ->orderBy('nombre', 'ASC');
             }
-
         }
         return $respuesta->count();
     }
@@ -151,17 +148,21 @@ class AsignaturasModuloE extends Model
     public static function AsigxUsu($Grado, $TipUsu)
     {
         if ($TipUsu == "Administrador") {
-
-        } else if ($TipUsu == "Profesor") {
-
+            $Asig = AsignaturasModuloE::where('estado', 'ACTIVO')
+                ->get();
         } else {
-           
             $Asig = AsignaturasModuloE::where('grado', $Grado)
                 ->where('estado', 'ACTIVO')
                 ->get();
         }
         return $Asig;
-
     }
 
+    public static function AsigxDocente($doce)
+    {
+        $Asig = AsignaturasModuloE::where('docente', $doce)
+            ->where('estado', 'ACTIVO')
+            ->get();
+        return $Asig;
+    }
 }

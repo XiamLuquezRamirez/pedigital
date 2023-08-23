@@ -1220,7 +1220,7 @@
                                 transitionEffect: "fade",
                                 titleTemplate: '<span class="step">#index#</span> #title#',
                                 labels: {
-                                    finish: 'Finalizar'
+                                    finish: 'Finalizar',
                                 },
                                 onFinished: function(event, currentIndex) {
 

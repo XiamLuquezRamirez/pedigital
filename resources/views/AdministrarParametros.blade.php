@@ -171,9 +171,9 @@
                                 </fieldset>
                                 <fieldset class="right-checkbox">
                                     <label>
-                                        <input type="checkbox" class="check_otros" id="check_zl" name="check_otros[]"
+                                        <input type="checkbox" class="check_otros" id="check_zp" name="check_otros[]"
                                             value="ModJ">
-                                        MÓDULO JEA
+                                        ZONA PLAY
                                     </label>
                                 </fieldset>
 
@@ -310,6 +310,7 @@
                             var ZonL = 'no';
                             var Asig = 'no';
                             var Modu = 'no';
+                            var play = 'no';
 
 
                             $.each(respuesta.Permiso, function(i, item) {
@@ -325,6 +326,7 @@
                                 ZonL = item.mod_zona;
                                 Asig = item.mod_asig;
                                 Modu = item.mod_modu;
+                                play = item.mod_juego;
 
                             });
                             $('#institucion').val(Institucion).trigger('change.select2');
@@ -338,6 +340,8 @@
                                 "#check_Asig").prop("checked", false);
                             Modu == "si" ? $("#check_Modu").prop("checked", true) : $(
                                 "#check_Modu").prop("checked", false);
+                                play == "si" ? $("#check_zp").prop("checked", true) : $(
+                                "#check_zp").prop("checked", false);
 
                             var Asignaturas = "";
                             var Modulos = "";

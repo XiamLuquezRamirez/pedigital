@@ -327,7 +327,6 @@ class ContenidoController extends Controller
                 $Comet = \App\ComentZona::Guardar($Mensaje, $grado, $grupo, $jorna, Auth::user()->id);
                 $RespComen = \App\ComentZona::Consultar($grado, $grupo, $jorna);
                 for ($i = 0; $i < count($RespComen); $i++) {
-
                     if ($RespComen[$i]['tipo_usuario'] == "Profesor") {
                         $RespFot = \App\Profesores::BuscarProfFoto($RespComen[$i]['usuario']);
                         $RespComen[$i]->foto = $RespFot->foto;
@@ -335,7 +334,6 @@ class ContenidoController extends Controller
                         $RespFot = \App\Alumnos::BuscarAlumFoto($RespComen[$i]['usuario']);
                         $RespComen[$i]->foto = $RespFot->foto_alumno;
                     }
-
                 }
 
             } else {

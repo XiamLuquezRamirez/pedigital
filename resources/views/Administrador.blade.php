@@ -2,6 +2,7 @@
 @section('title', 'Tablero')
 @section('Contenido')
 @if (Session::get('PerAsig') == 'si')
+@if (count($Asignatura) > 0)
     <div class="content-header row" id="cabe_asig">
         <div class="content-header-left col-md-12 col-12 mb-2">
             <h3 class="content-header-title mb-0" id="Titulo">Asignaturas</h3>
@@ -18,6 +19,7 @@
             </div>
         </div>
     </div>
+    @endif
     @endif
 
     <div class="content-body">
@@ -312,6 +314,101 @@
             </div>
 
         </div>
+        @endif
+
+
+        @if (Session::get('PerModE') == 'si')
+        @if (count($AsigModuloE) > 0)
+        <div class="content-header row" id="cabe_moduloE" >
+            <div class="content-header-left col-md-12 col-12 mb-2">
+                <h3 class="content-header-title mb-0" id="TituloMod">Módulo de Entrenamiento</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="">Tablero</a>
+                            </li>
+                            <li class="breadcrumb-item" id='li_cursos' ><a href="#">Módulo E</a>
+                            </li>
+    
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach ($AsigModuloE as $ModE)
+            @if (Auth::user()->tipo_usuario == 'Estudiante')
+
+                <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarModuE({!! $ModE->id !!});"
+                    style="cursor: pointer;">
+                    <div class="card hvr-grow-shadow">
+                        <div class="card-content text-success border-success ">
+                            <div id="carousel-example" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example" data-slide-to="0"
+                                        class="active"></li>
+                                    <li data-target="#carousel-example" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('app-assets/images/Img_ModuloE/' . $ModE->imagen) }}"
+                                            style="height: 200px; width: 350px;" class="img-fluid"
+                                            alt="First slide">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title" style="font-size:18px;">{!! $ModE->nombre." Grado".$ModE->grado."°" !!}</h1>
+                            </div>
+
+                            <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                                <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @else
+
+                <div class="col-xl-3 col-lg-3 col-md-12" onclick="$.EntrarModuE({!! $ModE->id !!});"
+                    style="cursor: pointer;">
+                    <div class="card hvr-grow-shadow">
+                        <div class="card-content text-success border-success ">
+                            <div id="carousel-example" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example" data-slide-to="0"
+                                        class="active"></li>
+                                    <li data-target="#carousel-example" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('app-assets/images/Img_ModuloE/' . $ModE->imagen) }}"
+                                            style="height: 200px; width: 350px;" class="img-fluid"
+                                            alt="First slide">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title" style="font-size:18px;">{!! $ModE->nombre." Grado".$ModE->grado."°" !!}</h1>
+                            </div>
+
+                            <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                                <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @endif
+            @endforeach
+
+
+        </div>
+
+        @endif
         @endif
 
         <div class="row" id="Div_Cursos" style="display: none;">
