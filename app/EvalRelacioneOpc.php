@@ -51,6 +51,12 @@ class EvalRelacioneOpc extends Model
         return $grupPre;
     }
 
+    public static function PregRelOpcEdit($id)
+    {
+        $EvalRelOpc = EvalRelacioneOpc::where('pregunta', $id)
+            ->get();
+        return $EvalRelOpc;
+    }
     public static function PregRelOpc($id)
     {
         $EvalRelOpc = EvalRelacioneOpc::where('pregunta', $id)

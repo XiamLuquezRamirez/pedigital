@@ -2590,7 +2590,7 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
                     $ContIndicaciones = \App\EvalRelacione::Guardar($datos, $PregRel->id, $idEval);
                     $ContPregRespuest = \App\EvalRelacioneOpc::Guardar($datos, $PregRel->id, $idEval);
                     $PregRelIndi = \App\EvalRelacione::PregRelDef($PregRel->id);
-                    $PregRelResp = \App\EvalRelacioneOpc::PregRelOpc($PregRel->id);
+                    $PregRelResp = \App\EvalRelacioneOpc::PregRelOpcEdit($PregRel->id);
                 } else {
 
                     $PregRel = \App\PregRelacione::Modificar($datos);
@@ -2600,7 +2600,7 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
                     $PregRel = \App\PregRelacione::ConRela($datos['id-relacione']);
 
                     $PregRelIndi = \App\EvalRelacione::PregRelDef($datos['id-relacione']);
-                    $PregRelResp = \App\EvalRelacioneOpc::PregRelOpc($datos['id-relacione']);
+                    $PregRelResp = \App\EvalRelacioneOpc::PregRelOpcEdit($datos['id-relacione']);
                 }
 
                 $ConsEval = \App\CosEval::GrupPreg($idEval);
@@ -3559,6 +3559,14 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
                     'SesionArea' => $PregArea
                 ]);
             }
+        } else {
+            return redirect("/")->with("error", "Su Sesión ha Terminado");
+        }
+    }
+    public function CargaTemasAsig($idAsig)
+    {
+        if (Auth::check()) {
+            return view('ModuloE.TemasAsignaturaModuloE',['idAsig' => $idAsig]);
         } else {
             return redirect("/")->with("error", "Su Sesión ha Terminado");
         }

@@ -24,7 +24,7 @@
                           <img class="media-object rounded-circle" src="{{ asset('app-assets/images/Colegios/'.Session::get('EscudoColegio')) }}" alt="Generic placeholder image" style="width: 60px;height: 60px; padding: 5px;">
                         </a>
                         <div class="media-body" style="padding-top: 0.8rem; color: #fff">
-                          <h5 class="media-heading" style="margin-bottom: 0px;">{{ Session::get('NombreColegio') }}</h5>
+                          <h6 class="media-heading" style="margin-bottom: 0px;">{{ Session::get('NombreColegio') }}</h6>
                           {{Session::get('UbicacionColegio')}}
                         </div>
                       </div>

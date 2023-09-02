@@ -1036,8 +1036,8 @@
                     clearInterval(xtiempo);
                     xtiempo = null;
                 },
-                hab_ediContPregEnsayo: function() {
-                    CKEDITOR.replace('RespPregEns', {
+                hab_ediContPregEnsayo: function(id) {
+                    CKEDITOR.replace('RespPregEns'+id, {
                         width: '100%',
                         height: 100
                     });
@@ -1455,13 +1455,13 @@
                                 Pregunta += respuesta.PregEnsayo.pregunta;
                                 Pregunta += '<div class="col-xl-12 col-lg-6 col-md-12">' +
                                     '   <label for="placeTextarea">Respuesta:</label>' +
-                                    ' <textarea cols="80" id="RespPregEns" name="RespPregEns"' +
+                                    ' <textarea cols="80" id="RespPregEns'+id+'" name="RespPregEns"' +
                                     ' rows="3"></textarea>' +
                                     ' </div>';
                                 $("#Pregunta" + id).html(Pregunta);
-                                $.hab_ediContPregEnsayo();
+                                $.hab_ediContPregEnsayo(id);
                                 if (respuesta.RespPregEnsayo) {
-                                    $('#RespPregEns').val(respuesta.RespPregEnsayo
+                                    $('#RespPregEns'+id).val(respuesta.RespPregEnsayo
                                         .respuesta);
                                 }
                             } else if (tipo === "COMPLETE") {

@@ -442,6 +442,7 @@ Route::post('/ModuloE/EliminarBancoPregunta', 'ModuloEController@EliminarBancoPr
 
 ////Gestionar temas
 Route::get('/ModuloE/GestionTema', 'ModuloEController@GestionTema');
+Route::get('/ModuloE/CargaTemasAsig/{idAsig}', 'ModuloEController@CargaTemasAsig');
 Route::get('/ModuloE/NuevoTema', 'ModuloEController@NuevoTema');
 Route::post('/ModuloE/GuardarTemas', 'ModuloEController@GuardarTemas');
 Route::get('/ModuloE/EditarTema/{id}', 'ModuloEController@EditarTema');
