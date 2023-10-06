@@ -37,7 +37,7 @@ class Alumnos extends Model
         }
         if (!empty($busqueda)) {
             $respuesta = Alumnos::join("para_grupos", "para_grupos.id", "alumnos.grupo")
-            ->where('estado_alumno', 'ACTIVO')
+                ->where('estado_alumno', 'ACTIVO')
                 ->where(function ($query) use ($busqueda) {
                     $query->where('ident_alumno', 'LIKE', '%' . $busqueda . '%')
                         ->orWhere('nombre_alumno', 'LIKE', '%' . $busqueda . '%')
@@ -45,15 +45,15 @@ class Alumnos extends Model
                         ->orWhere('email_alumno', 'LIKE', '%' . $busqueda . '%');
                 })
                 ->selectRaw('CONCAT_WS(" ",nombre_alumno,apellido_alumno) as nomb')
-                ->select('alumnos.*','para_grupos.descripcion')
+                ->select('alumnos.*', 'para_grupos.descripcion')
                 ->selectRaw('(CASE WHEN jornada = "JM" THEN "Jornada Mañana" WHEN jornada = "JT" THEN "Jornada Tarde" ELSE "Jornada Nocturna" END) AS Jorna')
                 ->orderBy('nombre_alumno', 'ASC')
                 ->limit($limit)->offset($offset);
         } else {
             $respuesta = Alumnos::join("para_grupos", "para_grupos.id", "alumnos.grupo")
-            ->where('estado_alumno', 'ACTIVO')
+                ->where('estado_alumno', 'ACTIVO')
                 ->selectRaw('CONCAT_WS(" ",nombre_alumno,apellido_alumno) as nomb')
-                ->select('alumnos.*','para_grupos.descripcion')
+                ->select('alumnos.*', 'para_grupos.descripcion')
                 ->selectRaw('(CASE WHEN jornada = "JM" THEN "Jornada Mañana" WHEN jornada = "JT" THEN "Jornada Tarde" ELSE "Jornada Nocturna" END) AS Jorna')
                 ->orderBy('nombre_alumno', 'ASC')
                 ->limit($limit)->offset($offset);
@@ -171,9 +171,9 @@ class Alumnos extends Model
 
     public static function BuscarAlumVal($iden)
     {
-       return Alumnos::where("id", $iden)
-        ->where("estado","ACTIVO")
-        ->first();
+        return Alumnos::where("id", $iden)
+            ->where("estado", "ACTIVO")
+            ->first();
     }
 
     public static function TotAlumnos()
@@ -185,21 +185,20 @@ class Alumnos extends Model
     public static function ListarxGrado($grado)
     {
         return Alumnos::where("estado_alumno", "ACTIVO")
-        ->where("grado_alumno",$grado)
-        ->select("grupo")
-        ->groupBy("grupo")
-        ->get();
+            ->where("grado_alumno", $grado)
+            ->select("grupo")
+            ->groupBy("grupo")
+            ->get();
     }
-    public static function ListarxGradoTotal($grado,$grupo,$eval)
+    public static function ListarxGradoTotal($grado, $grupo, $eval)
     {
         $listAlumnos = DB::connection("mysql")->select("SELECT lc.id, alum.ident_alumno, lc.alumno, CONCAT(apellido_alumno,' ',nombre_alumno) nalumno, lc.evaluacion, lc.puntuacion, lc.estado_eval, eval.punt_max, eval.calif_usando  
         FROM alumnos alum 
-        LEFT JOIN  libro_calificaciones lc ON alum.usuario_alumno=lc.alumno AND lc.evaluacion=".$eval."
+        LEFT JOIN  libro_calificaciones lc ON alum.usuario_alumno=lc.alumno AND lc.evaluacion=" . $eval . "
         LEFT JOIN evaluacion eval ON eval.id=lc.evaluacion 
-        WHERE grado_alumno=".$grado." AND grupo=".$grupo." AND alum.estado_alumno='ACTIVO' ");
+        WHERE grado_alumno=" . $grado . " AND grupo=" . $grupo . " AND alum.estado_alumno='ACTIVO' ");
 
         return $listAlumnos;
-
     }
 
     public static function BuscarIdAlum($iden)
@@ -298,7 +297,8 @@ class Alumnos extends Model
         return $respuesta;
     }
 
-    public static function modificarPerf($data, $id) {
+    public static function modificarPerf($data, $id)
+    {
         $respuesta = Alumnos::where(['id' => $id])->update([
             'ident_alumno' => $data['ident_alumno'],
             'nombre_alumno' => $data['nombre_alumno'],
@@ -397,7 +397,9 @@ class Alumnos extends Model
 
         foreach ($Alumnos as $Alum) {
 
-        //Validar formatos fecha excel
+            $Respuesta = Usuarios::where('login_usuario', $Alum["Identificacion"])->update([
+                'login_usuario' => 'INACTIVO',
+            ]);
 
             if ($Data['grado_import'] == $Alum['Grado'] && $Data['grupo_import'] == $Alum['Grupo'] && $Data['jornada_import'] == $Alum['Jornada']) {
 
@@ -415,11 +417,20 @@ class Alumnos extends Model
                 if ($Alum['Sexo'] == "Femenino") {
                     $imgalumno = "estud_fem_defaul.jpg";
                 }
-
+              
                 $var = $Alum['Fecha_Nacimiento'];
-                $date = str_replace('/', '-', $var);
-                $newfecha = date('Y-m-d', strtotime($date));
+                $tipo = gettype($var);
 
+                if ($tipo == "object") {
+                    $newfecha = $var->format('Y-m-d');
+                } else if ($tipo == "string") {
+                    $date = str_replace('/', '-', $var);
+                    $newfecha = date('Y-m-d', strtotime($date));
+                }
+
+                $Respuesta = Alumnos::where('ident_alumno', $Alum["Identificacion"])->update([
+                    'estado_alumno' => 'INACTIVO',
+                ]);
 
 
                 $Alumnos = Alumnos::create([
@@ -438,13 +449,9 @@ class Alumnos extends Model
                     'foto_alumno' => $imgalumno,
                     'jornada' => $Alum['Jornada']
                 ]);
-
             }
-
         }
 
         return $Alumnos;
-
     }
-
 }

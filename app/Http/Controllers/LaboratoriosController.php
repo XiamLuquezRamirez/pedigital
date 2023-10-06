@@ -172,6 +172,7 @@ class LaboratoriosController extends Controller
             $datos['labo_id'] = $id;
 
             $Proc = \App\Laboratorios::Modificar($datos, $id);
+            dd($datos);
 
             if ($Proc) {
                 if (request()->hasfile('VideoProceso')) {

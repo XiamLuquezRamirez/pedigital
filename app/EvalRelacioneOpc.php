@@ -60,7 +60,6 @@ class EvalRelacioneOpc extends Model
     public static function PregRelOpc($id)
     {
         $EvalRelOpc = EvalRelacioneOpc::where('pregunta', $id)
-            ->inRandomOrder()
             ->get();
         return $EvalRelOpc;
     }

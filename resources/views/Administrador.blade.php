@@ -97,7 +97,7 @@
                                                 </div>
                                             </div>
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
                                                 <a href="{{ url('/Contenido/Presentacion/' . $Asig->id) }}"
                                                     class="btn btn-blue">Entrar</a>
                                             </div>
@@ -109,10 +109,10 @@
                     @else
                         <div class="row">
                             @foreach ($Asignatura as $Asig)
-                                <div class="col-xl-3 col-lg-3 col-md-12" onclick="$.EntrarAsig({!! $Asig->id !!});"
+                                <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarAsig({!! $Asig->id !!});"
                                     style="cursor: pointer;">
                                     <div class="card hvr-grow-shadow">
-                                        <div class="card-content text-success border-success ">
+                                        <div class="card-content text-success border-success" style="height: 350px;">
                                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
                                                     <li data-target="#carousel-example" data-slide-to="0" class="active">
@@ -148,13 +148,13 @@
                                                     <span class="sr-only">Next</span>
                                                 </a>
                                             </div>
-                                            <div class="card-body">
-                                                <h1 class="card-title" style="font-size:18px;">{!! $Asig->nombre !!}
+                                            <div class="card-body mb-0" >
+                                                <h1 class="card-title" style="font-size:18px; margin-bottom: 0px;">{!! $Asig->nombre !!}
                                                 </h1>
                                             </div>
 
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
                                                 <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
                                             </div>
                                         </div>
@@ -196,7 +196,7 @@
                     @if (Auth::user()->tipo_usuario == 'Estudiante')
                         <div class="row">
                             @foreach ($Modulos as $Asig)
-                                <div class="col-xl-3 col-lg-3 col-md-12">
+                                <div class="col-xl-4 col-lg-4 col-md-12">
                                     <div class="card hvr-grow-shadow">
                                         <div class="card-content border-blue border-danger">
                                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
@@ -250,7 +250,7 @@
                                                 </div>
                                             </div>
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
                                                 <a href="{{ url('/Contenido/PresentacionMod/' . $Asig->id) }}"
                                                     class="btn btn-blue">Entrar</a>
                                             </div>
@@ -258,14 +258,14 @@
                                     </div>
                                 </div>
                             @endforeach
-                        </div>
+
                     @else
                         <div class="row">
                             @foreach ($Modulos as $Asig)
-                                <div class="col-xl-3 col-lg-3 col-md-12" onclick="$.EntrarModu({!! $Asig->id !!});"
+                                <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarModu({!! $Asig->id !!});"
                                     style="cursor: pointer;">
                                     <div class="card hvr-grow-shadow">
-                                        <div class="card-content text-success border-success ">
+                                        <div class="card-content text-success border-success" style="height: 350px;">
                                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
                                                     <li data-target="#carousel-example" data-slide-to="0" class="active">
@@ -302,12 +302,12 @@
                                                 </a>
                                             </div>
                                             <div class="card-body">
-                                                <h1 class="card-title" style="font-size:18px;">{!! $Asig->nombre !!}
+                                                <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">{!! $Asig->nombre !!}
                                                 </h1>
                                             </div>
 
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
                                                 <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
                                             </div>
                                         </div>
@@ -350,7 +350,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarModuE({!! $ModE->id !!});"
                                 style="cursor: pointer;">
                                 <div class="card hvr-grow-shadow">
-                                    <div class="card-content text-success border-success ">
+                                    <div class="card-content text-success border-success " style="height: 350px;">
                                         <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                             <ol class="carousel-indicators">
                                                 <li data-target="#carousel-example" data-slide-to="0" class="active">
@@ -367,20 +367,20 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <h1 class="card-title" style="font-size:18px;">{!! $ModE->nombre . ' - Grado ' . $ModE->grado . '°' !!}</h1>
+                                            <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">{!! $ModE->nombre . ' - Grado ' . $ModE->grado . '°' !!}</h1>
                                         </div>
 
-                                        <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                                        <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
                                             <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         @else
-                            <div class="col-xl-3 col-lg-3 col-md-12" onclick="$.EntrarModuE({!! $ModE->id !!});"
+                            <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarModuE({!! $ModE->id !!});"
                                 style="cursor: pointer;">
                                 <div class="card hvr-grow-shadow">
-                                    <div class="card-content text-success border-success ">
+                                    <div class="card-content text-success border-success " style="height: 350px;">
                                         <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                             <ol class="carousel-indicators">
                                                 <li data-target="#carousel-example" data-slide-to="0" class="active">
@@ -397,10 +397,10 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <h1 class="card-title" style="font-size:18px;">{!! $ModE->nombre . ' - Grado ' . $ModE->grado . '°' !!}</h1>
+                                            <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">{!! $ModE->nombre . ' - Grado ' . $ModE->grado . '°' !!}</h1>
                                         </div>
 
-                                        <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                                        <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
                                             <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
                                         </div>
                                     </div>

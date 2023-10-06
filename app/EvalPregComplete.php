@@ -47,7 +47,7 @@ class EvalPregComplete extends Model {
     
     public static function ConsultCompleteAll($id) {
         $DesEval = EvalPregComplete::where('evaluacion', $id)
-                ->GET();
+                ->get();
         return $DesEval;
     }
 

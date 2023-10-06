@@ -39,3 +39,18 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
 }
+
+#VisTema .modal-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 40;
+    display: flex;
+    align-items: center;
+}
+
+#VisTema .modal-content {
+    width: 100%;
+	height: calc(100% - 40px); /* Resta 40px de la altura total */
+    margin-bottom: 40px; /* Agrega margen de 40px en la parteinferior */
+}
+

@@ -97,6 +97,13 @@
 </section>
 </div>
 
+
+<div id="loader">
+    <div class="loader-spinner"></div>
+  </div>
+  
+
+
 {!! Form::open(['url'=>'/cambiar/Presetancion'
 ,'id'=>'formAuxiliar'])!!}
 {!! Form::close() !!}
@@ -108,6 +115,14 @@
 @endsection
 @section('scripts')
 <script>
+
+
+    window.addEventListener('load', function () {
+        // Oculta el loader una vez que la página ha cargado completamente
+        var loader = document.getElementById('loader');
+        loader.style.display = 'none';
+      });
+      
     $(document).ready(function () {
 
     $("#Men_Inicio").removeClass("active");

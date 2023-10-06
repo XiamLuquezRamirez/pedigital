@@ -53,8 +53,7 @@ class LibroPruebaModuloE extends Model
             $puntaje = 0;
         }
 
-        $Preg = PregOpcMulME::where('id', $resp->pregunta)
-            ->first();
+   
         if ($datos['partePreg'] == "PARTE 1") {
             $DesOpcPreg = PreguntasParte1::ConsultarPregParte($resp->pregunta);
                

@@ -12,7 +12,7 @@
         data-ruta="{{ asset('/app-assets/Archivos_EvaluacionTaller') }}" />
     <input type="hidden" data-id='id-dat' id="Respdattaller"
         data-ruta="{{ asset('/app-assets/Archivos_EvalTaller_Resp') }}" />
-        <input type="hidden" class="form-control" name="CargArchi" id="CargArchi" value="" />
+    <input type="hidden" class="form-control" name="CargArchi" id="CargArchi" value="" />
 
     <input type="hidden" class="form-control" id="RutSound" data-ruta="{{ asset('/app-assets/sound') }}" />
     <input type="hidden" class="form-control" id="h" value="" />
@@ -372,6 +372,9 @@
                                         <source id="mp4videoAnima" src="" type="video/mp4" />
                                     </video>
                                 </div>
+                                <footer id="footerAutor"
+                                    style="text-align: center; background-color: #f0f0f0; padding: 10px; font-size:9px; display:none;">
+                                </footer>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" id="btn_atrasModAnima" class="btn grey btn-outline-secondary"
@@ -508,7 +511,6 @@
                     groups: ['about']
                 }
             ];
-
             config.removeButtons =
                 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,SelectAll,Button,ImageButton,HiddenField,Strike,CopyFormatting,RemoveFormat,Indent,Blockquote,Outdent,CreateDiv,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Link,Unlink,Anchor,Flash,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Styles,Format,BGColor,ShowBlocks,About,Underline,Italic';
         };
@@ -630,14 +632,15 @@
                             var myClass = ["primary", "info", "success", "danger", "pink"];
                             var margin = "";
 
-                            contenido+='  <form method="post" action="{{ url('/') }}/Guardar/OrdenTemas" id="FormTemas" >';
+                            contenido +=
+                                '  <form method="post" action="{{ url('/') }}/Guardar/OrdenTemas" id="FormTemas" >';
                             $.each(respuesta.Temas, function(i, item) {
                                 var checked = "";
                                 var visto = "";
                                 var habi = "";
-                                var Mostrar="";
-                                var disp="";
-                                var move="none";
+                                var Mostrar = "";
+                                var disp = "";
+                                var move = "none";
                                 if (item.visto_doc === null) {
                                     visto == "NO";
                                 } else {
@@ -650,20 +653,21 @@
                                     habi = item.habilitado_doc;
                                 }
 
-                                if (item.ocultar_doc === null || item.ocultar_doc === "") {
+                                if (item.ocultar_doc === null || item
+                                    .ocultar_doc === "") {
                                     Mostrar = "SI";
-                                    disp="block";
-                                }else if (item.ocultar_doc==="NO"){
+                                    disp = "block";
+                                } else if (item.ocultar_doc === "NO") {
                                     Mostrar = "NO";
-                                    disp="none;";
+                                    disp = "none;";
                                 } else {
                                     Mostrar = item.ocultar_doc;
-                                    disp="block";
+                                    disp = "block";
                                 }
 
-                                if(Tip_Usu == "Profesor"){
-                                    disp="block";
-                                    move="block";
+                                if (Tip_Usu == "Profesor") {
+                                    disp = "block";
+                                    move = "block";
                                 }
 
 
@@ -687,19 +691,20 @@
 
                                 TotalTemas > 0 ? margin = "mt-1" : margin = "";
 
-                           
 
                                 if (item.tip_contenido == "DOCUMENTO") {
 
                                     contenido +=
-                                        '<div style="cursor:pointer; display: '+disp+'"  class="bs-callout-' +
+                                        '<div style="cursor:pointer; display: ' +
+                                        disp + '"  class="bs-callout-' +
                                         rValue +
                                         ' callout-transparent callout-bordered ' +
                                         margin + '">' +
                                         '<input type="hidden" id="id_tema' + item
                                         .id + '" value="' + habi + '">' +
-                                        '<input type="hidden" name="ConsTem[]" id="ConsTem' + item
-                                        .id + '" value="' + item.id  + '">' +
+                                        '<input type="hidden" name="ConsTem[]" id="ConsTem' +
+                                        item
+                                        .id + '" value="' + item.id + '">' +
                                         '<div class="media align-items-stretch">' +
                                         '<div onclick="$.MostConteDoc(' + item.id +
                                         ');" class="d-flex align-items-center bg-' +
@@ -708,18 +713,19 @@
                                         '<i class="icon-book-open fa-xl white font-medium-5"></i>' +
                                         '</div>' +
                                         ' <div  class="media-body p-1">' +
-                                        '<div class="row">'+
-                                        ' <div class="col-11">'+
-                                         '   <strong onclick="$.MostConteDoc(' + item
+                                        '<div class="row">' +
+                                        ' <div class="col-11">' +
+                                        '   <strong onclick="$.MostConteDoc(' + item
                                         .id +
                                         ');" style="text-transform: capitalize;">' +
                                         item.titu_contenido + '</strong>' +
                                         '  <p onclick="$.MostConteDoc(' + item.id +
-                                        ');">' + objetivo + '</p>'+
-                                        '</div>'+
-                                        '<div class="col-1" style="display:'+move+'">'+
-                                        '<a class="btn color-primary"><i class="fa fa-arrows-v"></i></a>'+
-                                        '</div>'+
+                                        ');">' + objetivo + '</p>' +
+                                        '</div>' +
+                                        '<div class="col-1" style="display:' +
+                                        move + '">' +
+                                        '<a class="btn color-primary"><i class="fa fa-arrows-v"></i></a>' +
+                                        '</div>' +
                                         '</div>';
 
                                     if (Tip_Usu == "Profesor") {
@@ -752,7 +758,7 @@
                                                 "' onclick='$.HabTema(this.id);' style='display:none;' class='btn btn-success btn-sm'><i class='fa fa-unlock'></i> Habilitado</button>";
                                         }
 
-                                       
+
                                         if (Mostrar === "SI") {
                                             contenido +=
                                                 "<button type='button' valorid='" +
@@ -784,14 +790,16 @@
                                 } else if (item.tip_contenido == "ARCHIVO") {
 
                                     contenido +=
-                                        '<div style="cursor:pointer;display: '+disp+'"  class="bs-callout-' +
+                                        '<div style="cursor:pointer;display: ' +
+                                        disp + '"  class="bs-callout-' +
                                         rValue +
                                         ' callout-transparent callout-bordered ' +
                                         margin + '">' +
                                         '<input type="hidden" id="id_tema' + item
                                         .id + '" value="' + habi + '">' +
-                                        '<input type="hidden" name="ConsTem[]" id="ConsTem' + item
-                                        .id + '" value="' + item.id  + '">' +
+                                        '<input type="hidden" name="ConsTem[]" id="ConsTem' +
+                                        item
+                                        .id + '" value="' + item.id + '">' +
                                         '<div class="media align-items-stretch">' +
                                         '<div onclick="$.MostConteArch(' + item.id +
                                         ');" class="d-flex align-items-center bg-' +
@@ -800,20 +808,21 @@
                                         '<i class="icon-paper-clip fa-xl white font-medium-5"></i>' +
                                         '</div>' +
                                         ' <div  class="media-body p-1">' +
-                                            '<div class="row">'+
-                                                ' <div class="col-11">'+
-                                                 '   <strong onclick="$.MostConteDoc(' + item
-                                                .id +
-                                                ');" style="text-transform: capitalize;">' +
-                                                item.titu_contenido + '</strong>' +
-                                                '  <p onclick="$.MostConteDoc(' + item.id +
-                                                ');">' + objetivo + '</p>'+
-                                                '</div>'+
-                                                '<div class="col-1" style="display:'+move+'">'+
-                                                '<a class="btn color-primary"><i class="fa fa-arrows-v"></i></a>'+
-                                                '</div>'+
-                                                '</div>';
-        
+                                        '<div class="row">' +
+                                        ' <div class="col-11">' +
+                                        '   <strong onclick="$.MostConteDoc(' + item
+                                        .id +
+                                        ');" style="text-transform: capitalize;">' +
+                                        item.titu_contenido + '</strong>' +
+                                        '  <p onclick="$.MostConteDoc(' + item.id +
+                                        ');">' + objetivo + '</p>' +
+                                        '</div>' +
+                                        '<div class="col-1" style="display:' +
+                                        move + '">' +
+                                        '<a class="btn color-primary"><i class="fa fa-arrows-v"></i></a>' +
+                                        '</div>' +
+                                        '</div>';
+
                                     if (Tip_Usu == "Profesor") {
                                         contenido +=
                                             " <fieldset id='HabTemVisto'>" +
@@ -875,12 +884,14 @@
                                     "CONTENIDO DIDACTICO") {
 
                                     contenido +=
-                                        '<div style="cursor:pointer;display: '+disp+'"  class="bs-callout-' +
+                                        '<div style="cursor:pointer;display: ' +
+                                        disp + '"  class="bs-callout-' +
                                         rValue +
                                         ' callout-transparent callout-bordered ' +
                                         margin + '">' +
-                                        '<input type="hidden" name="ConsTem[]" id="ConsTem' + item
-                                        .id + '" value="' + item.id  + '">' +
+                                        '<input type="hidden" name="ConsTem[]" id="ConsTem' +
+                                        item
+                                        .id + '" value="' + item.id + '">' +
                                         '<input type="hidden" id="id_tema' + item
                                         .id + '" value="' + habi + '">' +
                                         '<div class="media align-items-stretch">' +
@@ -892,20 +903,21 @@
                                         '<i class="note-icon-video fa-xl white font-medium-5"></i>' +
                                         '</div>' +
                                         ' <div  class="media-body p-1">' +
-                                            '<div class="row">'+
-                                                ' <div class="col-11">'+
-                                                 '   <strong onclick="$.MostConteDoc(' + item
-                                                .id +
-                                                ');" style="text-transform: capitalize;">' +
-                                                item.titu_contenido + '</strong>' +
-                                                '  <p onclick="$.MostConteDoc(' + item.id +
-                                                ');">' + objetivo + '</p>'+
-                                                '</div>'+
-                                                '<div class="col-1" style="display:'+move+'">'+
-                                                '<a class="btn color-primary"><i class="fa fa-arrows-v"></i></a>'+
-                                                '</div>'+
-                                                '</div>';
-        
+                                        '<div class="row">' +
+                                        ' <div class="col-11">' +
+                                        '   <strong onclick="$.MostConteDoc(' + item
+                                        .id +
+                                        ');" style="text-transform: capitalize;">' +
+                                        item.titu_contenido + '</strong>' +
+                                        '  <p onclick="$.MostConteDoc(' + item.id +
+                                        ');">' + objetivo + '</p>' +
+                                        '</div>' +
+                                        '<div class="col-1" style="display:' +
+                                        move + '">' +
+                                        '<a class="btn color-primary"><i class="fa fa-arrows-v"></i></a>' +
+                                        '</div>' +
+                                        '</div>';
+
                                     if (Tip_Usu == "Profesor") {
                                         contenido +=
                                             " <fieldset id='HabTemVisto'>" +
@@ -937,7 +949,7 @@
                                         }
 
 
-                                        
+
                                         if (Mostrar === "SI") {
                                             contenido +=
                                                 "<button type='button' valorid='" +
@@ -968,12 +980,14 @@
 
                                 } else if (item.tip_contenido == "LINK") {
                                     contenido +=
-                                        '<div style="cursor:pointer;display: '+disp+'"  class="bs-callout-' +
+                                        '<div style="cursor:pointer;display: ' +
+                                        disp + '"  class="bs-callout-' +
                                         rValue +
                                         ' callout-transparent callout-bordered ' +
                                         margin + '">' +
-                                        '<input type="hidden" name="ConsTem[]" id="ConsTem' + item
-                                        .id + '" value="' + item.id  + '">' +
+                                        '<input type="hidden" name="ConsTem[]" id="ConsTem' +
+                                        item
+                                        .id + '" value="' + item.id + '">' +
                                         '<input type="hidden" id="id_tema' + item
                                         .id + '" value="' + habi + '">' +
                                         '<div class="media align-items-stretch">' +
@@ -984,20 +998,21 @@
                                         '<i class="icon-link  fa-xl white font-medium-5"></i>' +
                                         '</div>' +
                                         ' <div  class="media-body p-1">' +
-                                            '<div class="row">'+
-                                                ' <div class="col-11">'+
-                                                 '   <strong onclick="$.MostConteDoc(' + item
-                                                .id +
-                                                ');" style="text-transform: capitalize;">' +
-                                                item.titu_contenido + '</strong>' +
-                                                '  <p onclick="$.MostConteDoc(' + item.id +
-                                                ');">' + objetivo + '</p>'+
-                                                '</div>'+
-                                                '<div class="col-1" style="display:'+move+'">'+
-                                                '<a class="btn color-primary"><i class="fa fa-arrows-v"></i></a>'+
-                                                '</div>'+
-                                                '</div>';
-        
+                                        '<div class="row">' +
+                                        ' <div class="col-11">' +
+                                        '   <strong onclick="$.MostConteDoc(' + item
+                                        .id +
+                                        ');" style="text-transform: capitalize;">' +
+                                        item.titu_contenido + '</strong>' +
+                                        '  <p onclick="$.MostConteDoc(' + item.id +
+                                        ');">' + objetivo + '</p>' +
+                                        '</div>' +
+                                        '<div class="col-1" style="display:' +
+                                        move + '">' +
+                                        '<a class="btn color-primary"><i class="fa fa-arrows-v"></i></a>' +
+                                        '</div>' +
+                                        '</div>';
+
                                     if (Tip_Usu == "Profesor") {
                                         contenido +=
                                             " <fieldset id='HabTemVisto'>" +
@@ -1029,7 +1044,7 @@
                                         }
 
 
-                                        
+
                                         if (Mostrar === "SI") {
                                             contenido +=
                                                 "<button type='button' valorid='" +
@@ -1060,7 +1075,7 @@
 
                                 TotalTemas++;
                             });
-                            contenido+='</form>';
+                            contenido += '</form>';
                             $("#contenedor").html(contenido);
                             $('.switch:checkbox').checkboxpicker({
                                 html: true,
@@ -1068,15 +1083,15 @@
                                 onLabel: 'SI'
                             });
 
-                            if(Tip_Usu == "Profesor"){
-                                $ ("#FormTemas").sortable({
-                                    update: function(event, ui){
-                                       $.CambiarOrden(id);
+                            if (Tip_Usu == "Profesor") {
+                                $("#FormTemas").sortable({
+                                    update: function(event, ui) {
+                                        $.CambiarOrden(id);
                                     }
-                            });
+                                });
                             }
-                            
-                           
+
+
                         },
                         error: function() {
                             Swal.fire(
@@ -1086,28 +1101,29 @@
                             );
                         }
                     });
-                }, 
+                },
                 CambiarOrden: function(id) {
-                  
-                   
+
                     var form = $("#FormTemas");
                     var token = $("#token").val();
                     $("#_token").remove();
                     $("#UniTema").remove();
-                    form.append("<input type='hidden' id='UniTema' name='UniTema'  value='" + id + "'>");
-                    form.append("<input type='hidden' id='_token' name='_token'  value='" + token + "'>");
-                                      
+                    form.append("<input type='hidden' id='UniTema' name='UniTema'  value='" + id +
+                    "'>");
+                    form.append("<input type='hidden' id='_token' name='_token'  value='" + token +
+                        "'>");
+
                     var url = form.attr("action");
                     var datos = form.serialize();
-                  
-                    
+
+
                     $.ajax({
                         type: "POST",
                         url: url,
                         data: datos,
                         dataType: "json",
                         success: function(respuesta) {
-                          
+
                         },
                         error: function() {
                             $(this).attr("valor");
@@ -1119,7 +1135,7 @@
                         }
                     });
                 },
-                
+
                 //////////CARGAR SEGUN EL TIPO DE CONTENIDO
                 MostConteDoc: function(id) {
                     var $wrapper = $('#cont_tema');
@@ -1266,11 +1282,11 @@
                         success: function(respuesta) {
                             if (respuesta.mensaje === "SI") {
                                 if (idhab === "Most") {
-                                  
+
                                     $("#Most" + idTem).hide();
                                     $("#Ocul" + idTem).show();
                                 } else {
-                                    
+
                                     $("#Ocul" + idTem).hide();
                                     $("#Most" + idTem).show();
                                 }
@@ -1595,10 +1611,11 @@
                     var token = $("#token").val();
                     $("#idTemaEva").remove();
                     $("#_token").remove();
-                    
+
                     form.append("<input type='hidden' name='id_tema' id='idTemaEva' value='" + id +
                         "'>");
-                    form.append("<input type='hidden' id='_token' name='_token'  value='" + token + "'>");
+                    form.append("<input type='hidden' id='_token' name='_token'  value='" + token +
+                        "'>");
                     var url = form.attr("action");
                     var datos = form.serialize();
                     $.ajax({
@@ -2155,7 +2172,10 @@
                                     $.each(respuesta.PregRelResp, function(k,
                                         itemr) {
                                         selectPreg +=
-                                            ' <a onclick="$.selopc(this.id,' + cons + ')" id="' + j + '" data-id="' + itemr.id + '" class="opcion">' +
+                                            ' <a onclick="$.selopc(this.id,' +
+                                            cons + ')" id="' + j +
+                                            '" data-id="' + itemr.id +
+                                            '" class="opcion">' +
                                             '<div class="contenido-opcion">' +
                                             itemr.respuesta +
                                             '     </div>' +
@@ -2186,18 +2206,29 @@
                                 $("#Pregunta" + id).html(Pregunta);
                                 cons = 1;
                                 $.each(respuesta.PregRelIndi, function(k, item) {
-                                    const select = document.querySelector('#select' + cons);
-                                    const opciones = document.querySelector('#opciones' + cons);
-                                    const contenidoSelect = document.querySelector('#select' + cons + ' .contenido-select');
-                                    const hiddenInput = document.querySelector('#inputSelect' + cons);
+                                    const select = document.querySelector(
+                                        '#select' + cons);
+                                    const opciones = document.querySelector(
+                                        '#opciones' + cons);
+                                    const contenidoSelect = document.querySelector(
+                                        '#select' + cons + ' .contenido-select');
+                                    const hiddenInput = document.querySelector(
+                                        '#inputSelect' + cons);
 
-                                    document.querySelectorAll('#opciones' + cons +' > .opcion').forEach((opcion) => {
-                                        opcion.addEventListener('click', (e) => {
-                                            e.preventDefault();
-                                            contenidoSelect.innerHTML = e.currentTarget.innerHTML;
-                                            select.classList.toggle('active');
-                                            opciones.classList.toggle('active');
-                                        });
+                                    document.querySelectorAll('#opciones' + cons +
+                                        ' > .opcion').forEach((opcion) => {
+                                        opcion.addEventListener('click', (
+                                            e) => {
+                                                e.preventDefault();
+                                                contenidoSelect
+                                                    .innerHTML = e
+                                                    .currentTarget
+                                                    .innerHTML;
+                                                select.classList.toggle(
+                                                    'active');
+                                                opciones.classList
+                                                    .toggle('active');
+                                            });
                                     });
 
                                     select.addEventListener('click', () => {
@@ -2211,21 +2242,28 @@
                                 cons = 1;
                                 console.log(respuesta.RespPregRelacione);
                                 $.each(respuesta.RespPregRelacione, function(k, item) {
-                                    const select = document.querySelector('#select' + cons);
-                                    const opciones = document.querySelector('#opciones' + cons);
-                                    const contenidoSelect = document.querySelector('#select' + cons + ' .contenido-select');
-                                    const hiddenInput = document.querySelector('#inputSelect' + cons);
-                                    const sel = document.querySelectorAll('#opciones' + cons + ' > .opcion')
+                                    const select = document.querySelector(
+                                        '#select' + cons);
+                                    const opciones = document.querySelector(
+                                        '#opciones' + cons);
+                                    const contenidoSelect = document.querySelector(
+                                        '#select' + cons + ' .contenido-select');
+                                    const hiddenInput = document.querySelector(
+                                        '#inputSelect' + cons);
+                                    const sel = document.querySelectorAll(
+                                        '#opciones' + cons + ' > .opcion')
                                     for (var i = 0; i < sel.length; i++) {
                                         var item2 = sel[i];
-                                        let optioSel=item2.getAttribute('data-id');
-                                        if(item.respuesta_alumno==optioSel){
-                                            
-                                            contenidoSelect.innerHTML = sel[i].innerHTML;
+                                        let optioSel = item2.getAttribute(
+                                        'data-id');
+                                        if (item.respuesta_alumno == optioSel) {
+
+                                            contenidoSelect.innerHTML = sel[i]
+                                                .innerHTML;
                                         }
 
-                                      }
-                                
+                                    }
+
                                     select.classList.toggle('active');
                                     $.selopc(item.consecu, cons)
                                     cons++;
@@ -2356,7 +2394,7 @@
                     var Preg = $("#id-pregunta" + id).val();
                     var tipo = $("#tip-pregunta" + id).val();
                     var tiempo = $("#tiempEvaluacion").val();
-                    
+
                     if ($("#Tip_Usu").val() === "Estudiante") {
 
                         if (tipo === "OPCMULT") {
@@ -2473,7 +2511,7 @@
                     $("#idtoken").remove();
                     $("#Id_Docente").remove();
                     $("#Tiempo").remove();
-                
+
                     form.append("<input type='hidden' name='Pregunta' id='Pregunta' value='" +
                         Preg + "'>");
                     form.append("<input type='hidden' name='nPregunta' id='nPregunta' value='" +
@@ -2921,6 +2959,7 @@
                 AtrasModAnima: function() {
                     $("#ListAnimaciones").show();
                     $("#DetAnimaciones").hide();
+                    $("#footerAutor").hide();
                     $("#btn_salirModAnima").show();
                     $("#btn_atrasModAnima").hide();
                     var videoID = 'videoclipAnima';
@@ -2956,17 +2995,21 @@
                             $wrapper.avnSkeleton('remove');
                             $.each(respuesta.Eval, function(i, item) {
                                 contenido +=
-                                "<div class='bs-callout-success callout-square callout-bordered mt-1'>" +
+                                    "<div class='bs-callout-success callout-square callout-bordered mt-1'>" +
                                     "<div class='media align-items-stretch'>" +
-                                        " <div style='cursor:pointer' onclick='$.MostEval(" + item.id +");' class='d-flex align-items-center bg-success p-2'>" +
-                                            "       <i class='ft-user-check white font-medium-5'></i>" +
-                                            " </div>" +
-                                            "  <div class='media-body p-1'>" +
-                                            "<a style='cursor:pointer;text-transform: capitalize;font-weight: bold;' onclick='$.MostEval(" + item.id + ");'>" + item.titulo.toLowerCase() +"</a>"+   
-                                            " </div>" +
-                                "    </div>" +
-                                "  </div>";
-                            j++;
+                                    " <div style='cursor:pointer' onclick='$.MostEval(" +
+                                    item.id +
+                                    ");' class='d-flex align-items-center bg-success p-2'>" +
+                                    "       <i class='ft-user-check white font-medium-5'></i>" +
+                                    " </div>" +
+                                    "  <div class='media-body p-1'>" +
+                                    "<a style='cursor:pointer;text-transform: capitalize;font-weight: bold;' onclick='$.MostEval(" +
+                                    item.id + ");'>" + item.titulo.toLowerCase() +
+                                    "</a>" +
+                                    " </div>" +
+                                    "    </div>" +
+                                    "  </div>";
+                                j++;
                             });
 
                             if (opc === "PRODUC") {
@@ -3006,7 +3049,9 @@
                                 contenido +=
                                     '<div class="bs-callout-warning callout-square callout-bordered mt-1">' +
                                     '<div class="media align-items-stretch">' +
-
+                                    '<div id="autor' + item.id +
+                                    '" style="display:none;">' + item
+                                    .derechos_autor + '</div>' +
                                     ' <div style="cursor:pointer" class="d-flex align-items-center bg-success p-2">' +
                                     '       <i class="ft-video white font-medium-5"></i>' +
                                     '    </div>' +
@@ -3045,7 +3090,6 @@
                     $('#' + sourceID).attr('src', newmp4);
                     $('#' + videoID).get(0).load();
                     $('#' + videoID).get(0).play();
-
                 },
                 MostAnim: function(id) {
                     $("#DetAnimaciones").show();
@@ -3060,6 +3104,16 @@
                     $('#' + sourceID).attr('src', newmp4);
                     $('#' + videoID).get(0).load();
                     $('#' + videoID).get(0).play();
+                    var divAutor = document.getElementById('autor' + id);
+                    var derecho = divAutor.innerHTML;
+
+                    if (derecho != "" && derecho != null) {
+                        $('#footerAutor').show();
+                        $('#footerAutor').html(derecho);
+                    } else {
+                        $('#footerAutor').hide();
+
+                    }
                 },
                 GuarComent: function() {
                     var form = $("#formGuarComent");

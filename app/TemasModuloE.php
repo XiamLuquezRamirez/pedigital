@@ -31,20 +31,20 @@ class TemasModuloE extends Model
                     ->where('temas_moduloe.estado', 'ACTIVO')
                     ->where('temas_moduloe.asignatura', $Asig)
                     ->where(function ($query) use ($busqueda) {
-                        $query->where('nombre', 'LIKE', '%' . $busqueda . '%');
+                        $query->where('temas_moduloe.titulo', 'LIKE', '%' . $busqueda . '%');
                     })
                     ->select("temas_moduloe.*", "asignaturas_mode.nombre", "asignaturas_mode.grado", "componentes.nombre  as ncom")
-                    ->orderBy('nombre', 'ASC')
+                    ->orderBy('temas_moduloe.titulo', 'ASC')
                     ->limit($limit)->offset($offset);
             } else {
                 $respuesta = TemasModuloE::leftJoin('asignaturas_mode', 'asignaturas_mode.id', '=', 'temas_moduloe.asignatura')
                     ->leftjoin('componentes', 'temas_moduloe.componente', 'componentes.id')
                     ->where('temas_moduloe.estado', 'ACTIVO')
                     ->where(function ($query) use ($busqueda) {
-                        $query->where('nombre', 'LIKE', '%' . $busqueda . '%');
+                        $query->where('temas_moduloe.titulo', 'LIKE', '%' . $busqueda . '%');
                     })
                     ->select("temas_moduloe.*", "asignaturas_mode.nombre", "asignaturas_mode.grado", "componentes.nombre as ncom")
-                    ->orderBy('nombre', 'ASC')
+                    ->orderBy('temas_moduloe.titulo', 'ASC')
                     ->limit($limit)->offset($offset);
             }
 
@@ -55,14 +55,14 @@ class TemasModuloE extends Model
                     ->where('temas_moduloe.estado', 'ACTIVO')
                     ->where('temas_moduloe.asignatura', $Asig)
                     ->select("temas_moduloe.*", "asignaturas_mode.nombre", "asignaturas_mode.grado", "componentes.nombre as ncom")
-                    ->orderBy('nombre', 'ASC')
+                    ->orderBy('temas_moduloe.titulo', 'ASC')
                     ->limit($limit)->offset($offset);
             } else {
                 $respuesta = TemasModuloE::leftJoin('asignaturas_mode', 'asignaturas_mode.id', '=', 'temas_moduloe.asignatura')
                     ->leftjoin('componentes', 'temas_moduloe.componente', 'componentes.id')
                     ->where('temas_moduloe.estado', 'ACTIVO')
                     ->select("temas_moduloe.*", "asignaturas_mode.nombre", "asignaturas_mode.grado", "componentes.nombre as ncom")
-                    ->orderBy('nombre', 'ASC')
+                    ->orderBy('temas_moduloe.titulo', 'ASC')
                     ->limit($limit)->offset($offset);
             }
 
@@ -78,25 +78,25 @@ class TemasModuloE extends Model
                 $respuesta = TemasModuloE::where('estado', 'ACTIVO')
                     ->where('temas_moduloe.asignatura', $Asig)
                     ->where(function ($query) use ($busqueda) {
-                        $query->where('nombre', 'LIKE', '%' . $busqueda . '%');
+                        $query->where('temas_moduloe.titulo', 'LIKE', '%' . $busqueda . '%');
                     })
-                    ->orderBy('nombre', 'ASC');
+                    ->orderBy('temas_moduloe.titulo', 'ASC');
             } else {
                 $respuesta = TemasModuloE::where('estado', 'ACTIVO')
                     ->where(function ($query) use ($busqueda) {
-                        $query->where('nombre', 'LIKE', '%' . $busqueda . '%');
+                        $query->where('temas_moduloe.titulo', 'LIKE', '%' . $busqueda . '%');
                     })
-                    ->orderBy('nombre', 'ASC');
+                    ->orderBy('temas_moduloe.titulo', 'ASC');
             }
 
         } else {
             if (!empty($Asig)) {
                 $respuesta = TemasModuloE::where('estado', 'ACTIVO')
                     ->where('temas_moduloe.asignatura', $Asig)
-                    ->orderBy('nombre', 'ASC');
+                    ->orderBy('temas_moduloe.titulo', 'ASC');
             } else {
                 $respuesta = TemasModuloE::where('estado', 'ACTIVO')
-                    ->orderBy('nombre', 'ASC');
+                    ->orderBy('temas_moduloe.titulo', 'ASC');
             }
 
         }

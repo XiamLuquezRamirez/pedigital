@@ -35,7 +35,6 @@ class EvalPregDidact extends Model {
         return $DesEval;
     }
 
-    
     public static function EliminarVideo($id) {
         $Archi = EvalPregDidact::where('evaluacion', $id);
         $Archi->delete();

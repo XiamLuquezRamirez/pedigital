@@ -79,7 +79,7 @@
                                                 @endphp
                                                 <div class="carousel-item {!! $active !!}">
                                                     <img src="{{ asset('app-assets/images/Img_ModuloE/' . $Asig->imagen) }}"
-                                                        style="height: 200px; width: 350px;" class="img-fluid"
+                                                        style="height: 200px; width: 380px;" class="img-fluid"
                                                         alt="First slide">
                                                 </div>
                                                 @php
@@ -182,7 +182,7 @@
 
         <div class="modal fade text-left" id="VisTema" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
             aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-dialog modal-xl"  role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="TemDetTit"></h4>
@@ -191,7 +191,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="row" id="Div_RowTemasDet">
+                        <div class="row" id="Div_RowTemasDet" ">
 
                         </div>
                         <div class="row" style="display: none;" id="Div_RowPracticas">
@@ -498,6 +498,7 @@
                     $("#Div_Asig").hide();
                     $("#btn_atrasPeri").hide();
                     $("#Div_TemasAsig").show();
+                    $("#btn_atras").show();
 
                     var form = $("#formAuxiliar");
                     $("#idAsig").remove();
@@ -721,7 +722,7 @@
 
                             contenido += '<div class="col-lg-12 col-md-12" > ' +
                                 '  <div class="card">' +
-                                '    <div class="card-content" style="height: 400px; overflow: auto;">' +
+                                '    <div class="card-content" style="height: 390px; overflow: auto;">' +
                                 '      <div class="card-body" >' +
                                 respuesta.TemasDet.contenido +
                                 '  </div>' +
@@ -789,20 +790,20 @@
                             contenido += '</div>';
 
                             contenido += '<div class="col-lg-10 col-md-10">' +
-                                '  <div class="card">' +
-                                '    <div class="card-content">' +
+                                '  <div class="card" style="margin-bottom:0px;">' +
+                               
                                 '      <div  id="div_img"  data-archivo="' +
                                 respuesta.TemasDet.imagen +
-                                '" style="cursor: pointer; text-align: center; height: 500px; overflow: scroll;" class="card-body">' +
+                                '" style="cursor: pointer; text-align: center; width:100%; height: 400px; overflow: scroll;" class="card-body">' +
                                 '   <figure  class="col-lg-12 col-md-6 col-12 zoom " id="ex3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">' +
-                                ' <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails"> <img class="img-thumbnail img-fluid" style="height: 450px; " src="' +
+                                ' <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails"> <img class="img-thumbnail img-fluid" style="height: 500px; " src="' +
                                 $('#Ruta').data("ruta") + '/images/Imagen_Tema_ModuloE/' +
                                 respuesta.primeImg + '"' +
                                 '  itemprop="thumbnail" alt="Image descripción" /></div>' +
 
                                 '   </figure>' +
                                 '  </div>' +
-                                '  </div>' +
+                             
                                 ' </div>' +
                                 '   </div>';
 
