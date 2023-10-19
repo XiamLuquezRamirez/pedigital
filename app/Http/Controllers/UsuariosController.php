@@ -96,7 +96,7 @@ class UsuariosController extends Controller
                 $Modulos = \App\ModulosTransversales::AsigxUsu(Auth::user()->id, Auth::user()->tipo_usuario, '', '');
                 $imgmodulo = \App\ImgModulosTransversales::imgAsig();
 
-                $AsigModuloE = \App\AsignaturasModuloE::AsigxUsu("", Auth::user()->tipo_usuario);
+                $AsigModuloE = \App\AsignaturasModuloE::AsigxUsuAdmin("", Auth::user()->tipo_usuario);
 
                 ///MODULOS TRANSVERSALES
             } else if (Auth::user()->tipo_usuario == "Profesor") {

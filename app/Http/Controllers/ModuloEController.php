@@ -42,6 +42,59 @@ class ModuloEController extends Controller
         }
     }
 
+    public function CargaCursosModE()
+    {
+        if (Auth::check()) {
+            $contenido = '';
+            $idArea = request()->get('idArea');
+
+            $InfAsig = \App\AreasModE::Buscar($idArea);
+            $Modulos = \App\AsignaturasModuloE::AsigxUsuArea($idArea);
+            $Sesiones = \App\sesiones::Guardar(Auth::user()->id);
+
+            foreach ($Modulos as $Asig) {
+                $contenido .= '<div class="col-xl-4 col-lg-4 col-md-12"  onclick="" style="cursor: pointer;" >
+                <div class="card hvr-grow-shadow" >
+                    <div class="card-content border-success">
+                        <div id="carousel-example" class="carousel slide"  data-ride="carousel">
+                            <div class="carousel-inner" role="listbox">';
+
+                $contenido .= '  <div class="carousel-item active">
+                                    <img src="' . asset('app-assets/images/Img_ModuloE/' . $Asig->imagen) . '" style="height: 200px; width: 350px;" class="img-fluid" alt="First slide">
+                                </div>';
+                $contenido .= ' </div>
+                            <a class="left carousel-control" href="#carousel-example" role="button" class="img-fluid" data-slide="prev">
+                                <span class="icon-prev" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example" role="button" data-slide="next">
+                                <span class="icon-next" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                        <h1 class="card-title" style="font-size:16px;">' . $Asig->nombre . ' Grado ' . $Asig->grado . '°' . '</h1>
+                        </div>
+                      
+                        <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                            <a href="' . url('/ModuloE/CargaTemasAsig/' . $Asig->id) . '"  class="btn btn-success mr-1 mb-1">Entrar</a>
+                        </div>
+                        </div>
+                        </div>
+                    </div>';
+            }
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'contenido' => $contenido,
+                    'NomAsig' => $InfAsig->nombre_area,
+                ]);
+            }
+        } else {
+            return redirect("/")->with("error", "Su sesion ha terminado");
+        }
+    }
+
     public function NuevaAsignatura()
     {
         $opc = "nuevo";

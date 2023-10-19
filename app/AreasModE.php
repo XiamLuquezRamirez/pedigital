@@ -12,8 +12,13 @@ class AreasModE extends Model
         'estado'
     ];
 
-    
-    
+        
+    public static function Buscar($id) {
+        $Areas = AreasModE::where('id', $id)
+                ->where('estado', "ACTIVO")
+                ->first();
+        return $Areas;
+    }
     public static function listar() {
         $Areas = AreasModE::where('estado', "ACTIVO")
                 ->get();

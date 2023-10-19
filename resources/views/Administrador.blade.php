@@ -329,7 +329,7 @@
             @if (count($AsigModuloE) > 0)
                 <div class="content-header row" id="cabe_moduloE">
                     <div class="content-header-left col-md-12 col-12 mb-2">
-                        <h3 class="content-header-title mb-0" id="TituloMod">Módulo de Entrenamiento</h3>
+                        <h3 class="content-header-title mb-0" id="TituloModE">Módulo de Entrenamiento</h3>
                         <div class="row breadcrumbs-top">
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
@@ -377,7 +377,7 @@
                                 </div>
                             </div>
                         @else
-                            <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarModuE({!! $ModE->id !!});"
+                            <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarGradoAsig({!! $ModE->id !!});"
                                 style="cursor: pointer;">
                                 <div class="card hvr-grow-shadow">
                                     <div class="card-content text-success border-success " style="height: 350px;">
@@ -397,7 +397,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">{!! $ModE->nombre . ' - Grado ' . $ModE->grado . '°' !!}</h1>
+                                            <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">{!! $ModE->nombre_area !!}</h1>
                                         </div>
 
                                         <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
@@ -411,6 +411,7 @@
 
 
                 </div>
+              
 
             @endif
         @endif
@@ -423,6 +424,11 @@
 
         </div>
 
+        <div  id="btn-atrasPrincipal" style="display: none;"  class="modal-footer">
+            <button type="button"  onclick="$.atrasPrincipal();" class="mr-1 mb-1 btn btn-outline-secondary btn-min-width"><i class="ft-corner-up-left"></i> Atras</button>
+         
+        </div>
+
 
     </div>
 
@@ -430,6 +436,9 @@
     {!! Form::close() !!}
 
     {!! Form::open(['url' => '/Contenido/CargaCursosMod', 'id' => 'formAuxiliarMod']) !!}
+    {!! Form::close() !!}
+
+    {!! Form::open(['url' => '/Contenido/CargaCursosModE', 'id' => 'formAuxiliarModE']) !!}
     {!! Form::close() !!}
 @endsection
 
@@ -444,7 +453,9 @@
 
                     $("#Div_Asig").hide();
                     $("#Div_modu").hide();
+                    $("#Div_moduE").hide();
                     $("#Div_Cursos").show();
+                    $("#btn-atrasPrincipal").show();
 
                     $("#cabe_asig").show();
                     $("#cabe_modulos").hide();
@@ -475,7 +486,9 @@
 
                     $("#Div_Asig").hide();
                     $("#Div_modu").hide();
+                    $("#Div_moduE").hide();
                     $("#Div_Cursos").show();
+                    $("#btn-atrasPrincipal").show();
 
                     $("#cabe_asig").hide();
                     $("#cabe_modulos").show();
@@ -502,9 +515,53 @@
                     });
 
                 },
-                EntrarModuE: function(idAsig) {
 
-                    window.location.href = 'ModuloE/CargaTemasAsig/' + idAsig;
+                atrasPrincipal: function(){
+                    $("#Div_Asig").show();
+                    $("#Div_modu").show();
+                    $("#Div_moduE").show();
+                    $("#Div_Cursos").hide();
+                    $("#btn-atrasPrincipal").hide();
+
+                    $("#cabe_asig").show();
+                    $("#cabe_modulos").show();
+                    $("#cabe_moduloE").show();
+
+                    $("#Titulo").html('Asignaturas');
+                    $("#TituloMod").html('Módulos Transversales');
+                    $("#TituloModE").html('Módulo de Entrenamiento');
+                },
+               
+                EntrarGradoAsig: function(idArea) {
+
+                    $("#Div_Asig").hide();
+                    $("#Div_modu").hide();
+                    $("#Div_moduE").hide();
+                    $("#Div_Cursos").show();
+                    $("#btn-atrasPrincipal").show();
+
+                    $("#cabe_asig").hide();
+                    $("#cabe_modulos").hide();
+                    $("#cabe_moduloE").show();
+                    $("#Div_moduE").hide();
+
+                    var form = $("#formAuxiliarModE");
+                    $("#idArea").remove();
+                    form.append("<input type='hidden' name='idArea' id='idArea' value='" + idArea + "'>");
+                    var url = form.attr("action");
+                    var datos = form.serialize();
+                    var j = 1;
+                    var contenido = '';
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: datos,
+                        dataType: "json",
+                        success: function(respuesta) {
+                            $("#Div_Row").html(respuesta.contenido);
+                            $("#TituloModE").html('Grados del Módulo E de ' + respuesta.NomAsig);
+                        }
+                    });
                 },
                 mostAsig: function() {
                     $("#Div_Asig").show();

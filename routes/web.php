@@ -474,6 +474,7 @@ Route::post('/ModuloE/CargarAlumnosCalifGrupo', 'ModuloEController@CargarAlumnos
 
 
 ////// Contenido módulo
+Route::post('/Contenido/CargaCursosModE', 'ModuloEController@CargaCursosModE');
 Route::get('/ModuloE/CargarContModuloE', 'ModuloEController@CargarContModuloE');
 Route::get('/ModuloE/CargarAsigContModuloE/{id}', 'ModuloEController@CargarAsigContModuloE');
 Route::get('/ModuloE/CargarSimuContModuloE', 'ModuloEController@CargarSimuContModuloE');

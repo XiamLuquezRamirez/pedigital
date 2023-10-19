@@ -26,7 +26,7 @@ class ContenidoModuloController extends Controller
             
             $active = "active";
             $Sesiones = \App\sesiones::Guardar(Auth::user()->id);
-;
+
             foreach ($Modulos as $Asig) {
 
                 $Temas = \App\TemasModulos::LisTemasProg($Asig->id);

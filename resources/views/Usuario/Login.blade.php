@@ -32,9 +32,70 @@
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <!-- END Custom CSS-->
+
+    <style>
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        body::before,
+        body::after,
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            animation: imageRotation 16s infinite linear;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        body::before {
+            animation-delay: 0s;
+            background-image: url('../../app-assets/images/backgrounds/bg-1.png');
+        }
+        
+        body::after {
+            animation-delay: 4s;
+            background-image: url('../../app-assets/images/backgrounds/bg-2.png');
+        }
+        
+        body::before {
+            animation-delay: 8s;
+            background-image: url('../../app-assets/images/backgrounds/bg-3.png');
+        }
+        
+        body::after {
+            animation-delay: 12s;
+            background-image: url('../../app-assets/images/backgrounds/bg-4.png');
+        }
+        
+        @keyframes imageRotation {
+            0%, 100% {
+                opacity: 0;
+            }
+            25% {
+                opacity: 1;
+            }
+            50%, 75% {
+                opacity: 1;
+            }
+        }
+        
+    </style>
 </head>
 
-<body class="vertical-layout vertical-menu 1-column  bg-full-screen-image menu-expanded blank-page blank-page"
+<body class="vertical-layout vertical-menu 1-column  bg-full-screen-image menu-expanded blank-page blank-page "
     data-open="click" data-menu="vertical-menu" data-col="1-column">
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     <div class="app-content content">
@@ -145,6 +206,8 @@
     <!-- BEGIN PAGE LEVEL JS-->
     <script src="{{ asset('app-assets/js/scripts/forms/form-login-register.js') }}" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS-->
+
+ 
 
     {{--  <script src="{{ asset('app-assets/js/shortcut.js') }}" type="text/javascript"></script> 
     <script type="text/javascript">

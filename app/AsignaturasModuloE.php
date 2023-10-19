@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AsignaturasModuloE extends Model
 {
@@ -155,6 +155,28 @@ class AsignaturasModuloE extends Model
                 ->where('estado', 'ACTIVO')
                 ->get();
         }
+        return $Asig;
+    }
+  
+    public static function AsigxUsuArea($area)
+    {
+            $Asig = AsignaturasModuloE::where('area', $area)
+                ->where('estado', 'ACTIVO')
+                ->get();
+        
+        return $Asig;
+    }
+
+    public static function AsigxUsuAdmin($Grado, $TipUsu)
+    {
+        $Asig = DB::connection("mysql")->select("SELECT am.id, am.nombre_area, asig.imagen 
+            FROM asignaturas_mode asig 
+            LEFT JOIN areas_me am 
+            ON asig.area=am.id 
+            WHERE asig.estado='ACTIVO'
+            GROUP BY area");
+
+
         return $Asig;
     }
 
