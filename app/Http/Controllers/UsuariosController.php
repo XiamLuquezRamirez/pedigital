@@ -163,7 +163,7 @@ class UsuariosController extends Controller
 
             }
 
-           
+          
 
 
             Session::put('ZonaJuegoAct', 'no');

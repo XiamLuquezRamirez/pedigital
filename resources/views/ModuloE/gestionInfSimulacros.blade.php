@@ -59,11 +59,11 @@
 
 
                 <div class="row">
-                    <div class="col-xl-4 col-lg-6 col-12 hvr-grow-shadow" style="cursor: pointer;"
+                    <div class="col-xl-4 col-lg-6 col-12 " style="cursor: pointer;"
                         onclick="$.informe('1');">
                         <div class="card ">
-                            <div class="card-content">
-                                <div class="card-body">
+                            <div class="card-content hvr-grow-shadow">
+                                <div class="card-body ">
                                     <div class="media d-flex">
                                         <div class="media-body text-left">
                                             <h3 class="danger">Individual</h3>
@@ -77,10 +77,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-6 col-12 hvr-grow-shadow" style="cursor: pointer;"
+                    <div class="col-xl-4 col-lg-6 col-12" style="cursor: pointer;"
                         onclick="$.informe('2');">
                         <div class="card">
-                            <div class="card-content">
+                            <div class="card-content hvr-grow-shadow">
                                 <div class="card-body">
                                     <div class="media d-flex">
                                         <div class="media-body text-left">
@@ -95,10 +95,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-6 col-12 hvr-grow-shadow" style="cursor: pointer;"
+                    <div class="col-xl-4 col-lg-6 col-12" style="cursor: pointer;"
                         onclick="$.informe('3');">
                         <div class="card">
-                            <div class="card-content">
+                            <div class="card-content hvr-grow-shadow">
                                 <div class="card-body">
                                     <div class="media d-flex">
                                         <div class="media-body text-left">
@@ -512,6 +512,8 @@
                     $("#infAreas").hide();
                     $("#infCompetencia").hide();
 
+                    $("#td-alumnos").html('');
+                    $("#btn-acciones").hide();
 
                     $("#titu_tema").html('Informe de Resultados de Pruebas Individual');
                     $("#tit-informe").html('Informe de Resultados de Pruebas Individual');
@@ -547,6 +549,12 @@
                     $("#infIndividual").hide();
                     $("#infCompetencia").hide();
 
+                    $("#divResultado").hide();
+                    $("#btn-imprimir").hide();
+
+                    $("#mayMenor").checked = true;
+                    $("#estIcfes").checked = true;
+
 
                     $("#titu_tema").html('Informe de Resultados por Áreas');
                     $("#tit-informe").html('Informe de Resultados por Áreas');
@@ -581,6 +589,10 @@
                     $("#infAreas").hide();
                     $("#infIndividual").hide();
                     $("#infCompetencia").show();
+
+                    $("#btn-imprimirComp").hide();
+                    $("#divResultadoComp").hide();
+                    $("#AreaSel").empty();
 
                     $("#titu_tema").html(
                         'Informe de Resultados de Prueba por Competencias y Componentes');

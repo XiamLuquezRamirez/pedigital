@@ -398,7 +398,7 @@ class Alumnos extends Model
         foreach ($Alumnos as $Alum) {
 
             $Respuesta = Usuarios::where('login_usuario', $Alum["Identificacion"])->update([
-                'login_usuario' => 'INACTIVO',
+                'estado_usuario' => 'INACTIVO',
             ]);
 
             if ($Data['grado_import'] == $Alum['Grado'] && $Data['grupo_import'] == $Alum['Grupo'] && $Data['jornada_import'] == $Alum['Jornada']) {

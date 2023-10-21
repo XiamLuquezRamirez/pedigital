@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            opacity: 0;
+            transition: opacity 5s;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Define un array de imágenes de fondo
+        const backgrounds = [
+            'bg-1.png',
+            'bg-2.png',
+            'bg-3.png',
+            // Agrega más imágenes de fondo según sea necesario
+        ];
+
+        let currentIndex = 0;
+
+        function changeBackground() {
+            const body = document.body;
+            body.style.backgroundImage = `url('${backgrounds[currentIndex]}')`;
+            body.style.opacity = 1;
+
+            // Incrementa el índice actual o reinícialo si llega al final del array
+            currentIndex = (currentIndex + 1) % backgrounds.length;
+
+            setTimeout(() => {
+                body.style.opacity = 0;
+            }, 4900); // Desvanecimiento antes de cambiar la imagen
+
+            setTimeout(() => {
+                changeBackground();
+            }, 5000); // Cambio de imagen después del desvanecimiento
+        }
+
+        // Llama a la función changeBackground inicialmente y luego cada 10 segundos
+        changeBackground();
+    </script>
+</body>
+</html>

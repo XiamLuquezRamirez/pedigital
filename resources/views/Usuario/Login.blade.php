@@ -1,6 +1,7 @@
 <!-- - var navbarShadow = true-->
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
+    <input type="hidden" class="form-control" id="Ruta" data-ruta="{{ asset('/app-assets/images/backgrounds') }}" />
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,64 +35,13 @@
     <!-- END Custom CSS-->
 
     <style>
-
         body {
+            background-size: 100% 100%;
+            background-position: center;
+            height: 100vh;
             margin: 0;
-            overflow: hidden;
-            position: relative;
-            background-size: cover;
-            background-position: center;
+            transition: opacity 1s;
         }
-        
-        body::before,
-        body::after,
-        body::before,
-        body::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            animation: imageRotation 16s infinite linear;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        
-        body::before {
-            animation-delay: 0s;
-            background-image: url('../../app-assets/images/backgrounds/bg-1.png');
-        }
-        
-        body::after {
-            animation-delay: 4s;
-            background-image: url('../../app-assets/images/backgrounds/bg-2.png');
-        }
-        
-        body::before {
-            animation-delay: 8s;
-            background-image: url('../../app-assets/images/backgrounds/bg-3.png');
-        }
-        
-        body::after {
-            animation-delay: 12s;
-            background-image: url('../../app-assets/images/backgrounds/bg-4.png');
-        }
-        
-        @keyframes imageRotation {
-            0%, 100% {
-                opacity: 0;
-            }
-            25% {
-                opacity: 1;
-            }
-            50%, 75% {
-                opacity: 1;
-            }
-        }
-        
     </style>
 </head>
 
@@ -207,9 +157,44 @@
     <script src="{{ asset('app-assets/js/scripts/forms/form-login-register.js') }}" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS-->
 
- 
+    <script>
+        // Define un array de imágenes de fondo
+        const backgrounds = [
+            'bg-1.png',
+            'bg-2.png',
+            'bg-3.png',
+            'bg-4.png',
+            'bg-5.png',
+            'bg-6.png',
+            
+        ];
 
-    {{--  <script src="{{ asset('app-assets/js/shortcut.js') }}" type="text/javascript"></script> 
+        let currentIndex = Math.floor(Math.random() * backgrounds.length);
+
+        function changeBackground() {
+          let ruta =  $('#Ruta').data("ruta");
+            const body = document.body;
+            body.style.opacity = 0;
+            body.style.backgroundImage = `url('${ruta+'/'+backgrounds[currentIndex]}')`;
+            body.style.opacity = 1;
+
+            // Incrementa el índice actual o reinícialo si llega al final del array
+            currentIndex = (currentIndex + 1) % backgrounds.length;
+
+            setTimeout(() => {
+                body.style.opacity = 0;
+            }, 4900); // Desvanecimiento antes de cambiar la imagen
+
+            setTimeout(() => {
+                changeBackground();
+            }, 5000); // Cambio de imagen después del desvanecimiento
+        }
+
+        // Llama a la función changeBackground inicialmente y luego cada 10 segundos
+        changeBackground();
+    </script>
+
+    <script src="{{ asset('app-assets/js/shortcut.js') }}" type="text/javascript"></script> 
     <script type="text/javascript">
         shortcut.add("Ctrl+C", function () {
             alert("Combinación de teclas Ctrl+G");
@@ -218,7 +203,7 @@
             "propagate": true,
             "target": document
           });
-    </script>  --}}
+    </script>
 </body>
 
 </html>

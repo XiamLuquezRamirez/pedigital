@@ -32,9 +32,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <strong>Alerta!</strong> {!! session('error') !!}
-
                     </div>
-
                 </div>
             </div>
         @endif
@@ -97,7 +95,7 @@
                                                 </div>
                                             </div>
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
+                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
                                                 <a href="{{ url('/Contenido/Presentacion/' . $Asig->id) }}"
                                                     class="btn btn-blue">Entrar</a>
                                             </div>
@@ -148,27 +146,28 @@
                                                     <span class="sr-only">Next</span>
                                                 </a>
                                             </div>
-                                            <div class="card-body mb-0" >
-                                                <h1 class="card-title" style="font-size:18px; margin-bottom: 0px;">{!! $Asig->nombre !!}
+                                            <div class="card-body mb-0">
+                                                <h1 class="card-title" style="font-size:18px; margin-bottom: 0px;">
+                                                    {!! $Asig->nombre !!}
                                                 </h1>
                                             </div>
 
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
-                                                <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
+                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
+                                                <a style="color: #ffffff;" class="btn btn-success mr-1">Entrar</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
-
-
                         </div>
                     @endif
 
                 </div>
             </div>
         @endif
+
+          
 
         @if (Session::get('PerModu') == 'si')
             @if (count($Modulos) > 0)
@@ -250,7 +249,7 @@
                                                 </div>
                                             </div>
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
+                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
                                                 <a href="{{ url('/Contenido/PresentacionMod/' . $Asig->id) }}"
                                                     class="btn btn-blue">Entrar</a>
                                             </div>
@@ -258,14 +257,101 @@
                                     </div>
                                 </div>
                             @endforeach
+                        </div>  
+                        @else
+                            <div class="row">
+                                @foreach ($Modulos as $Asig)
+                                    <div class="col-xl-4 col-lg-4 col-md-12"
+                                        onclick="$.EntrarModu({!! $Asig->id !!});" style="cursor: pointer;">
+                                        <div class="card hvr-grow-shadow">
+                                            <div class="card-content text-success border-success" style="height: 350px;">
+                                                <div id="carousel-example" class="carousel slide" data-ride="carousel">
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#carousel-example" data-slide-to="0"
+                                                            class="active">
+                                                        </li>
+                                                        <li data-target="#carousel-example" data-slide-to="1"></li>
+                                                        <li data-target="#carousel-example" data-slide-to="2"></li>
+                                                    </ol>
+                                                    <div class="carousel-inner" role="listbox">
+                                                        @php
+                                                            $active = 'active';
+                                                        @endphp
+                                                        @foreach ($imgmodulo as $img)
+                                                            @if ($Asig->id == $img->asig_img)
+                                                                <div class="carousel-item {!! $active !!}">
+                                                                    <img src="{{ asset('app-assets/images/Img_ModulosTransv/' . $img->url_img) }}"
+                                                                        style="height: 200px; width: 350px;"
+                                                                        class="img-fluid" alt="First slide">
+                                                                </div>
+                                                                @php
+                                                                    $active = '';
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                    <a class="left carousel-control" href="#carousel-example"
+                                                        role="button" class="img-fluid" data-slide="prev">
+                                                        <span class="icon-prev" aria-hidden="true"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#carousel-example"
+                                                        role="button" data-slide="next">
+                                                        <span class="icon-next" aria-hidden="true"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">
+                                                        {!! $Asig->nombre !!}
+                                                    </h1>
+                                                </div>
 
-                    @else
-                        <div class="row">
-                            @foreach ($Modulos as $Asig)
-                                <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarModu({!! $Asig->id !!});"
-                                    style="cursor: pointer;">
+                                                <div
+                                                    class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
+                                                    <a style="color: #ffffff;" class="btn btn-success mr-1">Entrar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+
+                            </div>
+                    @endif
+
+                </div>
+
+            </div>
+        @endif
+
+        @if (Auth::user()->tipo_usuario != 'Estudiante')
+            @if (Session::get('PerModE') == 'si')
+                @if (count($AsigModuloE) > 0)
+                    <div class="content-header row" id="cabe_moduloE">
+                        <div class="content-header-left col-md-12 col-12 mb-2">
+                            <h3 class="content-header-title mb-0" id="TituloModE">Módulo de Entrenamiento</h3>
+                            <div class="row breadcrumbs-top">
+                                <div class="breadcrumb-wrapper col-12">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="">Tablero</a>
+                                        </li>
+                                        <li class="breadcrumb-item" id='li_cursos'><a href="#">Módulo E</a>
+                                        </li>
+
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="Div_moduE">
+                        @foreach ($AsigModuloE as $ModE)
+                            @if (Auth::user()->tipo_usuario == 'Estudiante')
+                                <div class="col-xl-4 col-lg-4 col-md-12"
+                                    onclick="$.EntrarModuE({!! $ModE->id !!});" style="cursor: pointer;">
                                     <div class="card hvr-grow-shadow">
-                                        <div class="card-content text-success border-success" style="height: 350px;">
+                                        <div class="card-content text-success border-success " style="height: 350px;">
                                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
                                                     <li data-target="#carousel-example" data-slide-to="0" class="active">
@@ -274,145 +360,65 @@
                                                     <li data-target="#carousel-example" data-slide-to="2"></li>
                                                 </ol>
                                                 <div class="carousel-inner" role="listbox">
-                                                    @php
-                                                        $active = 'active';
-                                                    @endphp
-                                                    @foreach ($imgmodulo as $img)
-                                                        @if ($Asig->id == $img->asig_img)
-                                                            <div class="carousel-item {!! $active !!}">
-                                                                <img src="{{ asset('app-assets/images/Img_ModulosTransv/' . $img->url_img) }}"
-                                                                    style="height: 200px; width: 350px;" class="img-fluid"
-                                                                    alt="First slide">
-                                                            </div>
-                                                            @php
-                                                                $active = '';
-                                                            @endphp
-                                                        @endif
-                                                    @endforeach
+                                                    <div class="carousel-item active">
+                                                        <img src="{{ asset('app-assets/images/Img_ModuloE/' . $ModE->imagen) }}"
+                                                            style="height: 200px; width: 350px;" class="img-fluid"
+                                                            alt="First slide">
+                                                    </div>
                                                 </div>
-                                                <a class="left carousel-control" href="#carousel-example" role="button"
-                                                    class="img-fluid" data-slide="prev">
-                                                    <span class="icon-prev" aria-hidden="true"></span>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                                <a class="right carousel-control" href="#carousel-example" role="button"
-                                                    data-slide="next">
-                                                    <span class="icon-next" aria-hidden="true"></span>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
                                             </div>
                                             <div class="card-body">
-                                                <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">{!! $Asig->nombre !!}
-                                                </h1>
+                                                <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">
+                                                    {!! $ModE->nombre . ' - Grado ' . $ModE->grado . '°' !!}</h1>
                                             </div>
 
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
+                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
                                                 <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @else
+                                <div class="col-xl-4 col-lg-4 col-md-12"
+                                    onclick="$.EntrarGradoAsig({!! $ModE->id !!});" style="cursor: pointer;">
+                                    <div class="card hvr-grow-shadow">
+                                        <div class="card-content text-success border-success " style="height: 350px;">
+                                            <div id="carousel-example" class="carousel slide" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#carousel-example" data-slide-to="0" class="active">
+                                                    </li>
+                                                    <li data-target="#carousel-example" data-slide-to="1"></li>
+                                                    <li data-target="#carousel-example" data-slide-to="2"></li>
+                                                </ol>
+                                                <div class="carousel-inner" role="listbox">
+                                                    <div class="carousel-item active">
+                                                        <img src="{{ asset('app-assets/images/Img_ModuloE/' . $ModE->imagen) }}"
+                                                            style="height: 200px; width: 350px;" class="img-fluid"
+                                                            alt="First slide">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">
+                                                    {!! $ModE->nombre_area !!}</h1>
+                                            </div>
+
+                                            <div
+                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
+                                                <a style="color: #ffffff;" class="btn btn-success mr-1">Entrar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
 
 
-                        </div>
-                    @endif
-
-                </div>
-
-            </div>
-        @endif
-
-
-        @if (Session::get('PerModE') == 'si')
-            @if (count($AsigModuloE) > 0)
-                <div class="content-header row" id="cabe_moduloE">
-                    <div class="content-header-left col-md-12 col-12 mb-2">
-                        <h3 class="content-header-title mb-0" id="TituloModE">Módulo de Entrenamiento</h3>
-                        <div class="row breadcrumbs-top">
-                            <div class="breadcrumb-wrapper col-12">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="">Tablero</a>
-                                    </li>
-                                    <li class="breadcrumb-item" id='li_cursos'><a href="#">Módulo E</a>
-                                    </li>
-
-                                </ol>
-                            </div>
-                        </div>
                     </div>
-                </div>
-
-                <div class="row" id="Div_moduE">
-                    @foreach ($AsigModuloE as $ModE)
-                        @if (Auth::user()->tipo_usuario == 'Estudiante')
-                            <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarModuE({!! $ModE->id !!});"
-                                style="cursor: pointer;">
-                                <div class="card hvr-grow-shadow">
-                                    <div class="card-content text-success border-success " style="height: 350px;">
-                                        <div id="carousel-example" class="carousel slide" data-ride="carousel">
-                                            <ol class="carousel-indicators">
-                                                <li data-target="#carousel-example" data-slide-to="0" class="active">
-                                                </li>
-                                                <li data-target="#carousel-example" data-slide-to="1"></li>
-                                                <li data-target="#carousel-example" data-slide-to="2"></li>
-                                            </ol>
-                                            <div class="carousel-inner" role="listbox">
-                                                <div class="carousel-item active">
-                                                    <img src="{{ asset('app-assets/images/Img_ModuloE/' . $ModE->imagen) }}"
-                                                        style="height: 200px; width: 350px;" class="img-fluid"
-                                                        alt="First slide">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">{!! $ModE->nombre . ' - Grado ' . $ModE->grado . '°' !!}</h1>
-                                        </div>
-
-                                        <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
-                                            <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarGradoAsig({!! $ModE->id !!});"
-                                style="cursor: pointer;">
-                                <div class="card hvr-grow-shadow">
-                                    <div class="card-content text-success border-success " style="height: 350px;">
-                                        <div id="carousel-example" class="carousel slide" data-ride="carousel">
-                                            <ol class="carousel-indicators">
-                                                <li data-target="#carousel-example" data-slide-to="0" class="active">
-                                                </li>
-                                                <li data-target="#carousel-example" data-slide-to="1"></li>
-                                                <li data-target="#carousel-example" data-slide-to="2"></li>
-                                            </ol>
-                                            <div class="carousel-inner" role="listbox">
-                                                <div class="carousel-item active">
-                                                    <img src="{{ asset('app-assets/images/Img_ModuloE/' . $ModE->imagen) }}"
-                                                        style="height: 200px; width: 350px;" class="img-fluid"
-                                                        alt="First slide">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">{!! $ModE->nombre_area !!}</h1>
-                                        </div>
-
-                                        <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0">
-                                            <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
 
 
-                </div>
-              
-
+                @endif
             @endif
         @endif
 
@@ -424,9 +430,10 @@
 
         </div>
 
-        <div  id="btn-atrasPrincipal" style="display: none;"  class="modal-footer">
-            <button type="button"  onclick="$.atrasPrincipal();" class="mr-1 mb-1 btn btn-outline-secondary btn-min-width"><i class="ft-corner-up-left"></i> Atras</button>
-         
+        <div id="btn-atrasPrincipal" style="display: none;" class="modal-footer">
+            <button type="button" onclick="$.atrasPrincipal();"
+                class="mr-1 mb-1 btn btn-outline-secondary btn-min-width"><i class="ft-corner-up-left"></i> Atras</button>
+
         </div>
 
 
@@ -516,7 +523,7 @@
 
                 },
 
-                atrasPrincipal: function(){
+                atrasPrincipal: function() {
                     $("#Div_Asig").show();
                     $("#Div_modu").show();
                     $("#Div_moduE").show();
@@ -531,7 +538,7 @@
                     $("#TituloMod").html('Módulos Transversales');
                     $("#TituloModE").html('Módulo de Entrenamiento');
                 },
-               
+
                 EntrarGradoAsig: function(idArea) {
 
                     $("#Div_Asig").hide();
@@ -547,7 +554,8 @@
 
                     var form = $("#formAuxiliarModE");
                     $("#idArea").remove();
-                    form.append("<input type='hidden' name='idArea' id='idArea' value='" + idArea + "'>");
+                    form.append("<input type='hidden' name='idArea' id='idArea' value='" + idArea +
+                        "'>");
                     var url = form.attr("action");
                     var datos = form.serialize();
                     var j = 1;
@@ -559,7 +567,8 @@
                         dataType: "json",
                         success: function(respuesta) {
                             $("#Div_Row").html(respuesta.contenido);
-                            $("#TituloModE").html('Grados del Módulo E de ' + respuesta.NomAsig);
+                            $("#TituloModE").html('Grados del Módulo E de ' + respuesta
+                                .NomAsig);
                         }
                     });
                 },

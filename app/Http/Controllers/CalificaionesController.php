@@ -625,7 +625,7 @@ class CalificaionesController extends Controller
             $intentos = \App\UpdIntEval::ConsulInt($ideva, $DesEva->alumno);
             $enunciado = $DesEva->enunciado;
 
-            $tiempo = $DesEva->tiempo;
+            $tiempo = $DesEva->tiempo_usado;
             $perfil = Auth::user()->tipo_usuario;
 
             $Log = \App\Log::Guardar('Calificación de Evaluación', $ideva);
