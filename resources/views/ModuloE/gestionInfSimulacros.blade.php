@@ -59,8 +59,7 @@
 
 
                 <div class="row">
-                    <div class="col-xl-4 col-lg-6 col-12 " style="cursor: pointer;"
-                        onclick="$.informe('1');">
+                    <div class="col-xl-4 col-lg-6 col-12 " style="cursor: pointer;" onclick="$.informe('1');">
                         <div class="card ">
                             <div class="card-content hvr-grow-shadow">
                                 <div class="card-body ">
@@ -77,8 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-6 col-12" style="cursor: pointer;"
-                        onclick="$.informe('2');">
+                    <div class="col-xl-4 col-lg-6 col-12" style="cursor: pointer;" onclick="$.informe('2');">
                         <div class="card">
                             <div class="card-content hvr-grow-shadow">
                                 <div class="card-body">
@@ -95,8 +93,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-6 col-12" style="cursor: pointer;"
-                        onclick="$.informe('3');">
+                    <div class="col-xl-4 col-lg-6 col-12" style="cursor: pointer;" onclick="$.informe('3');">
                         <div class="card">
                             <div class="card-content hvr-grow-shadow">
                                 <div class="card-body">
@@ -347,7 +344,8 @@
                                             </div>
 
                                             <div class="col-md-12 mt-2">
-                                                <h4 class="card-title">Grafico de estudiantes con menores preguntas acertadas por competencia.</h4>
+                                                <h4 class="card-title">Grafico de estudiantes con menores preguntas
+                                                    acertadas por competencia.</h4>
                                                 <div id="chartCompEstudiantes"
                                                     style=" width: 100%; height: 350px; padding-left: 10px;"
                                                     class="chart"></div>
@@ -371,15 +369,16 @@
                                                 <h4 class='card-title'>Recomendaciones.</h4>
                                             </div>
 
-                                            
+
                                             <div class="col-md-12 mt-2">
-                                                <h4 class="card-title">Grafico de estudiantes con menores preguntas acertadas por Componentes.</h4>
+                                                <h4 class="card-title">Grafico de estudiantes con menores preguntas
+                                                    acertadas por Componentes.</h4>
                                                 <div id="chartCompoEstudiantes"
                                                     style=" width: 100%; height: 350px; padding-left: 10px;"
                                                     class="chart"></div>
                                             </div>
 
-                                       
+
 
                                         </div>
                                         <div class="modal-footer" id="btn-imprimir">
@@ -552,8 +551,11 @@
                     $("#divResultado").hide();
                     $("#btn-imprimir").hide();
 
-                    $("#mayMenor").checked = true;
-                    $("#estIcfes").checked = true;
+                    let mayMenor = document.getElementById("mayMenor");
+                    let estIcfes = document.getElementById("estIcfes");
+
+                    mayMenor.checked = true;
+                    estIcfes.checked = false;
 
 
                     $("#titu_tema").html('Informe de Resultados por Áreas');
@@ -871,9 +873,9 @@
                         // Agregar la leyenda
                         chartComp.legend = new am4charts.Legend();
                         chartComp.data = dataWithDifference;
+
                     } else {
                         $("#grafCompa").hide();
-
                     }
 
                     ////GENERAR GRAFICA MAYORES Y MENORES PUNTAJES
@@ -898,7 +900,7 @@
 
                         // Obtener el contenedor principal del documento
                         const contenedorPrincipal = document.getElementById("MayorMenor");
-
+                        contenedorPrincipal.innerHTML = "";
                         // Recorre el array de datos y agrega el contenido HTML de cada área al contenedor principal
                         resultadosPorIdArea.forEach((areaData) => {
                             const contenidoArea = crearContenidoArea(areaData);
@@ -916,7 +918,7 @@
                     const totalTiempos = tiempoSesi.reduce((sum, area) => sum + area.tiempo, 0);
                     const mediaTiempos = totalTiempos / data.length;
 
-                    console.log(mediaTiempos);
+
 
                     // Identificar áreas con tiempos significativamente más altos o más bajos que la media
                     const areasAltos = [];
@@ -1009,7 +1011,7 @@
                     chart = am4core.create("chartCompEstudiantes", am4charts.XYChart);
                     chart2 = am4core.create("chartCompoEstudiantes", am4charts.XYChart);
 
-                    let nEstudiantes= 0;
+                    let nEstudiantes = 0;
 
                     var form = $("#formAuxiliarInformeComp");
                     $("#_token").remove();
@@ -1062,7 +1064,8 @@
 
                     // Calcular el porcentaje de preguntas acertadas para cada componente de área
                     pregCompe.forEach(function(item) {
-                        item.porcentajeAcertado = (item.preAcert / parseInt(item.npreg*nEstudiantes)) * 100;
+                        item.porcentajeAcertado = (item.preAcert / parseInt(item.npreg *
+                            nEstudiantes)) * 100;
                     });
 
                     // Crear el gráfico de barras
@@ -1167,7 +1170,8 @@
 
                     // Calcular el porcentaje de preguntas acertadas para cada componente de área
                     pregCompo.forEach(function(item) {
-                        item.porcentajeAcertado = (item.preAcert / parseInt(item.npreg*nEstudiantes)) * 100;
+                        item.porcentajeAcertado = (item.preAcert / parseInt(item.npreg *
+                            nEstudiantes)) * 100;
                     });
 
                     // Crear el gráfico de barras
@@ -1262,7 +1266,7 @@
                     // Crear el gráfico de columnas agrupadas con AmCharts
                     am4core.ready(function() {
                         // Crear el gráfico
-                       
+
 
                         // Configurar los datos
                         chart.data = calificacionesCompetencias;
@@ -1270,34 +1274,40 @@
                         // Crear las columnas
                         const categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
                         categoryAxis.dataFields.category = "name";
-                        categoryAxis.renderer.minGridDistance = 40; // Ajustar la distancia mínima entre las etiquetas
-                        categoryAxis.renderer.labels.template.fontSize = 10; // Cambiar el tamaño de fuente de los nombres
+                        categoryAxis.renderer.minGridDistance =
+                        40; // Ajustar la distancia mínima entre las etiquetas
+                        categoryAxis.renderer.labels.template.fontSize =
+                        10; // Cambiar el tamaño de fuente de los nombres
                         categoryAxis.renderer.labels.template.maxWidth = 150;
-                        categoryAxis.renderer.labels.template.wrap = true; // Permitir que los nombres se dividan en dos líneas
+                        categoryAxis.renderer.labels.template.wrap =
+                        true; // Permitir que los nombres se dividan en dos líneas
 
 
                         const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
                         // Recorrer todas las competencias y crear una serie de columnas para cada una
-                        const competencias = Object.keys(calificacionesCompetencias[0]).filter(key => key !== "name");
+                        const competencias = Object.keys(calificacionesCompetencias[0]).filter(
+                            key => key !== "name");
                         competencias.forEach(competencia => {
-                            const series = chart.series.push(new am4charts.ColumnSeries());
+                            const series = chart.series.push(new am4charts
+                            .ColumnSeries());
                             series.dataFields.valueY = competencia;
                             series.dataFields.categoryX = "name";
                             series.name = competencia;
-                            series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+                            series.columns.template.tooltipText =
+                                "{categoryX}: [bold]{valueY}[/]";
 
 
                             // Etiquetas sobre las barras para mostrar el valor
                             const label = series.bullets.push(new am4charts
-                            .LabelBullet());
+                                .LabelBullet());
                             label.label.text = "{valueY}";
                             label.label.dy = -
-                            10; // Desplazamiento vertical de la etiqueta
+                                10; // Desplazamiento vertical de la etiqueta
                             label.label.fill = am4core.color(
-                            "#6771dc"); // Color de texto de la etiqueta
+                                "#6771dc"); // Color de texto de la etiqueta
                             label.label.hideOversized =
-                            false; // Mostrar etiquetas incluso si se superponen
+                                false; // Mostrar etiquetas incluso si se superponen
                         });
 
                         // Alinear las columnas agrupadas
@@ -1324,7 +1334,7 @@
                     // Crear el gráfico de columnas agrupadas con AmCharts
                     am4core.ready(function() {
                         // Crear el gráfico
-                       
+
 
                         // Configurar los datos
                         chart2.data = calificacionesCompetenciasCompo;
@@ -1332,34 +1342,40 @@
                         // Crear las columnas
                         const categoryAxis = chart2.xAxes.push(new am4charts.CategoryAxis());
                         categoryAxis.dataFields.category = "name";
-                        categoryAxis.renderer.minGridDistance = 40; // Ajustar la distancia mínima entre las etiquetas
-                        categoryAxis.renderer.labels.template.fontSize = 10; // Cambiar el tamaño de fuente de los nombres
+                        categoryAxis.renderer.minGridDistance =
+                        40; // Ajustar la distancia mínima entre las etiquetas
+                        categoryAxis.renderer.labels.template.fontSize =
+                        10; // Cambiar el tamaño de fuente de los nombres
                         categoryAxis.renderer.labels.template.maxWidth = 150;
-                        categoryAxis.renderer.labels.template.wrap = true; // Permitir que los nombres se dividan en dos líneas
+                        categoryAxis.renderer.labels.template.wrap =
+                        true; // Permitir que los nombres se dividan en dos líneas
 
 
                         const valueAxis = chart2.yAxes.push(new am4charts.ValueAxis());
 
                         // Recorrer todas las competencias y crear una serie de columnas para cada una
-                        const componentes = Object.keys(calificacionesCompetenciasCompo[0]).filter(key => key !== "name");
+                        const componentes = Object.keys(calificacionesCompetenciasCompo[0])
+                            .filter(key => key !== "name");
                         componentes.forEach(componentes => {
-                            const series = chart2.series.push(new am4charts.ColumnSeries());
+                            const series = chart2.series.push(new am4charts
+                                .ColumnSeries());
                             series.dataFields.valueY = componentes;
                             series.dataFields.categoryX = "name";
                             series.name = componentes;
-                            series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+                            series.columns.template.tooltipText =
+                                "{categoryX}: [bold]{valueY}[/]";
 
 
                             // Etiquetas sobre las barras para mostrar el valor
                             const label = series.bullets.push(new am4charts
-                            .LabelBullet());
+                                .LabelBullet());
                             label.label.text = "{valueY}";
                             label.label.dy = -
-                            10; // Desplazamiento vertical de la etiqueta
+                                10; // Desplazamiento vertical de la etiqueta
                             label.label.fill = am4core.color(
-                            "#6771dc"); // Color de texto de la etiqueta
+                                "#6771dc"); // Color de texto de la etiqueta
                             label.label.hideOversized =
-                            false; // Mostrar etiquetas incluso si se superponen
+                                false; // Mostrar etiquetas incluso si se superponen
                         });
 
                         // Alinear las columnas agrupadas
@@ -1383,6 +1399,8 @@
                 },
                 CargaEstudiantes: function(idSimu) {
                     let tipInf = $("#infSel").val();
+                    let estIcfes = document.getElementById("estIcfes");
+                    estIcfes.checked = false;
 
                     var token = $("#token").val();
                     var form = $("#forminfEstuSimulacro");
@@ -2039,7 +2057,9 @@
 
                     }
 
-                    const [imgCompe, imgCompo, imgPregCompe, imgPregCompo,imgPregAcerCompe,imgPregAcerCompo] = await Promise.all([
+                    const [imgCompe, imgCompo, imgPregCompe, imgPregCompo, imgPregAcerCompe,
+                        imgPregAcerCompo
+                    ] = await Promise.all([
                         chartCompe.exporting.getImage('png'),
                         chartCompo.exporting.getImage('png'),
                         chartPregCompetencia.exporting.getImage('png'),
@@ -2199,10 +2219,21 @@
         function obtenerMejoresPeoresPorIdArea(datos, idarea) {
             const datosPorIdArea = datos.filter(d => d.idarea === idarea);
             const ordenados = datosPorIdArea.sort((a, b) => b.puntaje - a.puntaje);
+
+            let contPrueba = ordenados.length;
+
+            let cantidad = 5;
+
+            if (contPrueba < 10 && contPrueba > 1) {
+                cantidad = Math.round(contPrueba / 2);
+            }
+
+
             return {
-                mejores: ordenados.slice(0, 5),
-                peores: ordenados.slice(-5).reverse(),
+                mejores: ordenados.slice(0, cantidad),
+                peores: ordenados.slice(-cantidad).reverse(),
             };
+
         }
 
         // Función para crear un elemento HTML con el nombre del estudiante y su puntaje

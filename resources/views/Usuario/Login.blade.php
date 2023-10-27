@@ -1,7 +1,7 @@
 <!-- - var navbarShadow = true-->
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
-    <input type="hidden" class="form-control" id="Ruta" data-ruta="{{ asset('/app-assets/images/backgrounds') }}" />
+<input type="hidden" class="form-control" id="Ruta" data-ruta="{{ asset('/app-assets/images/backgrounds') }}" />
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,27 +25,31 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/app.css') }}">
     <!-- END STACK CSS-->
     <!-- BEGIN Page Level CSS-->
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-gradient.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/login-register.css') }}">
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <!-- END Custom CSS-->
-
+   
     <style>
-        body {
-            background-size: 100% 100%;
-            background-position: center;
-            height: 100vh;
-            margin: 0;
-            transition: opacity 1s;
+        .bg-full-screen-image {
+            position: fixed; /* Fijar la imagen de fondo en la ventana */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ocupa el ancho completo de la ventana */
+            height: 100%; /* Ocupa la altura completa de la ventana */
+            z-index: -1; /* Coloca la imagen detrás de otros elementos */
+            background-size: cover; /* Ajusta la imagen al tamaño de la ventana */
+            background-position: center center; /* Centra la imagen horizontal y verticalmente */
         }
+        
+
     </style>
 </head>
 
-<body class="vertical-layout vertical-menu 1-column  bg-full-screen-image menu-expanded blank-page blank-page "
+<body class="vertical-layout vertical-menu 1-column menu-expanded blank-page blank-page "
     data-open="click" data-menu="vertical-menu" data-col="1-column">
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     <div class="app-content content">
@@ -140,6 +144,8 @@
             </div>
         </div>
     </div>
+
+    <div class="bg-full-screen-image"></div>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     <!-- BEGIN VENDOR JS-->
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
@@ -158,51 +164,48 @@
     <!-- END PAGE LEVEL JS-->
 
     <script>
-        // Define un array de imágenes de fondo
-        const backgrounds = [
-            'bg-1.png',
-            'bg-2.png',
-            'bg-3.png',
-            'bg-4.png',
-            'bg-5.png',
-            'bg-6.png',
-            
-        ];
-
-        let currentIndex = Math.floor(Math.random() * backgrounds.length);
-
-        function changeBackground() {
-          let ruta =  $('#Ruta').data("ruta");
-            const body = document.body;
-            body.style.opacity = 0;
-            body.style.backgroundImage = `url('${ruta+'/'+backgrounds[currentIndex]}')`;
-            body.style.opacity = 1;
-
-            // Incrementa el índice actual o reinícialo si llega al final del array
-            currentIndex = (currentIndex + 1) % backgrounds.length;
-
-            setTimeout(() => {
-                body.style.opacity = 0;
-            }, 4900); // Desvanecimiento antes de cambiar la imagen
-
-            setTimeout(() => {
-                changeBackground();
-            }, 5000); // Cambio de imagen después del desvanecimiento
-        }
-
-        // Llama a la función changeBackground inicialmente y luego cada 10 segundos
-        changeBackground();
+        $(document).ready(function() {
+            var i = 0;
+            var anim = $(".bg-full-screen-image");
+            let ruta = $('#Ruta').data("ruta");
+            var imgs = [
+                'bg-1.png',
+                'bg-2.png',
+                'bg-3.png',
+                'bg-4.png',
+                'bg-5.png',
+                'bg-6.png'
+            ];
+    
+            // Función para cambiar el fondo
+            function changeBackground() {
+                anim.fadeOut(800, function() {
+                    i++;
+                    if (i === imgs.length) i = 0;
+                    $(this).css("background-image", "url(" + ruta + '/' + imgs[i] + ")");
+                    anim.fadeIn(800);
+                });
+            }
+    
+            // Cambia el fondo cada 4000ms (4 segundos)
+            setInterval(changeBackground, 10000);
+    
+            // Cambia el fondo inicialmente
+            changeBackground();
+        });
+        
+        
     </script>
 
-    <script src="{{ asset('app-assets/js/shortcut.js') }}" type="text/javascript"></script> 
+    <script src="{{ asset('app-assets/js/shortcut.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
-        shortcut.add("Ctrl+C", function () {
+        shortcut.add("Ctrl+C", function() {
             alert("Combinación de teclas Ctrl+G");
-          }, {
+        }, {
             "type": "keydown",
             "propagate": true,
             "target": document
-          });
+        });
     </script>
 </body>
 

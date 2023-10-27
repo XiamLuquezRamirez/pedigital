@@ -839,7 +839,9 @@
                                 Pregunta += '<div class="col-xl-12 col-lg-6 col-md-12">' +
                                     '   <label for="placeTextarea">Complete el Parrafo con las siguientes Opciones:</label>' +
                                     '<p>' + respuesta.PregComple.opciones + '</p>' +
-                                    ' <div id=""></div>' +
+                                    ' <div id="div-ParrafComp"></div>' +
+                                    '<hr><strong>Respuesta:</strong>' +
+                                    ' <div id="RespPregComplete"></div>' +
                                     ' </div>';
                                     Pregunta += '<div id="Retro" class="col-xl-12 col-lg-6 col-md-12 pt-1">' +
                                         '   <label style="font-weight:bold;" for="placeTextarea">Retroalimentacion:</label>' +
@@ -848,7 +850,7 @@
                                         ' </div>';
                       
                                 $("#Pregunta" + id).html(Pregunta);
-                                $('#RespPregComplete').html(respuesta.PregComple.parrafo);
+                                $('#div-ParrafComp').html(respuesta.PregComple.parrafo);
                                 if (respuesta.RespPregComple) {
                                     $('#RespPregComplete').html(respuesta.RespPregComple
                                         .respuesta);
