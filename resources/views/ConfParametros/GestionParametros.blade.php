@@ -191,7 +191,11 @@
                                         </fieldset>
                                         <fieldset>
                                             <input type="checkbox" name="check_Zona" id="input-9">
-                                            <label for="input-9">Zona LiBre</label>
+                                            <label for="input-9">Zona Libre</label>
+                                        </fieldset>
+                                        <fieldset>
+                                            <input type="checkbox" name="check_Simu" id="input-10">
+                                            <label for="input-10">Simulacros (Resultados)</label>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -199,6 +203,7 @@
                                     <button type="button" onclick="$.Restablecer();" class="btn btn-danger">Restablecer
                                         <i class="fa fa-refresh position-right"></i></button>
                                 </div>
+                            </div>    
                         </form>
                     </div>
                 </div>
@@ -287,7 +292,6 @@
 
                     form.append("<input type='hidden' id='idtoken' name='_token'  value='" + token +
                         "'>");
-                        
 
                     $.ajax({
                         type: "POST",
@@ -312,8 +316,6 @@
                             }
                         }
                     });
-
-
 
                 },
                 CargarInform: function() {

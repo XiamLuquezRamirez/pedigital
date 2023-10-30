@@ -56,4 +56,10 @@ class RespMultPregMEPruebaSimulacro extends Model
         return $RespPreg;
     }
 
+    public static function VaciarRegistros()
+    {
+        $Respuesta = RespMultPregMEPruebaSimulacro::truncate();
+        return $Respuesta;
+    }
+
 }

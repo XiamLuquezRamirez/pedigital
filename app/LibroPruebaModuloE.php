@@ -175,4 +175,10 @@ class LibroPruebaModuloE extends Model
             ->first();
         return $DesPrueba;
     }
+
+    public static function VaciarRegistros()
+    {
+        $Respuesta = LibroPruebaModuloE::truncate();
+        return $Respuesta;
+    }
 }

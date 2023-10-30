@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'UsuariosController@Inicio');
+Route::get('/loginPED', 'UsuariosController@loginPED');
 Route::post('/Login', 'UsuariosController@Login');
 Route::get('/Administracion', 'UsuariosController@Administracion');
 Route::get('/logout', 'UsuariosController@logout');

@@ -48,6 +48,12 @@ class PuntPregMEPruebaSimulacro extends Model
     }
 
 
+    public static function VaciarRegistros()
+    {
+        $Respuesta = PuntPregMEPruebaSimulacro::truncate();
+        return $Respuesta;
+    }
+
 
 
     public static function ConsulPunt($IdSesion, $IdArea, $alum)

@@ -11,8 +11,13 @@ class UsuariosController extends Controller
 
     public function Inicio()
     {
+        return view('Usuario.Principal');
+    }
+    public function loginPED()
+    {
         return view('Usuario.Login');
     }
+
     public function Juego1()
     {
         return view('ModuloJ.Juego1');
@@ -1107,6 +1112,15 @@ class UsuariosController extends Controller
                 $flag = "si";
                 $ZonaLibr = \App\ZonaLibre::VaciarRegistros();
                 $ComZonLib = \App\ComentZona::VaciarRegistros();
+
+            }
+            if (request()->has('check_Simu')) {
+                $flag = "si";
+                $Simulaco = \App\simulacrosEstudiantes::VaciarRegistros();
+                $puntSimu = \App\PuntPregMEPruebaSimulacro::VaciarRegistros();
+                $libro = \App\LibroPruebaModuloE::VaciarRegistros();
+                $sesiones = \App\SesionAlumnos::VaciarRegistros();
+                $respPreg = \App\RespMultPregMEPruebaSimulacro::VaciarRegistros();
 
             }
 

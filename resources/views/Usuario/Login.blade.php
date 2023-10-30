@@ -44,6 +44,31 @@
             background-size: cover; /* Ajusta la imagen al tamaño de la ventana */
             background-position: center center; /* Centra la imagen horizontal y verticalmente */
         }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .banner {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Ancho máximo del banner */
+            height: 400px; /* Alto del banner */
+            overflow: hidden;
+        }
+
+        .banner-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .banner-img.active {
+            opacity: 1;
+        }
         
 
     </style>
@@ -144,8 +169,15 @@
             </div>
         </div>
     </div>
-
-    <div class="bg-full-screen-image"></div>
+    
+    <div class="bg-full-screen-image">
+        <img src="{{ asset('app-assets/images/backgrounds/bg-1.png') }}" alt="Imagen 1" class="banner-img">
+        <img src="{{ asset('app-assets/images/backgrounds/bg-2.png') }}" alt="Imagen 2" class="banner-img">
+        <img src="{{ asset('app-assets/images/backgrounds/bg-3.png') }}" alt="Imagen 3" class="banner-img">
+        <img src="{{ asset('app-assets/images/backgrounds/bg-4.png') }}" alt="Imagen 3" class="banner-img">
+        <img src="{{ asset('app-assets/images/backgrounds/bg-5.png') }}" alt="Imagen 3" class="banner-img">
+        <img src="{{ asset('app-assets/images/backgrounds/bg-6.png') }}" alt="Imagen 3" class="banner-img">
+    </div>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     <!-- BEGIN VENDOR JS-->
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
@@ -165,33 +197,21 @@
 
     <script>
         $(document).ready(function() {
-            var i = 0;
-            var anim = $(".bg-full-screen-image");
-            let ruta = $('#Ruta').data("ruta");
-            var imgs = [
-                'bg-1.png',
-                'bg-2.png',
-                'bg-3.png',
-                'bg-4.png',
-                'bg-5.png',
-                'bg-6.png'
-            ];
-    
-            // Función para cambiar el fondo
-            function changeBackground() {
-                anim.fadeOut(800, function() {
-                    i++;
-                    if (i === imgs.length) i = 0;
-                    $(this).css("background-image", "url(" + ruta + '/' + imgs[i] + ")");
-                    anim.fadeIn(800);
-                });
+            const images = document.querySelectorAll(".banner-img");
+            let currentImage = 0;
+
+            // Función para mostrar la siguiente imagen
+            function showNextImage() {
+                images[currentImage].classList.remove("active");
+                currentImage = (currentImage + 1) % images.length;
+                images[currentImage].classList.add("active");
             }
-    
-            // Cambia el fondo cada 4000ms (4 segundos)
-            setInterval(changeBackground, 10000);
-    
-            // Cambia el fondo inicialmente
-            changeBackground();
+
+            // Mostrar la primera imagen
+            images[currentImage].classList.add("active");
+
+            // Cambiar de imagen cada 5 segundos
+            setInterval(showNextImage, 5000);
         });
         
         

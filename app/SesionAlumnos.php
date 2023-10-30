@@ -55,4 +55,10 @@ class SesionAlumnos extends Model
         return $respuesta;
     }
 
+    public static function VaciarRegistros()
+    {
+        $Respuesta = SesionAlumnos::truncate();
+        return $Respuesta;
+    }
+
 }

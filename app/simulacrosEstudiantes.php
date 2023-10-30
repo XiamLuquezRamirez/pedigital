@@ -31,5 +31,11 @@ class simulacrosEstudiantes extends Model
         ]);
     }
 
+    public static function VaciarRegistros()
+    {
+        $Respuesta = simulacrosEstudiantes::truncate();
+        return $Respuesta;
+    }
+
 
 }
