@@ -1997,6 +1997,7 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
             $Respuesta = \App\RespMultPregMEPruebaSimulacro::Guardar($datos, $fecha);
 
             $Sesiones = \App\sesiones::Guardar(Auth::user()->id);
+          
 
             if ($datos['PosPreg'] === "Ultima") {
                 $LibroCalif = \App\LibroPruebaModuloE::Guardar($datos, $Respuesta['RegViejo'], $Respuesta['RegNuevo'], $fecha);
@@ -3151,10 +3152,7 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
             $flagt = "1";
 
             $DetaSesion = \App\SesionAlumnos::Editar($datos);
-
             $DetaSesion = \App\SesionAlumnos::ConsultarTodo($datos);
-
-
 
             foreach ($DetaSesion as $ses) {
                 if ($ses->estado != "FINALIZADA") {
@@ -3166,7 +3164,7 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
                 $Simula = \App\simulacrosEstudiantes::guardar($datos);
             }
 
-            //   $areaSesion = \App\SesionAlumnos::Guardar($datos);
+               //$areaSesion = \App\SesionAlumnos::Guardar($datos);
             if (request()->ajax()) {
                 return response()->json([
                     'DetaSesion' => $DetaSesion,
@@ -4406,11 +4404,10 @@ $select_compo = mb_convert_encoding($select_compo, 'UTF-8', 'UTF-8');
                 $rowDataCompe = ['nombre' => $estudent->nalumno]; // Crear una fila para cada estudiante
                 foreach ($detCompe as $det) {
                     $PuntEstuComp = \App\PuntPregMEPruebaSimulacro::puntCompEst($idSimu, $det->competencia, $estudent->estudiante);
-
                     // Asignar el puntaje a la competencia correspondiente en la fila
                     $rowDataCompe[$det->nombre] = isset($PuntEstuComp[0]) ? $PuntEstuComp[0]->puntos : 0;
                 }
-
+             
                 $dataPuntCompe[] = $rowDataCompe;
 
                 ////llenar componentes

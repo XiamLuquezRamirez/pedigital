@@ -1036,6 +1036,7 @@
                             pregCompo = respuesta.detCompo;
                             dataCompe = respuesta.dataPuntCompe;
                             dataCompo = respuesta.dataPuntCompo;
+                            console.log(dataCompo);
                             nEstudiantes = respuesta.numeroEstudiantes;
                         }
                     });
@@ -1159,8 +1160,7 @@
                     series.dataFields.value = "npreg";
                     series.dataFields.category = "nombre";
                     // Ajustar los labels para que se muestren completos
-                    series.labels.template.padding(0, 0, 0,
-                        0); // Ajustar el padding alrededor del label
+                    series.labels.template.padding(0, 0, 0, 0); // Ajustar el padding alrededor del label
                     series.labels.template.maxWidth = 200; // Establecer el ancho máximo del label
                     series.labels.template.maxHeight = 50; // Establecer la altura máxima del label
                     series.labels.template.wrap =
@@ -1258,6 +1258,7 @@
 
                     // Obtener los 5 menores puntajes
                     dataCompe = dataCompe.slice(0, 5);
+                    console.log(dataCompe);
 
                     // Imprimir los 5 menores puntajes
                     // Llamada a la función para obtener las calificaciones de todas las competencias
@@ -1597,7 +1598,7 @@
                     } else {
                         swal.fire({
                             title: "Adminitrar Estudiantes",
-                            text: "Debe Seleccionar almenos un Estdiante",
+                            text: "Debe Seleccionar almenos un Estudiante",
                             icon: "warning",
                             button: "Aceptar",
                         });
@@ -1725,7 +1726,6 @@
                         margin: [0, 5, 0, 0]
                     });
 
-
                     const [imgPunt, imgComp, imgTiempo] = await Promise.all([
                         chartPunt.exporting.getImage('png'),
                         chartComp.exporting.getImage('png'),
@@ -1738,7 +1738,6 @@
                         alignment: 'center',
                         width: 300
                     });
-
 
                     infArea.content.push({
                         text: "Comparativa estandar Nacional",
@@ -1800,7 +1799,6 @@
                         bold: true,
                         margin: [0, 10, 0, 0]
                     });
-
 
                     const idAreasUnicos = [...new Set(allPuntaje.map(d => d.idarea))];
                     const resultadosPorIdArea = idAreasUnicos.map(idarea => {
@@ -2421,9 +2419,10 @@
                 }), {})
             }));
         }
-        // Función para obtener un arreglo con las calificaciones de una componentes específica
+        // Función para obtener un arreglo con las calificaciones de un componente específico
         function obtenerCalificacionesCompo() {
             const componentes = Object.keys(dataCompo[0]).filter(key => key !== "nombre");
+            
             return dataCompo.map(estudiante => ({
                 name: estudiante.nombre,
                 ...componentes.reduce((acc, comp) => ({

@@ -35,6 +35,7 @@ class BancoPregModuloE extends Model
                     ->where('preguntas_me.componente', $Comp)
                     ->select("banco_preg_me.*", "asignaturas_mode.nombre", "asignaturas_mode.grado")
                     ->groupBy("banco_preg_me.id")
+                    ->orderBy('banco_preg_me.id', 'DESC')
                     ->limit($limit)->offset($offset);
 
             } else {
@@ -42,13 +43,15 @@ class BancoPregModuloE extends Model
                     ->where('banco_preg_me.estado', 'ACTIVO')
                     ->where('banco_preg_me.asignatura', $busqueda)
                     ->select("banco_preg_me.*", "asignaturas_mode.nombre", "asignaturas_mode.grado")
-                    ->limit($limit)->offset($offset);
+                    ->orderBy('banco_preg_me.id', 'DESC')
+                      ->orderBy('banco_preg_me', 'DESC')->limit($limit)->offset($offset);
             }
 
         } else {
             $respuesta = BancoPregModuloE::leftJoin('asignaturas_mode', 'asignaturas_mode.id', '=', 'banco_preg_me.asignatura')
                 ->where('banco_preg_me.estado', 'ACTIVO')
                 ->select("banco_preg_me.*", "asignaturas_mode.nombre", "asignaturas_mode.grado")
+                ->orderBy('banco_preg_me.id', 'DESC')
                 ->limit($limit)->offset($offset);
 
         }

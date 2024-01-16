@@ -22,7 +22,7 @@ class PuntPregMEPruebaSimulacro extends Model
         'simulacro'
     ];
 
-    public static function Guardar($IdSesion, $IdArea, $preg, $puntos,$parte,$compe,$compo)
+    public static function Guardar($IdSesion, $IdArea, $preg, $puntos,$parte,$compe,$compo,$simu)
     {
 
         $Opc = PuntPregMEPruebaSimulacro::where('pregunta', $preg)
@@ -42,7 +42,8 @@ class PuntPregMEPruebaSimulacro extends Model
             'puntos' => $puntos,
             'parte' => $parte,
             'competencia' => $compe,
-            'componente' => $compo
+            'componente' => $compo,
+            'simulacro' => $simu
         ]);
 
     }

@@ -274,7 +274,7 @@ class UsuariosController extends Controller
 
         } else {
             $error = "Usuario ó Contraseña Inconrrecta";
-            return redirect('/')->with('error', $error);
+            return redirect('/loginPED')->with('error', $error);
         }
     }
 

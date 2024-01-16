@@ -55,7 +55,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 80%;">
                         <div class="row" id="Div_RowTemasDet">
 
                         </div>
@@ -64,7 +64,7 @@
                         </div>
 
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" style="z-index: 2;">
                         <button type="button" id="btn_Practica" onclick="$.AbrirListPractica();" style="display: none;"
                             class="btn grey btn-outline-primary"><i class="ft-list"></i>
                             Practica</button>
@@ -505,20 +505,20 @@
                             contenido += '</div>';
 
                             contenido += '<div class="col-lg-10 col-md-10">' +
-                                '  <div class="card">' +
-                                '    <div class="card-content">' +
+              
+                                
                                 '      <div  id="div_img"  data-archivo="' +
                                 respuesta.TemasDet.imagen +
-                                '" style="cursor: pointer; text-align: center; height: 500px; overflow: scroll;" class="card-body">' +
+                                '" style="z-index: 1; padding-top:0px; cursor: pointer; text-align: center; height: calc(100% - 150px); overflow: scroll;" class="card-body">' +
                                 '   <figure  class="col-lg-12 col-md-6 col-12 zoom " id="ex3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">' +
-                                ' <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails"> <img class="img-thumbnail img-fluid" style="height: 450px; " src="' +
+                                ' <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails"> <img class="img-thumbnail img-fluid" style="width: 100%;" src="' +
                                 $('#Ruta').data("ruta") + '/images/Imagen_Tema_ModuloE/' +
                                 respuesta.primeImg + '"' +
                                 '  itemprop="thumbnail" alt="Image descripción" /></div>' +
 
                                 '   </figure>' +
-                                '  </div>' +
-                                '  </div>' +
+                               
+                                
                                 ' </div>' +
                                 '   </div>';
 

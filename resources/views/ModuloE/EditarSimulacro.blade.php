@@ -2712,6 +2712,7 @@
 
                             $("#gtotal").html(ToporcV);
                             $("#Tot_Porc").val(ToporcV);
+                            $("#GuarCofCompe").hide();
 
 
                             ////Borrar preguntas generadas

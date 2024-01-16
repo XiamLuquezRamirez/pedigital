@@ -1873,7 +1873,7 @@ class AsignaturaController extends Controller
             } else {
                 $respuesta = \App\EvalPregDidact::EliminarVideo($id);
                 if ($respuesta) {
-                    $respuesta = \App\Evaluacion::editarvideo($id, "NO");
+                    $respuesta = \App\Evaluacion::editarvideo($idEval, "NO");
                 }
             }
             $calxdoc = "NO";

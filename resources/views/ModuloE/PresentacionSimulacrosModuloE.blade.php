@@ -1556,6 +1556,8 @@
 
                             var id = 1;
 
+                            localStorage.clear();
+
                             $.each(respuesta.Sesiones, function(i, item) {
 
                                 if (item.habilitado == 1) {
@@ -1573,9 +1575,6 @@
                                     var cursor = "not-allowed";
 
                                 }
-
-
-
                                 var areas = [];
                                 $.each(item.AreasxSesiones, function(j, item2) {
                                     areas.push(item2.nombre_area)
@@ -1633,7 +1632,7 @@
                 },
                 MostrarAreas: function(id) {
 
-
+                   
                     if (localStorage.getItem('sesionIniciada')) {
                         localStorage.setItem('sesionIniciada', 'Si');
                     } else {
@@ -2076,7 +2075,6 @@
 
                             ////INICIO DE TIEMPO
 
-
                             if (sesionIni == "No") {
 
                                 mensaje = "Esta Sesión Cuenta con un Tiempo de " + Tiempo +
@@ -2093,7 +2091,6 @@
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                        
-
                                         var form = $("#formAuxiliarGuardarInicioSesion");
                                         $("#idSes").remove();
                                         $("#idSimula").remove();

@@ -190,8 +190,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <div class="row" id="Div_RowTemasDet" ">
+                    <div class="modal-body" style="max-height: 70%;">
+                        <div class="row" id="Div_RowTemasDet">
 
                         </div>
                         <div class="row" style="display: none;" id="Div_RowPracticas">
@@ -722,7 +722,7 @@
 
                             contenido += '<div class="col-lg-12 col-md-12" > ' +
                                 '  <div class="card">' +
-                                '    <div class="card-content" style="height: 390px; overflow: auto;">' +
+                                '    <div class="card-content" style=" height: calc(100% - 20px); overflow: auto;">' +
                                 '      <div class="card-body" >' +
                                 respuesta.TemasDet.contenido +
                                 '  </div>' +
@@ -794,9 +794,9 @@
                                
                                 '      <div  id="div_img"  data-archivo="' +
                                 respuesta.TemasDet.imagen +
-                                '" style="cursor: pointer; text-align: center; width:100%; height: 400px; overflow: scroll;" class="card-body">' +
+                                '" style="cursor: pointer; text-align: center; width:100%;  height: calc(100% - 20px); overflow: scroll;" class="card-body">' +
                                 '   <figure  class="col-lg-12 col-md-6 col-12 zoom " id="ex3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">' +
-                                ' <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails"> <img class="img-thumbnail img-fluid" style="height: 500px; " src="' +
+                                ' <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails"> <img class="img-thumbnail img-fluid" style=" height: calc(100% - 20px); " src="' +
                                 $('#Ruta').data("ruta") + '/images/Imagen_Tema_ModuloE/' +
                                 respuesta.primeImg + '"' +
                                 '  itemprop="thumbnail" alt="Image descripción" /></div>' +
@@ -827,7 +827,7 @@
 
                     $("#div_img").html(
                         '<figure  class="col-lg-12 col-md-6 col-12 zoom " id="ex3"  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">' +
-                        '  <img class="img-thumbnail img-fluid" style="height: 450px; " src="' + $(
+                        '  <img class="img-thumbnail img-fluid" style=" height: calc(100% - 20px); " src="' + $(
                             '#Ruta').data("ruta") +
                         '/images/Imagen_Tema_ModuloE/' + $('#' + id).data("archivo") + '"' +
                         '  itemprop="thumbnail" alt="Imagen Descripción" />' +

@@ -104,11 +104,11 @@
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <button type="button" onclick="$.VerFotEst();"
                                                     class="btn btn-success"><i class="fa fa-search"></i> Ver
-                                                    Foto</button>
+                                                    escudo</button>
 
                                                 <button type="button" onclick="$.CambFotEst();"
                                                     class="btn btn-warning"><i class="fa fa-refresh"></i> Cambiar
-                                                    Foto</button>
+                                                    escudo</button>
                                             </div>
                                         </div>
 
