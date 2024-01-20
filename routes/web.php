@@ -524,6 +524,7 @@ Route::post('/ModuloE/CargaPregCompexCompo', 'ModuloEController@CargaPregCompexC
 Route::post('/ModuloE/PreguntasxBanco', 'ModuloEController@PreguntasxBanco');
 Route::post('/ModuloE/changeEstadoSesion', 'ModuloEController@changeEstadoSesion');
 Route::post('/ModuloE/guadarInicioSesion', 'ModuloEController@guadarInicioSesion');
+Route::post('/ModuloE/ConsultarSimulacrosResul', 'ModuloEController@ConsultarSimulacrosResul');
 
 ///INFORMNE DE SIMULACROS
 Route::get('/ModuloE/gestionInfSimulacros', 'ModuloEController@gestionInfSimulacros');
@@ -532,6 +533,7 @@ Route::post('/ModuloE/CargaEstxSimulacro', 'ModuloEController@CargaEstxSimulacro
 Route::post('/ModuloE/InfIndividual', 'ModuloEController@InfIndividual');
 Route::post('/ModuloE/informeArea',  'ModuloEController@informeArea');
 Route::post('/ModuloE/informeComp',  'ModuloEController@informeComp');
+Route::post('/ModuloE/descargaSimulacro',  'ModuloEController@descargaSimulacro');
 
 
 ////Áreas

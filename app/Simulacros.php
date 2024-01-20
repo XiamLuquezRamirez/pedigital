@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class Simulacros extends Model
 {
@@ -92,6 +92,17 @@ class Simulacros extends Model
         return Simulacros::leftJoin("simulacro_estudiante","simulacro_estudiante.simulacro","simulacros.id")
         ->select("simulacros.*","simulacro_estudiante.estado")
         ->first();
+    }
+    public static function resultadoSimulacro()
+    {
+        DB::connection('mysql')->statement("SET lc_time_names = 'es_ES'");
+
+        $simulacros = DB::connection('mysql')
+            ->select("SELECT simu.id, simu.nombre, DATE_FORMAT(simu.fecha, '%d de %M de %Y') AS fecha_formateada
+                       FROM simulacro_estudiante es
+                       LEFT JOIN simulacros simu ON es.simulacro = simu.id
+                       WHERE es.estado = 'TERMINADO' and es.estudiante =".Auth::user()->id);
+        return $simulacros;
     }
 
     public static function editarestado($id, $estado)

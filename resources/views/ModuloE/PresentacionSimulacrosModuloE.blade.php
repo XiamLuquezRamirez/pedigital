@@ -59,9 +59,37 @@
 
 
         <div class="class pt-0" style="display: none;" id="Div_Simulacros">
-            <div class="card-body" id="Simulacros">
+            <div class="card-body">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="baseIcon-tab1" data-toggle="tab" aria-controls="tabIcon1"
+                            href="#tabIcon1" aria-expanded="true"><i class="fa fa-pencil-square-o"></i> Simuclacros
+                            activos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="baseIcon-tab2" data-toggle="tab" aria-controls="tabIcon2"
+                            href="#tabIcon2" aria-expanded="false"><i class="fa fa-wpforms"></i> Resultado de
+                            simulacros</a>
+                    </li>
 
+
+                </ul>
+                <div class="tab-content px-1 pt-1">
+                    <div role="tabpanel" class="tab-pane active" id="tabIcon1" aria-expanded="true"
+                        aria-labelledby="baseIcon-tab1">
+                        <div class="card-body" id="Simulacros">
+
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tabIcon2" aria-labelledby="baseIcon-tab2">
+                        <div class="card-body" id="SimulacrosResultados">
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
 
             <div class="modal-footer">
                 <button type="button" id="btn_atras" onclick="$.mostPrincipal();"
@@ -173,8 +201,6 @@
                     class="btn grey btn-outline-secondary"><i class="ft-corner-up-left position-right"></i>
                     Atras</button>
             </div>
-
-
         </div>
         <div id="Div_PruebaInf" style="display: none;" class="class">
             <div class="row">
@@ -443,6 +469,9 @@
 
     {!! Form::open(['url' => '/ModuloE/ConsultarSimulacros', 'id' => 'formAuxiliarSimulacros']) !!}
     {!! Form::close() !!}
+   
+    {!! Form::open(['url' => '/ModuloE/ConsultarSimulacrosResul', 'id' => 'formAuxiliarSimulacrosResul']) !!}
+    {!! Form::close() !!}
 
     {!! Form::open(['url' => '/ModuloE/ConsultarSesiones', 'id' => 'formAuxiliarSesiones']) !!}
     {!! Form::close() !!}
@@ -469,6 +498,9 @@
     {!! Form::close() !!}
 
     {!! Form::open(['url' => '/ModuloE/guadarInicioSesion', 'id' => 'formAuxiliarGuardarInicioSesion']) !!}
+    {!! Form::close() !!}
+
+    {!! Form::open(['url' => '/ModuloE/descargaSimulacro', 'id' => 'FormDescargaSimuEstudiante']) !!}
     {!! Form::close() !!}
 
 
@@ -918,8 +950,10 @@
                             $("#idSes").remove();
                             $("#idSimula").remove();
 
-                            form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion + "'>");
-                            form.append("<input type='hidden' name='idSimula' id='idSimula' value='" + idSimu + "'>");
+                            form.append("<input type='hidden' name='idSes' id='idSes' value='" +
+                                idSesion + "'>");
+                            form.append("<input type='hidden' name='idSimula' id='idSimula' value='" +
+                                idSimu + "'>");
                             var url = form.attr("action");
                             var datos = form.serialize();
 
@@ -1086,7 +1120,8 @@
                         "'>");
                     form.append("<input type='hidden' name='partePreg' id='partePreg' value='" + parte +
                         "'>");
-                    form.append("<input type='hidden' name='sesionId' id='sesionId' value='" + sesion_id +
+                    form.append("<input type='hidden' name='sesionId' id='sesionId' value='" +
+                        sesion_id +
                         "'>");
 
                     var url = form.attr("action");
@@ -1114,7 +1149,7 @@
                             if (parte == "PARTE 1") {
 
                                 const itemsOpciones = respuesta.OpciMult.split(",");
-                                opciones +='<div class="skin skin-flat">';
+                                opciones += '<div class="skin skin-flat">';
                                 opciones += '<fieldset>';
                                 //custom-control-input bg-succes
                                 for (let i = 0; i < itemsOpciones.length; i++) {
@@ -1174,7 +1209,7 @@
                                 opciones += ' </fieldset>';
                                 opciones += ' </div>';
                             } else {
-                                opciones +='<div class="skin skin-flat">';
+                                opciones += '<div class="skin skin-flat">';
                                 $.each(respuesta.OpciMult, function(k, itemo) {
 
                                     if ($.trim(itemo.pregunta) === $.trim(respuesta
@@ -1243,7 +1278,7 @@
                                     }
 
                                 });
-                                opciones +='</div>';
+                                opciones += '</div>';
                             }
 
                             var compexcomp = '';
@@ -1337,7 +1372,8 @@
                         "'>");
                     form.append("<input type='hidden' name='Tiempo' id='Tiempo' value='" + tiempo +
                         "'>");
-                    form.append("<input type='hidden' name='TiempoxSesion' id='TiempoxSesion' value='" + tiempoTranscurrido +
+                    form.append("<input type='hidden' name='TiempoxSesion' id='TiempoxSesion' value='" +
+                        tiempoTranscurrido +
                         "'>");
                     form.append("<input type='hidden' name='prgAct' id='prgAct' value='" + prgAct +
                         "'>");
@@ -1469,6 +1505,84 @@
 
                     $("#Div_Principal").hide();
                     $("#Div_Simulacros").show();
+                   
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: datos,
+                        dataType: "json",
+                        async: false,
+                        success: function(respuesta) {
+                            if (respuesta.Simualacros.length > 0) {
+                                $.each(respuesta.Simualacros, function(i, item) {
+
+                                    if (item.estado_pres === "NO PRESENTADO") {
+                                        var bs_callout = "bs-callout-info";
+                                        var bg = "bg-info";
+                                        var ico = "fa fa-info";
+
+                                    } else {
+
+                                        var bs_callout = "bs-callout-success";
+                                        var bg = "bg-success";
+                                        var ico = "fa fa-check";
+
+                                    }
+                                    var npreg = 0;
+                                    var n_sesiones = 0;
+                                    $.each(item.SesionesxSimulacro, function(j,
+                                        item2) {
+                                        npreg = npreg + item2.num_preguntas;
+                                        n_sesiones++;
+
+                                    });
+
+                                    contenido +=
+                                        '<div  style="cursor: pointer;" onclick="$.MostrarSesiones(' +
+                                        item.id + ');" class="' + bs_callout +
+                                        ' callout-bordered pt-0"> ' +
+                                        '    <div class="media align-items-stretch"> ' +
+                                        '      <div class="media-body p-1"> ' +
+                                        '     <strong style="font-size:25px;">' +
+                                        item
+                                        .nombre + '</strong> ' +
+                                        ' <p style="font-style: italic;"><b>Sesiones:</b> ' +
+                                        n_sesiones +
+                                        ' <b> - No. Preguntas:</b>' + npreg +
+                                        '</p> ' +
+                                        ' </div> ' +
+                                        ' <div class="d-flex align-items-center ' +
+                                        bg +
+                                        ' p-2"> ' +
+                                        '  <i class="fa ' + ico +
+                                        ' white font-medium-5"></i> ' +
+                                        '  </div> ' +
+                                        '  </div> ' +
+                                        ' </div> ';
+
+                                });
+                            } else {
+                                
+                                contenido += '<div style="text-align: center;"><h4>NO EXISTE SIMULACROS PROGRAMADO PARA ESTE DÍA</h4></div>';
+
+                            }
+                        }
+                    });
+                  
+                    $("#Simulacros").html(contenido);
+
+                },
+                MostrarSimulacrosResultado: function() {
+                    var form = $("#formAuxiliarSimulacrosResul");
+                    var url = form.attr("action");
+                    var datos = form.serialize();
+                    var contenido = '';
+                    $("#Titulo").html('SIMULACROS - MÓDULO E');
+                    $("#li_simulacro").html("TABLERO MÓDULO E");
+                    $("#li_cursos").html("SIMULACROS");
+
+                    $("#Div_Principal").hide();
+                    $("#Div_Simulacros").show();
 
                     $.ajax({
                         type: "POST",
@@ -1477,56 +1591,91 @@
                         dataType: "json",
                         async: false,
                         success: function(respuesta) {
+                            if (respuesta.SimualacrosResul.length > 0) {
+                                $.each(respuesta.SimualacrosResul, function(i, item) {
 
-                            $.each(respuesta.Simualacros, function(i, item) {
+                                    
+                                        var bs_callout = "bs-callout-success";
+                                        var bg = "bg-success";
+                                        var ico = "fa fa-download";
 
-                                if (item.estado_pres === "NO PRESENTADO") {
-                                    var bs_callout = "bs-callout-info";
-                                    var bg = "bg-info";
-                                    var ico = "fa fa-info";
-
-                                } else {
-
-                                    var bs_callout = "bs-callout-success";
-                                    var bg = "bg-success";
-                                    var ico = "fa fa-check";
-
-                                }
-                                var npreg = 0;
-                                var n_sesiones = 0;
-                                $.each(item.SesionesxSimulacro, function(j, item2) {
-                                    npreg = npreg + item2.num_preguntas;
-                                    n_sesiones++;
+                                  
+                                    contenido +=
+                                        '<div  style="cursor: pointer;" onclick="$.descargarResultado(' +
+                                        item.id + ');" class="' + bs_callout +
+                                        ' callout-bordered pt-0"> ' +
+                                        '    <div class="media align-items-stretch"> ' +
+                                        '      <div class="media-body p-1"> ' +
+                                        '     <strong style="font-size:25px;">' +
+                                        item
+                                        .nombre + '</strong> ' +
+                                        ' <p style="font-style: italic;"><b>Fecha de presentación:</b> ' +
+                                            item.fecha_formateada +
+                                        '</p> ' +
+                                        ' </div> ' +
+                                        ' <div class="d-flex align-items-center ' +
+                                        bg +
+                                        ' p-2"> ' +
+                                        '  <i class="fa ' + ico +
+                                        ' white font-medium-5"></i> ' +
+                                        '  </div> ' +
+                                        '  </div> ' +
+                                        ' </div> ';
 
                                 });
+                            } else {
+                                contenido += '<div style="text-align: center;"><h4>NO SE HA DESARROLLADO NINGUN SIMULACRO</h4></div>';
 
-                                contenido +=
-                                    '<div  style="cursor: pointer;" onclick="$.MostrarSesiones(' +
-                                    item.id + ');" class="' + bs_callout +
-                                    ' callout-bordered pt-0"> ' +
-                                    '    <div class="media align-items-stretch"> ' +
-                                    '      <div class="media-body p-1"> ' +
-                                    '     <strong style="font-size:25px;">' + item
-                                    .nombre + '</strong> ' +
-                                    ' <p style="font-style: italic;"><b>Sesiones:</b> ' +
-                                    n_sesiones +
-                                    ' <b> - No. Preguntas:</b>' + npreg + '</p> ' +
-                                    ' </div> ' +
-                                    ' <div class="d-flex align-items-center ' + bg +
-                                    ' p-2"> ' +
-                                    '  <i class="fa ' + ico +
-                                    ' white font-medium-5"></i> ' +
-                                    '  </div> ' +
-                                    '  </div> ' +
-                                    ' </div> ';
-
-                            });
-
-
+                            }
                         }
                     });
 
-                    $("#Simulacros").html(contenido);
+                    console.log(contenido);
+                  
+                    $("#SimulacrosResultados").html(contenido);
+
+                },
+                descargarResultado: function (simu) {
+
+                    Swal.fire({
+                        title: 'Espere Por Favor',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        background: '#FFFFFF',
+                        showConfirmButton: false,
+                        onOpen: () => {
+                            Swal.showLoading();
+                        }
+                    })
+
+                    var form = $("#FormDescargaSimuEstudiante");
+                    $("#simulacro").remove();
+                    form.append("<input type='hidden' name='simulacro' id='simulacro' value='" +
+                    simu + "'>");
+                 
+
+                    var url = form.attr("action");
+                    var datos = form.serialize();
+                    var mensaje = "";
+
+                    $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: datos,
+                        xhrFields: {
+                            responseType: 'blob'
+                        },
+                        success: function(data) {
+                            Swal.close(); 
+                            // Crear un enlace de descarga para el PDF
+                            var a = document.createElement('a');
+                            var url = window.URL.createObjectURL(data);
+                            a.href = url;
+                            a.download = 'ResultadoIndividual.pdf';
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                        }
+                    });
 
                 },
                 MostrarSesiones: function(id) {
@@ -1580,18 +1729,18 @@
                                     areas.push(item2.nombre_area)
                                 });
 
-                                var estado="";
-                                var colorEst="";
+                                var estado = "";
+                                var colorEst = "";
 
-                                if(item.estado=="FINALIZADA"){
-                                    estado="FINALIZADA";
-                                    colorEst="#16D39A";
-                                }else if(item.estado=="INICIADA"){
-                                    estado="INICIADA";
-                                    colorEst="#2DCEE3";
-                                }else{
-                                    estado="PENDIENTE";
-                                    colorEst="#FF7588";
+                                if (item.estado == "FINALIZADA") {
+                                    estado = "FINALIZADA";
+                                    colorEst = "#16D39A";
+                                } else if (item.estado == "INICIADA") {
+                                    estado = "INICIADA";
+                                    colorEst = "#2DCEE3";
+                                } else {
+                                    estado = "PENDIENTE";
+                                    colorEst = "#FF7588";
                                 }
 
                                 contenido +=
@@ -1610,7 +1759,9 @@
                                     ' <p style="font-style: italic;"><b>Áreas: </b> ' +
                                     areas.toString() +
                                     ' <b> - No. Preguntas: </b>' + item
-                                    .num_preguntas + ' <b> - Estado:</b> <label style="color: '+colorEst+';">'+estado+'</label></p> ' +
+                                    .num_preguntas +
+                                    ' <b> - Estado:</b> <label style="color: ' +
+                                    colorEst + ';">' + estado + '</label></p> ' +
                                     ' </div> ' +
                                     ' <div class="d-flex align-items-center ' + bg +
                                     ' p-2"> ' +
@@ -1632,7 +1783,7 @@
                 },
                 MostrarAreas: function(id) {
 
-                   
+
                     if (localStorage.getItem('sesionIniciada')) {
                         localStorage.setItem('sesionIniciada', 'Si');
                     } else {
@@ -1889,7 +2040,7 @@
                     $('#ModPrueba').modal('toggle');
 
                 },
-                actualizarTiempo:function(){
+                actualizarTiempo: function() {
                     tiempoTranscurrido++;
                 },
                 MostrarPrueba: function(id) {
@@ -1916,7 +2067,7 @@
                         return;
                     }
 
-                    
+
 
 
                     $("#idAreaSesion").remove();
@@ -2090,12 +2241,17 @@
                                     cancelButtonText: 'Cancelar'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                       
-                                        var form = $("#formAuxiliarGuardarInicioSesion");
+
+                                        var form = $(
+                                            "#formAuxiliarGuardarInicioSesion");
                                         $("#idSes").remove();
                                         $("#idSimula").remove();
-                                        form.append("<input type='hidden' name='idSes' id='idSes' value='" + idSesion + "'>");
-                                        form.append("<input type='hidden' name='idSimula' id='idSimula' value='" + idSimu + "'>");
+                                        form.append(
+                                            "<input type='hidden' name='idSes' id='idSes' value='" +
+                                            idSesion + "'>");
+                                        form.append(
+                                            "<input type='hidden' name='idSimula' id='idSimula' value='" +
+                                            idSimu + "'>");
 
 
                                         var datos = form.serialize();
@@ -2117,7 +2273,7 @@
 
                                         clearInterval();
                                         localStorage.setItem('sesionIniciada',
-                                        'Si');
+                                            'Si');
                                         var hora = Tiempo;
 
                                         parts = hora.split(':');
@@ -2424,6 +2580,7 @@
             });
 
             $.MostrarSimulacros();
+            $.MostrarSimulacrosResultado();
 
 
         });

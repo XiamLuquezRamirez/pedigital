@@ -354,7 +354,7 @@
                                 $("#btn_reasignar").hide();
                                 swal.fire({
                                     title: "Administrar Temas",
-                                    text: 'No existen Temas para ser Reasignadas',
+                                    text: 'No existen Temas para ser Reasignados',
                                     icon: "warning",
                                     button: "Aceptar",
                                 });

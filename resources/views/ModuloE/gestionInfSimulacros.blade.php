@@ -647,7 +647,6 @@
 
                     }
 
-
                     $("#divResultado").show();
 
                     const estIcfes = document.getElementById("estIcfes");
@@ -665,7 +664,6 @@
                         mayM = "s";
                     } else {
                         mayM = "n";
-
                     }
 
                     ///CONSUTLAR TODO
@@ -708,10 +706,6 @@
                             tiempoSesi = respuesta.Sesion_tiempo;
                         }
                     });
-
-
-
-                    ////////
 
                     //////////INFORME DE PUNTAJE 
 
