@@ -117,8 +117,8 @@ use Illuminate\Support\Facades\Input;
     </div>
     <div class="col-md-12" id='rowtit'>
         <div class="form-group">
-            <label class="form-label" for="titu_contenido">Titulo de Laboratorio:</label>
-            {!! Form::text('titu_contenido', old('titu_contenido', $Tema->titulo), ['class' => 'form-control', 'placeholder' => 'Titulo del Tema', 'disabled' => 'disabled', 'id' => 'titu_contenido']) !!}
+            <label class="form-label" for="titu_contenido">Título de Laboratorio:</label>
+            {!! Form::text('titu_contenido', old('titu_contenido', $Tema->titulo), ['class' => 'form-control', 'placeholder' => 'Título del Tema', 'disabled' => 'disabled', 'id' => 'titu_contenido']) !!}
         </div>
     </div>
 
@@ -130,8 +130,8 @@ use Illuminate\Support\Facades\Input;
         <div class="row">
             <div class="col-md-12" id='rowtit'>
                 <div class="form-group">
-                    <label class="form-label" for="titu_contenido">Titulo de Evaluación:</label>
-                    {!! Form::text('titulo', old('titulo', $Eval->titulo), ['class' => 'form-control', 'placeholder' => 'Titulo de la Evaluación', 'id' => 'titulo']) !!}
+                    <label class="form-label" for="titu_contenido">Título de Evaluación:</label>
+                    {!! Form::text('titulo', old('titulo', $Eval->titulo), ['class' => 'form-control', 'placeholder' => 'Título de la Evaluación', 'id' => 'titulo']) !!}
                 </div>
             </div>
 

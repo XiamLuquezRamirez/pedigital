@@ -62,7 +62,7 @@ use Illuminate\Support\Facades\Input;
             <div class="col-md-10" id='rowtit'>
                 <div class="form-group">
                     <label class="form-label" for="titulo">Título:</label>
-                    {!! Form::text('titulo', old('titulo', $Laboratorio->titulo), ['class' => 'form-control', 'placeholder' => 'Titulo del Laboratorio', 'id' => 'titulo', 'style' => 'text-transform: uppercase']) !!}
+                    {!! Form::text('titulo', old('titulo', $Laboratorio->titulo), ['class' => 'form-control', 'placeholder' => 'Título del Laboratorio', 'id' => 'titulo', 'style' => 'text-transform: uppercase']) !!}
                 </div>
             </div>
 

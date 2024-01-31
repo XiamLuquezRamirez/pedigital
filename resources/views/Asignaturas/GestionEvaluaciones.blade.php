@@ -111,7 +111,7 @@
                                                 <thead class="bg-primary">
                                                     <tr>
                                                         <th>Opciones</th>
-                                                        <th>Titulo</th>
+                                                        <th>Título</th>
                                                         <th>Clasificación</th>
 
                                                     </tr>

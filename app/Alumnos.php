@@ -267,7 +267,8 @@ class Alumnos extends Model
     public static function ConsulExtraEd($data)
     {
 
-        $Resp = Alumnos::selectRaw('grado_alumno,TIMESTAMPDIFF(YEAR, nacimiento_alumno, CURDATE()) AS edad');
+        $Resp = Alumnos::selectRaw('grado_alumno,TIMESTAMPDIFF(YEAR, nacimiento_alumno, CURDATE()) AS edad')
+        ->where('estado_alumno', 'ACTIVO');
         if ($data['idasig'] != null) {
             $Resp = $Resp->where('grado_alumno', $data['idasig']);
         }

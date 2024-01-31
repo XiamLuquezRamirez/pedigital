@@ -127,7 +127,7 @@ use Illuminate\Support\Facades\Input;
             <div class="col-md-12" id='rowtit'>
                 <div class="form-group">
                     <label class="form-label" for="titu_contenido">Título:</label>
-                    {!! Form::text('titu_contenido', old('titu_contenido', $Tema->titu_contenido), ['class' => 'form-control', 'placeholder' => 'Titulo del Tema', 'id' => 'titu_contenido', 'style' => 'text-transform: uppercase']) !!}
+                    {!! Form::text('titu_contenido', old('titu_contenido', $Tema->titu_contenido), ['class' => 'form-control', 'placeholder' => 'Título del Tema', 'id' => 'titu_contenido', 'style' => 'text-transform: uppercase']) !!}
                 </div>
             </div>
             <div class="col-md-3" style="display: none;">

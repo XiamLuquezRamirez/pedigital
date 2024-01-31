@@ -102,10 +102,10 @@ use Illuminate\Support\Facades\Input;
         <div class="row">
             <div class="col-md-12" id='rowtit'>
                 <div class="form-group">
-                    <label class="form-label" for="titu_contenido">Titulo de Evaluación:</label>
+                    <label class="form-label" for="titu_contenido">Título de Evaluación:</label>
                     {!! Form::text('titulo', old('titulo', $Eval->titulo), [
                         'class' => 'form-control',
-                        'placeholder' => 'Titulo de la Evaluación',
+                        'placeholder' => 'Título de la Evaluación',
                         'id' => 'titulo',
                     ]) !!}
                 </div>
