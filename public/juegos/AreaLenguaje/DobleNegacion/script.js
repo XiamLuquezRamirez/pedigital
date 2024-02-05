@@ -7,6 +7,14 @@ var intervalId;
 var elementoSel = null;
 
 function agregarMovimiento(evento, elemento) {
+
+    var divs = $(".wave");
+
+    for (var i = 0; i < divs.length; i++) {
+        var div = divs[i];
+        div.onclick = null;
+    }
+
     elementoSel = elemento;
     objeto.style.height = "40px";
     objeto.style.transition = "top 3s linear, left 3s linear, height 2s ease-in";
@@ -29,9 +37,18 @@ function agregarMovimiento(evento, elemento) {
             objeto.style.top = (objeto.offsetTop + 45) + "px";
             setTimeout(()=>{
                 calificarPregunta();
+
+                for (var i = 0; i < divs.length; i++) {
+                    var div = divs[i];
+                    div.onclick = function(event) {
+                        agregarMovimiento(event, this);
+                    };
+                }
             }, 3000)
         }, 3000)
-    }, 2400)
+    }, 2400);
+
+
 }
 
 let correctas = 0;
@@ -96,7 +113,7 @@ $(document).ready(function () {
                 divAnimado2.style.display = 'block';
                 setTimeout(() => {
                     divAnimado.style.backgroundImage = "url(../../images/normal2.gif)"
-                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te mostraran 5 oraciones de las cuales deberás seleccionar la preposición correspondiente <br> ¡Tú Puedes!', 50, 1);
+                    maquina2("bienvenida", 'Hola, soy Genio. <br> A continuación se te mostraran 5 oraciones de las cuales deberás indicar cuantas veces esta negada la oración y seleccionar la respuesta correcta <br> ¡Tú Puedes!', 50, 1);
                 }, 3000)
             }, 2000)
         })
