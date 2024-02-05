@@ -116,6 +116,7 @@ class Simulacros extends Model
 
     public static function CargarSimulacros(){
         $fecha = date('Y-m-d');
+        
         $respuesta = Simulacros::where('fecha', $fecha)
         ->where("prueba", Auth::user()->grado_usuario)
         ->where('estado','ACTIVO')

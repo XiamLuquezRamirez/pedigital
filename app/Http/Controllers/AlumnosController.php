@@ -322,8 +322,9 @@ class AlumnosController extends Controller
 
             $respuesta = \App\Alumnos::modificar($data, $id);
             if ($respuesta) {
+               
                 $Log = \App\Log::Guardar('Estudiante Modificado', $id);
-                $respuesta = \App\Usuarios::modificarUsuario($data, $Alumnos->usuario_alumno,);
+                $respuesta = \App\Usuarios::modificarUsuario($data, $Alumnos->usuario_alumno);
                 return redirect('/Alumnos/Gestion')->with('success', 'Datos Guardados');
             } else {
                 return redirect('Alumnos/Gestion')->with('error', 'Datos no Guardados');
