@@ -54,9 +54,9 @@
 
             <div class="container__card">
 
-
-
-                <div class="card__father">
+                @foreach ($Permiso as $per)
+                @if ($per->plataf == "PED-KID"  && $per->estado == "ACTIVO")
+                <div class="card__father" id="pedkidCard">
                     <div class="card">
                         <div class="card__front"
                             style="background-image: url({{ asset('app-assets/images/principal/images/portada-pedkid.png') }});">
@@ -77,8 +77,11 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" id="urlPEDKID" value="{{$per->url}}" name="urlPEDKID" />
+                @endif
 
-                <div class="card__father">
+                @if ($per->plataf == "PED"  && $per->estado == "ACTIVO")
+                <div class="card__father" id="pedCard">
                     <div class="card">
                         <div class="card__front"
                             style="background-image: url({{ asset('app-assets/images/principal/images/portada-ped.png') }});">
@@ -97,8 +100,12 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" id="urlPED" value="{{$per->url}}" name="urlPED" />
 
-                <div class="card__father">
+                @endif
+
+                @if ($per->plataf == "etnoPED" && $per->mod_etno == "si" )
+                <div class="card__father" id="etnoPEDCard">
                     <div class="card">
                         <div class="card__front"
                             style="background-image: url({{ asset('app-assets/images/principal/images/portada-etno.png') }});">
@@ -119,10 +126,11 @@
                         </div>
                     </div>
                 </div>
-
+                <input type="hidden" id="urletno" value="{{$per->url}}" name="urletno" />
+                @endif
+                @endforeach
             </div>
             <div class="layout__background"></div>
-
         </div>
 
         <footer class="footer-area">
@@ -140,9 +148,24 @@
             </div>
         </footer>
     </div>
+    <script src="{{ asset('app-assets/js/shortcut.js') }}" type="text/javascript"></script>
 
     <script>
+
+        shortcut.add("Ctrl+A", function() {
+            PEDGITALURL = '{{ url('/loginPED') }}';
+            const nuevaPestana = window.open(PEDGITALURL, '_blank');
+            nuevaPestana.focus();
+        }, {
+            "type": "keydown",
+            "propagate": true,
+            "target": document
+        });
+
+
         document.addEventListener("DOMContentLoaded", function() {
+
+
             const bannerImages = document.querySelectorAll(".banner-image");
             let currentIndex = 0;
 
@@ -162,17 +185,42 @@
 
             showImage(currentIndex);
             setInterval(rotateImages, 10000);
+
+            {{--  // Array de nombres de módulos permitidos
+            const modulosPermitidos = ['ped', 'pedkid', 'etnoPED'];
+
+            // Objeto con permisos de usuario (puedes obtenerlo de tu backend)
+            const permisosUsuario = {
+                ped: true, // Permitido
+                pedkid: false, // No permitido
+                etnoPED: false, // Permitido
+            };
+
+            // Función para habilitar o deshabilitar un módulo
+            function habilitarODeshabilitarModulo(modulo, permitido) {
+                const moduloElement = document.getElementById(`${modulo}Card`);
+                if (moduloElement) {
+                    moduloElement.style.display = permitido ? 'block' : 'none';
+                }
+            }
+
+            // Recorrer el array de módulos y habilitar o deshabilitar según corresponda
+            modulosPermitidos.forEach(modulo => {
+                const permitido = permisosUsuario[modulo] || false;
+                habilitarODeshabilitarModulo(modulo, permitido);
+            });  --}}
+
         });
 
         function abrirYRedireccionar(Opc) {
 
             var PEDGITALURL;
             if (Opc == 1) {
-                PEDGITALURL = 'http://192.168.1.74/PEDIGITAL-KID/public/';
+                PEDGITALURL = document.getElementById('urlPEDKID').value;
             } else if (Opc == 2) {
                 PEDGITALURL = '{{ url('/loginPED') }}';
             } else if (Opc == 3) {
-                PEDGITALURL = 'http://192.168.1.74/EtnoPED/public/';
+                PEDGITALURL = document.getElementById('urletno').value;
             }
 
             const nuevaPestana = window.open(PEDGITALURL, '_blank');

@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-6 col-lg-12">
+                <div class="col-xl-4 col-lg-12">
                     <div class="card">
                         <div class="card-header pb-0">
                             <h4 class="card-title">URL PEDIGITAL:</h4>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-12">
+                <div class="col-xl-4 col-lg-12">
                     <div class="card">
                         <div class="card-header pb-0">
                             <h4 class="card-title">URL PEDIGITAL-KID:</h4>
@@ -63,6 +63,19 @@
                         <div class="card-content">
                             <div class="card-body">
                                 <input type="text" class="form-control" id="url-pedigital-kid" name="url-pedigital-kid"
+                                    value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-12">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <h4 class="card-title">URL EtnoPED:</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                            <input type="text" class="form-control" id="url-pedigital-etno" name="url-pedigital-etno"
                                     value="" />
                             </div>
                         </div>
@@ -174,6 +187,13 @@
                                         <input type="checkbox" class="check_otros" id="check_zp" name="check_otros[]"
                                             value="ModJ">
                                         ZONA PLAY
+                                    </label>
+                                </fieldset>
+                                <fieldset class="right-checkbox">
+                                    <label>
+                                        <input type="checkbox" class="check_otros" id="check_ep" name="check_otros[]"
+                                            value="ModEP">
+                                        EtnoPED
                                     </label>
                                 </fieldset>
 
@@ -311,13 +331,16 @@
                             var Asig = 'no';
                             var Modu = 'no';
                             var play = 'no';
+                            var etno = 'no';
 
 
                             $.each(respuesta.Permiso, function(i, item) {
                                 if (item.plataf === "PED") {
                                     $("#url-pedigital").val(item.url);
-                                } else {
+                                } else if(item.plataf === "PED-KID") {
                                     $("#url-pedigital-kid").val(item.url);
+                                }else{
+                                    $("#url-pedigital-etno").val(item.url);
                                 }
 
                                 Institucion = item.colegio;
@@ -327,21 +350,33 @@
                                 Asig = item.mod_asig;
                                 Modu = item.mod_modu;
                                 play = item.mod_juego;
+                                etno = item.mod_etno;
 
                             });
                             $('#institucion').val(Institucion).trigger('change.select2');
+
                             ModE == "si" ? $("#check_me").prop("checked", true) : $(
                                 "#check_me").prop("checked", false);
+
                             Labo == "si" ? $("#check_la").prop("checked", true) : $(
                                 "#check_la").prop("checked", false);
+                                
                             ZonL == "si" ? $("#check_zl").prop("checked", true) : $(
                                 "#check_zl").prop("checked", false);
+
                             Asig == "si" ? $("#check_Asig").prop("checked", true) : $(
                                 "#check_Asig").prop("checked", false);
+                           
                             Modu == "si" ? $("#check_Modu").prop("checked", true) : $(
                                 "#check_Modu").prop("checked", false);
-                                play == "si" ? $("#check_zp").prop("checked", true) : $(
+                           
+                            play == "si" ? $("#check_zp").prop("checked", true) : $(
                                 "#check_zp").prop("checked", false);
+                           
+                            etno == "si" ? $("#check_ep").prop("checked", true) : $(
+                                "#check_ep").prop("checked", false);
+
+
 
                             var Asignaturas = "";
                             var Modulos = "";

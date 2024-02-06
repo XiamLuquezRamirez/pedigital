@@ -11,7 +11,9 @@ class UsuariosController extends Controller
 
     public function Inicio()
     {
-        return view('Usuario.Principal');
+        $Permiso = \App\ConsUrl::Consultar();
+               
+        return view('Usuario.Principal', compact('Permiso'));
     }
     public function loginPED()
     {

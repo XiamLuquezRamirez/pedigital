@@ -16,6 +16,7 @@ class ConsUrl extends Model
         'mod_labo',
         'mod_entre',
         'mod_juego',
+        'mod_etno',
         'colegio',
 
     ];
@@ -48,6 +49,7 @@ class ConsUrl extends Model
         $ModJ = 'no';
         $Labo = 'no';
         $ZonL = 'no';
+        $EPED = 'no';
 
         if (!empty($data["check_otros"])) {
             foreach ($data["check_otros"] as $key => $val) {
@@ -57,6 +59,7 @@ class ConsUrl extends Model
                 if ($data["check_otros"][$key] == "ModJ") {
                     $ModJ = 'si';
                 }
+                
                 if ($data["check_otros"][$key] == "Labo") {
                     $Labo = 'si';
                 }
@@ -73,11 +76,15 @@ class ConsUrl extends Model
                     $ModT = 'si';
                 }
 
+                if ($data["check_otros"][$key] == "ModEP") {
+                    $EPED = 'si';
+                }
+
 
             }
         }
 
-        $respuesta = ConsUrl::where(['id' => '1'])->update([
+        $respuesta = ConsUrl::where(['id' => '2'])->update([
             'url' => $data['url-pedigital'],
             'mod_asig' => $ModA,
             'mod_modu' => $ModT,
@@ -85,22 +92,35 @@ class ConsUrl extends Model
             'mod_labo' => $Labo,
             'mod_entre' => $ModE,
             'mod_juego' => $ModJ,
+            'mod_etno' => $EPED,
             'colegio' => $data['institucion'],
         ]);
 
-        $respuesta = ConsUrl::where(['id' => '2'])->update([
+        $respuesta = ConsUrl::where(['id' => '1'])->update([
             'url' => $data['url-pedigital-kid'],
             'mod_asig' => $ModA,
             'mod_modu' => $ModT,
             'mod_zona' => $ZonL,
             'mod_labo' => $Labo,
             'mod_entre' => $ModE,
+            'mod_juego' => $ModJ,
+            'mod_etno' => $EPED,
+            'colegio' => $data['institucion'],
+        ]);
+
+        $respuesta = ConsUrl::where(['id' => '3'])->update([
+            'url' => $data['url-pedigital-etno'],
+            'mod_asig' => $ModA,
+            'mod_modu' => $ModT,
+            'mod_zona' => $ZonL,
+            'mod_labo' => $Labo,
             'mod_entre' => $ModE,
+            'mod_juego' => $ModJ,
+            'mod_etno' => $EPED,
             'colegio' => $data['institucion'],
         ]);
 
         return $respuesta;
 
     }
-
 }
