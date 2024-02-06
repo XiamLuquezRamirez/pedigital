@@ -7,14 +7,7 @@ var intervalId;
 var elementoSel = null;
 
 function agregarMovimiento(evento, elemento) {
-
-    var divs = $(".wave");
-
-    for (var i = 0; i < divs.length; i++) {
-        var div = divs[i];
-        div.onclick = null;
-    }
-
+    document.getElementById("mostrado_disable").style.display = "block";
     elementoSel = elemento;
     objeto.style.height = "40px";
     objeto.style.transition = "top 3s linear, left 3s linear, height 2s ease-in";
@@ -37,13 +30,6 @@ function agregarMovimiento(evento, elemento) {
             objeto.style.top = (objeto.offsetTop + 45) + "px";
             setTimeout(()=>{
                 calificarPregunta();
-
-                for (var i = 0; i < divs.length; i++) {
-                    var div = divs[i];
-                    div.onclick = function(event) {
-                        agregarMovimiento(event, this);
-                    };
-                }
             }, 3000)
         }, 3000)
     }, 2400);
@@ -69,6 +55,7 @@ function calificarPregunta(){
                 setTimeout(()=>{
                     objeto.style.transition = "top 1.3s linear, left 1.3s linear";
                     preguntar();
+                    document.getElementById("mostrado_disable").style.display = "none";
                 }, 2400)
             }else{
                 document.getElementById("principal_preguntas").style.left = (document.getElementById("principal_preguntas").getBoundingClientRect().left - 250)+"px";
@@ -78,6 +65,7 @@ function calificarPregunta(){
                 objeto.style.top = "50%"; 
                 setTimeout(()=>{
                     finalJuego();
+                    document.getElementById("mostrado_disable").style.display = "none";
                 }, 3000)
             }
         }, 1000)
@@ -85,6 +73,7 @@ function calificarPregunta(){
         objeto.setAttribute("src", "explosion.gif");
         setTimeout(()=>{
             finalJuego();
+            document.getElementById("mostrado_disable").style.display = "none";
         }, 1000);
     }
 }
