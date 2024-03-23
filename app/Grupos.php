@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class Grupos extends Model
 {

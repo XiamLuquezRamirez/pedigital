@@ -89,6 +89,16 @@
                         $("#div-passw2").hide();
                     }
                 },
+                ValTipUsu: function(val) {
+                    if(val==="Estudiante" || val==="Profesor"){
+                        $('#tipo_usuario').val("").trigger('change.select2');
+                        Swal.fire('Alerta!',
+                        'Solo pueden ser Creados Usuarios Adminitradores',
+                        'warning');
+                        return;
+                    
+                    }
+                },
                 Guardar: function() {
 
                     var tipusu=$("#tipo_usuario").val();

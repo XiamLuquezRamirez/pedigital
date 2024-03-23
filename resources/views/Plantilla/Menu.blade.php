@@ -47,7 +47,6 @@
                                     data-i18n="">Laboratorios</span></a>
                         </li>
                     @endif
-
                     <li id="Men_Calificaciones" class=" nav-item"><a href="#"><i class="ft-award"></i><span
                                 class="menu-title" data-i18n="">Calificaciones</span></a>
                         <ul class="menu-content">

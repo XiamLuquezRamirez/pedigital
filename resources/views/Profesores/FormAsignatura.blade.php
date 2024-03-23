@@ -40,7 +40,7 @@
 
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-xl-4 col-lg-6 col-md-12">
         <div class="form-group">
             <label class="form-label" for="periodo_modulo">Asignaturas:</label>
             <select class="form-control select2" onchange="$.ListarGrados(this.value);" data-placeholder="Seleccione..."
@@ -49,7 +49,7 @@
             </select>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-xl-2 col-lg-6 col-md-12">
         <div class="form-group">
             <label class="form-label" for="periodo_modulo">Grado:</label>
             <select class="form-control select2" onchange="$.ListarGrupos(this.value);" data-placeholder="Seleccione..."
@@ -58,7 +58,7 @@
             </select>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-xl-2 col-lg-6 col-md-12">
         <div class="form-group">
             <label class="form-label" for="periodo_modulo">Grupo:</label>
             <select class="form-control select2" data-placeholder="Seleccione.." name="grupo" id="grupo">
@@ -66,19 +66,31 @@
             </select>
         </div>
     </div>
+    <div class="col-xl-2 col-lg-6 col-md-12">
+        <div class="form-group">
+            <label class="form-label" for="periodo_modulo">Jornada:</label>
+            <select class="form-control select2" data-placeholder="Seleccione.." name="jornada" id="jornada">
+                <option selected value="">-- Seleccionar --</option>
+                <option value="JM">Jornada Mañana</option>
+                <option value="JT">Jornada Tarde</option>
+                <option value="JN">Jornada Nocturna
+                </option>
+            </select>
+        </div>
+    </div>
 
-    <div class="col-md-2">
+    <div class="col-xl-2 col-lg-6 col-md-12 text-center">
         <label class="form-label" for="periodo_modulo">&nbsp;</label>
         <div class="form-group">
             <button id="AddAsig" onclick="$.AddAsig();" type="button" class="btn mr-1 mb-1 btn-success"><i
-                    class="fa fa-plus"></i> Agregar Asignatura</button>
+                    class="fa fa-plus"></i> Agregar</button>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <h4 style="text-transform: capitalize;" class="form-section"> Asignaturas Asignadas al Docente
-            <strong>{!! $DatProf->nombre . ' ' . $DatProf->apellido . ' - ' . $DatProf->jorna !!}</strong> </h4>
+            <strong>{!! $DatProf->nombre . ' ' . $DatProf->apellido !!}</strong> </h4>
         <table class="table table-hover mb-0">
             <thead>
                 <tr>

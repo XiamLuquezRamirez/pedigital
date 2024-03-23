@@ -41,7 +41,7 @@ class ModProf extends Model
                 'asignatura' => $data["txtasig"][$key],
                 'grado' => $data["txtgrado"][$key],
                 'grupo' => $data["txtgrupo"][$key],
-                'jornada' => $jornada,
+                'jornada' => $data["txtjornada"][$key],
             ]);
         }
         return $respuesta;
@@ -77,18 +77,9 @@ class ModProf extends Model
         
     }
 
-    public static function EliminarAsignacion($grup, $doce, $jorn){
+    public static function EliminarAsignacion($idAsig){
 
-        $jornada = "";
-        if ($jorn == "Jornada Tarde") {
-            $jornada = "JT";
-        } else if ($jorn == "Jornada Nocturna") {
-            $jornada = "JN";
-        } else {
-            $jornada = "JM";
-        }
-
-        $DelTem = DB::connection("mysql")->select("DELETE FROM mod_prof WHERE grupo=".$grup." AND profesor=".$doce." AND jornada='".$jornada."'");
+        $DelTem = DB::connection("mysql")->select("DELETE FROM mod_prof WHERE id=".$idAsig);
 
         return $DelTem;
     }
@@ -110,6 +101,7 @@ class ModProf extends Model
             ->join("para_grupos", "para_grupos.id", "grupos_transversales.grupo")
             ->where('profesor', $id)
             ->select('mod_prof.*', 'grados_modulos.grado_modulo', 'modulos_transversales.nombre', 'grupos_transversales.grupo as gr', 'para_grupos.descripcion')
+            ->orderBy('modulos_transversales.nombre', 'ASC')
             ->get();
 
         return $Asig;
@@ -134,7 +126,7 @@ class ModProf extends Model
             ->join("grados_modulos", 'grados_modulos.id', "mod_prof.grado")
             ->where('mod_prof.grado', $id)
             ->where('mod_prof.grupo', Session::get('GRUPO'))
-            ->where('profesores.jornada', Session::get('JORNADA'))
+            ->where('mod_prof.jornada', Session::get('JORNADA'))
             ->where('grados_modulos.grado_modulo', Auth::user()->grado_usuario)
             ->select('profesores.*')
             ->first();
@@ -149,9 +141,8 @@ class ModProf extends Model
             ->join("grados_modulos", 'grados_modulos.id', "mod_prof.grado")
             ->where('mod_prof.grado', $idGra)
             ->where('mod_prof.grupo', $idGrup)
-            ->where('profesores.jornada', $jornada)
+            ->where('mod_prof.jornada', $jornada)
             ->select('profesores.*')
-            ->selectRaw('(CASE WHEN profesores.jornada = "JM" THEN "Jornada Mañana" WHEN profesores.jornada = "JT" THEN "Jornada Tarde" ELSE "Jornada Nocturna" END) AS Jorna')
             ->first();
 
         return $DatProf;

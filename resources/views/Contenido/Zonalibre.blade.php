@@ -94,7 +94,7 @@
                                                             <option value="">-- Seleccionar --</option>
                                                             <option value="JM">Jornada Mañana</option>
                                                             <option value="JT">Jornada Tare</option>
-                                                            <option value="JN">Jornada Noctturna</option>
+                                                            <option value="JN">Jornada Nocturna</option>
                                                         </select>
 
                                                     </div>

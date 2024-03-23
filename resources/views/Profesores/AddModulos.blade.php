@@ -95,6 +95,7 @@
                     var Asig = $("#asignaturas").val();
                     var grado = $("#grado").val();
                     var grupo = $("#grupo").val();
+                    var jornada = $("#jornada").val();
                     var ConsAct = $("#ConsAct").val();
                     var flag = "ok";
 
@@ -113,6 +114,11 @@
                         return;
                     }
 
+                    if (jornada === "") {
+                        Swal.fire('Alerta!', 'Seleccione una jornada...', 'warning');
+                        return;
+                    }
+
 
                     var form = $("#formAuxiliarVerAsig");
                     $("#idGrado").remove();
@@ -122,8 +128,8 @@
                         "'>");
                     form.append("<input type='hidden' name='IdGrupo2' id='IdGrupo2' value='" + grupo +
                         "'>");
-                    form.append("<input type='hidden' name='jorna' id='jorna' value='" + $(
-                        "#profe_jornada").val() + "'>");
+                    form.append("<input type='hidden' name='jorna' id='jorna' value='" + jornada +
+                        "'>");
 
 
                     var url = form.attr("action");
@@ -137,16 +143,24 @@
                         success: function(respuesta) {
 
                             if (respuesta.exit === "si") {
-                                swal.fire('Error!',
-                                    'Este Módulo ya ha sido Asignado al Docente ' +
-                                    respuesta.docente.toUpperCase(), 'warning');
+
+                                if ($('#profe_id').val() == respuesta.IdDocente) {
+                                    Swal.fire('Alerta!',
+                                        'Este módulo y grupo ya ha sido asignado a este docente...',
+                                        'warning');
+                                } else {
+                                    Swal.fire('Alerta!',
+                                        'Este módulo y grupo ya ha sido asignado al docente ' +
+                                        respuesta.docente.toUpperCase(), 'warning');
+                                }
+
                                 flag = "no";
                             }
                         }
 
                     });
 
-                    $(".grupo").each(function() {
+                    {{--  $(".grupo").each(function() {
                         if ($(this).val() === grupo) {
                             swal.fire('Error!',
                                 'Este Módulo ya ha sido Asignado a este Docente...',
@@ -154,26 +168,32 @@
                             flag = "no";
                         }
 
-                    });
+                    }); --}}
 
                     if (flag === "no") {
                         return;
                     }
 
+                    let jor = (jornada == "JM") ? 'Jornada mañana' : ((jornada == "JT") ?
+                        "Jornada tarde" : ((jornada == "JN") ? "Jornada nocturna" : ""));
 
                     var campo = '<tr id="Fila_Asig' + ConsAct + '">' +
                         '<td class="text-truncate">' + ConsAct + '</td>' +
-                        '<td class="text-truncate">' + $("select[name='asig'] option:selected").text() +
-                        ' ' + $("select[name='grado'] option:selected").text() + ' ' + $(
-                            "select[name='grupo'] option:selected").text() + '</td>' +
+                        '<td class="text-truncate"><b>' + $("select[name='asig'] option:selected")
+                        .text() +
+                        '</b> ' + $("select[name='grado'] option:selected").text() + ' (' + $(
+                            "select[name='grupo'] option:selected").text() + ') ' + jor +
+                        '</td>' +
                         '<input type="hidden" id="Asig' + ConsAct + '" name="txtasig[]"  value="' +
                         Asig + '">' +
                         '<input type="hidden" id="grado' + ConsAct + '" name="txtgrado[]"  value="' +
                         grado + '">' +
                         '<input type="hidden" class="grupo" id="grupo' + ConsAct +
                         '" name="txtgrupo[]"  value="' + grupo + '">' +
+                        '<input type="hidden" class="jornada" id="jornada' + ConsAct +
+                        '" name="txtjornada[]"  value="' + jornada + '">' +
                         '<td class="text-truncate">' +
-                        '<a id="DelAsig" onclick="$.DelAsig(' + ConsAct +
+                        '<a id="DelAsig'+ConsAct+'" data-id="0" onclick="$.DelAsig(' + ConsAct +
                         ')" data-toggle="tooltip" title="Eliminar" class="btn btn-icon btn-outline-warning btn-social-icon btn-sm"><i class="fa fa-trash"></i></a>' +
                         '</td>' +
                         ' </tr>';
@@ -185,50 +205,61 @@
                     $('#grupo').html('');
                 },
                 DelAsig: function(id_fila) {
-                 
-                    var asig = $('#grupo'+id_fila).val();
-                    var profe_id = $("#profe_id").val();
-                    var profe_jor = $("#profe_jornada").val()
+               
+                    var idAsig = $("#DelAsig"+id_fila).data("id");
 
                     var form = $("#formAuxiliarDelAsig");
-                    $("#id_asignacion").remove();
-                    $("#id_pro").remove();
-                    $("#profe_jor").remove();
-                    form.append("<input type='hidden' name='id_asignacion' id='id_asignacion' value='" + asig + "'>");
-                    form.append("<input type='hidden' name='id_pro' id='id_pro' value='" + profe_id + "'>");
-                    form.append("<input type='hidden' name='profe_jor' id='profe_jor' value='" + profe_jor + "'>");
+                   
+                    $("#idAsig").remove();
+                  
+                    form.append("<input type='hidden' name='idAsig' id='idAsig' value='" +
+                    idAsig + "'>");
                     var url = form.attr("action");
                     var datos = form.serialize();
-    
-    
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: datos,
-                        dataType: "json",
-                        success: function (respuesta) {
-                            Swal.fire({
-                                title: "Gestionar Asignación de Módulos",
-                                text: respuesta.mensaje,
-                                icon: "success",
-                                button: "Aceptar"
+
+                    mensaje = "¿Desea Eliminar esta asignación?";
+
+                    Swal.fire({
+                        title: 'Gestionar Docentes',
+                        text: mensaje,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, Eliminar!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: datos,
+                                dataType: "json",
+                                success: function(respuesta) {
+                                    Swal.fire({
+                                        title: "Gestionar Asignación de Módulos",
+                                        text: respuesta.mensaje,
+                                        icon: "success",
+                                        button: "Aceptar"
+                                    });
+
+                                    if (respuesta.estado === "ok") {
+                                        $('#Fila_Asig' + id_fila).remove();
+                                        //$.reordenarAsig();
+                                        ConsAct = $('#ConsAct').val() - 1;
+                                        $("#ConsAct").val(ConsAct);
+                                    } else {
+                                        Swal.fire({
+                                            title: "Gestionar Asignación de Módulos",
+                                            text: "No se pudo realizar la Operación",
+                                            icon: "success",
+                                            button: "Aceptar"
+                                        });
+                                    }
+                                }
+
                             });
-    
-                            if (respuesta.estado === "ok") {
-                                $('#Fila_Asig' + id_fila).remove();
-                                //$.reordenarAsig();
-                                ConsAct = $('#ConsAct').val() - 1;
-                                $("#ConsAct").val(ConsAct);
-                            }else{
-                                Swal.fire({
-                                    title: "Gestionar Asignación de Módulos",
-                                    text: "No se pudo realizar la Operación",
-                                    icon: "success",
-                                    button: "Aceptar"
-                                });
-                            }
                         }
-    
                     });
 
                 },
@@ -282,7 +313,6 @@
 
                     });
                 }
-
             });
 
 

@@ -32,7 +32,7 @@ var parteAve = [
       "Conducto que transporta la bilis desde el hígado hasta el intestino para ayudar en la digestión de las grasas.",
   },
   {
-    parte: "Duodeno",
+    parte: "Duodena",
     definicion:
       "La primera porción del intestino delgado donde ocurre la digestión final de los alimentos y la absorción de nutrientes.",
   },
@@ -426,7 +426,7 @@ function CargarJuegoNutriMamifero() {
     );
   
     array_divs.push(
-      "<img id='NombMami5' data-id='Libro' draggable='true' width='60' class='nombreMami'  src='img/Mamiferos/Libro.png' />"
+      "<img id='NombMami5' data-id='Libro' draggable='true' width='60' class='nombreMami'  src='img/Mamiferos/libro.png' />"
     );
     array_divs.push(
       "<img id='NombMami6' data-id='Retículo' draggable='true' width='60' class='nombreMami'  src='img/Mamiferos/Reticulo.png' />"
@@ -599,15 +599,10 @@ function soltarNombre(evento) {
   // Obtenemos el ID del nombre que se está soltando
   var idNombre = evento.dataTransfer.getData("text");
 
-  console.log(idNombre);
-
   // Obtenemos el ID del punto donde se soltó el nombre
   var idPunto = evento.target.getAttribute("id");
 
   var idelement = document.getElementById(idPunto);
-  console.log(idelement);
-
-  console.log(idPunto);
   idPunto.draggable = false;
 
   var Ubicacion = evento.target.getAttribute("data-id");
@@ -642,8 +637,6 @@ function soltarNombre(evento) {
   idelement.removeEventListener("drop", soltarNombre);
 
   // Verificamos si el nombre ha sido soltado en el punto correcto
-
-  console.log(Ubicacion + "-" + nombreSol + "--" + par);
 
   if (Ubicacion == nombreSol && nombreSol == par) {
     idelement.style.border = "#8BC541 1px solid";

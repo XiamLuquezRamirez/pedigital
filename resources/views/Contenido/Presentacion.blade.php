@@ -38,7 +38,11 @@
                                 @foreach($GruposDoc as $Grup)
                                 <a onclick="$.SelGrup({{$Grup->idgrupo}});" class="list-group-item list-group-item-action"><span class="float-left">
                                         <i class="fa fa-slack mr-1"></i>
-                                    </span>{{$Grup->gr}}</a>
+                                @php
+                                $jornada = ($Grup->jornada == "JM") ? 'Jornada mañana' : (($Grup->jornada == "JT") ? "Jornada tarde" : (($Grup->jornada == "JN") ? "Jornada nocturna" : ""));
+
+                                @endphp
+                                    </span>{{$Grup->gr.' - '.$jornada}}</a>
                                 @endforeach
                                 @endif
 
@@ -65,6 +69,7 @@
                             <div class="list-group">
                                 <a href="#" modulo="{{$id}}"  id="presentacion" class="list-group-item active">Presentación</a>
                                 <a href="#" modulo="{{$id}}" id="objetivo" class="list-group-item list-group-item-action">Objetivo</a>
+                                <a href="{{ url('/Contenido/Contenido/' . Session::get('IDMODULO')) }}" id="contenido" class="list-group-item list-group-item-action">Contenido</a>
 
                             </div>
                         </div>

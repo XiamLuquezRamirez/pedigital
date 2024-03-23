@@ -610,6 +610,7 @@ class ContenidoController extends Controller
                 $DatGrup = \App\Grupos::Buscar($id);
                 Session::put('GRUPO', $DatGrup->id);
                 $DatDoce = \App\AsigProf::BuscDat($id);
+               
                 if ($DatDoce) {
                     Session::put('DOCENTE', $DatDoce->id);
                     Session::put('USUDOCENTE', $DatDoce->usuario_profesor);

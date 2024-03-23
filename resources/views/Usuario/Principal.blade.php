@@ -50,7 +50,7 @@
         </div>
         <!-- Aquí comienza el código -->
 
-        <div class="body__page" style="margin-top: -200px !important;">
+        <div class="body__page" style="margin-top: -200px !important; padding-bottom: 50px !important;">
 
             <div class="container__card">
 
@@ -133,11 +133,11 @@
             <div class="layout__background"></div>
         </div>
 
-        <footer class="footer-area">
+        <footer style="position: fixed !important; padding-bottom: 15px; bottom: 0px !important; width: 100%;" class="footer-area">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <p>Copyright &copy;
+                        <p style="margin-top: 10px;">Copyright &copy;
                             <script>
                                 document.write(new Date().getFullYear());
                             </script> PEDIGITAL

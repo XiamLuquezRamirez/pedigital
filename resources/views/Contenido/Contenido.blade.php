@@ -340,6 +340,7 @@
                                 <div id='ListEvalVid' style="height: 400px; overflow: auto;text-align: center;">
                                     <video width="640" height="360" id="datruta" controls
                                         data-ruta="{{ asset('/app-assets/Evaluacion_PregDidact') }}">
+                                        <source src="" type="video/mp4">
                                     </video>
                                 </div>
 
@@ -1652,11 +1653,14 @@
 
                             if (respuesta.VideoEval !== "no") {
                                 $("#VidDidac").show();
-                                $("#datruta").html(
-                                    '<source src="" id="sour_video" type="video/mp4">'
-                                );
-                                jQuery('#sour_video').attr('src', $('#datruta').data(
-                                    "ruta") + "/" + respuesta.VideoEval);
+                                var videoElement = document.getElementById("datruta");
+                                var nuevaFuente =  $('#datruta').data("ruta") + "/" + respuesta.VideoEval;
+                                videoElement.src = nuevaFuente;
+
+                                // Opcional: Cargar el video después de cambiar la fuente
+                                videoElement.load();
+                                
+
                                 $("#Nom_Video").val(respuesta.VideoEval);
                             } else {
                                 $("#VidDidac").hide();

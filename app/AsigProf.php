@@ -40,7 +40,7 @@ class AsigProf extends Model
                 'asignatura' => $data["txtasig"][$key],
                 'grado' => $data["txtgrado"][$key],
                 'grupo' => $data["txtgrupo"][$key],
-                'jornada' => $jornada,
+                'jornada' => $data["txtjornada"][$key],
             ]);
         }
 
@@ -84,19 +84,9 @@ class AsigProf extends Model
 
     }
 
-    public static function EliminarAsignacion($grup, $doce, $jorn)
+    public static function EliminarAsignacion($idAsig)
     {
-
-        $jornada = "";
-        if ($jorn == "Jornada Tarde") {
-            $jornada = "JT";
-        } else if ($jorn == "Jornada Nocturna") {
-            $jornada = "JN";
-        } else {
-            $jornada = "JM";
-        }
-
-        $DelTem = DB::connection("mysql")->select("DELETE FROM asig_prof WHERE grupo=" . $grup . " AND profesor=" . $doce . " AND jornada='" . $jornada . "'");
+        $DelTem = DB::connection("mysql")->select("DELETE FROM asig_prof WHERE id=" . $idAsig);
 
         return $DelTem;
     }
@@ -117,6 +107,7 @@ class AsigProf extends Model
             ->join("para_grupos", "para_grupos.id", "grupos.grupo")
             ->where('profesor', $id)
             ->select('asig_prof.*', 'modulos.grado_modulo', 'asignaturas.nombre', 'grupos.grupo as gr', 'para_grupos.descripcion')
+            ->orderBy('asignaturas.nombre', 'ASC')
             ->get();
         return $Asig;
     }
@@ -135,12 +126,12 @@ class AsigProf extends Model
 
     public static function BuscDat($id)
     {
-        //        dd(Session::get('GRUPO').'-'. Session::get('JORNADA').'-'.Auth::user()->grado_usuario.'-'.$id);die();
+            //    dd(Session::get('GRUPO').'-'. Session::get('JORNADA').'-'.Auth::user()->grado_usuario.'-'.$id);
         $DatProf = AsigProf::join("profesores", "profesores.usuario_profesor", "asig_prof.profesor")
             ->join("modulos", 'modulos.id', "asig_prof.grado")
             ->where('asig_prof.grado', $id)
             ->where('asig_prof.grupo', Session::get('GRUPO'))
-            ->where('profesores.jornada', Session::get('JORNADA'))
+            ->where('asig_prof.jornada', Session::get('JORNADA'))
             ->where('modulos.grado_modulo', Auth::user()->grado_usuario)
             ->select('profesores.*')
             ->first();
@@ -156,9 +147,8 @@ class AsigProf extends Model
             ->join("modulos", 'modulos.id', "asig_prof.grado")
             ->where('asig_prof.grado', $idGra)
             ->where('asig_prof.grupo', $idGrup)
-            ->where('profesores.jornada', $jornada)
+            ->where('asig_prof.jornada', $jornada)
             ->select('profesores.*')
-            ->selectRaw('(CASE WHEN profesores.jornada = "JM" THEN "Jornada Mañana" WHEN profesores.jornada = "JT" THEN "Jornada Tarde" ELSE "Jornada Nocturna" END) AS Jorna')
             ->first();
 
         return $DatProf;

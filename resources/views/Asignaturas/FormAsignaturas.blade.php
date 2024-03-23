@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Input;
 <input type="hidden" data-id='id-dat' id="dat" data-ruta="{{ asset('/app-assets/images/Img_Asinaturas') }}" />
 <h4 class="form-section"><i class="ft-grid"></i> Información de Asignatura</h4>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-xl-6 col-lg-6 col-md-12">
         <div class="form-group">
             <label class="form-label" for="nombre_modulo">Área:</label>
             <select class="form-control select2" data-placeholder="Seleccione..." name="area" id="area">
@@ -24,13 +24,13 @@ use Illuminate\Support\Facades\Input;
             </select>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-xl-6 col-lg-6 col-md-12">
         <div class="form-group">
             <label class="form-label" for="direccion_alumno">Nombre Asignatura:</label>
             {!! Form::text('nombre', old('nombre', $Asig->nombre), ['class' => 'form-control', 'placeholder' => 'Nombre de Asignatura', 'id' => 'nombre']) !!}
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-xl-12 col-lg-6 col-md-12">
         <div class="form-group">
             <div class="form-group">
                 <label class="form-label" for="presentacion_modulo">Descripción:</label>
@@ -39,7 +39,7 @@ use Illuminate\Support\Facades\Input;
         </div>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-xl-12 col-lg-6 col-md-12">
         <div class="form-group">
             {{ Form::label('imagen', 'Imagenes: ', ['class' => 'form-label']) }}
             <input type="file" id="imagen" name="imagen[]" accept="image/*"  multiple />
@@ -47,7 +47,7 @@ use Illuminate\Support\Facades\Input;
     </div>
 
     @if ($method == 'put')
-        <div class="col-md-12">
+        <div class="col-xl-12 col-lg-6 col-md-12">
             <h6 class="form-section"><strong>Imagenes Agregadas</strong> </h6>
             <table class="table table-hover mb-0">
                 <thead>

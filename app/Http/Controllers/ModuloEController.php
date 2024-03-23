@@ -1025,6 +1025,7 @@ class ModuloEController extends Controller
                     }
                 }
             }
+            
 
             $paginas = ceil($numero_filas / $limit); //$numero_filas/10;
             return view('ModuloE.GestionBancoPreg', compact('numero_filas', 'paginas', 'actual', 'limit', 'busqueda', 'componente', 'Preguntas', 'select_Asig', 'select_Comp'));

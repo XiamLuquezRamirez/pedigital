@@ -305,7 +305,7 @@
                             if (respuesta.Resp === "Ok") {
                                 Swal.fire({
                                     title: "Gestionar Parametros",
-                                    text: "La Información fue Actualizadad Correctamente.",
+                                    text: "La Información fue Actualizada Correctamente.",
                                     icon: "success",
                                     button: "Aceptar",
                                 });

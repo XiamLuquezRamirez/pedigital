@@ -62,14 +62,16 @@ class ProfesoresController extends Controller
 
             $i = 1;
             foreach ($AsigProf as $AP) {
+                $jornada = ($AP->jornada == "JM") ? 'Jornada mañana' : (($AP->jornada == "JT") ? "Jornada tarde" : (($AP->jornada == "JN") ? "Jornada nocturna" : ""));
                 $trAsig .= '<tr id="Fila_Asig' . $i . '">
                     <td class="text-truncate">' . $i . '</td>
-                    <td class="text-truncate">' . $AP->nombre . ' Grado ' . $AP->grado_modulo . '° ' . $AP->descripcion
+                    <td class="text-truncate"><b>' . $AP->nombre . '</b> Grado ' . $AP->grado_modulo . '° (' . $AP->descripcion . ') <b>-</b> ' . $jornada
                     . '</td><input type="hidden" id="Asig' . $i . '" name="txtasig[]"  value="' . $AP->asignatura . '">'
                     . '</td><input type="hidden" id="grado' . $i . '" name="txtgrado[]"  value="' . $AP->grado . '">'
-                    . '</td><input type="hidden" id="grupo' . $i . '" class="grupo" name="txtgrupo[]"  value="' . $AP->grupo . '">
+                    . '</td><input type="hidden" id="grupo' . $i . '" class="grupo" name="txtgrupo[]"  value="' . $AP->grupo . '">'
+                    . '</td><input type="hidden" id="jornada' . $i . '" class="jornada" name="txtjornada[]"  value="' . $AP->jornada . '">
                     <td class="text-truncate">
-                        <a onclick="$.DelAsig(' . $i . ')"  title="Eliminar" class="btn  btn-outline-warning btn-sm"><i class="fa fa-trash"></i></a>
+                        <a id="DelAsig'.$i.'" data-id="' . $AP->id . '" onclick="$.DelAsig(' . $i . ')"  title="Eliminar" class="btn  btn-outline-warning btn-sm"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>';
                 $i++;
@@ -204,14 +206,18 @@ class ProfesoresController extends Controller
 
             $i = 1;
             foreach ($AsigProf as $AP) {
+                $jornada = ($AP->jornada == "JM") ? 'Jornada mañana' : (($AP->jornada == "JT") ? "Jornada tarde" : (($AP->jornada == "JN") ? "Jornada nocturna" : ""));
+
                 $trAsig .= '<tr id="Fila_Asig' . $i . '">
                     <td class="text-truncate">' . $i . '</td>
-                    <td class="text-truncate">' . $AP->nombre . ' Grado ' . $AP->grado_modulo . '° ' . $AP->descripcion
+                    <td class="text-truncate"><b>' . $AP->nombre . '</b> Grado ' . $AP->grado_modulo . '° (' . $AP->descripcion . ') <b>-</b> ' . $jornada
                     . '</td><input type="hidden" id="Asig' . $i . '" name="txtasig[]"  value="' . $AP->asignatura . '">'
                     . '</td><input type="hidden" id="grado' . $i . '" name="txtgrado[]"  value="' . $AP->grado . '">'
-                    . '</td><input type="hidden" id="grupo' . $i . '" class="grupo" name="txtgrupo[]"  value="' . $AP->grupo . '">
+                    . '</td><input type="hidden" id="grupo' . $i . '" class="grupo" name="txtgrupo[]"  value="' . $AP->grupo . '">'
+                    . '</td><input type="hidden" id="jornada' . $i . '" class="jornada" name="txtjornada[]"  value="' . $AP->jornada . '">
+
                     <td class="text-truncate">
-                        <a onclick="$.DelAsig(' . $i . ')" data-toggle="tooltip" title="Eliminar" class="btn btn-icon btn-outline-warning btn-social-icon btn-sm"><i class="fa fa-trash"></i></a>
+                        <a id="DelAsig'.$i.'" data-id="' . $AP->id . '" onclick="$.DelAsig(' . $i . ')" data-toggle="tooltip" title="Eliminar" class="btn btn-icon btn-outline-warning btn-social-icon btn-sm"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>';
                 $i++;
@@ -259,15 +265,8 @@ class ProfesoresController extends Controller
                 if ($Docentes) {
                     foreach ($Docentes as $doce) {
 
-                        if ($doce->jornada == "JM") {
-                            $jornada = "Jornada Mañana";
-                        } else if ($doce->jornada == "") {
-                            $jornada = "Jornada Tarde";
-                        } else {
-                            $jornada = "Jornada Nocturna";
-                        }
                         $tablaAsit .= '<div class="bs-callout-blue callout-border-right callout-bordered callout-transparent p-1 mb-1">'
-                            . '<h4 style="color:#000000; weight: bold;" class="card-title">' . $doce->nombre . ' ' . $doce->apellido . ' - ' . $jornada . '</h4>';
+                            . '<h4 style="color:#000000; weight: bold;" class="card-title">' . $doce->nombre . ' ' . $doce->apellido . '</h4>';
                         $tablaAsit .= '  <div class="modal-body">';
 
                         $CarAsig = \App\AsigProf::listar($doce->usuario_profesor);
@@ -277,7 +276,8 @@ class ProfesoresController extends Controller
 
                         if ($CarAsig->count() > 0) {
                             foreach ($CarAsig as $Asi) {
-                                $tablaAsit .= ' <li>' . $Asi->nombre . ' Grado ' . $Asi->grado_modulo . '° ' . $Asi->descripcion . '</li>';
+                                $jornada = ($Asi->jornada == "JM") ? 'Jornada mañana' : (($Asi->jornada == "JT") ? "Jornada tarde" : (($Asi->jornada == "JN") ? "Jornada nocturna" : ""));
+                                $tablaAsit .= ' <li><b>' . $Asi->nombre . '</b> Grado ' . $Asi->grado_modulo . '° (' . $Asi->descripcion . ') <b>-</b> ' . $jornada . '</li>';
                             }
                         } else {
                             $tablaAsit .= ' <li>--NO TIENE ASIGNATURAS ASIGNADAS--</li>';
@@ -291,7 +291,8 @@ class ProfesoresController extends Controller
                         $CarMod = \App\ModProf::listar($doce->usuario_profesor);
                         if ($CarMod->count() > 0) {
                             foreach ($CarMod as $Mod) {
-                                $tablaAsit .= ' <li>' . $Mod->nombre . ' Grado ' . $Mod->grado_modulo . '° ' . $Mod->descripcion . '</li>';
+                                $jornada = ($Mod->jornada == "JM") ? 'Jornada mañana' : (($Mod->jornada == "JT") ? "Jornada tarde" : (($Mod->jornada == "JN") ? "Jornada nocturna" : ""));
+                                $tablaAsit .= ' <li><b>' . $Mod->nombre . '</b> Grado ' . $Mod->grado_modulo . '° (' . $Mod->descripcion . ') <b>-</b> ' . $jornada . '</li>';
                             }
                         } else {
                             $tablaAsit .= ' <li>--NO TIENE MÓDULOS ASIGNADOS--</li>';
@@ -309,15 +310,9 @@ class ProfesoresController extends Controller
                 $tablaAsit = "";
                 $jornada = "";
                 if ($Docentes) {
-                    if ($Docentes->jornada == "JM") {
-                        $jornada = "Jornada Mañana";
-                    } else if ($Docentes->jornada == "") {
-                        $jornada = "Jornada Tarde";
-                    } else {
-                        $jornada = "Jornada Nocturna";
-                    }
+
                     $tablaAsit .= '<div class="bs-callout-blue callout-border-right callout-bordered callout-transparent p-1 mb-1">'
-                        . '<h4 style="color:#000000; weight: bold;" class="card-title">' . $Docentes->nombre . ' ' . $Docentes->apellido . ' - ' . $jornada . '</h4>';
+                        . '<h4 style="color:#000000; weight: bold;" class="card-title">' . $Docentes->nombre . ' ' . $Docentes->apellido . '</h4>';
                     $tablaAsit .= '  <div class="modal-body">';
 
                     $CarAsig = \App\AsigProf::listar($Docentes->usuario_profesor);
@@ -327,7 +322,8 @@ class ProfesoresController extends Controller
 
                     if ($CarAsig->count() > 0) {
                         foreach ($CarAsig as $Asi) {
-                            $tablaAsit .= ' <li>' . $Asi->nombre . ' Grado ' . $Asi->grado_modulo . '° ' . $Asi->descripcion . '</li>';
+                            $jornada = ($Asi->jornada == "JM") ? 'Jornada mañana' : (($Asi->jornada == "JT") ? "Jornada tarde" : (($Asi->jornada == "JN") ? "Jornada nocturna" : ""));
+                            $tablaAsit .= ' <li><b>' . $Asi->nombre . '</b> Grado ' . $Asi->grado_modulo . '° (' . $Asi->descripcion . ') <b>-</b> ' . $jornada . '</li>';
                         }
                     } else {
                         $tablaAsit .= ' <li>--NO TIENE ASIGNATURAS ASIGNADAS--</li>';
@@ -343,7 +339,8 @@ class ProfesoresController extends Controller
                         $CarMod = \App\ModProf::listar($Docentes->usuario_profesor);
                         if ($CarMod->count() > 0) {
                             foreach ($CarMod as $Mod) {
-                                $tablaAsit .= ' <li>' . $Mod->nombre . ' Grado ' . $Mod->grado_modulo . '° ' . $Mod->descripcion . '</li>';
+                            $jornada = ($Mod->jornada == "JM") ? 'Jornada mañana' : (($Mod->jornada == "JT") ? "Jornada tarde" : (($Mod->jornada == "JN") ? "Jornada nocturna" : ""));
+                            $tablaAsit .= ' <li><b>' . $Mod->nombre . '</b> Grado ' . $Mod->grado_modulo . '° (' . $Mod->descripcion . ') <b>-</b> ' . $jornada . '</li>';
                             }
                         } else {
                             $tablaAsit .= ' <li>--NO TIENE MÓDULOS ASIGNADOS--</li>';
@@ -430,22 +427,24 @@ class ProfesoresController extends Controller
         $jornada = request()->get('jorna');
 
 
-        if ($jornada == "Jornada Mañana") {
-            $jornada = "JM";
-        } else if ($jornada == "Jornada Tarde") {
-            $jornada = "JT";
-        } else {
-            $jornada = "JN";
-        }
+        // if ($jornada == "Jornada Mañana") {
+        //     $jornada = "JM";
+        // } else if ($jornada == "Jornada Tarde") {
+        //     $jornada = "JT";
+        // } else {
+        //     $jornada = "JN";
+        // }
 
 
         if (Auth::check()) {
             $Resp = \App\AsigProf::BuscAsigAsing($idGrado, $idGrupo, $jornada);
 
             $docente = "";
+            $IdDocente = "";
             $exit = "no";
             if ($Resp) {
-                $docente = $Resp->nombre . ' ' . $Resp->apellido . ' - ' . $Resp->Jorna;
+                $docente = $Resp->nombre . ' ' . $Resp->apellido;
+                $IdDocente = $Resp->usuario_profesor;
                 $exit = "si";
             } else {
             }
@@ -453,6 +452,7 @@ class ProfesoresController extends Controller
             if (request()->ajax()) {
                 return response()->json([
                     'docente' => $docente,
+                    'IdDocente' => $IdDocente,
                     'exit' => $exit,
                 ]);
             }
@@ -492,20 +492,21 @@ class ProfesoresController extends Controller
         $idGrado = request()->get('idGrado2');
         $idGrupo = request()->get('IdGrupo2');
         $jornada = request()->get('jorna');
-        if ($jornada == "Jornada Mañana") {
-            $jornada = "JM";
-        } else if ($jornada == "Jornada Tarde") {
-            $jornada = "JT";
-        } else {
-            $jornada = "JN";
-        }
+        // if ($jornada == "Jornada Mañana") {
+        //     $jornada = "JM";
+        // } else if ($jornada == "Jornada Tarde") {
+        //     $jornada = "JT";
+        // } else {
+        //     $jornada = "JN";
+        // }
 
         if (Auth::check()) {
             $Resp = \App\ModProf::BuscAsigAsing($idGrado, $idGrupo, $jornada);
             $docente = "";
             $exit = "no";
             if ($Resp) {
-                $docente = $Resp->nombre . ' ' . $Resp->apellido . ' - ' . $Resp->Jorna;
+                $docente = $Resp->nombre . ' ' . $Resp->apellido;
+                $IdDocente = $Resp->usuario_profesor;
                 $exit = "si";
             } else {
             }
@@ -513,6 +514,7 @@ class ProfesoresController extends Controller
             if (request()->ajax()) {
                 return response()->json([
                     'docente' => $docente,
+                    'IdDocente' => $IdDocente,
                     'exit' => $exit,
                 ]);
             }
@@ -540,11 +542,9 @@ class ProfesoresController extends Controller
     }
     public function DelASigDocente()
     {
-        $id_asignacion = request()->get('id_asignacion');
-        $id_pro = request()->get('id_pro');
-        $profe_jor = request()->get('profe_jor');
+        $idAsig = request()->get('idAsig');
         if (Auth::check()) {
-            $Asiste = \App\AsigProf::EliminarAsignacion($id_asignacion, $id_pro, $profe_jor);
+            $Asiste = \App\AsigProf::EliminarAsignacion($idAsig);
 
             if (request()->ajax()) {
                 return response()->json([
@@ -560,11 +560,9 @@ class ProfesoresController extends Controller
 
     public function DelModDocente()
     {
-        $id_asignacion = request()->get('id_asignacion');
-        $id_pro = request()->get('id_pro');
-        $profe_jor = request()->get('profe_jor');
+        $idAsig = request()->get('idAsig');
         if (Auth::check()) {
-            $Asiste = \App\ModProf::EliminarAsignacion($id_asignacion, $id_pro, $profe_jor);
+            $Asiste = \App\ModProf::EliminarAsignacion($idAsig);
 
             if (request()->ajax()) {
                 return response()->json([
@@ -1028,10 +1026,10 @@ class ProfesoresController extends Controller
             }
 
             $totalElementos = count($InfAsiga);
-            $respVal="";
+            $respVal = "";
 
-            if($jornadad != $profesor->jornada && $totalElementos>0){
-                $respVal="s";
+            if ($jornadad != $profesor->jornada && $totalElementos > 0) {
+                $respVal = "s";
             }
 
             if (request()->ajax()) {

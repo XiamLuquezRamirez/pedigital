@@ -120,6 +120,7 @@
                                                     <th>Opciones</th>
                                                     <th>#</th>
                                                     <th>Asignatura</th>
+                                                    <th style="text-align: center;">Enunciado</th>
                                                     <th>No. Preguntas</th>
                                                 </tr>
                                             </thead>
@@ -147,6 +148,16 @@
                                                         </td>
                                                         <td class="text-truncate">{!! $cont !!}</td>
                                                         <td class="text-truncate">{!! $Preg->nombre . ' - Grado ' . $Preg->grado . '°' . $Parte !!}</td>
+                                                        <td class="text-truncate" style="text-align: center;">
+                                                            <div style="display: none;"
+                                                                id="divEnunciado{{ $Preg->id }}">{!! $Preg->enunciado!!}
+                                                            </div>
+                                                            <a href='' style="cursor: pointer;"
+                                                                onmouseover="$.mostraEnunciado({{ $Preg->id }});"
+                                                                title="Enunciado" class="btn  btn-outline-info  btn-sm"><i
+                                                                    class="fa fa-search"></i>
+                                                            </a>
+                                                        </td>
                                                         <td class="text-truncate">{!! $Preg->npreguntas !!}</td>
 
                                                     </tr>
@@ -156,6 +167,26 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade text-left" id="modalEnunciado" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel17" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="modal-header bg-blue white">
+                                                <h4 class="modal-title">Enunciado
+                                                </h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                  </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row" id="enunciadoPreg">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -202,6 +233,11 @@
                             $("#componente").html(respuesta.select_comp);
                         }
                     });
+                },
+                mostraEnunciado: function(id) {
+                    $("#modalEnunciado").modal();
+                    var enunciado = document.getElementById("divEnunciado" + id).innerHTML;
+                    document.getElementById("enunciadoPreg").innerHTML  = enunciado;
                 }
             });
 

@@ -38,7 +38,10 @@
                                             <a onclick="$.SelGrup({{ $Grup->idgrupo }});"
                                                 class="list-group-item list-group-item-action"><span class="float-left">
                                                     <i class="fa fa-slack mr-1"></i>
-                                                </span>{{ $Grup->gr }}</a>
+                                                    @php
+                                                    $jornada = ($Grup->jornada == "JM") ? 'Jornada mañana' : (($Grup->jornada == "JT") ? "Jornada tarde" : (($Grup->jornada == "JN") ? "Jornada nocturna" : ""));
+                                                    @endphp
+                                                </span>{{$Grup->gr.' - '.$jornada}}</a>
                                         @endforeach
                                     @endif
 
@@ -67,6 +70,7 @@
                                         class="list-group-item active">Presentación</a>
                                     <a href="#" modulo="{{ $id }}" id="objetivo"
                                         class="list-group-item list-group-item-action">Objetivo</a>
+                                        <a href="{{ url('/Contenido/ContenidoMod/' . Session::get('IDMODULO')) }}" id="contenido" class="list-group-item list-group-item-action">Contenido</a>
 
                                 </div>
                             </div>
@@ -120,7 +124,6 @@
             }
 
             $.extend({
-
                 Inicio: function() {
                     var mod = $("#presentacion").attr("modulo");
                     var form = $("#formAuxiliar");
@@ -162,7 +165,6 @@
                         dataType: "json",
                         success: function(respuesta) {
                             $('#ModGrupos').modal('toggle');
-                          
                         },
                         error: function() {
                             swal(
