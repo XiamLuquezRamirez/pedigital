@@ -533,7 +533,7 @@ class ContenidoController extends Controller
                 $Temas = \App\Temas::LisTemasProg($Asig->id);
               
                 $contenido .= '<div class="col-xl-4 col-lg-4 col-md-12"  onclick="" style="cursor: pointer;" >
-                    <div class="card hvr-grow-shadow" >
+                    <div class="card hvr-grow-shadow" style="background-image: url(' . asset('app-assets/images/backgroundCards.png') . ');">
                         <div class="card-content border-success">
                             <div id="carousel-example" class="carousel slide"  data-ride="carousel">
                                 <div class="carousel-inner" role="listbox">';

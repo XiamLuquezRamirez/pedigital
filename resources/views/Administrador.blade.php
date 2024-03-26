@@ -43,7 +43,7 @@
                         <div class="row">
                             @foreach ($Asignatura as $Asig)
                                 <div class="col-xl-4 col-lg-4 col-md-12">
-                                    <div class="card hvr-grow-shadow">
+                                    <div class="card hvr-grow-shadow"  style=" background-image: url('{{ asset('app-assets/images/backgroundCards.png') }}');">
                                         <div class="card-content border-blue border-danger">
                                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
@@ -69,7 +69,7 @@
                                                         @endif
                                                     @endforeach
                                                 </div>
-                                                <a class="left carousel-control" href="#carousel-example" role="button"
+                                                <a  target="_" class="left carousel-control" href="#carousel-example" role="button"
                                                     class="img-fluid" data-slide="prev">
                                                     <span class="icon-prev" aria-hidden="true"></span>
                                                     <span class="sr-only">Previous</span>
@@ -81,7 +81,7 @@
                                                 </a>
                                             </div>
                                             <div class="card-body">
-                                                <h5 class="card-title" style="font-size:12px;">{!! $Asig->nombre . ' - Grado ' . $Asig->grado_modulo . '°' !!}</h5>
+                                                <h5 class="card-title textAsig" style="font-size:12px;">{!! $Asig->nombre . ' - Grado ' . $Asig->grado_modulo . '°' !!}</h5>
                                             </div>
                                             <div class="insights px-2">
                                                 <div>
@@ -109,7 +109,8 @@
                             @foreach ($Asignatura as $Asig)
                                 <div class="col-xl-4 col-lg-4 col-md-12" onclick="$.EntrarAsig({!! $Asig->id !!});"
                                     style="cursor: pointer;">
-                                    <div class="card hvr-grow-shadow">
+
+                                    <div class="card hvr-grow-shadow" style=" background-image: url('{{ asset('app-assets/images/backgroundCards.png') }}');">
                                         <div class="card-content text-success border-success" style="height: 350px;">
                                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
@@ -147,14 +148,14 @@
                                                 </a>
                                             </div>
                                             <div class="card-body mb-0">
-                                                <h1 class="card-title" style="font-size:18px; margin-bottom: 0px;">
+                                                <h1 class="card-title textAsig" style="font-size:18px; margin-bottom: 0px;">
                                                     {!! $Asig->nombre !!}
                                                 </h1>
                                             </div>
 
-                                            <div
+                                            <div style="background-color: transparent !important;"
                                                 class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
-                                                <a style="color: #ffffff;" class="btn btn-success mr-1">Entrar</a>
+                                                <a style="color: #ffffff; " class="btn btn-success mr-1">Entrar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -196,7 +197,7 @@
                         <div class="row">
                             @foreach ($Modulos as $Asig)
                                 <div class="col-xl-4 col-lg-4 col-md-12">
-                                    <div class="card hvr-grow-shadow">
+                                    <div class="card hvr-grow-shadow"  style=" background-image: url('{{ asset('app-assets/images/backgroundCards.png') }}');">
                                         <div class="card-content border-blue border-danger">
                                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
@@ -233,7 +234,7 @@
                                                     <span class="sr-only">Next</span>
                                                 </a>
                                             </div>
-                                            <div class="card-body">
+                                            <div class="card-body textAsig">
                                                 <h5 class="card-title" style="font-size:12px;">{!! $Asig->nombre . ' - Grado ' . $Asig->grado_modulo . '°' !!}
                                                 </h5>
                                             </div>
@@ -263,7 +264,7 @@
                                 @foreach ($Modulos as $Asig)
                                     <div class="col-xl-4 col-lg-4 col-md-12"
                                         onclick="$.EntrarModu({!! $Asig->id !!});" style="cursor: pointer;">
-                                        <div class="card hvr-grow-shadow">
+                                        <div class="card hvr-grow-shadow"  style=" background-image: url('{{ asset('app-assets/images/backgroundCards.png') }}');">
                                             <div class="card-content text-success border-success" style="height: 350px;">
                                                 <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                                     <ol class="carousel-indicators">
@@ -302,7 +303,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="card-body">
-                                                    <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">
+                                                    <h1 class="card-title textAsig" style="font-size:18px;margin-bottom: 0px;">
                                                         {!! $Asig->nombre !!}
                                                     </h1>
                                                 </div>
@@ -350,7 +351,7 @@
                             @if (Auth::user()->tipo_usuario == 'Estudiante')
                                 <div class="col-xl-4 col-lg-4 col-md-12"
                                     onclick="$.EntrarModuE({!! $ModE->id !!});" style="cursor: pointer;">
-                                    <div class="card hvr-grow-shadow">
+                                    <div class="card hvr-grow-shadow"  style=" background-image: url('{{ asset('app-assets/images/backgroundCards.png') }}');">
                                         <div class="card-content text-success border-success " style="height: 350px;">
                                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
@@ -382,7 +383,7 @@
                             @else
                                 <div class="col-xl-4 col-lg-4 col-md-12"
                                     onclick="$.EntrarGradoAsig({!! $ModE->id !!});" style="cursor: pointer;">
-                                    <div class="card hvr-grow-shadow">
+                                    <div class="card hvr-grow-shadow"  style=" background-image: url('{{ asset('app-assets/images/backgroundCards.png') }}');">
                                         <div class="card-content text-success border-success " style="height: 350px;">
                                             <div id="carousel-example" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
@@ -400,7 +401,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <h1 class="card-title" style="font-size:18px;margin-bottom: 0px;">
+                                                <h1 class="card-title textAsig" style="font-size:18px;margin-bottom: 0px;">
                                                     {!! $ModE->nombre_area !!}</h1>
                                             </div>
 
