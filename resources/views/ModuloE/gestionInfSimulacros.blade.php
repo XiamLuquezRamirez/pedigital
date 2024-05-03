@@ -513,6 +513,8 @@
 
                     $("#td-alumnos").html('');
                     $("#btn-acciones").hide();
+                    var selectElement = $('#simulacro');
+                    selectElement.html('');
 
                     $("#titu_tema").html('Informe de Resultados de Pruebas Individual');
                     $("#tit-informe").html('Informe de Resultados de Pruebas Individual');
@@ -530,6 +532,7 @@
                         type: "POST",
                         url: url,
                         data: datos,
+                        async: false,
                         dataType: "json",
                         success: function(respuesta) {
                             $("#simulacro").html(respuesta.Simualacros);
@@ -1030,7 +1033,7 @@
                             pregCompo = respuesta.detCompo;
                             dataCompe = respuesta.dataPuntCompe;
                             dataCompo = respuesta.dataPuntCompo;
-                            console.log(dataCompo);
+                          
                             nEstudiantes = respuesta.numeroEstudiantes;
                         }
                     });
@@ -1252,7 +1255,7 @@
 
                     // Obtener los 5 menores puntajes
                     dataCompe = dataCompe.slice(0, 5);
-                    console.log(dataCompe);
+                
 
                     // Imprimir los 5 menores puntajes
                     // Llamada a la función para obtener las calificaciones de todas las competencias
@@ -1324,7 +1327,7 @@
                     // Llamada a la función para obtener las calificaciones de todas las competencias
                     const calificacionesCompetenciasCompo = obtenerCalificacionesCompo();
 
-                    console.log(calificacionesCompetenciasCompo);
+                 
 
                     // Crear el gráfico de columnas agrupadas con AmCharts
                     am4core.ready(function() {
@@ -1507,7 +1510,7 @@
                     // Obtener todos los checkboxes con el nombre especificado
                     const checkboxes = document.querySelectorAll(
                         `input[type="checkbox"][name="${nombreCheckboxes}"]`);
-                    console.log(checkboxes);
+                    
                     // Verificar si todos los checkboxes están seleccionados
                     const todosSeleccionados = Array.from(checkboxes).every(checkbox => checkbox
                         .checked);
@@ -1520,10 +1523,7 @@
                         $("#SelAll").prop("checked", false);
                     }
 
-                    // Imprimir la respuesta
-                    console.log(respuesta);
-
-
+                    // Imprimir la respuesta 
 
                     if ($('#Seleccion' + id).prop('checked')) {
                         $("#EstSel" + id).val("si");
@@ -1561,9 +1561,9 @@
                     if (flag === "si") {
                         var form = $("#FormEstudiantes");
                         var token = $("#token").val();
-                        $("#simulacro").remove();
+                        $("#simulacro3").remove();
                         $("#_token").remove();
-                        form.append("<input type='hidden' name='simulacro' id='simulacro' value='" +
+                        form.append("<input type='hidden' name='simulacro' id='simulacro3' value='" +
                             simulacro + "'>");
                         form.append("<input type='hidden' name='_token'  id='_token' value='" + token +
                             "'>");
@@ -1808,7 +1808,7 @@
                     });
 
                     $.each(resultadosPorIdArea, function(j, item1) {
-                        console.log(item1.mejores[0].area);
+                      
                         infArea.content.push({
                             text: item1.mejores[0].area,
                             fontSize: 12,
@@ -2353,7 +2353,6 @@
         const generateTableBody = (data) => {
             const result = [];
             const areas = {};
-            console.log(data);
             // Agrupar los datos por área
             data.forEach((item) => {
                 const {

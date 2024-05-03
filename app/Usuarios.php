@@ -71,7 +71,7 @@ class Usuarios extends Model
     {
         
         $usuario = Usuarios::where('email_usuario', $request['login_usuario'])->orWhere('login_usuario', $request['login_usuario'])->where('estado_usuario', 'ACTIVO')->first();
-    
+        
         if ($usuario && \Hash::check($request['pasword_usuario'], $usuario->pasword_usuario)) {
             auth()->loginUsingId($usuario->id);
             return $usuario;

@@ -83,7 +83,7 @@
                                             <div class="card-body">
                                                 <h5 class="card-title textAsig" style="font-size:12px;">{!! $Asig->nombre . ' - Grado ' . $Asig->grado_modulo . '°' !!}</h5>
                                             </div>
-                                            <div class="insights px-2">
+                                            <div class="insights px-2" style="padding-bottom: 1.5rem;">
                                                 <div>
                                                     <span class="text-info h3">{!! $Asig->avance_modulo !!}%</span>
                                                     <span class="float-right">Completado</span>
@@ -94,8 +94,7 @@
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
-                                            <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
+                                            <div style="background-color: transparent;" class="card-footer  text-muted ml-1 mr-1 mt-0 p-0 pb-1">
                                                 <a href="{{ url('/Contenido/Presentacion/' . $Asig->id) }}"
                                                     class="btn btn-blue">Entrar</a>
                                             </div>
@@ -154,7 +153,7 @@
                                             </div>
 
                                             <div style="background-color: transparent !important;"
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
+                                                class="card-footer text-muted ml-1 mr-1 mt-0 p-0 pb-1">
                                                 <a style="color: #ffffff; " class="btn btn-success mr-1">Entrar</a>
                                             </div>
                                         </div>
@@ -234,11 +233,11 @@
                                                     <span class="sr-only">Next</span>
                                                 </a>
                                             </div>
-                                            <div class="card-body textAsig">
-                                                <h5 class="card-title" style="font-size:12px;">{!! $Asig->nombre . ' - Grado ' . $Asig->grado_modulo . '°' !!}
+                                            <div class="card-body ">
+                                                <h5 class="card-title textAsig" style="font-size:12px;">{!! $Asig->nombre . ' - Grado ' . $Asig->grado_modulo . '°' !!}
                                                 </h5>
                                             </div>
-                                            <div class="insights px-2">
+                                            <div class="insights px-2" style="padding-bottom: 1.5rem;">
                                                 <div>
                                                     <span class="text-info h3">{!! $Asig->avance_modulo !!}%</span>
                                                     <span class="float-right">Completado</span>
@@ -249,8 +248,7 @@
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
-                                            <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
+                                            <div style="background-color: transparent;" class="card-footer text-muted ml-1 mr-1 mt-0 p-0 pb-1">
                                                 <a href="{{ url('/Contenido/PresentacionMod/' . $Asig->id) }}"
                                                     class="btn btn-blue">Entrar</a>
                                             </div>
@@ -309,7 +307,7 @@
                                                 </div>
 
                                                 <div
-                                                    class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
+                                                    class="card-footer text-muted ml-1 mr-1 mt-0 p-0 pb-1">
                                                     <a style="color: #ffffff;" class="btn btn-success mr-1">Entrar</a>
                                                 </div>
                                             </div>
@@ -374,7 +372,7 @@
                                             </div>
 
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
+                                                class="card-footer text-muted ml-1 mr-1 mt-0 p-0 pb-1">
                                                 <a style="color: #ffffff;" class="btn btn-success mr-1 mb-1">Entrar</a>
                                             </div>
                                         </div>
@@ -406,7 +404,7 @@
                                             </div>
 
                                             <div
-                                                class="card-footer border-top-blue-grey border-top-lighten-5 text-muted ml-1 mr-1 mt-0 p-0 pb-1">
+                                                class="card-footer  text-muted ml-1 mr-1 mt-0 p-0 pb-1">
                                                 <a style="color: #ffffff;" class="btn btn-success mr-1">Entrar</a>
                                             </div>
                                         </div>

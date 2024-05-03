@@ -571,7 +571,7 @@ class ContenidoController extends Controller
                                     <div class="progress-bar bg-info" role="progressbar" style="width: ' . $Temas . '%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
-                            <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted m-1">
+                            <div style="background-color: transparent;" class="card-footer text-muted m-1">
                                 <a href="' . url('/Contenido/Presentacion/' . $Asig->id) . '"  class="btn btn-success mr-1 mb-1">Entrar</a>
                             </div>
                             </div>

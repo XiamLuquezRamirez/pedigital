@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/login-register.css') }}">
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/font.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <!-- END Custom CSS-->
    
@@ -63,7 +64,7 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 5s ease-in-out;
         }
 
         .banner-img.active {
@@ -211,7 +212,7 @@
             images[currentImage].classList.add("active");
 
             // Cambiar de imagen cada 5 segundos
-            setInterval(showNextImage, 5000);
+            setInterval(showNextImage, 6000);
         });
         
         

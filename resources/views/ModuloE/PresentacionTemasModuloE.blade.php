@@ -2663,7 +2663,6 @@
 
                     $wrapper.find('> main').append(contenido);
 
-
                     if (respuesta.InfEval.calxdoc == "SI") {
                         $("#txt_califVis").css('background-color', '#2DCEE3');
                         $("#txt_califVis").html("PENDIENTE POR CALIFICAR.");

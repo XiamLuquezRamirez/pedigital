@@ -282,7 +282,6 @@ class UsuariosController extends Controller
 
     public function logout()
     {
-
         Auth::logout();
         return redirect('/')->with('success', 'Sesión Finalizada');
     }

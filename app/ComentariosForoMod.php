@@ -19,8 +19,8 @@ class ComentariosForoMod extends Model
     public static function Guardar($data)
     {
         return ComentariosForoMod::create([
-            'comentario' => $data['comentario'],
-            'id_foro' => $data['id_foro'],
+            'comentario' => $data['Comentario'],
+            'id_foro' => $data['idForo'],
             'id_usuario' => Auth::user()->id, 
             'estado_comentarios' => 'ACTIVO'
         ]);
@@ -31,7 +31,7 @@ class ComentariosForoMod extends Model
         return ComentariosForoMod::join('users', 'users.id', 'comentarios_foro_mod.id_usuario')
             ->where('estado_comentarios', 'Activo')
             ->where('id_foro', $id)
-            ->select('comentarios_foro_mod.*','users.nombre_usuario')
+            ->select('comentarios_foro_mod.*','users.nombre_usuario', 'users.tipo_usuario', 'users.id AS idusu')
             ->orderBy('id', 'Desc')
             ->get();
     }

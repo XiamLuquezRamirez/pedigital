@@ -131,6 +131,7 @@ Route::post('/DelImgMod/DelImgModulo', 'AsignaturaController@DelImgMod');
 Route::post('/DelImgMod/DelImgAsig', 'AsignaturaController@DelImgAsig');
 Route::post('/DelPerMod/DelPerModulo', 'AsignaturaController@DelPerMod');
 Route::post('/Grupos/DelGruposAsig', 'AsignaturaController@DelGrupoAsig');
+
 /////UNIDAD
 Route::get('Asignaturas/GestionUnid', 'AsignaturaController@GestionUnidades');
 Route::get('/Asignaturas/NuevaUnidad', 'AsignaturaController@GestionNuevaUnidad');
@@ -153,7 +154,6 @@ Route::post('/Asignaturas/ElimnarTema', 'AsignaturaController@EliminarTema');
 Route::post('/Asignaturas/consulTemaPDF', 'ContenidoController@ConsultarTemaPDF');
 Route::post('/Asignaturas/CargarTemasReasignar', 'AsignaturaController@CargarTemasReasignar');
 Route::post('/Asignaturas/ReasignarTemas', 'AsignaturaController@ReasignarTemas');
-
 
 //////////ZONA LIBRE
 Route::get('/Asignaturas/ZonaLibre', 'ZonaLibre@GestionZonaLibre');
@@ -191,8 +191,6 @@ Route::post('/Asignaturas/ReasignarEval', 'AsignaturaController@ReasignarEval');
 
 Route::post('/cambiar/docentesCompEval', 'AsignaturaController@docentesCompEval');
 Route::post('/Evaluaciones/compartirEval', 'AsignaturaController@compartirEval');
-
-
 
 
 ///////GESTIONAR LABORATORIOS
@@ -281,6 +279,7 @@ Route::post('/Foro/Eliminar', 'ForoController@Eliminar');
 Route::get('/Foro/Comentarios/{id}', 'ForoController@Comentarios');
 Route::post('/Comentarios/guardar', 'ForoController@GuardarComentarios');
 Route::post('/Foros/ConsulContenido', 'ForoController@ConsulContenido');
+Route::post('/Comentarios/cargar', 'ForoController@cargarComentarios');
 
 
 /////ASISTENCIA

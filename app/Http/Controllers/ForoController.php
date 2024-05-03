@@ -78,7 +78,6 @@ class ForoController extends Controller
                                     </div>
                                 </a>';
                     $UsuAct++;
-
                 } else {
                     $listUsuNoCo .= ' <a href="javascript:void(0)">
                                     <div class="media">
@@ -211,10 +210,8 @@ class ForoController extends Controller
             $data = request()->all();
             if (Session::get('TIPCONT') == 'ASI') {
                 $respuesta = \App\Foro::Guardar($data);
-
             } else {
                 $respuesta = \App\ForoModulos::Guardar($data);
-
             }
 
             if ($respuesta) {
@@ -333,23 +330,87 @@ class ForoController extends Controller
         }
     }
 
+    public function cargarComentarios()
+    {
+        if (Auth::check()) {
+            $id = request()->get('idForo');
+            if (Session::get('TIPCONT') == 'ASI') {
+                $Comentarios = \App\Comentarios::listar($id);
+            } else {
+                $Comentarios = \App\ComentariosForoMod::listar($id);
+            }
+
+            foreach ($Comentarios as $Com) {
+                if ($Com->tipo_usuario == "Estudiante") {
+                    $buscImg = \App\Alumnos::BuscarAlumFoto($Com->idusu);
+                    $Com->imagen = "Img_Estudiantes/" . $buscImg->foto_alumno;
+                } else {
+                    $buscImg = \App\Profesores::BuscarProfFoto($Com->idusu);
+                    $Com->imagen = "Img_Docentes/" . $buscImg->foto;
+                }
+            }
+
+            $listComentarios = "";
+
+            foreach ($Comentarios as $Com) {
+                $listComentarios .= ' <div class="media">
+                <div class="media-left">
+                    <a href="#">
+                        <span class="avatar avatar-online">
+                            <img src="' . asset('app-assets/images/' . $Com->imagen) . '"
+                                alt="avatar">
+                        </span>
+                    </a>
+                </div>
+                <div class="media-body ml-1">
+                    <p class="text-bold-600 mb-0"><a
+                            href="#">' . $Com->nombre_usuario . '</a></p>
+                    <p class="m-0">' . $Com->comentario . '</p>
+                    <ul class="list-inline mb-1">
+                        <li class="pr-1"
+                            style="font-size: 12px; font-style: italic;">
+                            <a href="#" class="">
+                                <span class="fa fa-calendar"></span>
+                                ' . $Com->created_at . ' </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>';
+            }
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'listComentarios' => $listComentarios,
+                ]);
+            }
+        } else {
+            return redirect("/")->with("error", "Su sesion ha terminado");
+        }
+    }
+
     public function Comentarios($id)
     {
         if (Auth::check()) {
             if (Session::get('TIPCONT') == 'ASI') {
                 $Foro = \App\Foro::BuscarForo($id);
-
                 $id_foro = $id;
-
                 $Asignatura = \App\Modulos::Desmodulo($Foro->id_asig);
                 $Comentarios = \App\Comentarios::listar($id);
             } else {
                 $Foro = \App\ForoModulos::BuscarForo($id);
-
                 $id_foro = $id;
-
                 $Asignatura = \App\GradosModulos::Desmodulo($Foro->id_asig);
                 $Comentarios = \App\ComentariosForoMod::listar($id);
+            }
+
+            foreach ($Comentarios as $Com) {
+                if ($Com->tipo_usuario == "Estudiante") {
+                    $buscImg = \App\Alumnos::BuscarAlumFoto($Com->idusu);
+                    $Com->imagen = "Img_Estudiantes/" . $buscImg->foto_alumno;
+                } else {
+                    $buscImg = \App\Profesores::BuscarProfFoto($Com->idusu);
+                    $Com->imagen = "Img_Docentes/" . $buscImg->foto;
+                }
             }
 
             return view('Foro.Comentarios', compact('Foro', 'Asignatura', 'id_foro', 'Comentarios'));
@@ -361,26 +422,25 @@ class ForoController extends Controller
     public function GuardarComentarios()
     {
         if (Auth::check()) {
-            $this->validate(request(), [
-                'comentario' => 'required',
-            ], [
-                'comentario.required' => 'El Comentario es Obligatorio',
-            ]);
+
             $data = request()->all();
             if (Session::get('TIPCONT') == 'ASI') {
                 $respuesta = \App\Comentarios::Guardar($data);
-
             } else {
                 $respuesta = \App\ComentariosForoMod::Guardar($data);
-
             }
 
             if ($respuesta) {
-                return redirect('Foro/Comentarios/' . $data["id_foro"])->with('success', 'Datos Guardados');
+                $estado = "ok";
             } else {
-                return redirect('Foro/Comentarios/' . $data["id_foro"])->with('error', 'Datos no Guardados');
+                $estado = "fail";
+            }
+
+            if (request()->ajax()) {
+                return response()->json([
+                    'estado' => $estado
+                ]);
             }
         }
     }
-
 }

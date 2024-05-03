@@ -60,7 +60,10 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .textAsig {
   text-shadow: 1px 1px 0 #bcbcbc, 1
   .5px 1.5px 0 #9c9c9c,
-    1px 1px 1px rgba(206, 89, 55, 0);
+    1px 1px 1px rgba(250, 249, 249, 0);
   color: #000000;
-  background: #ffffff;
+  background: rgb(255, 255, 255, 0.5);
+  font-weight: bold;
+  
+  
 }
