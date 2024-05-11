@@ -13,45 +13,8 @@
 </head>
 
 <body class="bodyClass">
-
-
-
-    <div class="container_all" id="container__all">
-        <div class="cover">
-
-            <div class="bg_color"></div>
-            <div class="wave w1"></div>
-            <div class="wave w2"></div>
-            <div class="wave w3"></div>
-
-            <div class="container__cover">
-                <div class="container__info">
-                    <h1>&nbsp;</h1>
-                </div>
-                <div class="container__vector">
-                    <img src="{{ asset('app-assets/images/principal/images/bg-header/img1.png') }}"
-                        class="banner-image active">
-                    <img src="{{ asset('app-assets/images/principal/images/bg-header/img2.png') }}"
-                        class="banner-image">
-                    <img src="{{ asset('app-assets/images/principal/images/bg-header/img3.png') }}"
-                        class="banner-image">
-                    <img src="{{ asset('app-assets/images/principal/images/bg-header/img4.png') }}"
-                        class="banner-image">
-                    <img src="{{ asset('app-assets/images/principal/images/bg-header/img5.png') }}"
-                        class="banner-image">
-                    <img src="{{ asset('app-assets/images/principal/images/bg-header/img6.png') }}"
-                        class="banner-image">
-                    <img src="{{ asset('app-assets/images/principal/images/bg-header/img7.png') }}"
-                        class="banner-image">
-                    <img src="{{ asset('app-assets/images/principal/images/bg-header/img8.png') }}"
-                        class="banner-image">
-                </div>
-            </div>
-        </div>
-        <!-- Aquí comienza el código -->
-
-        <div class="body__page" style="margin-top: -200px !important; padding-bottom: 50px !important;">
-
+        <div class="body__page" style="margin-top: 100px !important; padding-bottom: 50px !important;">
+            <div class="mensaje">BIENVENIDO A TU NUEVO MUNDO DE APRENDIZAJE</div>
             <div class="container__card">
 
                 @foreach ($Permiso as $per)
@@ -133,19 +96,8 @@
             <div class="layout__background"></div>
         </div>
 
-        <footer style="position: fixed !important; padding-bottom: 15px; bottom: 0px !important; width: 100%;" class="footer-area">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <p style="margin-top: 10px;">Copyright &copy;
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script> PEDIGITAL
-                        </p>
-                    </div>
-
-                </div>
-            </div>
+        <footer class="footer-area">
+         
         </footer>
     </div>
     <script src="{{ asset('app-assets/js/shortcut.js') }}" type="text/javascript"></script>

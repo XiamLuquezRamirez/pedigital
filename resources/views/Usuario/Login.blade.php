@@ -85,8 +85,8 @@
             <div class="content-body">
                 <section class="flexbox-container">
                     <div class="col-12 d-flex align-items-center justify-content-left">
-                        <div class="col-md-4 col-10 box-shadow-4 p-0">
-                            <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
+                        <div class="col-md-4 col-10 box-shadow-4 p-0" style="border-radius: 20px;">
+                            <div class="card border-grey border-lighten-3 px-1 py-1 m-0" style="border-radius: 20px;">
                                 <div class="card-header border-0">
                                     <div class="card-title text-center">
                                         <img src="{{ asset('app-assets/images/logo/stack-logo-dark.png') }}"

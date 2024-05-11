@@ -14,7 +14,7 @@ body {
 
 
 .bodyClass {
-    background-image: url('../images/principal/images/teachers-area-bg.png');
+    background-image: url('../images/principal/images/teachers-area-bg2.png');
     background-size: 100% 100%;
 }
 
@@ -381,7 +381,7 @@ nav ul li a {
     margin: 100px auto auto;
     perspective: 1000px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
@@ -488,10 +488,14 @@ nav ul li a {
 
 
 .footer-area {
-    background: #A9BA37;
-    color: #fff;
-    position: relative;
-    padding-bottom: 15px;
+    width: 100%;
+    height: 30px;
+    position: fixed;
+    border: 0px;
+    left: 0;
+    background: url(../images/principal/images/menu-bg.png);
+    background-repeat: repeat-x;
+    bottom: 0px;
   }
 
   .container-fluid {
@@ -505,15 +509,3 @@ nav ul li a {
   }
 
   
-.footer-area::before {
-    content: '';
-    width: 100%;
-    height: 50px;
-    position: absolute;
-    border: 0px;
-    left: 0;
-    background: url(../images/principal/images/menu-bg.png);
-      background-repeat: repeat;
-    background-repeat: repeat-x;
-    top: -32px;
-  }
